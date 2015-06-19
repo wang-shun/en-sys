@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.chinacreator.asp.comp.sys.basic.userpreferences.dao.UserPreferencesDao">
+<cache />
+	<sql id="UserPreferences_Column_List">
+		USER_ID, INFO_NAME, INFO_CONTENT, INFO_DESC,
+		INFO_LASTUPDATE
+	</sql>
+
+	<resultMap id="UserPreferencesResultMap"
+		type="com.chinacreator.asp.comp.sys.basic.userpreferences.eo.UserPreferencesEO">
+		<id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<id column="INFO_NAME" property="infoName" jdbcType="VARCHAR" />
+		<result column="INFO_CONTENT" property="infoContent" jdbcType="VARCHAR" />
+		<result column="INFO_DESC" property="infoDesc" jdbcType="VARCHAR" />
+		<result column="INFO_LASTUPDATE" property="infoLastupdate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="create"
+		parameterType="com.chinacreator.asp.comp.sys.basic.userpreferences.eo.UserPreferencesEO"
+		databaseId="oracle">
+		insert into TD_SM_USERPREFERENCES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="infoName != null">
+				INFO_NAME,
+			</if>
+			<if test="infoContent != null">
+				INFO_CONTENT,
+			</if>
+			<if test="infoDesc != null">
+				INFO_DESC,
+			</if>
+			<if test="infoLastupdate != null">
+				INFO_LASTUPDATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="infoName != null">
+				#{infoName,jdbcType=VARCHAR},
+			</if>
+			<if test="infoContent != null">
+				#{infoContent,jdbcType=VARCHAR},
+			</if>
+			<if test="infoDesc != null">
+				#{infoDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="infoLastupdate != null">
+				#{infoLastupdate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update"
+		parameterType="com.chinacreator.asp.comp.sys.basic.userpreferences.eo.UserPreferencesEO"
+		databaseId="oracle">
+		update TD_SM_USERPREFERENCES
+		<set>
+			<if test="infoContent != null">
+				INFO_CONTENT = #{infoContent,jdbcType=VARCHAR},
+			</if>
+			<if test="infoDesc != null">
+				INFO_DESC = #{infoDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="infoLastupdate != null">
+				INFO_LASTUPDATE = #{infoLastupdate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<![CDATA[
+			where USER_ID = #{userId,jdbcType=VARCHAR}
+			and INFO_NAME =	#{infoName,jdbcType=VARCHAR}			
+		]]>
+	</update>
+
+	<delete id="deleteByPKs" databaseId="oracle">
+		delete from TD_SM_USERPREFERENCES
+		where (USER_ID in
+		<foreach item="idItem" index="index" collection="userIds" open="("
+			 close=")">
+			<if test="index&gt;999 and index%1000==0">) or USER_ID in(</if>
+          		<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+          	<if test="index%1000!=999 and index&lt;userIds.length-1">,</if>
+		</foreach>
+		) and (INFO_NAME in
+		<foreach item="idItem" index="index" collection="infoNames" open="("
+			 close=")">
+			<if test="index&gt;999 and index%1000==0">) or INFO_NAME in(</if>
+          		<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+          	<if test="index%1000!=999 and index&lt;infoNames.length-1">,</if>
+		</foreach>
+		)
+	</delete>
+
+	<delete id="deleteByUserIDs" databaseId="oracle">
+		delete from TD_SM_USERPREFERENCES
+		where USER_ID in
+		<foreach item="idItem" index="index" collection="userIds" open="("
+			 close=")">
+			<if test="index&gt;999 and index%1000==0">) or USER_ID in(</if>
+          		<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+          	<if test="index%1000!=999 and index&lt;userIds.length-1">,</if>
+		</foreach>
+	</delete>
+
+	<delete id="deleteByInfoNames" databaseId="oracle">
+		delete from TD_SM_USERPREFERENCES
+		where INFO_NAME in
+		<foreach item="idItem" index="index" collection="infoNames" open="("
+			 close=")">
+			<if test="index&gt;999 and index%1000==0">) or INFO_NAME in(</if>
+          		<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+          	<if test="index%1000!=999 and index&lt;infoNames.length-1">,</if>
+		</foreach>
+	</delete>
+
+	<select id="queryAll" resultMap="UserPreferencesResultMap"
+		databaseId="oracle">
+		select
+		<include refid="UserPreferences_Column_List" />
+		from TD_SM_USERPREFERENCES
+	</select>
+
+	<select id="queryByUserPreferences" resultMap="UserPreferencesResultMap"
+		databaseId="oracle">
+		select
+		<include refid="UserPreferences_Column_List" />
+		from TD_SM_USERPREFERENCES
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="userPreferencesEO.userId != null">
+              <![CDATA[user_id = #{userPreferencesEO.userId,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="userPreferencesEO.infoName != null">
+              <![CDATA[AND info_name = #{userPreferencesEO.infoName,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="userPreferencesEO.infoContent != null">
+              <![CDATA[AND info_content like '%' || #{userPreferencesEO.infoContent,jdbcType=VARCHAR} || '%']]>
+			</if>
+			<if test="userPreferencesEO.infoDesc != null">
+              <![CDATA[AND info_desc like '%' || #{userPreferencesEO.infoDesc,jdbcType=VARCHAR} || '%']]>
+			</if>
+		</trim>
+	</select>
+
+	<select id="queryByPK" parameterType="java.lang.String"
+		resultMap="UserPreferencesResultMap" databaseId="oracle">
+		select
+		<include refid="UserPreferences_Column_List" />
+		<![CDATA[
+			from TD_SM_USERPREFERENCES        
+	        where
+	        user_id = #{userId,jdbcType=VARCHAR}
+	        AND info_name = #{infoName,jdbcType=VARCHAR}
+        ]]>
+	</select>
+
+	<select id="existsByInfoName" parameterType="java.lang.String"
+		resultType="int" databaseId="oracle">
+		<![CDATA[
+			select count(*)	
+			from TD_SM_USERPREFERENCES        
+	        where
+	        user_id = #{userId,jdbcType=VARCHAR}
+	        AND info_name = #{infoName,jdbcType=VARCHAR}
+        ]]>
+	</select>
+
+</mapper>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" xmlns:template="http://www.chinacreator.com/c2/ui/template" name="切换岗位" sn="changeJob" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" desc="页面头部的标题" group="HTML" hidden="false" id="title" name="标题" required="false" value="切换岗位">
+        <dync:render colSpan="2" height="0" multi="false" name="text"/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" desc="页面宽度，支持px和%" group="HTML" hidden="false" id="width" name="页面宽度" required="false" value="400px">
+        <dync:render colSpan="2" height="0" multi="false" name="text"/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="12" desc="网格布局中占位数" group="HTML配置" hidden="false" id="span" name="占位数" required="true" value="12">
+          <dync:render colSpan="1" height="0" multi="false" name="text"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" desc="网格布局中的偏移数" group="HTML配置" hidden="false" id="offset" name="偏移" required="false" value="0">
+          <dync:render colSpan="1" height="0" multi="false" name="text"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" desc="填写变量或者表达式控制控件是否折叠。变量和表达式的值必须为布尔类型。&#xA;                @attention 当填写变量时，变量必须有初始值，如果变量未定义则无效。定义为`true`或者`false`之后，可以通过修改该变量的值来控制控件的折叠；&#xA;                &#x9;如果填写表达式，表达式中要有变量（当然你也可以直接写`true`,`false`或者是`1==1`。没问题，但是有意义吗！冏rz），通过改变变量的值改变表达式的结果。比如：你想让只有权限大于10的，才能显示，否则控件必须折叠。假设`right`为权限值，该属性可设置为`right&lt;=10`。&#xA;                @attention 变量可以从数据源中直接拿，或者在页面的*载入事件*中进行初始化。" group="HTML配置" hidden="false" id="collapse" name="变量折叠" required="false" value="">
+          <dync:render colSpan="2" height="0" multi="false" name="text"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" desc="容器在页面初始化完成时是否折叠。当你不需要通过变量来控制控件折叠的话，只需要使用这个属性就够了。可以通过控件方法`show();hide();toggle()`控制容器的折叠状态。&#xA;                `false`表示展开控件（默认）。&#xA;                `true`表示折叠控件。&#xA;                @attention *变量折叠*和*折叠默认值*是或（||）的关系。当两个属性都设了值时，只要有一个为折叠（true），则另一个怎么设置都无效。所以当需要设置*变量折叠*属性进行容器折叠状态控制时，折叠默认值必须设置为`false`。同理，当*变量折叠*属性的值为`true`时,通过控件方法`show();hide();toggle()`是怎么也改变不了容器的折叠状态的。" group="HTML配置" hidden="false" id="defaultCollapse" name="折叠默认值" required="false" value="false">
+          <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" desc="内部是否有边距" group="HTML配置" hidden="false" id="nopadding" name="无内边距" required="false" value="false">
+          <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" desc="在容器内部直接嵌入自定义的HTML。当控件满足不了页面需求时，可以通过这个去嵌入一段自定义的HTML代码。&#xA;                点击属性框右边按钮，会自动跳转到*HTML片段*的页签，并在页签内生成一段包裹脚本。需要自定义的HTML代码写在脚本内。如果还需要脚本控制元素，也可在模版内部写自己的脚本。&#xA;                @code&#xA;                &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>&#xA;&#x9;&#x9;&#x9;&#x9;我的地盘我做主！&#xA;&#x9;&#x9;&#x9;&#x9;&lt;script>&#xA;&#x9;&#x9;&#x9;&#x9;alert(&quot;oye!&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;&#x9;&#x9;&#x9;&#x9;&lt;/script>&#xA;                @code&#xA;                @attention 如果定义了该属性，那么在容器中放置任何其他控件都会被忽略。" group="高级自定义" hidden="false" id="html" name="自定义HTML" required="false" value="">
+          <dync:render colSpan="2" height="0" multi="false" name="html"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" desc="可以添加任意class，多个class样式用空格分开" group="高级自定义" hidden="false" id="cssClass" name="自定义class" required="false" value="">
+          <dync:render colSpan="2" height="0" multi="false" name="text"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" desc="可以添加任意style样式,必须遵循style样式格式：&quot;color:red;backgroud-color:blue;&quot;。" group="高级自定义" hidden="false" id="style" name="自定义style" required="false" value="">
+          <dync:render colSpan="2" height="0" multi="false" name="text"/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="$model.orgJobTree" id="orgJobTree" name="树" customize="true">
+      <form:control type="widget/tree">
+        <form:attributes source="widget/tree">
+          <dync:attribute default="6" desc="网格布局中占位数" group="显示设置" hidden="false" id="span" name="占位数" required="false" value="12">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="name" desc="定义数据的属性名称作为节点标题。鼠标浮空显示的名称" group="数据设置" hidden="false" id="nodeTitle" name="悬停提示" required="false" value="showName">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="12" desc="修正自动计算表格高度误差。如果表格下方有其他控件或者可见元素，或者容器边距的影响，可能导致计算高度错误，需要手动修正表格高度。&#xA;                @attention 表格高度公式：页面主体容器高度-表格顶部距页面顶部高度-高度修正值。所以，高度修正值越大，表格越短。" group="显示设置" hidden="false" id="computeHeightFix" name="高度修正" required="false" value="0">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" desc="设置节点上是否显示 checkbox / radio。" group="显示设置" hidden="false" id="checkEnable" name="勾选框" required="true" value="true">
+            <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+            <dync:children/>
+            <dync:onChange>
+              <template:case value="false">
+                <template:hide param="checkStyle" value="true"/>
+                <template:hide param="chkboxType" value="true"/>
+              </template:case>
+              <template:case value="true">
+                <template:hide param="checkStyle" value="false"/>
+                <template:hide param="chkboxType" value="false"/>
+              </template:case>
+            </dync:onChange>
+          </dync:attribute>
+          <dync:attribute default="false" desc="加载数据成功后展开所有父节点，包括异步加载的父节点。" group="显示设置" hidden="false" id="expendAll" name="默认展开所有层级" required="false" value="true">
+            <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+            <dync:children/>
+            <dync:onChange>
+              <template:case value="false">
+                <template:hide param="expendLevel" value="false"/>
+              </template:case>
+              <template:case value="true">
+                <template:hide param="expendLevel" value="true"/>
+              </template:case>
+            </dync:onChange>
+          </dync:attribute>
+          <dync:attribute default="auto" desc="定义树的高度，必须加单位(px)。如果树展开高度超出，则出现滚动条。" group="显示设置" hidden="false" id="height" name="高度" required="false" value="300px">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" desc="name属性是否支持 HTML 脚本。" group="显示设置" hidden="false" id="nameIsHtml" name="支持HTML" required="true" value="true">
+            <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="对话框工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField1" name="确定" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-save">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-primary" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-success">
+            <dync:render colSpan="1" height="0" multi="false" name="select">
+              <dync:item name="默认" value="btn-default"/>
+              <dync:item name="主要" value="btn-primary"/>
+              <dync:item name="成功" value="btn-success"/>
+              <dync:item name="信息" value="btn-info"/>
+              <dync:item name="警告" value="btn-warning"/>
+              <dync:item name="危险" value="btn-danger"/>
+              <dync:item name="链接" value="btn-link"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="changeJob()">
+            <dync:render colSpan="1" height="0" multi="false" name="event">
+              <dync:item name="params" value="$event"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField2" name="重置" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-refresh">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="resetOrgJob()">
+            <dync:render colSpan="1" height="0" multi="false" name="event">
+              <dync:item name="params" value="$event"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField3" name="关闭" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="按钮事件。&#xA;                $param $event AngularJS的[event](https://docs.angularjs.org/guide/expression#-event-)事件。" group="事件设置" hidden="false" id="click" name="点击事件" required="false" value="closeModal()">
+            <dync:render colSpan="1" height="0" multi="false" name="event">
+              <dync:item name="params" value="$event"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:TreeDataSource" id="orgJobTree" name="机构岗位树型数据源" impl="com.chinacreator.asp.comp.sys.std.exp.changejob.OrgJobTreeContentProviderImpl" type="custom"/>
+  </form:datasources>
+  <form:scripts>// 确定&#xD;
+changeJob:function(){&#xD;
+	var _this = this;&#xD;
+	var jobIds = [];&#xD;
+	var jobNoCheckedNodes = this.getOrgJobTree().getCheckedNodes(false);&#xD;
+	if(angular.isArray(jobNoCheckedNodes) &amp;&amp; jobNoCheckedNodes.length>0){&#xD;
+		var jobSelectNodes = this.getOrgJobTree().getCheckedNodes(true);	&#xD;
+		if(angular.isArray(jobSelectNodes) &amp;&amp; jobSelectNodes.length>0){		&#xD;
+			angular.forEach(jobSelectNodes, function (value, key) {				&#xD;
+						jobIds.push(value.id);&#xD;
+	        	});	        &#xD;
+	    }else{&#xD;
+	    	Messenger.post({&#xD;
+			    'message': &quot;请选择需要切换的岗位！&quot;,&#xD;
+			    'type': 'error',&#xD;
+			});&#xD;
+	    }&#xD;
+	}else{&#xD;
+		jobIds[0] = &quot;allJob&quot;;&#xD;
+	}&#xD;
+	if(jobIds.length>0){&#xD;
+		$http.post(&quot;ws/changeJob&quot;,{&quot;jobIds&quot;:jobIds})&#xD;
+				.success(function(data, status, headers, config){&#xD;
+			        $scope.saveType = 'success';&#xD;
+			        _this.closeModal();&#xD;
+				});&#xD;
+	}&#xD;
+},&#xD;
+// 重置&#xD;
+resetOrgJob:function(){&#xD;
+	this.getOrgJobTree().refresh(false,null,{});&#xD;
+},&#xD;
+// 关闭&#xD;
+closeModal:function(){&#xD;
+	Modal.instance.close($scope.saveType);&#xD;
+},&#xD;
+// 获取机构岗位树&#xD;
+getOrgJobTree:function(){&#xD;
+	return $view.orgJobTree;&#xD;
+}</form:scripts>
+</form:Form>

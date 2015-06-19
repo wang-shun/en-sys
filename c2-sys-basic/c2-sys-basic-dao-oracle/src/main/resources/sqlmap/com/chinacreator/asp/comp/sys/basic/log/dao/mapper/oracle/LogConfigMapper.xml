@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 日志配置实体类映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.log.dao.LogConfigDao">
+
+	<sql id="LogConfig_Column_List"> oper_module,log_type,log_oper,log_operdesc,log_enabled
+	</sql>
+
+	<resultMap id="LogConfigResultMap"
+		type="com.chinacreator.asp.comp.sys.basic.log.eo.LogConfigEO">
+		<result column="OPER_MODULE" property="operModule" jdbcType="VARCHAR" />
+		<result column="LOG_TYPE" property="logType" jdbcType="VARCHAR" />
+		<result column="LOG_OPER" property="logOper" jdbcType="VARCHAR" />
+		<result column="LOG_OPERDESC" property="logOperdesc" jdbcType="VARCHAR" />
+		<result column="LOG_ENABLED" property="logEnabled" jdbcType="CHAR" />
+	</resultMap>
+
+	<insert id="create"
+		parameterType="com.chinacreator.asp.comp.sys.basic.log.eo.LogConfigEO"
+		databaseId="oracle">
+		INSERT INTO td_sm_logconfig
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="operModule != null">
+				oper_module,
+			</if>
+			<if test="logType != null">
+				log_type,
+			</if>
+			<if test="logOper != null">
+				log_oper,
+			</if>
+			<if test="logOperdesc != null">
+				log_operdesc,
+			</if>
+			<if test="logEnabled != null">
+				log_enabled,
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="operModule != null">
+             <![CDATA[#{operModule,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="logType != null">
+             <![CDATA[#{logType,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="logOper != null">
+             <![CDATA[#{logOper,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="logOperdesc != null">
+             <![CDATA[#{logOperdesc,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="logEnabled != null">
+             <![CDATA[#{logEnabled,jdbcType=CHAR},]]>
+			</if>
+		</trim>
+	</insert>
+
+	<select id="queryAll" resultMap="LogConfigResultMap" databaseId="oracle">
+		SELECT
+		<include refid="LogConfig_Column_List" />
+		FROM td_sm_logconfig
+		ORDER BY log_type,log_oper
+	</select>
+
+	<select id="query" resultMap="LogConfigResultMap" databaseId="oracle">
+		SELECT
+		<include refid="LogConfig_Column_List" />
+		FROM td_sm_logconfig
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="logConfigEO.operModule != null">
+             <![CDATA[oper_module = #{logConfigEO.operModule,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="logConfigEO.logType != null">
+             <![CDATA[AND log_type = #{logConfigEO.logType,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="logConfigEO.logOper != null">
+             <![CDATA[AND log_oper like '%' || #{logConfigEO.logOper,jdbcType=VARCHAR} || '%']]>
+			</if>
+			<if test="logConfigEO.logOperdesc != null">
+             <![CDATA[AND log_operdesc like '%' || #{logConfigEO.logOperdesc,jdbcType=VARCHAR} || '%']]>
+			</if>
+			<if test="logConfigEO.logEnabled != null">
+               <![CDATA[AND log_enabled = #{logConfigEO.logEnabled,jdbcType=CHAR}]]>
+			</if>
+		</trim>
+		ORDER BY log_type,log_oper
+	</select>
+
+	<select id="queryByPK" parameterType="java.lang.String"
+		resultMap="LogConfigResultMap" databaseId="oracle">
+		SELECT
+		<include refid="LogConfig_Column_List" />
+		<![CDATA[
+			FROM td_sm_logconfig
+			WHERE oper_module = #{operModule,jdbcType=VARCHAR}
+        ]]>
+	</select>
+
+	<select id="queryByLogTypeAndLogOper" parameterType="java.lang.String"
+		resultMap="LogConfigResultMap" databaseId="oracle">
+		SELECT
+		<include refid="LogConfig_Column_List" />
+		<![CDATA[
+			FROM td_sm_logconfig
+			WHERE log_type = #{logType,jdbcType=VARCHAR}
+        	AND log_oper = #{logOper,jdbcType=VARCHAR}
+        ]]>
+	</select>
+
+	<select id="existsByOperModule" parameterType="java.lang.String"
+		resultType="int" databaseId="oracle">
+		<![CDATA[
+		SELECT COUNT(*) FROM td_sm_logconfig
+		WHERE oper_module = #{operModule,jdbcType=VARCHAR}
+		]]>
+	</select>
+
+	<select id="existsByLogTypeAndLogOper" parameterType="java.lang.String"
+		resultType="int" databaseId="oracle">
+		<![CDATA[
+		SELECT COUNT(*) FROM td_sm_logconfig
+		WHERE log_type = #{logType,jdbcType=VARCHAR}
+        AND log_oper = #{logOper,jdbcType=VARCHAR}
+		]]>
+	</select>
+
+	<select id="isLogEnabledByOperModule" parameterType="java.lang.String"
+		resultType="int" databaseId="oracle">
+		<![CDATA[
+		SELECT COUNT(*) FROM td_sm_logconfig
+		WHERE log_enabled = '1'
+		AND oper_module = #{operModule,jdbcType=VARCHAR}
+		]]>
+	</select>
+
+	<select id="isLogEnabledByLogTypeAndLogOper" parameterType="java.lang.String"
+		resultType="int" databaseId="oracle">
+		<![CDATA[
+		SELECT COUNT(*) FROM td_sm_logconfig
+		WHERE log_enabled = '1'
+		AND log_type = #{logType,jdbcType=VARCHAR}
+        AND log_oper = #{logOper,jdbcType=VARCHAR}
+		]]>
+	</select>
+
+	<update id="updateLogEnabled"
+		parameterType="com.chinacreator.asp.comp.sys.basic.log.eo.LogConfigEO"
+		databaseId="oracle">
+		UPDATE td_sm_logconfig
+		<set>
+			<if test="logEnabled != null">
+                <![CDATA[log_enabled = #{logEnabled,jdbcType=CHAR}]]>
+			</if>
+		</set>
+		WHERE <![CDATA[oper_module = #{operModule,jdbcType=VARCHAR}]]>
+	</update>
+
+</mapper>

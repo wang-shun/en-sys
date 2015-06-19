@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserInstanceGroupDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+    <insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceGroupEO"
+        databaseId="oracle">
+        INSERT INTO td_sm_userinstancegroup
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">
+                group_id,
+            </if>
+            <if test="userInstanceId != null">
+                userinstance_id,
+            </if>
+            <if test="sn != null">
+                sn,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">
+                <![CDATA[#{groupId,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="userInstanceId != null">
+                <![CDATA[#{userInstanceId,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="sn != null">
+                <![CDATA[#{sn,jdbcType=INTEGER}]]>,
+            </if>
+        </trim>
+    </insert>
+    
+    <insert id="createBatch" parameterType="java.util.List"
+        databaseId="oracle">
+        INSERT INTO td_sm_userinstancegroup
+           (group_id, userinstance_id, sn)
+        <foreach collection="list" item="userInstanceGroup" separator="union all">
+         SELECT
+                  <![CDATA[#{userInstanceGroup.groupId,jdbcType=VARCHAR}]]>,
+                  <![CDATA[#{userInstanceGroup.userInstanceId,jdbcType=VARCHAR}]]>,
+                  <![CDATA[#{userInstanceGroup.sn,jdbcType=INTEGER}]]>
+         FROM DUAL
+        </foreach>
+    </insert>
+    
+    <update id="updateSN" parameterType="com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceGroupEO"
+        databaseId="oracle">
+        UPDATE td_sm_userinstancegroup
+        <set>
+            <if test="sn != null">
+                sn = <![CDATA[#{sn,jdbcType=INTEGER}]]>
+            </if>
+        </set>
+          WHERE group_id = <![CDATA[#{groupId,jdbcType=VARCHAR}]]> 
+          AND userinstance_id = <![CDATA[#{userInstanceId,jdbcType=VARCHAR}]]>
+    </update>
+    <delete id="deleteByGroupIds" parameterType="java.lang.String"
+        databaseId="oracle">
+        DELETE FROM td_sm_userinstancegroup
+          WHERE group_id IN
+        <foreach item="idItem" index="index" collection="array" open="(" 
+            close=")">
+            <if test="index&gt;999 and index%1000==0">) or group_id in(</if>
+            	<![CDATA[#{idItem}]]>
+            <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+        </foreach>
+    </delete>
+    <delete id="deleteByUserInstanceIds" parameterType="java.lang.String"
+        databaseId="oracle">
+        DELETE FROM td_sm_userinstancegroup
+          WHERE userinstance_id IN
+        <foreach item="idItem" index="index" collection="array" open="(" 
+            close=")">
+            <if test="index&gt;999 and index%1000==0">) or userinstance_id in(</if>
+            	<![CDATA[#{idItem}]]>
+            <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+        </foreach>
+    </delete>
+    <delete id="deleteByUserInstanceIdAndGroupId"
+        databaseId="oracle">
+        DELETE FROM td_sm_userinstancegroup
+          WHERE group_id = <![CDATA[#{groupId,jdbcType=VARCHAR}]]> 
+          AND userinstance_id = <![CDATA[#{userInstanceId,jdbcType=VARCHAR}]]>
+    </delete>
+</mapper>

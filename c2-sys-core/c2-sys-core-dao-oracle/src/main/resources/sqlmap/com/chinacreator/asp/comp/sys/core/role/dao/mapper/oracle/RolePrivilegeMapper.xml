@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 权限EO实体类映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.core.role.dao.RolePrivilegeDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+	<sql id="RolePrivilege_Column_List">
+		op_id, res_id, role_id, restype_id, auto,
+		res_name, types, authorization_type, use_count, authorization_stime,
+		authorization_etime, use_counted, org_id
+	</sql>
+
+	<insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.role.eo.RolePrivilegeEO" databaseId="oracle">
+		INSERT INTO td_sm_roleresop (
+		<include refid="RolePrivilege_Column_List" />
+		)
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+		    <![CDATA[
+			#{privilegeId,jdbcType=VARCHAR},
+			#{resId,jdbcType=VARCHAR},
+			#{roleId,jdbcType=VARCHAR},
+			#{restypeId,jdbcType=VARCHAR},
+			#{auto,jdbcType=VARCHAR},
+			#{resName,jdbcType=VARCHAR},
+			#{types,jdbcType=VARCHAR},
+			#{authorizationType,jdbcType=NUMERIC},
+			#{useCount,jdbcType=NUMERIC},
+			#{authorizationStime,jdbcType=DATE},
+			#{authorizationEtime,jdbcType=DATE},
+			#{useCounted,jdbcType=NUMERIC},
+			#{orgId,jdbcType=VARCHAR},
+			]]>
+		</trim>
+	</insert>
+
+	<insert id="createBatch" parameterType="java.util.List" databaseId="oracle">
+		INSERT INTO td_sm_roleresop (
+		<include refid="RolePrivilege_Column_List" />
+		) 
+		<foreach collection="list" item="item" separator="UNION ALL">
+            SELECT 
+		    <![CDATA[
+			#{item.privilegeId,jdbcType=VARCHAR},
+			#{item.resId,jdbcType=VARCHAR},
+			#{item.roleId,jdbcType=VARCHAR},
+			#{item.restypeId,jdbcType=VARCHAR},
+			#{item.auto,jdbcType=VARCHAR},
+			#{item.resName,jdbcType=VARCHAR},
+			#{item.types,jdbcType=VARCHAR},
+			#{item.authorizationType,jdbcType=NUMERIC},
+			#{item.useCount,jdbcType=NUMERIC},
+			#{item.authorizationStime,jdbcType=DATE},
+			#{item.authorizationEtime,jdbcType=DATE},
+			#{item.useCounted,jdbcType=NUMERIC},
+			#{item.orgId,jdbcType=VARCHAR}
+			]]>
+            FROM dual
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.chinacreator.asp.comp.sys.core.role.eo.RolePrivilegeEO" databaseId="oracle">
+		UPDATE td_sm_roleresop
+		<set>
+			<if test="resId != null">
+				 <![CDATA[res_id = #{resId,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="restypeId != null">
+				 <![CDATA[restype_id = #{restypeId,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="auto != null">
+				 <![CDATA[auto = #{auto,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="resName != null">
+				 <![CDATA[res_name = #{resName,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="types != null">
+				 <![CDATA[types = #{types,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="authorizationType != null">
+				 <![CDATA[authorization_type = #{authorizationType,jdbcType=NUMERIC},]]>
+			</if>
+			<if test="useCount != null">
+				 <![CDATA[use_count = #{useCount,jdbcType=NUMERIC},]]>
+			</if>
+			<if test="authorizationStime != null">
+				 <![CDATA[authorization_stime = #{authorizationStime,jdbcType=DATE},]]>
+			</if>
+			<if test="authorizationEtime != null">
+				 <![CDATA[authorization_etime = #{authorizationEtime,jdbcType=DATE},]]>
+			</if>
+			<if test="useCounted != null">
+				 <![CDATA[use_counted = #{useCounted,jdbcType=NUMERIC},]]>
+			</if>
+			<if test="orgId != null">
+				 <![CDATA[org_id = #{orgId,jdbcType=VARCHAR}]]>
+			</if>
+		</set>
+		WHERE <![CDATA[op_id =#{privilegeId,jdbcType=VARCHAR}]]> AND <![CDATA[role_id = #{roleId,jdbcType=VARCHAR}]]>
+	</update>
+
+	<delete id="deleteByRoles" parameterType="java.lang.String" databaseId="oracle">
+		DELETE FROM td_sm_roleresop
+		WHERE role_id IN
+		<foreach item="idItem" index="index" collection="array" open="(" 
+			close=")">
+			<if test="index&gt;999 and index%1000==0">) or role_id in(</if>
+				<![CDATA[#{idItem}]]>
+			<if test="index%1000!=999 and index&lt;array.length-1">,</if>
+		</foreach>
+	</delete>
+	
+	<delete id="deleteMenuByRoles" parameterType="java.lang.String" databaseId="oracle">
+		DELETE FROM td_sm_roleresop
+		WHERE (role_id IN
+		<foreach item="idItem" index="index" collection="array" open="(" 
+			close=")">
+			<if test="index&gt;999 and index%1000==0">) or role_id in(</if>
+				<![CDATA[#{idItem}]]>
+			<if test="index%1000!=999 and index&lt;array.length-1">,</if>
+		</foreach>		
+		 ) AND op_id IN (SELECT t.op_id
+                   FROM td_sm_roleresop t
+                  INNER JOIN tb_sm_privilege t1
+                     ON t.op_id = t1.id
+                    AND t1.type = '4')
+	</delete>
+	
+	<delete id="deleteByPrivileges" parameterType="java.lang.String"
+		databaseId="oracle">
+		DELETE FROM td_sm_roleresop
+		WHERE op_id IN
+		<foreach item="idItem" index="index" collection="array" open="(" 
+			close=")">
+			<if test="index&gt;999 and index%1000==0">) or op_id in(</if>
+				<![CDATA[#{idItem}]]>
+			<if test="index%1000!=999 and index&lt;array.length-1">,</if>
+		</foreach>
+	</delete>
+  
+    <delete id="deleteByPrivilege" parameterType="java.lang.String"
+        databaseId="oracle">
+        DELETE FROM td_sm_roleresop
+        WHERE <![CDATA[op_id=#{privilegeId,jdbcType=VARCHAR}]]>
+    </delete>
+
+	<delete id="deleteByPrivilegeIdAndRoleId" databaseId="oracle">
+		DELETE FROM td_sm_roleresop
+		 WHERE
+		<![CDATA[op_id=#{privilegeId,jdbcType=VARCHAR}]]>
+		 AND 
+		<![CDATA[role_id=#{roleId,jdbcType=VARCHAR}]]>
+	</delete>
+</mapper>

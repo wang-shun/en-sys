@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="新增编辑菜单" res="L2hLySMiTfSTvfnkRWg8rw" sn="editMenu" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="{{$params.type=='add'?'新增':'编辑'}}菜单">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div"/>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="model.menu.result.menuName" id="menuName" name="菜单名称：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^[\w\u4e00-\u9fa5]+$/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入中文、数字、字母、下划线!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="combiTwo">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="blur" name="失去焦点" value="element_blur($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.menu.result.menuCode" id="menuCode" name="菜单编码：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^[\w]+$/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="50">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入数字、字母、下划线!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="$params.type!=&quot;add&quot;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="blur" name="失去焦点" value="element_blur($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.menu.result.isEnabled" id="isEnabled" name="是否显示：">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="options" name="选项" value="{&quot;true&quot;:&quot;显示&quot;,&quot;false&quot;:&quot;不显示&quot;}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="{&quot;true&quot;:&quot;显示&quot;,&quot;false&quot;:&quot;不显示&quot;}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="defaultValue" name="默认值" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.menu.result.displayMode" id="displayMode" name="打开方式：">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="{&quot;0&quot;:&quot;div中&quot;,&quot;1&quot;:&quot;iframe中&quot;,&quot;2&quot;:&quot;新页面中&quot;}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="defaultValue" name="默认值" value="0">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.menu.result.icon" id="icon" name="图标：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="250">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="输入框组" id="inputGroup" name="启用输入框组" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.menu.result.href" id="href" name="链接路径：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="250">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="title" name="提示" value="路径前加#/，可在工作区中展示页面，如果不加，直接展示页面">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.menu.result.menuExt" id="menuExt" name="扩展属性：" customize="true">
+      <form:control type="widget/textarea">
+        <form:attributes source="widget/textarea">
+          <dync:attribute default="75" group="HTML设置" id="lableWidth" name="lable宽度" value="120">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup1" name="对话框底部工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField1" name="保存" res="I1LePp8eR-qAcb0fTJmKzg" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="saveMenu()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-success">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField" name="重置" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="resetMenu()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-primary">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField2" name="关闭" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="closeModal()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-times">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-primary">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="menu" name="菜单" logic="rule:asp.sysmgmt.sysset.jobresmgt.getMenuByPK" sn="getMenuByPK">
+      <form:param id="menuId" name="新输入参数"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>// 保存&#xD;
+saveMenu:function(){&#xD;
+	if(this.validateForm() &amp;&amp; $view.mainForm.check()){&#xD;
+		if('add'==$params.type){&#xD;
+			$model.menu.result.parentId = $params.parentId;&#xD;
+			$http.post(&quot;ws/addMenu&quot;,{menuDTO:$model.menu.result})&#xD;
+					.success(function(data, status, headers, config){&#xD;
+						Messenger.post({&#xD;
+			                'message': &quot;新增菜单成功！&quot;,&#xD;
+			                'type': 'success',&#xD;
+			            });&#xD;
+			            $scope.saveType = 'success';&#xD;
+					});			&#xD;
+		}else if('edit'==$params.type){&#xD;
+			$http.post(&quot;ws/editMenu&quot;,{menuDTO:$model.menu.result})&#xD;
+					.success(function(data, status, headers, config){&#xD;
+						Messenger.post({&#xD;
+			                'message': &quot;编辑菜单成功！&quot;,&#xD;
+			                'type': 'success',&#xD;
+			            });&#xD;
+			            $scope.saveType = 'success';&#xD;
+					});&#xD;
+		}else{&#xD;
+			Messenger.post({&#xD;
+	                'message': &quot;参数不正确！&quot;+$params.type,&#xD;
+	                'type': 'error',&#xD;
+	            });&#xD;
+		}&#xD;
+	}else{&#xD;
+		Messenger.post({&#xD;
+            'message': &quot;保存失败！验证未通过！&quot;,&#xD;
+            'type': 'error',&#xD;
+        });&#xD;
+	}&#xD;
+},&#xD;
+// 重置&#xD;
+resetMenu:function(){&#xD;
+	$view.mainForm.clean();&#xD;
+	$model.menu.$reload();	&#xD;
+	$model.validataJson = {};&#xD;
+},&#xD;
+// 关闭&#xD;
+closeModal:function(){&#xD;
+	Modal.instance.close($scope.saveType);&#xD;
+},&#xD;
+// 失去焦点事件(验证唯一)&#xD;
+element_blur:function($event){	&#xD;
+	var elementId = $event.currentTarget.id;&#xD;
+	if(!$view[elementId].check()){&#xD;
+		return;&#xD;
+	}	&#xD;
+	var elementValue = $event.currentTarget.value;&#xD;
+	var validataJson = $model.validataJson;	&#xD;
+	if(angular.isUndefined(validataJson)){&#xD;
+		validataJson = {};&#xD;
+	}&#xD;
+	if('add'==$params.type){&#xD;
+		$model.menu.result.parentId = $params.parentId;&#xD;
+	}&#xD;
+	$http.post(&quot;ws/validateFormByMenu&quot;,{&quot;elementId&quot;:elementId,&quot;elementValue&quot;:elementValue,&quot;formType&quot;:$params.type,menuDTO:$model.menu.result})&#xD;
+			.success(function(data, status, headers, config){&#xD;
+				if(!angular.isUndefined(data) &amp;&amp; !angular.isUndefined(data.result)){&#xD;
+					validataJson[elementId] = data.result.validate;&#xD;
+					$model.validataJson = validataJson;&#xD;
+					if(&quot;error&quot;==data.result.validate){					&#xD;
+						$view[elementId].setTipMessage(data.result.errmess);&#xD;
+					}			&#xD;
+				}&#xD;
+			});&#xD;
+},&#xD;
+// 验证表单(验证唯一)&#xD;
+validateForm:function(){&#xD;
+	var validataJson = $model.validataJson;&#xD;
+	if(!angular.isUndefined(validataJson)){&#xD;
+		for(var key in validataJson){  &#xD;
+	        if(&quot;error&quot;==validataJson[key]){	        	&#xD;
+	        	return false;&#xD;
+	        }&#xD;
+		}&#xD;
+	}	  &#xD;
+    return true;&#xD;
+}&#xD;
+</form:scripts>
+</form:Form>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getMenuByPK" log="false" className="com.chinacreator.asp.sysmgmt.sysset.jobresmgt.JobResMgt" method="getMenuByPK">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取菜单</name>
+  <inputs>
+    <input collection="false" desc="" id="menuId" required="true" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="com.chinacreator.asp.comp.sys.basic.menu.dto.MenuDTO"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.menuId" name="menuId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QMenuDTO;" type="com.chinacreator.asp.comp.sys.basic.menu.dto.MenuDTO"/>
+</CustomRule>

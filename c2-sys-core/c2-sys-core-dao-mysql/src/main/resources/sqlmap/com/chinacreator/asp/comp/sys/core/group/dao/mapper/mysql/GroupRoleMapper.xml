@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinacreator.asp.comp.sys.core.group.dao.GroupRoleDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+    <insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.group.eo.GroupRoleEO" databaseId="mysql">
+        INSERT INTO td_sm_grouprole
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">
+                group_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="resopOriginUserid != null">
+                resop_origin_userid,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">
+                <![CDATA[#{groupId,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="roleId != null">
+                <![CDATA[#{roleId,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="resopOriginUserid != null">
+                <![CDATA[#{resopOriginUserid,jdbcType=INTEGER},]]>
+            </if>
+        </trim>
+    </insert>
+    
+    <insert id="createBatch" parameterType="java.util.List" databaseId="mysql">
+        INSERT INTO td_sm_grouprole (group_id, role_id, resop_origin_userid)
+        <foreach collection="list" item="groupRoleEO" separator="union all">
+            SELECT
+                <![CDATA[#{groupRoleEO.groupId,jdbcType=VARCHAR}]]>,
+                <![CDATA[#{groupRoleEO.roleId,jdbcType=VARCHAR}]]>,
+                <![CDATA[#{groupRoleEO.resopOriginUserid,jdbcType=INTEGER}]]>
+            FROM dual
+        </foreach>
+    </insert>
+    
+    <delete id="deleteByGroupIds" parameterType="java.lang.String" databaseId="mysql">
+        DELETE FROM td_sm_grouprole
+        WHERE group_id IN
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            <![CDATA[#{idItem}]]>
+        </foreach>
+    </delete>
+    
+    <delete id="deleteByRoleIds" parameterType="java.lang.String" databaseId="mysql">
+        DELETE FROM td_sm_grouprole
+        WHERE role_id IN
+        <foreach item="idItem" collection="array" open="(" separator=","
+            close=")">
+            <![CDATA[#{idItem}]]>
+        </foreach>
+    </delete>
+    
+    <delete id="deleteByGroupIdAndRoleId" databaseId="mysql">
+        <![CDATA[
+        DELETE FROM td_sm_grouprole
+        WHERE group_id = #{groupId,jdbcType=VARCHAR} AND role_id = #{roleId,jdbcType=VARCHAR}
+        ]]>
+    </delete>
+    
+</mapper>

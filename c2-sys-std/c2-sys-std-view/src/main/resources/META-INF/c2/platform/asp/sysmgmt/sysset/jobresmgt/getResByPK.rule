@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getResByPK" log="false" className="com.chinacreator.asp.sysmgmt.sysset.jobresmgt.JobResMgt" method="getPrivilegeByPK">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取资源</name>
+  <inputs>
+    <input collection="false" desc="" id="privilegeId" required="true"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.privilegeId" name="privilegeId" signature="QString;" type="java.lang.String"/>
+  </params>
+  <return signature="QPrivilegeDTO;" type="com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO"/>
+</CustomRule>

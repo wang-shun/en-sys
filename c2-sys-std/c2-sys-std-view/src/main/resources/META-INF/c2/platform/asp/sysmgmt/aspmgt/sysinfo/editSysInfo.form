@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" xmlns:template="http://www.chinacreator.com/c2/ui/template" name="新增编辑参数" res="qlTVgt9fS0-EUGMLL9Zsug" sn="editSysInfo" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" desc="页面头部的标题" group="HTML" hidden="false" id="title" name="标题" required="false" value="{{$params.type=='add'?'新增':'编辑'}}参数">
+        <dync:render colSpan="2" height="0" multi="false" name="text"/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="12" desc="网格布局中占位数" group="HTML配置" hidden="false" id="span" name="占位数" required="false" value="2">
+          <dync:render colSpan="1" height="0" multi="false" name="text"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" desc="网格布局中的偏移数" group="HTML配置" hidden="false" id="offset" name="偏移" required="false" value="0">
+          <dync:render colSpan="1" height="0" multi="false" name="text"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="true" desc="内容是否可见" group="HTML配置" hidden="false" id="visible" name="可见" required="false" value="true">
+          <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" desc="内部是否有边距" group="HTML配置" hidden="false" id="nopadding" name="无内边距" required="false" value="false">
+          <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="12" desc="网格布局中占位数" group="HTML配置" hidden="false" id="span" name="占位数" required="false" value="8">
+          <dync:render colSpan="1" height="0" multi="false" name="text"/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="model.sysInfo.result_out.infoName" id="infoName" name="参数名称：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="6" desc="网格布局中占位数" group="布局属性" hidden="false" id="span" name="占位数" required="false" value="12">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" desc="lable宽度(px)" group="布局属性" hidden="false" id="lableWidth" name="lable宽度" required="false" value="120">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" desc="ng-required" group="数据校验" hidden="false" id="required" name="必填项" required="true" value="true">
+            <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="/正则表达式/" group="数据校验" hidden="false" id="pattern" name="正则验证" required="false" value="/^[\w\u4e00-\u9fa5]+$/">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="字符最大长度" group="数据校验" hidden="false" id="maxlength" name="最大长度" required="false" value="25">
+            <dync:render colSpan="2" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="验证正则表达式失败后的提示。" group="数据校验" hidden="false" id="patternError" name="正则验证失败提示" required="false" value="只能输入中文、数字、字母、下划线!">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" desc="验证的数据类型。" group="数据校验" hidden="false" id="valitype" name="数据类型" required="true" value="combiTwo">
+            <dync:render colSpan="2" height="0" multi="false" name="select">
+              <dync:item name="自定义" value="custom"/>
+              <dync:item name="手机号" value="mobile"/>
+              <dync:item name="电话号码" value="phone"/>
+              <dync:item name="QQ" value="qq"/>
+              <dync:item name="身份证" value="idCard"/>
+              <dync:item name="邮件" value="email"/>
+              <dync:item name="URL" value="url"/>
+              <dync:item name="数字|字母|下划线" value="combiOne"/>
+              <dync:item name="中文|数字|字母|下划线" value="combiTwo"/>
+            </dync:render>
+            <dync:children/>
+            <dync:onChange>
+              <template:case value="custom">
+                <template:set param="pattern" value=""/>
+                <template:set param="patternError" value=""/>
+                <template:hide param="pattern" value="false"/>
+                <template:hide param="patternError" value="false"/>
+              </template:case>
+              <template:case value="mobile">
+                <template:set param="pattern" value="/^1[3-8][0-9]\d{8}$/"/>
+                <template:set param="patternError" value="手机号码格式不正确!"/>
+                <template:hide param="pattern" value="false"/>
+                <template:hide param="patternError" value="false"/>
+              </template:case>
+              <template:case value="phone">
+                <template:set param="pattern" value="/((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/"/>
+                <template:set param="patternError" value="电话号码格式不正确!"/>
+                <template:hide param="pattern" value="false"/>
+                <template:hide param="patternError" value="false"/>
+              </template:case>
+              <template:case value="qq">
+                <template:set param="pattern" value="/^\d{5,10}$/"/>
+                <template:set param="patternError" value="QQ号码格式不正确!"/>
+                <template:hide param="pattern" value="false"/>
+                <template:hide param="patternError" value="false"/>
+              </template:case>
+              <template:case value="idCard">
+                <template:set param="pattern" value="/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/"/>
+                <template:set param="patternError" value="身份证格式不正确!"/>
+                <template:hide param="pattern" value="false"/>
+                <template:hide param="patternError" value="false"/>
+              </template:case>
+              <template:case value="email">
+                <template:set param="pattern" value="/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/"/>
+                <template:set param="patternError" value="邮件格式不正确!"/>
+                <template:hide param="pattern" value="false"/>
+                <template:hide param="patternError" value="false"/>
+              </template:case>
+              <template:case value="url">
+                <template:set param="pattern" value="/[a-zA-z]+://[^s]*/"/>
+                <template:set param="patternError" value="url格式不正确!"/>
+                <template:hide param="pattern" value="false"/>
+                <template:hide param="patternError" value="false"/>
+              </template:case>
+              <template:case value="combiOne">
+                <template:set param="pattern" value="/^[\w]+$/"/>
+                <template:set param="patternError" value="只能输入数字、字母、下划线!"/>
+                <template:hide param="pattern" value="false"/>
+                <template:hide param="patternError" value="false"/>
+              </template:case>
+              <template:case value="combiTwo">
+                <template:set param="pattern" value="/^[\w\u4e00-\u9fa5]+$/"/>
+                <template:set param="patternError" value="只能输入中文、数字、字母、下划线!"/>
+                <template:hide param="pattern" value="false"/>
+                <template:hide param="patternError" value="false"/>
+              </template:case>
+            </dync:onChange>
+          </dync:attribute>
+          <dync:attribute default="" desc="控件失去焦点后触发。" group="事件设置" hidden="false" id="blur" name="失去焦点" required="false" value="element_blur($event)">
+            <dync:render colSpan="2" height="0" multi="false" name="event">
+              <dync:item name="params" value="$event"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.sysInfo.result_out.infoContent" id="infoContent" name="参数内容：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="6" desc="网格布局中占位数" group="布局属性" hidden="false" id="span" name="占位数" required="false" value="12">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" desc="lable宽度(px)" group="布局属性" hidden="false" id="lableWidth" name="lable宽度" required="false" value="120">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="字符最大长度" group="数据校验" hidden="false" id="maxlength" name="最大长度" required="false" value="100">
+            <dync:render colSpan="2" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.sysInfo.result_out.canremove" id="canremove" name="是否可删除：">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="6" desc="网格布局中占位数" group="布局属性" hidden="false" id="span" name="占位数" required="false" value="12">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" desc="lable宽度(px)" group="布局属性" hidden="false" id="lableWidth" name="lable宽度" required="false" value="120">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="下拉选项，用json对象的格式；只能用双引号。如：{&quot;key&quot;:&quot;value&quot;,&quot;xx&quot;,&quot;xxx&quot;}" group="HTML设置" hidden="false" id="options" name="选项" required="false" value="{&quot;true&quot;:&quot;不可删除&quot;,&quot;false&quot;:&quot;可删除&quot;}">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="当绑定的数据为空时生效" group="HTML设置" hidden="false" id="value" name="默认值" required="false" value="false">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="设置下拉框的可选项。有两种设置形式：  &#xA;                1.使用json对象的格式；只能用双引号。如：{&quot;key&quot;:&quot;value&quot;,&quot;xx&quot;,&quot;xxx&quot;}。  &#xA;                2.使用数据源进行数据绑定，数据源必须返回列表,可以实现后台设定默认选项。&#xA;                &#xA;                @attention 只有通过数据源绑定使用*值属性名*，*显示属性名*和*选中属性名*才生效，而且必须指定*值属性名*和*显示属性名。&#xA;                &#x9;使用json格式设置的下拉选项不能通过指定*选中属性名*来默认选中，只能通过默认值进行默认选中。" group="HTML设置" hidden="false" id="selectOptions" name="选项" required="false" value="{&quot;true&quot;:&quot;不可删除&quot;,&quot;false&quot;:&quot;可删除&quot;}">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="指定下拉框的默认值。&#xA;                &#xA;                @attention 下拉框控件初始化指定值有3种方式。按优先级排列为：  &#xA;                1. 数据绑定赋值。  &#xA;                2. 当数据绑定未赋值时，按默认值设置的值。  &#xA;                3. 如果选项通过数据源绑定。当数据绑定未赋值且没有设置默认值时，按选中属性名设置的属性值为`true`的选项为准。  &#xA;                &#x9;如果有多个设值为`true`的选项，只有最后一个生效！" group="HTML设置" hidden="false" id="defaultValue" name="默认值" required="false" value="false">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.sysInfo.result_out.infoDesc" id="infoDesc" name="参数描述：">
+      <form:control type="widget/textarea">
+        <form:attributes source="widget/textarea">
+          <dync:attribute default="75" desc="lable宽度(px)" group="HTML设置" hidden="false" id="lableWidth" name="lable宽度(px)" required="false" value="120">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="字符最大长度" group="数据校验" hidden="false" id="maxlength" name="最大长度" required="false" value="50">
+            <dync:render colSpan="2" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup1" name="对话框底部工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField1" name="保存" res="-618NLw3TlasWDWm5xCKVw" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" desc="按钮事件" group="事件设置" hidden="false" id="click" name="单击事件" required="false" value="saveSysInfo()">
+            <dync:render colSpan="1" height="0" multi="false" name="event"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-save">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-success">
+            <dync:render colSpan="1" height="0" multi="false" name="select">
+              <dync:item name="默认" value="btn-default"/>
+              <dync:item name="主要" value="btn-primary"/>
+              <dync:item name="成功" value="btn-success"/>
+              <dync:item name="信息" value="btn-info"/>
+              <dync:item name="警告" value="btn-warning"/>
+              <dync:item name="危险" value="btn-danger"/>
+              <dync:item name="链接" value="btn-link"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField2" name="重置" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" desc="按钮事件" group="事件设置" hidden="false" id="click" name="单击事件" required="false" value="resetSysInfo()">
+            <dync:render colSpan="1" height="0" multi="false" name="event"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-refresh">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-primary">
+            <dync:render colSpan="1" height="0" multi="false" name="select">
+              <dync:item name="默认" value="btn-default"/>
+              <dync:item name="主要" value="btn-primary"/>
+              <dync:item name="成功" value="btn-success"/>
+              <dync:item name="信息" value="btn-info"/>
+              <dync:item name="警告" value="btn-warning"/>
+              <dync:item name="危险" value="btn-danger"/>
+              <dync:item name="链接" value="btn-link"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField" name="关闭" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" desc="按钮事件" group="事件设置" hidden="false" id="click" name="单击事件" required="false" value="closeModal()">
+            <dync:render colSpan="1" height="0" multi="false" name="event"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="按钮图标，Font Awesom 3.2.1中定义的所有图标都可用" group="HTML设置" hidden="false" id="icon" name="图标" required="false" value="fa-times">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" desc="按钮样式" group="HTML设置" hidden="false" id="style" name="样式" required="false" value="btn-primary">
+            <dync:render colSpan="1" height="0" multi="false" name="select">
+              <dync:item name="默认" value="btn-default"/>
+              <dync:item name="主要" value="btn-primary"/>
+              <dync:item name="成功" value="btn-success"/>
+              <dync:item name="信息" value="btn-info"/>
+              <dync:item name="警告" value="btn-warning"/>
+              <dync:item name="危险" value="btn-danger"/>
+              <dync:item name="链接" value="btn-link"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="sysInfo" name="参数" logic="rule:asp.sysmgmt.aspmgt.sysinfo.getSysInfoByPK" sn="getSysInfoByPK">
+      <form:param id="sysInfoTypeId" name="新输入参数"/>
+      <form:param id="sysInfoId" name="新输入参数"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>// 保存&#xD;
+saveSysInfo:function(){&#xD;
+	if(this.validateForm() &amp;&amp; $view.mainForm.check()){&#xD;
+		if('add'==$params.type){&#xD;
+			$http.post(&quot;ws/addSysInfo&quot;,{systemInfoDTO:$model.sysInfo.result_out})&#xD;
+					.success(function(data, status, headers, config){&#xD;
+						Messenger.post({&#xD;
+			                'message': &quot;新增参数成功！&quot;,&#xD;
+			                'type': 'success',&#xD;
+			            });&#xD;
+			            $scope.saveType = 'success';&#xD;
+					});			&#xD;
+		}else if('edit'==$params.type){&#xD;
+			$http.post(&quot;ws/editSysInfo&quot;,{systemInfoDTO:$model.sysInfo.result_out})&#xD;
+					.success(function(data, status, headers, config){&#xD;
+						Messenger.post({&#xD;
+			                'message': &quot;编辑参数成功！&quot;,&#xD;
+			                'type': 'success',&#xD;
+			            });&#xD;
+			            $scope.saveType = 'success';&#xD;
+					});			&#xD;
+		}else{&#xD;
+			Messenger.post({&#xD;
+	                'message': &quot;参数不正确！&quot;+$params.type,&#xD;
+	                'type': 'error',&#xD;
+	            });&#xD;
+		}&#xD;
+	}else{&#xD;
+		Messenger.post({&#xD;
+            'message': &quot;保存失败！验证未通过！&quot;,&#xD;
+            'type': 'error',&#xD;
+        });&#xD;
+	}&#xD;
+},&#xD;
+// 重置&#xD;
+resetSysInfo:function(){&#xD;
+	$view.mainForm.clean();&#xD;
+	$model.sysInfo.$reload();&#xD;
+	$model.validataJson = {};&#xD;
+},&#xD;
+// 关闭&#xD;
+closeModal:function(){&#xD;
+	Modal.instance.close($scope.saveType);&#xD;
+},&#xD;
+// 失去焦点事件(验证唯一)&#xD;
+element_blur:function($event){	&#xD;
+	var elementId = $event.currentTarget.id;&#xD;
+	if(!$view[elementId].check()){&#xD;
+		return;&#xD;
+	}	&#xD;
+	var elementValue = $event.currentTarget.value;&#xD;
+	var validataJson = $model.validataJson;	&#xD;
+	if(angular.isUndefined(validataJson)){&#xD;
+		validataJson = {};&#xD;
+	}&#xD;
+	$http.post(&quot;ws/validateFormBySysInfo&quot;,{&quot;elementId&quot;:elementId,&quot;elementValue&quot;:elementValue,&quot;formType&quot;:$params.type,&quot;systemInfoDTO&quot;:$model.sysInfo.result_out})&#xD;
+			.success(function(data, status, headers, config){&#xD;
+				if(!angular.isUndefined(data) &amp;&amp; !angular.isUndefined(data.result)){&#xD;
+					validataJson[elementId] = data.result.validate;&#xD;
+					$model.validataJson = validataJson;&#xD;
+					if(&quot;error&quot;==data.result.validate){					&#xD;
+						$view[elementId].setTipMessage(data.result.errmess);&#xD;
+					}			&#xD;
+				}&#xD;
+			});&#xD;
+},&#xD;
+// 验证表单(验证唯一)&#xD;
+validateForm:function(){&#xD;
+	var validataJson = $model.validataJson;&#xD;
+	if(!angular.isUndefined(validataJson)){&#xD;
+		for(var key in validataJson){  &#xD;
+	        if(&quot;error&quot;==validataJson[key]){	        	&#xD;
+	        	return false;&#xD;
+	        }&#xD;
+		}&#xD;
+	}	  &#xD;
+    return true;&#xD;
+}</form:scripts>
+</form:Form>

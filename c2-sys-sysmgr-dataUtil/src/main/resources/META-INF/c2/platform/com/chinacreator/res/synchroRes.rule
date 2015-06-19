@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="synchroRes" className="com.chinacreator.asp.comp.sys.datautil.ide.manager.SynchroSysMgtUtil" method="synchroRes">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>同步IDE中的资源到系统管理</name>
+  <desc>同步IDE中的资源到系统管理</desc>
+  <inputs/>
+  <outputs/>
+  <params/>
+  <return signature="V" type="void"/>
+</CustomRule>

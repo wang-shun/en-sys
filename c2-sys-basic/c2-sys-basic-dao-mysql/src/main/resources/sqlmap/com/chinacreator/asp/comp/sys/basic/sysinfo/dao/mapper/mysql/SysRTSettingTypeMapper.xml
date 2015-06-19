@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 系统类别实体类映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.sysinfo.dao.SysRTSettingTypeDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.basic.sysinfo.dao.SysRTSettingDao"/>
+  <sql id="SystemType_Column_List"> id,type_name,type_desc </sql>
+  <resultMap id="SystemTypeResultMap" type="com.chinacreator.asp.comp.sys.basic.sysinfo.eo.SystemTypeEO">
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+    <result column="TYPE_DESC" property="typeDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="create" parameterType="com.chinacreator.asp.comp.sys.basic.sysinfo.eo.SystemTypeEO" databaseId="mysql">
+    INSERT INTO tb_system_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="typeName != null">
+            type_name,
+        </if>
+        <if test="typeDesc != null">
+            type_desc,
+        </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+             <![CDATA[#{id,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="typeName != null">
+            <![CDATA[#{typeName,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="typeDesc != null">
+            <![CDATA[#{typeDesc,jdbcType=VARCHAR},]]>
+        </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.chinacreator.asp.comp.sys.basic.sysinfo.eo.SystemTypeEO" databaseId="mysql">
+     UPDATE tb_system_type
+        <set>
+             <if test="typeName != null">
+                <![CDATA[type_name = #{typeName,jdbcType=VARCHAR},]]>
+            </if>
+             <if test="typeDesc != null">
+                <![CDATA[type_desc = #{typeDesc,jdbcType=VARCHAR}]]>
+            </if>
+        </set>
+        WHERE <![CDATA[id = #{id,jdbcType=VARCHAR}]]>
+  </update>
+  
+  <delete id="deleteByPKs" databaseId="mysql">
+      DELETE FROM tb_system_type
+      WHERE id IN
+      <foreach item="idItem" collection="array" open="(" separator=","
+          close=")">
+          <![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+      </foreach>
+  </delete>
+  
+  <select id="queryAll" resultMap="SystemTypeResultMap" databaseId="mysql">
+      SELECT <include refid="SystemType_Column_List" />
+      FROM tb_system_type
+  </select>
+  
+  <select id="queryBySystemType" resultMap="SystemTypeResultMap" databaseId="mysql">
+      SELECT <include refid="SystemType_Column_List" />
+      FROM tb_system_type
+      <trim prefix="WHERE" prefixOverrides="AND |OR ">
+           <if test="systemTypeEO.id != null">
+             <![CDATA[id = #{systemTypeEO.id,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="systemTypeEO.typeName != null">
+               <![CDATA[AND type_name = #{systemTypeEO.typeName,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="systemTypeEO.typeDesc != null">
+               <![CDATA[AND type_desc = #{systemTypeEO.typeDesc,jdbcType=VARCHAR}]]>
+          </if>
+      </trim>
+  </select>
+  
+  <select id="queryByPK" parameterType="java.lang.String" resultMap="SystemTypeResultMap" databaseId="mysql">
+      SELECT <include refid="SystemType_Column_List" />
+      FROM tb_system_type
+      <trim prefix="WHERE" prefixOverrides="AND |OR ">
+           <if test="id != null">
+             <![CDATA[id = #{id,jdbcType=VARCHAR}]]>
+          </if>
+      </trim>
+  </select>
+
+  <select id="existsByTypeId" parameterType="java.lang.String" resultType="int" databaseId="mysql">
+        SELECT COUNT(*)
+      FROM tb_system_type
+      <trim prefix="WHERE" prefixOverrides="AND |OR ">
+           <if test="id != null">
+             <![CDATA[id = #{id,jdbcType=VARCHAR}]]>
+          </if>
+      </trim>
+  </select>  
+  
+  <select id="existsByTypeName" parameterType="java.lang.String" resultType="int" databaseId="mysql">
+       SELECT COUNT(*)
+      FROM tb_system_type
+      <trim prefix="WHERE" prefixOverrides="AND |OR ">
+           <if test="typeName != null">
+             <![CDATA[type_name = #{typeName,jdbcType=VARCHAR}]]>
+          </if>
+      </trim>
+  </select>
+  
+  <select id="existsByTypeNameIgnoreID" parameterType="java.lang.String" resultType="int" databaseId="mysql">
+      <![CDATA[
+	      SELECT COUNT(*)
+	      FROM tb_system_type
+	      WHERE type_name = #{typeName,jdbcType=VARCHAR}
+	      AND id != #{id,jdbcType=VARCHAR}
+      ]]>
+  </select>
+  
+</mapper>

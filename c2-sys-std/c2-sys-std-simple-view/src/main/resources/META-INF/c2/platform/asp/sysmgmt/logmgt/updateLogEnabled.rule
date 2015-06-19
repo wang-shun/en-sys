@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="updateLogEnabled" className="com.chinacreator.asp.comp.sys.basic.log.service.LogConfigService" method="updateLogEnabled">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>修改日志记录状态</name>
+  <desc>修改日志记录状态</desc>
+  <inputs>
+    <input collection="false" desc="" id="logEnabled" required="true" type="boolean"/>
+    <input collection="false" desc="日志模块ID" id="operModule" required="true"/>
+  </inputs>
+  <outputs/>
+  <res>jofSGTA3QI64y6Z1HKId_g</res>
+  <params>
+    <param autoValue="Input.operModule" name="operModule" signature="QString;" type="java.lang.String"/>
+    <param autoValue="Input.logEnabled" name="logEnabled" signature="Z" type="boolean"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="userSetJobs" className="com.chinacreator.asp.sysmgmt.sysset.usermgt.UserMgt" method="userSetJobs">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>用户设置岗位</name>
+  <desc>用户设置岗位</desc>
+  <inputs>
+    <input collection="false" desc="用户ID数组" id="userIds" required="true" type="[Ljava.lang.String;"/>
+    <input collection="false" desc="新增岗位ID数组" id="addJobIds" required="true" type="[Ljava.lang.String;"/>
+    <input collection="false" desc="" id="delJobIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>ni9tnCvoSxmlLwFlZuDuUA</res>
+  <params>
+    <param autoValue="Input.userIds" name="userIds" signature="[QString;" type="[Ljava.lang.String;"/>
+    <param autoValue="Input.addJobIds" name="addJobIds" signature="[QString;" type="[Ljava.lang.String;"/>
+    <param autoValue="Input.delJobIds" name="delJobIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

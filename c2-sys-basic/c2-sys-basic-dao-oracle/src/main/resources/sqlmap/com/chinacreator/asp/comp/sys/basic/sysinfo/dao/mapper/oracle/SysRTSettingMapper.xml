@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 系统信息实体类映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.sysinfo.dao.SysRTSettingDao">
+<cache />
+  <sql id="SystemInfo_Column_List"> id, info_name, info_content, info_desc, info_type, canremove, remark </sql>
+  <resultMap id="SystemInfoResultMap" type="com.chinacreator.asp.comp.sys.basic.sysinfo.eo.SystemInfoEO">
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="INFO_NAME" property="infoName" jdbcType="VARCHAR" />
+    <result column="INFO_CONTENT" property="infoContent" jdbcType="VARCHAR" />
+    
+    <result column="INFO_DESC" property="infoDesc" jdbcType="VARCHAR" />
+    <result column="INFO_TYPE" property="infoType" jdbcType="VARCHAR" />
+    <result column="CANREMOVE" property="canremove" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="create" parameterType="com.chinacreator.asp.comp.sys.basic.sysinfo.eo.SystemInfoEO" databaseId="oracle">
+     INSERT INTO tb_system_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="infoName != null">
+            info_name,
+        </if>
+        <if test="infoContent != null">
+            info_content,
+        </if>
+        <if test="infoDesc != null">
+            info_desc,
+        </if>
+        <if test="infoType != null">
+            info_type,
+        </if>
+        <if test="canremove != null">
+            canremove,
+        </if>
+        <if test="remark != null">
+            remark,
+        </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+            <![CDATA[#{id,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="infoName != null">
+            <![CDATA[#{infoName,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="infoContent != null">
+            <![CDATA[#{infoContent,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="infoDesc != null">
+            <![CDATA[#{infoDesc,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="infoType != null">
+            <![CDATA[#{infoType,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="canremove != null">
+            <![CDATA[#{canremove,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="remark != null">
+            <![CDATA[#{remark,jdbcType=VARCHAR},]]>
+        </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.chinacreator.asp.comp.sys.basic.sysinfo.eo.SystemInfoEO" databaseId="oracle">
+     UPDATE tb_system_info
+        <set>
+             <if test="infoName != null">
+                <![CDATA[info_name = #{infoName,jdbcType=VARCHAR},]]>
+            </if>
+             <if test="infoContent != null">
+                <![CDATA[info_content = #{infoContent,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="infoDesc != null">
+                <![CDATA[info_desc = #{infoDesc,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="infoType != null">
+                <![CDATA[info_type = #{infoType,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="canremove != null">
+                <![CDATA[canremove = #{canremove,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark != null">
+                <![CDATA[remark = #{remark,jdbcType=VARCHAR}]]>
+            </if>
+        </set>
+        WHERE <![CDATA[id = #{id,jdbcType=VARCHAR}]]>
+  </update>
+  
+  <delete id="deleteByPKs" databaseId="oracle">
+     DELETE FROM tb_system_info
+      WHERE id IN
+      <foreach item="idItem" index="index" collection="array" open="(" 
+          close=")">
+          <if test="index&gt;999 and index%1000==0">) or id in(</if>
+          	<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+          <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+      </foreach>
+  </delete>
+  
+  <delete id="deleteBySystemTypeIds" databaseId="oracle">
+     DELETE FROM tb_system_info
+      WHERE info_type IN
+      <foreach item="idItem" index="index" collection="array" open="(" 
+          close=")">
+          <if test="index&gt;999 and index%1000==0">) or info_type in(</if>
+          	<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+          <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+      </foreach>
+  </delete>
+  
+  <select id="queryAll" resultMap="SystemInfoResultMap" databaseId="oracle">
+     SELECT <include refid="SystemInfo_Column_List" />
+      FROM tb_system_info
+  </select>
+  
+  <select id="queryBySystemInfo" resultMap="SystemInfoResultMap" databaseId="oracle">
+      SELECT <include refid="SystemInfo_Column_List" />
+      FROM tb_system_info
+      <trim prefix="WHERE" prefixOverrides="AND |OR ">
+          <if test="systemInfoEO.id != null">
+              <![CDATA[id = #{systemInfoEO.id,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="systemInfoEO.infoName != null">
+              <![CDATA[AND info_name like '%' || #{systemInfoEO.infoName,jdbcType=VARCHAR} || '%']]>
+          </if>
+          <if test="systemInfoEO.infoContent != null">
+              <![CDATA[AND info_content like '%' || #{systemInfoEO.infoContent,jdbcType=VARCHAR} || '%']]>
+          </if>
+          <if test="systemInfoEO.infoDesc != null">
+              <![CDATA[AND info_desc like '%' || #{systemInfoEO.infoDesc,jdbcType=VARCHAR} || '%']]>
+          </if>
+          <if test="systemInfoEO.infoType != null">
+              <![CDATA[AND info_type = #{systemInfoEO.infoType,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="systemInfoEO.canremove != null">
+              <![CDATA[AND canremove = #{systemInfoEO.canremove,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="systemInfoEO.remark != null">
+              <![CDATA[AND remark like '%' || #{systemInfoEO.remark,jdbcType=VARCHAR} || '%']]>
+          </if>
+      </trim>
+  </select>
+  
+  <select id="queryByPK" parameterType="java.lang.String" resultMap="SystemInfoResultMap" databaseId="oracle">
+      SELECT <include refid="SystemInfo_Column_List" />
+      FROM tb_system_info
+      <trim prefix="WHERE" prefixOverrides="AND |OR ">
+           <if test="id != null">
+             <![CDATA[id = #{id,jdbcType=VARCHAR}]]>
+          </if>
+      </trim>
+  </select>
+    
+  <select id="existsByInfoName" parameterType="java.lang.String" resultType="int" databaseId="oracle">
+          SELECT COUNT(*)
+      FROM tb_system_info
+      <trim prefix="WHERE" prefixOverrides="AND |OR ">
+           <if test="infoType != null">
+             <![CDATA[info_type = #{infoType,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="infoName != null">
+             <![CDATA[AND info_name = #{infoName,jdbcType=VARCHAR}]]>
+          </if>
+      </trim>
+  </select>
+
+  <select id="existsByInfoNameIgnoreID" parameterType="java.lang.String" resultType="int" databaseId="oracle">
+      <![CDATA[
+	     SELECT COUNT(*)
+	     FROM tb_system_info
+	     WHERE info_type = #{infoType,jdbcType=VARCHAR}
+	     AND info_name = #{infoName,jdbcType=VARCHAR}
+	     AND id != #{id,jdbcType=VARCHAR}
+      ]]>
+  </select>
+  
+</mapper>

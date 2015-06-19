@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao">
+<cache />
+	<resultMap id="UserResultMap" type="com.chinacreator.asp.comp.sys.core.user.eo.UserEO">
+		<id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR" />
+		<result column="USER_REALNAME" property="userRealname" jdbcType="VARCHAR" />
+		<result column="USER_PINYIN" property="userPinyin" jdbcType="VARCHAR" />
+		<result column="USER_SEX" property="userSex" jdbcType="VARCHAR" />
+		<result column="USER_HOMETEL" property="userHometel" jdbcType="VARCHAR" />
+		<result column="USER_WORKTEL" property="userWorktel" jdbcType="VARCHAR" />
+		<result column="USER_WORKADDRESS" property="userWorkaddress" jdbcType="VARCHAR" />
+		<result column="USER_MOBILETEL1" property="userMobiletel1" jdbcType="VARCHAR" />
+		<result column="USER_MOBILETEL2" property="userMobiletel2" jdbcType="VARCHAR" />
+		<result column="USER_FAX" property="userFax" jdbcType="VARCHAR" />
+		<result column="USER_OICQ" property="userOicq" jdbcType="VARCHAR" />
+		<result column="USER_BIRTHDAY" property="userBirthday" jdbcType="DATE" />
+		<result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+		<result column="USER_ADDRESS" property="userAddress" jdbcType="VARCHAR" />
+		<result column="USER_POSTALCODE" property="userPostalcode" jdbcType="VARCHAR" />
+		<result column="USER_IDCARD" property="userIdcard" jdbcType="VARCHAR" />
+		<result column="USER_ISVALID" property="userIsvalid" jdbcType="DECIMAL" />
+		<result column="USER_REGDATE" property="userRegdate" jdbcType="DATE" />
+		<result column="USER_LOGINCOUNT" property="userLogincount" jdbcType="DECIMAL" />
+		<result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+		<result column="PAST_TIME" property="pastTime" jdbcType="DATE" />
+		<result column="DREDGE_TIME" property="dredgeTime" jdbcType="VARCHAR" />
+		<result column="LASTLOGIN_DATE" property="lastloginDate" jdbcType="DATE" />
+		<result column="WORKLENGTH" property="worklength" jdbcType="VARCHAR" />
+		<result column="POLITICS" property="politics" jdbcType="VARCHAR" />
+		<result column="LOGIN_IP" property="loginIp" jdbcType="VARCHAR" />
+		<result column="CERT_SN" property="certSn" jdbcType="VARCHAR" />
+		<result column="USER_SN" property="userSn" jdbcType="DECIMAL" />
+		<result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+		<result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+		<result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+		<result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+		<result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+		<result column="REMARK6" property="remark6" jdbcType="VARCHAR" />
+		<result column="REMARK7" property="remark7" jdbcType="VARCHAR" />
+		<result column="REMARK8" property="remark8" jdbcType="VARCHAR" />
+		<result column="REMARK9" property="remark9" jdbcType="VARCHAR" />
+		<result column="REMARK10" property="remark10" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="User_Column_List">
+		user_id, user_name, user_password, user_realname,user_pinyin, user_sex,user_hometel,
+		user_worktel, user_workaddress,user_mobiletel1, user_mobiletel2, user_fax,user_oicq,
+		user_birthday,user_email, user_address, user_postalcode, user_idcard, user_isvalid,
+		user_regdate, user_logincount, user_type, past_time, dredge_time,lastlogin_date,
+		worklength, politics, login_ip, cert_sn, user_sn,remark1, remark2, remark3,remark4,
+		remark5, remark6, remark7, remark8,remark9, remark10
+	</sql>
+
+	<insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.user.eo.UserEO" databaseId="oracle">
+		INSERT INTO td_sm_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="userPassword != null">
+				user_password,
+			</if>
+			<if test="userRealname != null">
+				user_realname,
+			</if>
+			<if test="userPinyin != null">
+				user_pinyin,
+			</if>
+			<if test="userSex != null">
+				user_sex,
+			</if>
+			<if test="userHometel != null">
+				user_hometel,
+			</if>
+			<if test="userWorktel != null">
+				user_worktel,
+			</if>
+			<if test="userWorkaddress != null">
+				user_workaddress,
+			</if>
+			<if test="userMobiletel1 != null">
+				user_mobiletel1,
+			</if>
+			<if test="userMobiletel2 != null">
+				user_mobiletel2,
+			</if>
+			<if test="userFax != null">
+				user_fax,
+			</if>
+			<if test="userOicq != null">
+				user_oicq,
+			</if>
+			<if test="userBirthday != null">
+				user_birthday,
+			</if>
+			<if test="userEmail != null">
+				user_email,
+			</if>
+			<if test="userAddress != null">
+				user_address,
+			</if>
+			<if test="userPostalcode != null">
+				user_postalcode,
+			</if>
+			<if test="userIdcard != null">
+				user_idcard,
+			</if>
+			<if test="userIsvalid != null">
+				user_isvalid,
+			</if>
+			<if test="userRegdate != null">
+				user_regdate,
+			</if>
+			<if test="userLogincount != null">
+				user_logincount,
+			</if>
+			<if test="userType != null">
+				user_type,
+			</if>
+			<if test="pastTime != null">
+				past_time,
+			</if>
+			<if test="dredgeTime != null">
+				DREDGE_TIME,
+			</if>
+			<if test="lastloginDate != null">
+				lastlogin_date,
+			</if>
+			<if test="worklength != null">
+				worklength,
+			</if>
+			<if test="politics != null">
+				politics,
+			</if>
+			<if test="loginIp != null">
+				login_ip,
+			</if>
+			<if test="certSn != null">
+				cert_sn,
+			</if>
+			<if test="userSn != null">
+				user_sn,
+			</if>
+			<if test="remark1 != null">
+				remark1,
+			</if>
+			<if test="remark2 != null">
+				remark2,
+			</if>
+			<if test="remark3 != null">
+				remark3,
+			</if>
+			<if test="remark4 != null">
+				remark4,
+			</if>
+			<if test="remark5 != null">
+				remark5,
+			</if>
+			<if test="remark6 != null">
+				remark6,
+			</if>
+			<if test="remark7 != null">
+				remark7,
+			</if>
+			<if test="remark8 != null">
+				remark8,
+			</if>
+			<if test="remark9 != null">
+				remark9,
+			</if>
+			<if test="remark10 != null">
+				remark10,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				#{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userRealname != null">
+				#{userRealname,jdbcType=VARCHAR},
+			</if>
+			<if test="userPinyin != null">
+				#{userPinyin,jdbcType=VARCHAR},
+			</if>
+			<if test="userSex != null">
+				#{userSex,jdbcType=VARCHAR},
+			</if>
+			<if test="userHometel != null">
+				#{userHometel,jdbcType=VARCHAR},
+			</if>
+			<if test="userWorktel != null">
+				#{userWorktel,jdbcType=VARCHAR},
+			</if>
+			<if test="userWorkaddress != null">
+				#{userWorkaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="userMobiletel1 != null">
+				#{userMobiletel1,jdbcType=VARCHAR},
+			</if>
+			<if test="userMobiletel2 != null">
+				#{userMobiletel2,jdbcType=VARCHAR},
+			</if>
+			<if test="userFax != null">
+				#{userFax,jdbcType=VARCHAR},
+			</if>
+			<if test="userOicq != null">
+				#{userOicq,jdbcType=VARCHAR},
+			</if>
+			<if test="userBirthday != null">
+				#{userBirthday,jdbcType=DATE},
+			</if>
+			<if test="userEmail != null">
+				#{userEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="userAddress != null">
+				#{userAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="userPostalcode != null">
+				#{userPostalcode,jdbcType=VARCHAR},
+			</if>
+			<if test="userIdcard != null">
+				#{userIdcard,jdbcType=VARCHAR},
+			</if>
+			<if test="userIsvalid != null">
+				#{userIsvalid,jdbcType=DECIMAL},
+			</if>
+			<if test="userRegdate != null">
+				#{userRegdate,jdbcType=DATE},
+			</if>
+			<if test="userLogincount != null">
+				#{userLogincount,jdbcType=DECIMAL},
+			</if>
+			<if test="userType != null">
+				#{userType,jdbcType=VARCHAR},
+			</if>
+			<if test="pastTime != null">
+				#{pastTime,jdbcType=DATE},
+			</if>
+			<if test="dredgeTime != null">
+				#{dredgeTime,jdbcType=VARCHAR},
+			</if>
+			<if test="lastloginDate != null">
+				#{lastloginDate,jdbcType=DATE},
+			</if>
+			<if test="worklength != null">
+				#{worklength,jdbcType=VARCHAR},
+			</if>
+			<if test="politics != null">
+				#{politics,jdbcType=VARCHAR},
+			</if>
+			<if test="loginIp != null">
+				#{loginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="certSn != null">
+				#{certSn,jdbcType=VARCHAR},
+			</if>
+			<if test="userSn != null">
+				#{userSn,jdbcType=DECIMAL},
+			</if>
+			<if test="remark1 != null">
+				#{remark1,jdbcType=VARCHAR},
+			</if>
+			<if test="remark2 != null">
+				#{remark2,jdbcType=VARCHAR},
+			</if>
+			<if test="remark3 != null">
+				#{remark3,jdbcType=VARCHAR},
+			</if>
+			<if test="remark4 != null">
+				#{remark4,jdbcType=VARCHAR},
+			</if>
+			<if test="remark5 != null">
+				#{remark5,jdbcType=VARCHAR},
+			</if>
+			<if test="remark6 != null">
+				#{remark6,jdbcType=VARCHAR},
+			</if>
+			<if test="remark7 != null">
+				#{remark7,jdbcType=VARCHAR},
+			</if>
+			<if test="remark8 != null">
+				#{remark8,jdbcType=VARCHAR},
+			</if>
+			<if test="remark9 != null">
+				#{remark9,jdbcType=VARCHAR},
+			</if>
+			<if test="remark10 != null">
+				#{remark10,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.chinacreator.asp.comp.sys.core.user.eo.UserEO" databaseId="oracle">
+		UPDATE td_sm_user
+		<set>
+			<if test="userRealname != null">
+				user_realname = #{userRealname,jdbcType=VARCHAR},
+			</if>
+			<if test="userPinyin != null">
+				user_pinyin = #{userPinyin,jdbcType=VARCHAR},
+			</if>
+			<if test="userSex != null">
+				user_sex = #{userSex,jdbcType=VARCHAR},
+			</if>
+			<if test="userHometel != null">
+				user_hometel = #{userHometel,jdbcType=VARCHAR},
+			</if>
+			<if test="userWorktel != null">
+				user_worktel = #{userWorktel,jdbcType=VARCHAR},
+			</if>
+			<if test="userWorkaddress != null">
+				user_workaddress = #{userWorkaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="userMobiletel1 != null">
+				user_mobiletel1 = #{userMobiletel1,jdbcType=VARCHAR},
+			</if>
+			<if test="userMobiletel2 != null">
+				user_mobiletel2 = #{userMobiletel2,jdbcType=VARCHAR},
+			</if>
+			<if test="userFax != null">
+				user_fax = #{userFax,jdbcType=VARCHAR},
+			</if>
+			<if test="userOicq != null">
+				user_oicq = #{userOicq,jdbcType=VARCHAR},
+			</if>
+			
+			<choose>
+				<when test="userBirthday != null">
+					user_birthday = #{userBirthday,jdbcType=DATE},
+				</when>					
+				<otherwise>
+					user_birthday = null,
+				</otherwise>
+			</choose>
+			
+			<if test="userEmail != null">
+				user_email = #{userEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="userAddress != null">
+				user_address = #{userAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="userPostalcode != null">
+				user_postalcode = #{userPostalcode,jdbcType=VARCHAR},
+			</if>
+			<if test="userIdcard != null">
+				user_idcard = #{userIdcard,jdbcType=VARCHAR},
+			</if>
+			<if test="userIsvalid != null">
+				user_isvalid = #{userIsvalid,jdbcType=DECIMAL},
+			</if>
+			<if test="userLogincount != null">
+				user_logincount = #{userLogincount,jdbcType=DECIMAL},
+			</if>
+			<if test="userType != null">
+				user_type = #{userType,jdbcType=VARCHAR},
+			</if>
+			
+			<choose>
+				<when test="pastTime != null">
+					past_time = #{pastTime,jdbcType=DATE},
+				</when>					
+				<otherwise>
+					past_time = null,
+				</otherwise>
+			</choose>
+			
+			<choose>
+				<when test="dredgeTime != null">
+					dredge_time = #{dredgeTime,jdbcType=DATE},
+				</when>					
+				<otherwise>
+					dredge_time = null,
+				</otherwise>
+			</choose>			
+			
+			<if test="lastloginDate != null">
+				lastlogin_date = #{lastloginDate,jdbcType=DATE},
+			</if>
+			<if test="worklength != null">
+				worklength = #{worklength,jdbcType=VARCHAR},
+			</if>
+			<if test="politics != null">
+				politics = #{politics,jdbcType=VARCHAR},
+			</if>
+			<if test="loginIp != null">
+				login_ip = #{loginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="certSn != null">
+				cert_sn = #{certSn,jdbcType=VARCHAR},
+			</if>
+			<if test="userSn != null">
+				user_sn = #{userSn,jdbcType=DECIMAL},
+			</if>
+			<if test="remark1 != null">
+				remark1 = #{remark1,jdbcType=VARCHAR},
+			</if>
+			<if test="remark2 != null">
+				remark2 = #{remark2,jdbcType=VARCHAR},
+			</if>
+			<if test="remark3 != null">
+				remark3 = #{remark3,jdbcType=VARCHAR},
+			</if>
+			<if test="remark4 != null">
+				remark4 = #{remark4,jdbcType=VARCHAR},
+			</if>
+			<if test="remark5 != null">
+				remark5 = #{remark5,jdbcType=VARCHAR},
+			</if>
+			<if test="remark6 != null">
+				remark6 = #{remark6,jdbcType=VARCHAR},
+			</if>
+			<if test="remark7 != null">
+				remark7 = #{remark7,jdbcType=VARCHAR},
+			</if>
+			<if test="remark8 != null">
+				remark8 = #{remark8,jdbcType=VARCHAR},
+			</if>
+			<if test="remark9 != null">
+				remark9 = #{remark9,jdbcType=VARCHAR},
+			</if>
+			<if test="remark10 != null">
+				remark10 = #{remark10,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE user_id = #{userId,jdbcType=VARCHAR}
+	</update>
+  
+  	<update id="setOrder" parameterType="com.chinacreator.asp.comp.sys.core.user.eo.UserEO" databaseId="oracle">
+		UPDATE td_sm_user
+		<set>			
+			<if test="userSn != null">
+				user_sn = #{userSn,jdbcType=DECIMAL},
+			</if>			
+		</set>
+		WHERE user_id = #{userId,jdbcType=VARCHAR}
+	</update>
+  
+    <update id="updatePasswordByUserId" parameterType="java.lang.String" databaseId="oracle">
+        UPDATE td_sm_user
+        <set>            
+            <if test="userPassword != null">
+                user_password = #{userPassword,jdbcType=VARCHAR}
+            </if>           
+        </set>
+        WHERE user_id = #{userId,jdbcType=VARCHAR}
+    </update>
+    
+    <update id="updatePasswordByUserIds" databaseId="oracle">
+    	UPDATE td_sm_user
+        <set>
+            <if test="userPassword != null">
+                user_password = #{userPassword,jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE user_id IN
+        <foreach item="idItem" index="index" collection="userIds" open="(" close=")">
+        	<if test="index&gt;999 and index%1000==0">) or user_id in(</if>
+          		<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+          	<if test="index%1000!=999 and index&lt;userIds.length-1">,</if>
+      </foreach>
+    </update>
+
+    <update id="updatePasswordByUserName" parameterType="java.lang.String" databaseId="oracle">
+        UPDATE td_sm_user
+        <set>            
+            <if test="userPassword != null">
+                user_password = #{userPassword,jdbcType=VARCHAR}
+            </if>           
+        </set>
+        WHERE user_name = #{userName,jdbcType=VARCHAR}
+    </update>
+
+	<delete id="deleteByPKs" parameterType="java.lang.String" databaseId="oracle">
+		DELETE FROM td_sm_user
+		WHERE user_id in
+		<foreach item="idItem" index="index" collection="array" open="(" close=")">
+			<if test="index&gt;999 and index%1000==0">) or user_id in(</if>
+				#{idItem}
+			<if test="index%1000!=999 and index&lt;array.length-1">,</if>
+		</foreach>
+	</delete>
+
+	<select id="queryAll" resultMap="UserResultMap" databaseId="oracle">
+		SELECT
+		<include refid="User_Column_List" />
+		FROM td_sm_user
+		ORDER BY user_sn, user_name
+	</select>
+
+	<select id="queryByUser" resultMap="UserResultMap" databaseId="oracle">
+		SELECT
+		<include refid="User_Column_List" />
+		FROM td_sm_user
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="userEO.userId != null">
+				user_id = #{userEO.userId,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userName != null">
+				AND user_name like '%' || #{userEO.userName,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userPassword != null">
+				AND user_password = #{userEO.userPassword,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userRealname != null">
+				AND user_realname LIKE '%' || #{userEO.userRealname,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userPinyin != null">
+				AND user_pinyin LIKE '%' || #{userEO.userPinyin,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userSex != null">
+				AND user_sex = #{userEO.userSex,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userHometel != null">
+				AND user_hometel LIKE '%' || #{userEO.userHometel,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userWorktel != null">
+				AND user_worktel LIKE '%' || #{userEO.userWorktel,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userWorkaddress != null">
+				AND user_workaddress LIKE '%' || #{userEO.userWorkaddress,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userMobiletel1 != null">
+				AND user_mobiletel1 LIKE '%' ||	#{userEO.userMobiletel1,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userMobiletel2 != null">
+				AND user_mobiletel2 LIKE '%' ||	#{userEO.userMobiletel2,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userFax != null">
+				AND user_fax LIKE '%' || #{userEO.userFax,jdbcType=VARCHAR} ||	'%'
+			</if>
+			<if test="userEO.userOicq != null">
+				AND user_oicq LIKE '%' || #{userEO.userOicq,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userBirthday != null">
+				AND user_birthday = #{userEO.userBirthday,jdbcType=DATE}
+			</if>
+			<if test="userEO.userEmail != null">
+				AND user_email = #{userEO.userEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userAddress != null">
+				AND user_address LIKE '%' || #{userEO.userAddress,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userPostalcode != null">
+				AND user_postalcode = #{userEO.userPostalcode,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userIdcard != null">
+				AND user_idcard = #{userEO.userIdcard,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userIsvalid != null">
+				AND user_isvalid = #{userEO.userIsvalid,jdbcType=DECIMAL}
+			</if>
+			<if test="userEO.userRegdate != null">
+				AND user_regdate = #{userEO.userRegdate,jdbcType=DATE}
+			</if>
+			<if test="userEO.userLogincount != null">
+				AND user_logincount = #{userEO.userLogincount,jdbcType=DECIMAL}
+			</if>
+			<if test="userEO.userType != null">
+				AND user_type = #{userEO.userType,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.pastTime != null">
+				AND past_time = #{userEO.pastTime,jdbcType=DATE}
+			</if>
+			<if test="userEO.dredgeTime != null">
+				AND dredge_time = #{userEO.dredgeTime,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.lastloginDate != null">
+				AND lastlogin_date = #{userEO.lastloginDate,jdbcType=DATE}
+			</if>
+			<if test="userEO.worklength != null">
+				AND worklength = #{userEO.worklength,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.politics != null">
+				AND politics = #{userEO.politics,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.loginIp != null">
+				AND login_ip = #{userEO.loginIp,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.certSn != null">
+				AND cert_sn = #{userEO.certSn,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userSn != null">
+				AND user_sn = #{userEO.userSn,jdbcType=DECIMAL}
+			</if>
+			<if test="userEO.remark1 != null">
+				AND remark1 = #{userEO.remark1,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark2 != null">
+				AND remark2 = #{userEO.remark2,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark3 != null">
+				AND remark3 = #{userEO.remark3,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark4 != null">
+				AND remark4 = #{userEO.remark4,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark5 != null">
+				AND remark5 = #{userEO.remark5,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark6 != null">
+				AND remark6 = #{userEO.remark6,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark7 != null">
+				AND remark7 = #{userEO.remark7,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark8 != null">
+				AND remark8 = #{userEO.remark8,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark9 != null">
+				AND remark9 = #{userEO.remark9,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark10 != null">
+				AND remark10 = #{userEO.remark10,jdbcType=VARCHAR}
+			</if>
+		</trim>
+		ORDER BY user_sn, user_name
+	</select>
+
+	<select id="queryByPK" resultMap="UserResultMap" parameterType="java.lang.String" databaseId="oracle">
+		SELECT
+		<include refid="User_Column_List" />
+		<![CDATA[
+		FROM td_sm_user
+		WHERE user_id = #{userId,jdbcType=VARCHAR}
+		]]>
+	</select>
+
+	<select id="queryByUserName" resultMap="UserResultMap" parameterType="java.lang.String" databaseId="oracle">
+		SELECT
+		<include refid="User_Column_List" />
+		<![CDATA[
+		FROM td_sm_user
+		WHERE user_name = #{userName,jdbcType=VARCHAR}
+		]]>
+	</select>
+
+	<select id="queryByUserRealName" resultMap="UserResultMap" parameterType="java.lang.String" databaseId="oracle">	
+		SELECT 
+		<include refid="User_Column_List" />
+		<![CDATA[ 
+		FROM td_sm_user 
+		WHERE user_realname = #{userRealname,jdbcType=VARCHAR}
+		]]>	
+	</select>
+  
+    <select id="queryByScope" resultMap="UserResultMap" parameterType="java.lang.String" databaseId="oracle">  
+        SELECT 
+        <include refid="User_Column_List" />
+        <![CDATA[ 
+        FROM td_sm_user 
+        WHERE user_id IN (SELECT user_id
+                            FROM td_sm_userinstance
+                            WHERE scope_id = #{scopeId,jdbcType=VARCHAR}
+                            AND scope_type = #{scopeType,jdbcType=CHAR})
+        ]]> 
+    </select>
+
+    <select id="existsByPK" resultType="int" parameterType="java.lang.String" databaseId="oracle">    
+        <![CDATA[ 
+        SELECT count(*)
+        FROM td_sm_user 
+        WHERE user_id = #{userId,jdbcType=VARCHAR}
+        ]]> 
+    </select>
+    
+	<select id="existsByUserName" resultType="int" parameterType="java.lang.String" databaseId="oracle">	
+		<![CDATA[ 
+		SELECT count(*)
+		FROM td_sm_user 
+		WHERE user_name = #{userName,jdbcType=VARCHAR}
+		]]>	
+	</select>
+  
+    <select id="existsByUserRealname" resultType="int" parameterType="java.lang.String" databaseId="oracle">    
+        <![CDATA[ 
+        SELECT count(*)
+        FROM td_sm_user 
+        WHERE user_realname = #{userRealname,jdbcType=VARCHAR}
+        ]]> 
+    </select>
+</mapper>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 用户实例机构扩展信息映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.advanced.user.dao.UserDao">
+	<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao" />
+	<sql id="User_Column_List">
+		user_id, user_name, user_password,
+		user_realname,user_pinyin, user_sex,user_hometel,
+		user_worktel,
+		user_workaddress,user_mobiletel1, user_mobiletel2, user_fax,user_oicq,
+		user_birthday,user_email, user_address, user_postalcode, user_idcard,
+		user_isvalid,
+		user_regdate, user_logincount, user_type, past_time,
+		dredge_time,lastlogin_date,
+		worklength, politics, login_ip, cert_sn,
+		user_sn,remark1, remark2, remark3,remark4,
+		remark5, remark6, remark7,
+		remark8,remark9, remark10
+	</sql>
+
+	<resultMap id="UserResultMap"
+		type="com.chinacreator.asp.comp.sys.core.user.eo.UserEO">
+		<id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="USER_PASSWORD" property="userPassword"
+			jdbcType="VARCHAR" />
+		<result column="USER_REALNAME" property="userRealname"
+			jdbcType="VARCHAR" />
+		<result column="USER_PINYIN" property="userPinyin" jdbcType="VARCHAR" />
+		<result column="USER_SEX" property="userSex" jdbcType="VARCHAR" />
+		<result column="USER_HOMETEL" property="userHometel" jdbcType="VARCHAR" />
+		<result column="USER_WORKTEL" property="userWorktel" jdbcType="VARCHAR" />
+		<result column="USER_WORKADDRESS" property="userWorkaddress"
+			jdbcType="VARCHAR" />
+		<result column="USER_MOBILETEL1" property="userMobiletel1"
+			jdbcType="VARCHAR" />
+		<result column="USER_MOBILETEL2" property="userMobiletel2"
+			jdbcType="VARCHAR" />
+		<result column="USER_FAX" property="userFax" jdbcType="VARCHAR" />
+		<result column="USER_OICQ" property="userOicq" jdbcType="VARCHAR" />
+		<result column="USER_BIRTHDAY" property="userBirthday"
+			jdbcType="DATE" />
+		<result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+		<result column="USER_ADDRESS" property="userAddress" jdbcType="VARCHAR" />
+		<result column="USER_POSTALCODE" property="userPostalcode"
+			jdbcType="VARCHAR" />
+		<result column="USER_IDCARD" property="userIdcard" jdbcType="VARCHAR" />
+		<result column="USER_ISVALID" property="userIsvalid" jdbcType="DECIMAL" />
+		<result column="USER_REGDATE" property="userRegdate" jdbcType="DATE" />
+		<result column="USER_LOGINCOUNT" property="userLogincount"
+			jdbcType="DECIMAL" />
+		<result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+		<result column="PAST_TIME" property="pastTime" jdbcType="DATE" />
+		<result column="DREDGE_TIME" property="dredgeTime" jdbcType="VARCHAR" />
+		<result column="LASTLOGIN_DATE" property="lastloginDate"
+			jdbcType="DATE" />
+		<result column="WORKLENGTH" property="worklength" jdbcType="VARCHAR" />
+		<result column="POLITICS" property="politics" jdbcType="VARCHAR" />
+		<result column="LOGIN_IP" property="loginIp" jdbcType="VARCHAR" />
+		<result column="CERT_SN" property="certSn" jdbcType="VARCHAR" />
+		<result column="USER_SN" property="userSn" jdbcType="DECIMAL" />
+		<result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+		<result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+		<result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+		<result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+		<result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+		<result column="REMARK6" property="remark6" jdbcType="VARCHAR" />
+		<result column="REMARK7" property="remark7" jdbcType="VARCHAR" />
+		<result column="REMARK8" property="remark8" jdbcType="VARCHAR" />
+		<result column="REMARK9" property="remark9" jdbcType="VARCHAR" />
+		<result column="REMARK10" property="remark10" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="queryByJob" resultMap="UserResultMap" databaseId="oracle">
+		SELECT u.*
+		FROM td_sm_user u
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">			
+			<if test="jobId != null">
+				u.user_id in(
+				SELECT user_id 
+				FROM td_sm_userinstance 
+				WHERE scope_type = '2' 
+				AND scope_id = #{jobId,jdbcType=VARCHAR}
+				)				
+			</if>			
+			<if test="userEO.userId != null">
+				AND u.user_id = #{userEO.userId,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userName != null">
+				AND u.user_name like '%' ||
+				#{userEO.userName,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userPassword != null">
+				AND u.user_password =
+				#{userEO.userPassword,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userRealname != null">
+				AND u.user_realname LIKE '%' ||
+				#{userEO.userRealname,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userPinyin != null">
+				AND u.user_pinyin LIKE '%' ||
+				#{userEO.userPinyin,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userSex != null">
+				AND u.user_sex = #{userEO.userSex,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userHometel != null">
+				AND u.user_hometel LIKE '%' ||
+				#{userEO.userHometel,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userWorktel != null">
+				AND u.user_worktel LIKE '%' ||
+				#{userEO.userWorktel,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userWorkaddress != null">
+				AND u.user_workaddress LIKE '%' ||
+				#{userEO.userWorkaddress,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userMobiletel1 != null">
+				AND u.user_mobiletel1 LIKE '%' ||
+				#{userEO.userMobiletel1,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userMobiletel2 != null">
+				AND u.user_mobiletel2 LIKE '%' ||
+				#{userEO.userMobiletel2,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userFax != null">
+				AND u.user_fax LIKE '%' ||
+				#{userEO.userFax,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userOicq != null">
+				AND u.user_oicq LIKE '%' ||
+				#{userEO.userOicq,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userBirthday != null">
+				AND u.user_birthday =
+				#{userEO.userBirthday,jdbcType=DATE}
+			</if>
+			<if test="userEO.userEmail != null">
+				AND u.user_email = #{userEO.userEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userAddress != null">
+				AND u.user_address LIKE '%' ||
+				#{userEO.userAddress,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userPostalcode != null">
+				AND u.user_postalcode =
+				#{userEO.userPostalcode,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userIdcard != null">
+				AND u.user_idcard = #{userEO.userIdcard,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userIsvalid != null">
+				AND u.user_isvalid =
+				#{userEO.userIsvalid,jdbcType=DECIMAL}
+			</if>
+			<if test="userEO.userRegdate != null">
+				AND u.user_regdate = #{userEO.userRegdate,jdbcType=DATE}
+			</if>
+			<if test="userEO.userLogincount != null">
+				AND u.user_logincount =
+				#{userEO.userLogincount,jdbcType=DECIMAL}
+			</if>
+			<if test="userEO.userType != null">
+				AND u.user_type = #{userEO.userType,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.pastTime != null">
+				AND u.past_time = #{userEO.pastTime,jdbcType=DATE}
+			</if>
+			<if test="userEO.dredgeTime != null">
+				AND u.dredge_time = #{userEO.dredgeTime,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.lastloginDate != null">
+				AND u.lastlogin_date =
+				#{userEO.lastloginDate,jdbcType=DATE}
+			</if>
+			<if test="userEO.worklength != null">
+				AND u.worklength = #{userEO.worklength,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.politics != null">
+				AND u.politics = #{userEO.politics,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.loginIp != null">
+				AND u.login_ip = #{userEO.loginIp,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.certSn != null">
+				AND u.cert_sn = #{userEO.certSn,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userSn != null">
+				AND u.user_sn = #{userEO.userSn,jdbcType=DECIMAL}
+			</if>
+			<if test="userEO.remark1 != null">
+				AND u.remark1 = #{userEO.remark1,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark2 != null">
+				AND u.remark2 = #{userEO.remark2,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark3 != null">
+				AND u.remark3 = #{userEO.remark3,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark4 != null">
+				AND u.remark4 = #{userEO.remark4,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark5 != null">
+				AND u.remark5 = #{userEO.remark5,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark6 != null">
+				AND u.remark6 = #{userEO.remark6,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark7 != null">
+				AND u.remark7 = #{userEO.remark7,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark8 != null">
+				AND u.remark8 = #{userEO.remark8,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark9 != null">
+				AND u.remark9 = #{userEO.remark9,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark10 != null">
+				AND u.remark10 = #{userEO.remark10,jdbcType=VARCHAR}
+			</if>
+		</trim>
+		ORDER BY u.user_sn,u.user_name
+	</select>
+
+	<select id="queryByOrgJob" resultMap="UserResultMap" databaseId="oracle">
+		SELECT u.*
+		FROM td_sm_user u, td_sm_userinstance ui, td_sm_instance_org io
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			u.user_id = ui.user_id
+			AND ui.id = io.userinstance_id
+			AND ui.scope_type = '1'
+      		And ui.scope_id = #{orgId,jdbcType=VARCHAR}	
+			AND u.user_id in(
+				SELECT user_id 
+				FROM td_sm_userinstance 
+				WHERE scope_type = '2' 
+				AND scope_id = #{jobId,jdbcType=VARCHAR}				
+			)
+			<if test="userEO.userId != null">
+				AND u.user_id = #{userEO.userId,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userName != null">
+				AND u.user_name like '%' ||
+				#{userEO.userName,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userPassword != null">
+				AND u.user_password =
+				#{userEO.userPassword,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userRealname != null">
+				AND u.user_realname LIKE '%' ||
+				#{userEO.userRealname,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userPinyin != null">
+				AND u.user_pinyin LIKE '%' ||
+				#{userEO.userPinyin,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userSex != null">
+				AND u.user_sex = #{userEO.userSex,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userHometel != null">
+				AND u.user_hometel LIKE '%' ||
+				#{userEO.userHometel,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userWorktel != null">
+				AND u.user_worktel LIKE '%' ||
+				#{userEO.userWorktel,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userWorkaddress != null">
+				AND u.user_workaddress LIKE '%' ||
+				#{userEO.userWorkaddress,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userMobiletel1 != null">
+				AND u.user_mobiletel1 LIKE '%' ||
+				#{userEO.userMobiletel1,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userMobiletel2 != null">
+				AND u.user_mobiletel2 LIKE '%' ||
+				#{userEO.userMobiletel2,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userFax != null">
+				AND u.user_fax LIKE '%' ||
+				#{userEO.userFax,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userOicq != null">
+				AND u.user_oicq LIKE '%' ||
+				#{userEO.userOicq,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userBirthday != null">
+				AND u.user_birthday =
+				#{userEO.userBirthday,jdbcType=DATE}
+			</if>
+			<if test="userEO.userEmail != null">
+				AND u.user_email = #{userEO.userEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userAddress != null">
+				AND u.user_address LIKE '%' ||
+				#{userEO.userAddress,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="userEO.userPostalcode != null">
+				AND u.user_postalcode =
+				#{userEO.userPostalcode,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userIdcard != null">
+				AND u.user_idcard = #{userEO.userIdcard,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userIsvalid != null">
+				AND u.user_isvalid =
+				#{userEO.userIsvalid,jdbcType=DECIMAL}
+			</if>
+			<if test="userEO.userRegdate != null">
+				AND u.user_regdate = #{userEO.userRegdate,jdbcType=DATE}
+			</if>
+			<if test="userEO.userLogincount != null">
+				AND u.user_logincount =
+				#{userEO.userLogincount,jdbcType=DECIMAL}
+			</if>
+			<if test="userEO.userType != null">
+				AND u.user_type = #{userEO.userType,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.pastTime != null">
+				AND u.past_time = #{userEO.pastTime,jdbcType=DATE}
+			</if>
+			<if test="userEO.dredgeTime != null">
+				AND u.dredge_time = #{userEO.dredgeTime,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.lastloginDate != null">
+				AND u.lastlogin_date =
+				#{userEO.lastloginDate,jdbcType=DATE}
+			</if>
+			<if test="userEO.worklength != null">
+				AND u.worklength = #{userEO.worklength,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.politics != null">
+				AND u.politics = #{userEO.politics,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.loginIp != null">
+				AND u.login_ip = #{userEO.loginIp,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.certSn != null">
+				AND u.cert_sn = #{userEO.certSn,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.userSn != null">
+				AND u.user_sn = #{userEO.userSn,jdbcType=DECIMAL}
+			</if>
+			<if test="userEO.remark1 != null">
+				AND u.remark1 = #{userEO.remark1,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark2 != null">
+				AND u.remark2 = #{userEO.remark2,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark3 != null">
+				AND u.remark3 = #{userEO.remark3,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark4 != null">
+				AND u.remark4 = #{userEO.remark4,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark5 != null">
+				AND u.remark5 = #{userEO.remark5,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark6 != null">
+				AND u.remark6 = #{userEO.remark6,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark7 != null">
+				AND u.remark7 = #{userEO.remark7,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark8 != null">
+				AND u.remark8 = #{userEO.remark8,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark9 != null">
+				AND u.remark9 = #{userEO.remark9,jdbcType=VARCHAR}
+			</if>
+			<if test="userEO.remark10 != null">
+				AND u.remark10 = #{userEO.remark10,jdbcType=VARCHAR}
+			</if>
+		</trim>
+		ORDER BY io.sn, u.user_name
+	</select>
+</mapper>

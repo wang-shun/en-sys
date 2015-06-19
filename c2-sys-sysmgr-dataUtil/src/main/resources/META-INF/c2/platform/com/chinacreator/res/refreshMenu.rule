@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="refreshMenu" className="com.chinacreator.asp.comp.sys.datautil.ide.web.IdeSynSysMgt" method="refreshMenu">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>刷新菜单</name>
+  <inputs/>
+  <outputs/>
+  <params/>
+  <return signature="V" type="void"/>
+</CustomRule>

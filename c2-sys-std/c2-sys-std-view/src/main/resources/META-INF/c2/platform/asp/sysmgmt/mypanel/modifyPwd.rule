@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="modifyPwd" className="com.chinacreator.asp.comp.sys.advanced.user.service.UserService" method="updatePassword">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>修改密码</name>
+  <desc>修改用户密码</desc>
+  <inputs>
+    <input collection="false" desc="用户账号" id="userName" required="true" type="String"/>
+    <input collection="false" desc="用户原密码" id="oldPassword" required="true" type="String"/>
+    <input collection="false" desc="" id="newPassword" required="true" type="String"/>
+  </inputs>
+  <outputs/>
+  <res>y5u4Y_YaTk-pPyczg4ToOw</res>
+  <params>
+    <param autoValue="Input.userName" name="userName" signature="QString;" type="String" value="Input.userName"/>
+    <param autoValue="Input.oldPassword" name="oldPassword" signature="QString;" type="String" value="Input.oldPassword"/>
+    <param autoValue="Input.newPassword" name="newPassword" signature="QString;" type="String" value="Input.newPassword"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.org.dao.OrgDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+  <sql id="Org_Column_List">org_id,org_sn,org_name,org_showname,parent_id,path,
+  layer,children,code,jp,qp,creatingtime,creator,orgnumber,orgdesc,chargeorgid,
+  org_level,org_xzqm,isdirectlyparty,isforeignparty,isjichaparty,isdirectguanhu,
+  remark1,remark2,remark3,remark4,remark5,remark6,remark7,remark8,remark9,
+  remark10</sql>
+  <resultMap id="OrgResultMap" type="com.chinacreator.asp.comp.sys.basic.org.eo.OrgEO">
+   <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+   <result column="org_sn" property="orgSn" jdbcType="NUMERIC" />
+   <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+   <result column="org_showname" property="orgShowName" jdbcType="VARCHAR" />
+   <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+   
+   <result column="path" property="path" jdbcType="VARCHAR" />
+   <result column="layer" property="layer" jdbcType="VARCHAR" />
+   <result column="children" property="children" jdbcType="VARCHAR" />
+   <result column="code" property="code" jdbcType="VARCHAR" />
+   <result column="jp" property="jp" jdbcType="VARCHAR" />
+   
+   <result column="qp" property="qp" jdbcType="VARCHAR" />
+   <result column="creatingtime" property="creatingTime" jdbcType="TIMESTAMP" />
+   <result column="creator" property="creator" jdbcType="VARCHAR" />
+   <result column="orgnumber" property="orgNumber" jdbcType="VARCHAR" />
+   <result column="orgdesc" property="orgDesc" jdbcType="VARCHAR" />
+   
+   <result column="chargeorgid" property="chargeOrgId" jdbcType="VARCHAR" />
+   <result column="org_level" property="orgLevel" jdbcType="VARCHAR" />
+   <result column="org_xzqm" property="orgXzqm" jdbcType="VARCHAR" />
+   <result column="isdirectlyparty" property="isDirectlyparty" jdbcType="NUMERIC" />
+   <result column="isforeignparty" property="isForeignparty" jdbcType="NUMERIC" />
+   
+   <result column="isjichaparty" property="isJichaparty" jdbcType="NUMERIC" />
+   <result column="isdirectguanhu" property="isDirectguanhu" jdbcType="NUMERIC" />
+   <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+   <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+   <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+   
+   <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+   <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+   <result column="remark6" property="remark6" jdbcType="VARCHAR" />
+   <result column="remark7" property="remark7" jdbcType="VARCHAR" />
+   <result column="remark8" property="remark8" jdbcType="VARCHAR" />
+   <result column="remark9" property="remark9" jdbcType="VARCHAR" />
+   <result column="remark10" property="remark10" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryGroupIdByOrgId" parameterType="java.lang.String" resultType="java.lang.String" databaseId="mysql">
+    SELECT group_id FROM td_sm_grouporg 
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+       <if test="orgId != null">
+          <![CDATA[org_id = #{orgId,jdbcType=VARCHAR}]]>
+       </if>
+    </trim>
+  </select>
+  
+  <select id="queryGroupIdsByOrgIds" resultType="java.lang.String" databaseId="mysql">
+  	SELECT group_id FROM td_sm_grouporg WHERE org_id IN
+    <foreach item="item" index="index" collection="orgIds"  open="(" separator="," close=")"> 
+          #{item} 
+      </foreach> 
+  </select>
+  
+  <select id="queryByGroupIds" resultMap="OrgResultMap" databaseId="mysql">
+    SELECT t.* FROM td_sm_organization t LEFT JOIN td_sm_grouporg t1 ON t.org_id = t1.org_id
+     WHERE t1.group_id IN 
+       <foreach item="idItem" collection="list" open="(" separator="," close=")">
+          <![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+      </foreach>
+  </select>
+  
+  <select id="queryMainOrg" parameterType="java.lang.String" resultMap="OrgResultMap" databaseId="mysql">
+    SELECT t2.* FROM td_sm_organization t2 LEFT JOIN td_sm_userinstance t1 ON t2.org_id = t1.scope_id
+    LEFT JOIN td_sm_instance_org t ON t.userinstance_id = t1.id
+     WHERE t1.user_id=<![CDATA[#{userId,jdbcType=VARCHAR}]]> AND t.is_main='1'
+  </select>
+  
+  <select id="query" resultMap="OrgResultMap" databaseId="mysql">
+    SELECT
+        <include refid="Org_Column_List" />
+        FROM td_sm_organization
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="orgEO.orgId != null">
+                <![CDATA[org_id = #{orgEO.orgId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.orgSn != null">
+                <![CDATA[AND org_sn = #{orgEO.orgSn,jdbcType=NUMERIC}]]>
+            </if>
+            <if test="orgEO.orgName != null">
+                <![CDATA[AND org_name = #{orgEO.orgName,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.orgShowName != null">
+                <![CDATA[AND org_showname = #{orgEO.orgShowName,jdbcType=VARCHAR}]]>
+            </if>
+             <if test="orgEO.parentId != null">
+                <![CDATA[AND parent_id = #{orgEO.parentId,jdbcType=VARCHAR}]]>
+            </if>
+            
+             <if test="orgEO.path != null">
+                <![CDATA[AND path = #{orgEO.path,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.layer != null">
+                <![CDATA[AND layer = #{orgEO.layer,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.children != null">
+                <![CDATA[AND children = #{orgEO.children,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.code != null">
+                 <![CDATA[AND code = #{orgEO.code,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.jp != null">
+                <![CDATA[AND jp = #{orgEO.jp,jdbcType=VARCHAR}]]>
+            </if>
+            
+            <if test="orgEO.qp != null">
+                 <![CDATA[AND qp = #{orgEO.qp,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.creatingTime != null">
+                <![CDATA[AND creatingtime = #{orgEO.creatingTime,jdbcType=TIMESTAMP}]]>
+            </if>
+            <if test="orgEO.creator != null">
+                <![CDATA[AND creator = #{orgEO.creator,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.orgNumber != null">
+                <![CDATA[AND orgnumber = #{orgEO.orgNumber,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.orgDesc != null">
+                <![CDATA[AND orgdesc = #{orgEO.orgDesc,jdbcType=VARCHAR}]]>
+            </if>
+            
+            <if test="orgEO.chargeOrgId != null">
+                <![CDATA[AND chargeorgid = #{orgEO.chargeOrgId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.orgLevel != null">
+                <![CDATA[AND org_level = #{orgEO.orgLevel,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.orgXzqm != null">
+                <![CDATA[AND org_xzqm = #{orgEO.orgXzqm,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.isDirectlyparty != null">
+                <![CDATA[AND isdirectlyparty = #{orgEO.isDirectlyparty,jdbcType=NUMERIC}]]>
+            </if>
+            <if test="orgEO.isForeignparty != null">
+                <![CDATA[AND isforeignparty = #{orgEO.isForeignparty,jdbcType=NUMERIC}]]>
+            </if>
+            
+            <if test="orgEO.isJichaparty != null">
+                <![CDATA[AND isjichaparty = #{orgEO.isJichaparty,jdbcType=NUMERIC}]]>
+            </if>
+            <if test="orgEO.isDirectguanhu != null">
+                <![CDATA[AND isdirectguanhu = #{orgEO.isDirectguanhu,jdbcType=NUMERIC}]]>
+            </if>
+            <if test="orgEO.remark1 != null">
+                <![CDATA[AND remark1 = #{orgEO.remark1,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.remark2 != null">
+                <![CDATA[AND remark2 = #{orgEO.remark2,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.remark3 != null">
+                <![CDATA[AND remark3 = #{orgEO.remark3,jdbcType=VARCHAR}]]>
+            </if>
+            
+             <if test="orgEO.remark4 != null">
+                <![CDATA[AND remark4 = #{orgEO.remark4,jdbcType=NUMERIC}]]>
+            </if>
+            <if test="orgEO.remark5 != null">
+                <![CDATA[AND remark5 = #{orgEO.remark5,jdbcType=NUMERIC}]]>
+            </if>
+            <if test="orgEO.remark6 != null">
+                <![CDATA[AND remark6 = #{orgEO.remark6,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.remark7 != null">
+                <![CDATA[AND remark7 = #{orgEO.remark7,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.remark8 != null">
+                <![CDATA[AND remark8 = #{orgEO.remark8,jdbcType=VARCHAR}]]>
+            </if>
+            
+            <if test="orgEO.remark9 != null">
+                <![CDATA[AND remark9 = #{orgEO.remark9,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgEO.remark10 != null">
+                <![CDATA[AND remark10 = #{orgEO.remark10,jdbcType=VARCHAR}]]>
+            </if>
+        </trim>
+  </select>
+  
+  <select id="isOrgSCreator" resultType="int" databaseId="mysql">
+        SELECT
+        COUNT(*)
+        FROM td_sm_organization
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="userId != null">
+                <![CDATA[creator = #{userId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="orgId != null">
+                <![CDATA[AND org_id = #{orgId,jdbcType=VARCHAR}]]>
+            </if>
+        </trim>
+  </select>
+  
+  <select id="existsByOrgName" parameterType="java.lang.String" resultType="int" databaseId="mysql">
+  	SELECT COUNT(*) 
+  	FROM td_sm_organization
+  	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+        <if test="orgName != null">
+            <![CDATA[org_name = #{orgName,jdbcType=VARCHAR}]]>
+        </if>
+    </trim>
+  </select>
+  
+  <select id="existsByOrgNameIgnoreOrgID" parameterType="java.lang.String" resultType="int" databaseId="mysql">
+  	<![CDATA[
+  		SELECT COUNT(*) 
+  		FROM td_sm_organization
+  		WHERE org_name = #{orgName,jdbcType=VARCHAR}
+  		AND org_id != #{orgId,jdbcType=VARCHAR}
+  	]]>
+  </select>
+  
+  <select id="existsByOrgShowName" resultType="int" databaseId="mysql">
+    SELECT COUNT(*) 
+  	FROM td_sm_organization
+  	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+        <if test="parentId != null">
+            <![CDATA[parent_id = #{parentId,jdbcType=VARCHAR}]]>
+        </if>
+        <if test="orgShowName != null">
+            <![CDATA[AND org_showname = #{orgShowName,jdbcType=VARCHAR}]]>
+        </if>
+    </trim>
+  </select>
+  
+  <select id="existsByOrgShowNameOnly" resultType="int" databaseId="mysql">
+    SELECT COUNT(*) 
+  	FROM td_sm_organization
+  	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+        <if test="orgId != null">
+            <![CDATA[parent_id = (SELECT parent_id FROM td_sm_organization WHERE org_id = #{orgId,jdbcType=VARCHAR})]]>
+        </if>
+        <if test="orgShowName != null">
+            <![CDATA[AND org_showname = #{orgShowName,jdbcType=VARCHAR}]]>
+        </if>
+    </trim>
+  </select>
+  
+  <select id="existsByOrgShowNameOnlyIgnoreOrgID" resultType="int" databaseId="mysql">
+    <![CDATA[
+    SELECT COUNT(*) 
+  	FROM td_sm_organization
+	WHERE parent_id = (SELECT parent_id FROM td_sm_organization WHERE org_id = #{orgId,jdbcType=VARCHAR})
+    AND org_showname = #{orgShowName,jdbcType=VARCHAR}
+    AND org_id != #{orgId,jdbcType=VARCHAR}
+    ]]>
+  </select>
+  
+  <select id="existsByOrgNumber" parameterType="java.lang.String" resultType="int" databaseId="mysql">
+    SELECT COUNT(*) 
+  	FROM td_sm_organization
+  	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+        <if test="orgNumber != null">
+            <![CDATA[orgnumber = #{orgNumber,jdbcType=VARCHAR}]]>
+        </if>
+    </trim>
+  </select>
+  
+  <select id="existsByOrgNumberIgnoreOrgID" parameterType="java.lang.String" resultType="int" databaseId="mysql">
+    <![CDATA[
+    SELECT COUNT(*) 
+  	FROM td_sm_organization
+	WHERE  orgnumber = #{orgNumber,jdbcType=VARCHAR}
+	AND org_id != #{orgId,jdbcType=VARCHAR}
+    ]]>
+  </select>
+  
+  <insert id="create" parameterType="com.chinacreator.asp.comp.sys.basic.org.eo.OrgEO" databaseId="mysql">
+  	INSERT INTO td_sm_organization
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="orgId != null">
+              org_id,
+          </if>
+          <if test="orgSn != null">
+              org_sn,
+          </if>
+          <if test="orgName != null">
+              org_name,
+          </if>
+          <if test="orgShowName != null">
+              org_showname,
+          </if>
+          <if test="parentId != null">
+              parent_id,
+          </if>
+          <if test="path != null">
+              path,
+          </if>
+
+          <if test="layer != null">
+              layer,
+          </if>
+          <if test="children != null">
+              children,
+          </if>
+          <if test="code != null">
+              code,
+          </if>
+          <if test="jp != null">
+              jp,
+          </if>
+          <if test="qp != null">
+              qp,
+          </if>
+          <if test="creatingTime != null">
+              creatingtime,
+          </if>
+          <if test="creator != null">
+              creator,
+          </if>
+          <if test="orgNumber != null">
+              orgnumber,
+          </if>
+          <if test="orgDesc != null">
+              orgdesc,
+          </if>
+          <if test="chargeOrgId != null">
+              chargeorgid,
+          </if>
+          
+          <if test="orgLevel != null">
+              org_level,
+          </if>
+          <if test="orgXzqm != null">
+              org_xzqm,
+          </if>
+          <if test="isDirectlyparty != null">
+              isdirectlyparty,
+          </if>
+          <if test="isForeignparty != null">
+              isforeignparty,
+          </if>
+          <if test="isJichaparty != null">
+              isjichaparty,
+          </if>
+          <if test="isDirectguanhu != null">
+              isdirectguanhu,
+          </if>
+
+          <if test="remark1 != null">
+              remark1,
+          </if>
+          <if test="remark2 != null">
+              remark2,
+          </if>
+          <if test="remark3 != null">
+              remark3,
+          </if>
+          <if test="remark4 != null">
+              remark4,
+          </if>
+          <if test="remark5 != null">
+              remark5,
+          </if>
+          <if test="remark6 != null">
+              remark6,
+          </if>
+          <if test="remark7 != null">
+              remark7,
+          </if>
+          <if test="remark8 != null">
+              remark8,
+          </if>
+          <if test="remark9 != null">
+              remark9,
+          </if>
+          <if test="remark10 != null">
+              remark10,
+          </if>
+      </trim>
+      <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+          <if test="orgId != null">
+              <![CDATA[#{orgId,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="orgSn != null">
+              <![CDATA[#{orgSn,jdbcType=NUMERIC},]]>
+          </if>
+          <if test="orgName != null">
+              <![CDATA[#{orgName,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="orgShowName != null">
+              <![CDATA[#{orgShowName,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="parentId != null">
+              <![CDATA[#{parentId,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="path != null">
+              <![CDATA[#{path,jdbcType=VARCHAR},]]>
+          </if>
+
+          <if test="layer != null">
+              <![CDATA[#{layer,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="children != null">
+              <![CDATA[#{children,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="code != null">
+              <![CDATA[#{code,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="jp != null">
+              <![CDATA[#{jp,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="qp != null">
+              <![CDATA[#{qp,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="creatingTime != null">
+              <![CDATA[#{creatingTime,jdbcType=TIMESTAMP},]]>
+          </if>
+          <if test="creator != null">
+              <![CDATA[#{creator,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="orgNumber != null">
+              <![CDATA[#{orgNumber,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="orgDesc != null">
+              <![CDATA[#{orgDesc,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="chargeOrgId != null">
+              <![CDATA[#{chargeOrgId,jdbcType=VARCHAR},]]>
+          </if>
+          
+          <if test="orgLevel != null">
+              <![CDATA[#{orgLevel,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="orgXzqm != null">
+              <![CDATA[#{orgXzqm,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="isDirectlyparty != null">
+              <![CDATA[#{isDirectlyparty,jdbcType=NUMERIC},]]>
+          </if>
+          <if test="isForeignparty != null">
+              <![CDATA[#{isForeignparty,jdbcType=NUMERIC},]]>
+          </if>
+          <if test="isJichaparty != null">
+              <![CDATA[#{isJichaparty,jdbcType=NUMERIC},]]>
+          </if>
+          <if test="isDirectguanhu != null">
+              <![CDATA[#{isDirectguanhu,jdbcType=NUMERIC},]]>
+          </if>
+
+          <if test="remark1 != null">
+              <![CDATA[#{remark1,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark2 != null">
+              <![CDATA[#{remark2,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark3 != null">
+              <![CDATA[#{remark3,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark4 != null">
+              <![CDATA[#{remark4,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark5 != null">
+              <![CDATA[#{remark5,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark6 != null">
+              <![CDATA[#{remark6,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark7 != null">
+              <![CDATA[#{remark7,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark8 != null">
+              <![CDATA[#{remark8,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark9 != null">
+              <![CDATA[#{remark9,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark10 != null">
+              <![CDATA[#{remark10,jdbcType=VARCHAR},]]>
+          </if>
+      </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.chinacreator.asp.comp.sys.basic.org.eo.OrgEO" databaseId="mysql">
+  	UPDATE td_sm_organization
+        <set>
+          <if test="orgSn != null">
+              <![CDATA[org_sn = #{orgSn,jdbcType=NUMERIC},]]>
+          </if>
+          <if test="orgName != null">
+              <![CDATA[org_name = #{orgName,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="orgShowName != null">
+              <![CDATA[org_showname = #{orgShowName,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="parentId != null">
+              <![CDATA[parent_id = #{parentId,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="path != null">
+              <![CDATA[path = #{path,jdbcType=VARCHAR},]]>
+          </if>
+
+          <if test="layer != null">
+              <![CDATA[layer = #{layer,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="children != null">
+              <![CDATA[children = #{children,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="code != null">
+              <![CDATA[code = #{code,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="jp != null">
+              <![CDATA[jp = #{jp,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="qp != null">
+              <![CDATA[qp = #{qp,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="creatingTime != null">
+              <![CDATA[creatingtime = #{creatingTime,jdbcType=TIMESTAMP},]]>
+          </if>
+          <if test="creator != null">
+              <![CDATA[creator = #{creator,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="orgNumber != null">
+              <![CDATA[orgnumber = #{orgNumber,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="orgDesc != null">
+              <![CDATA[orgdesc = #{orgDesc,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="chargeOrgId != null">
+              <![CDATA[chargeorgid = #{chargeOrgId,jdbcType=VARCHAR},]]>
+          </if>
+          
+          <if test="orgLevel != null">
+              <![CDATA[org_level = #{orgLevel,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="orgXzqm != null">
+              <![CDATA[org_xzqm = #{orgXzqm,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="isDirectlyparty != null">
+              <![CDATA[isdirectlyparty = #{isDirectlyparty,jdbcType=NUMERIC},]]>
+          </if>
+          <if test="isForeignparty != null">
+              <![CDATA[isforeignparty = #{isForeignparty,jdbcType=NUMERIC},]]>
+          </if>
+          <if test="isJichaparty != null">
+              <![CDATA[isjichaparty = #{isJichaparty,jdbcType=NUMERIC},]]>
+          </if>
+          <if test="isDirectguanhu != null">
+              <![CDATA[isdirectguanhu = #{isDirectguanhu,jdbcType=NUMERIC},]]>
+          </if>
+
+          <if test="remark1 != null">
+              <![CDATA[remark1 = #{remark1,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark2 != null">
+              <![CDATA[remark2 = #{remark2,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark3 != null">
+              <![CDATA[remark3 = #{remark3,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark4 != null">
+              <![CDATA[remark4 = #{remark4,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark5 != null">
+              <![CDATA[remark5 = #{remark5,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark6 != null">
+              <![CDATA[remark6 = #{remark6,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark7 != null">
+              <![CDATA[remark7 = #{remark7,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark8 != null">
+              <![CDATA[remark8 = #{remark8,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark9 != null">
+              <![CDATA[remark9 = #{remark9,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="remark10 != null">
+              <![CDATA[remark10 = #{remark10,jdbcType=VARCHAR}]]>
+          </if>
+        </set>
+        WHERE <![CDATA[org_id = #{orgId,jdbcType=VARCHAR}]]>
+  </update>
+  
+  <select id="queryAll" resultMap="OrgResultMap" databaseId="mysql">
+    SELECT <include refid="Org_Column_List" />
+      FROM td_sm_organization
+  </select>
+  
+  <select id="queryByPK" parameterType="java.lang.String" resultMap="OrgResultMap" databaseId="mysql">	
+  	  SELECT <include refid="Org_Column_List" />
+      FROM td_sm_organization
+      WHERE <![CDATA[org_id = #{orgId,jdbcType=VARCHAR}]]>
+  </select>
+  
+  <select id="queryFatherOrgs" parameterType="java.lang.String" resultMap="OrgResultMap" databaseId="mysql">
+  	SELECT <include refid="Org_Column_List" />
+  	 <![CDATA[ 
+  	 	FROM td_sm_organization  	 
+	  	WHERE find_in_set(org_id,org_getParents(#{orgId,jdbcType=VARCHAR}))
+	  	OR org_id = #{orgId,jdbcType=VARCHAR}
+  	 ]]> 
+  </select>
+  
+  <select id="queryFatherOrgsUnRecursive" parameterType="java.lang.String" resultMap="OrgResultMap" databaseId="mysql">
+  SELECT <include refid="Org_Column_List" />
+      FROM td_sm_organization
+      where org_id = <![CDATA[#{orgId,jdbcType=VARCHAR}]]>
+      UNION
+  	 (SELECT <include refid="Org_Column_List" />
+      FROM td_sm_organization
+      where org_id in (SELECT parent_id FROM td_sm_organization WHERE org_id = <![CDATA[#{orgId,jdbcType=VARCHAR}]]>))
+  </select>
+  
+  <select id="queryChildOrgs" parameterType="java.lang.String" resultMap="OrgResultMap" databaseId="mysql">
+     SELECT <include refid="Org_Column_List" />
+  	 <![CDATA[
+  	 	FROM td_sm_organization  	  
+	  	WHERE find_in_set(org_id,org_getChilds(#{orgId,jdbcType=VARCHAR}))
+	  	ORDER BY org_sn
+  	 ]]>
+  </select>
+  
+  <select id="queryChildOrgsUnRecursive" parameterType="java.lang.String" resultMap="OrgResultMap" databaseId="mysql">
+  	  SELECT <include refid="Org_Column_List" />
+      FROM td_sm_organization
+      WHERE parent_id = <![CDATA[#{orgId,jdbcType=VARCHAR}]]>
+      ORDER BY org_sn
+  </select>
+  
+  <update id="setOrder" parameterType="com.chinacreator.asp.comp.sys.basic.org.eo.OrgEO" databaseId="mysql">
+      UPDATE td_sm_organization
+      <set>
+          <if test="orgSn != null">
+              <![CDATA[org_sn = #{orgSn,jdbcType=NUMERIC}]]>
+          </if>
+      </set>
+       WHERE <![CDATA[org_id = #{orgId,jdbcType=VARCHAR}]]>
+  </update>
+  
+  <delete id="deleteByPKs" databaseId="mysql">
+  	DELETE FROM td_sm_organization WHERE org_id IN
+  	<foreach item="idItem" collection="array" open="(" separator="," close=")">
+            <![CDATA[#{idItem}]]>
+    </foreach>
+  </delete>
+  
+  <select id="isOrgMgr" resultType="int" databaseId="mysql">
+  SELECT COUNT(*) FROM (
+  	SELECT tt.* FROM td_sm_user tt
+     INNER JOIN td_sm_userinstance tt1 ON tt.user_id = tt1.user_id AND tt1.is_enabled = '1'
+     INNER JOIN td_sm_userinstancerole tt2 ON tt1.id = tt2.userinstance_id
+     INNER JOIN td_sm_role tt3 ON tt2.role_id = tt3.role_id AND tt3.role_usage = '1'
+     <trim prefix="WHERE" prefixOverrides="AND |OR ">
+         tt1.scope_type = '1'
+         <if test="roleId != null">
+             <![CDATA[AND tt3.role_id = #{roleId,jdbcType=VARCHAR}]]>
+         </if>
+         <if test="orgId != null">
+             <![CDATA[AND tt1.scope_id = #{orgId,jdbcType=VARCHAR}]]>
+         </if>
+         <if test="userId != null">
+             <![CDATA[AND tt.user_id = #{userId,jdbcType=VARCHAR}]]>
+         </if>
+     </trim>
+     ) ttt
+     
+  </select>
+  
+  <select id="existsChildOrgs" resultType="int" databaseId="mysql">
+  	<![CDATA[
+  	SELECT COUNT(*)
+      FROM td_sm_organization
+      where parent_id = #{orgId,jdbcType=VARCHAR}
+  	 ]]>
+  </select>
+</mapper>
+

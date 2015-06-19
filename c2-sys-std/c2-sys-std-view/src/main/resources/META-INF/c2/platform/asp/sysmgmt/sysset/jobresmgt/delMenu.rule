@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="delMenu" className="com.chinacreator.asp.comp.sys.basic.menu.service.MenuService" method="deleteByPKs">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>删除菜单</name>
+  <desc>删除菜单</desc>
+  <inputs>
+    <input collection="false" desc="" id="menuIds" required="true" type="[LString;"/>
+  </inputs>
+  <outputs/>
+  <res>OfvQX6iCRNi3tBS7Pf4vGQ</res>
+  <params>
+    <param autoValue="Input.menuIds" name="menuIds" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

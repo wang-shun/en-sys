@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="personInfo_getOrgs" log="false" className="com.chinacreator.asp.sysmgmt.mypanel.PersonInfo" method="getOrgs">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取当前登录用户所属机构显示名称字符串</name>
+  <desc>获取指定用户所属机构显示名称字符串</desc>
+  <inputs/>
+  <outputs>
+    <output autoValue="Result" desc="用户所属机构显示名称字符串，例：&quot;(主)机构A，机构B，机构C&quot;&lt;br>          一条记录也没查询到的情况下返回空字符串" id="result" name="方法返回值" type="String"/>
+  </outputs>
+  <params/>
+  <return signature="QString;" type="String"/>
+</CustomRule>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addOrg" className="com.chinacreator.asp.comp.sys.advanced.org.service.OrgService" method="create">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>新增机构</name>
+  <desc>新增机构</desc>
+  <inputs>
+    <input collection="false" desc="" id="result" required="true" type="com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO"/>
+  </inputs>
+  <outputs/>
+  <res>UNpGHY6uShOw3-q3hEfdxA</res>
+  <params>
+    <param name="orgDTO" signature="QOrgDTO;" type="com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO" value="Input.result"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

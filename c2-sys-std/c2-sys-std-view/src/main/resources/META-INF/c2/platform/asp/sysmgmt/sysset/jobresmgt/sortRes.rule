@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="sortRes" className="com.chinacreator.asp.sysmgmt.sysset.jobresmgt.JobResMgt" method="sortPrivilege">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>资源排序</name>
+  <inputs>
+    <input collection="false" desc="" id="privilegeIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>oearbzxKQb6raemZ40l_WQ</res>
+  <params>
+    <param autoValue="Input.privilegeIds" name="privilegeIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

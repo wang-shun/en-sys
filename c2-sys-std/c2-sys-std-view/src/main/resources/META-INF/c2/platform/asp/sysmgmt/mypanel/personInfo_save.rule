@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="personInfo_save" className="com.chinacreator.asp.comp.sys.advanced.user.service.UserService" method="update">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>保存个人信息</name>
+  <desc>修改用户</desc>
+  <inputs>
+    <input collection="false" desc="" id="result" required="true" type="com.chinacreator.asp.comp.sys.core.user.dto.UserDTO"/>
+  </inputs>
+  <outputs/>
+  <res>hmGfn6i5RpOjrUBPPhp4aw</res>
+  <params>
+    <param name="userDto" signature="QUserDTO;" type="com.chinacreator.asp.comp.sys.core.user.dto.UserDTO" value="Input.result"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

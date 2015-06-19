@@ -1,0 +1,1103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="资源管理" res="YWRDOyIBS826rltHSFMN2g" sn="resMain" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="true">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-top:5px;">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup3" name="资源管理">
+    <form:control type="container/widgetbox">
+      <form:attributes source="container/widgetbox">
+        <dync:attribute default="12" group="布局配置" id="span" name="占位数" value="3">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="noPadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="newGroup6" name="Widget工具条">
+      <form:control type="container/toolbar_widget">
+        <form:attributes source="container/toolbar_widget"/>
+      </form:control>
+      <form:child xsi:type="form:Field" id="newField7" name="新增" res="O7g2ZVbbTpuLAj0_T4lA-w" customize="true">
+        <form:control type="widget/button">
+          <form:attributes source="widget/button">
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="addRes()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-plus">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="purple">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" id="newField15" name="删除" res="5uzkbUJ5RtWmU2P2Ua1GAA" customize="true">
+        <form:control type="widget/button">
+          <form:attributes source="widget/button">
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="delRes()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-trash-o">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="red">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Group" id="newGroup8" name="普通工具条">
+        <form:control type="container/toolbar">
+          <form:attributes source="container/toolbar">
+            <dync:attribute default="normal" group="基本设置" id="type" name="类型" value="dropdown">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:child xsi:type="form:Field" id="newField14" name="移动" res="Rw5e2UeIStiXbppMncIEuw" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="moveResTree()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-exchange">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="orange2">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField12" name="刷新" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="refreshAsyncResTree()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.resTree" id="resTree" name="树控件" customize="true">
+      <form:control type="widget/tree">
+        <form:attributes source="widget/tree">
+          <dync:attribute default="6" group="显示设置" id="span" name="占位数" value="12">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="pId" group="数据设置" id="simpleDataPid" name="简单数据pId" value="pid">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="[&quot;id&quot;]" group="数据设置" id="autoParam" name="自动参数" value="[&quot;id&quot;,&quot;pid&quot;,&quot;type&quot;]">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="{ &quot;Y&quot;: &quot;ps&quot;, &quot;N&quot;: &quot;ps&quot; }" group="显示设置" id="chkboxType" name="父子节点关联" value="{ &quot;Y&quot;: &quot;p&quot;, &quot;N&quot;: &quot;s&quot; }">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="功能设置" id="editorEnable" name="编辑" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="功能设置" id="dragMove" name="拖拽移动" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="beforeDrag" name="拖拽前" value="resTree_beforeDrag(treeId,treeNodes)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="功能设置" id="dragInner" name="拖拽为子节点" value="resTree_dragInner(treeId,treeNodes,targetNode)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="beforeDrop" name="拖拽结束前" value="resTree_beforeDrop(treeId,treeNodes,targetNode,moveType,isCopy)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="nodeDrop" name="拖拽结束" value="resTree_nodeDrop(event,treeId,treeNodes,targetNode,moveType,isCopy)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="auto" group="显示设置" id="height" name="高度" value="">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="显示设置" id="computeHeight" name="自动计算高度" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="12" group="显示设置" id="computeHeightFix" name="高度修正" value="0">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="显示设置" id="autoCheckTrigger" name="关联触发" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="name" group="数据设置" id="nodeTitle" name="悬停提示" value="noteTitle">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="显示设置" id="expendLevel" name="默认展开级数" value="1">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="nodeClick" name="单击" value="resTree_nodeClick(event,treeId,treeNode,clickFlag)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="{{$model.title}}">
+    <form:control type="container/widgetbox">
+      <form:attributes source="container/widgetbox">
+        <dync:attribute default="12" group="布局配置" id="span" name="占位数" value="9">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="noPadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Group" id="widgexbox_toolbar" name="widgexbox_toolbar">
+      <form:control type="container/toolbar_widget">
+        <form:attributes source="container/toolbar_widget"/>
+      </form:control>
+      <form:child xsi:type="form:Field" id="newField1" name="保存" customize="true">
+        <form:control type="widget/button">
+          <form:attributes source="widget/button">
+            <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="red">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="!$model.isResSave">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resSave()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" id="newField2" name="重置" customize="true">
+        <form:control type="widget/button">
+          <form:attributes source="widget/button">
+            <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resRefresh()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Group" id="messDiv" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="!$model.isShowMessDiv">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Field" binding="$model.mess" id="newField" name="文本" customize="true">
+        <form:control type="widget/span">
+          <form:attributes source="widget/span">
+            <dync:attribute default="6" group="基础属性" id="span" name="占位数" value="12">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Group" id="formDiv" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="$model.isShowMessDiv">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-top:30px;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Field" binding="$model.res.privilegeCode" id="privilegeCode_Field" name="资源编码：" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="9">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="75" group="基本设置" id="lableWidth" name="左外边距" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="!$model.isEditCode">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="blur" name="失去焦点" value="element_blur($event)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="50">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="custom" group="数据校验" id="valitype" name="数据验证" value="combiOne">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据校验" id="pattern" name="正则表达式" value="/^[\w]+$/">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入数字、字母、下划线!">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.res.privilegeName" id="privilegeName_Field" name="资源名称：" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="75" group="基本设置" id="lableWidth" name="左外边距" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="9">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="!$model.isEditName">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="blur" name="失去焦点" value="element_blur($event)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="custom" group="数据校验" id="valitype" name="数据验证" value="combiTwo">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据校验" id="pattern" name="正则表达式" value="/^[\w\u4e00-\u9fa5]+$/">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入中文、数字、字母、下划线!">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.res.type" id="type_Field" name="资源类型：" customize="true">
+        <form:control type="widget/select_simple">
+          <form:attributes source="widget/select_simple">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="9">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;service&quot;:&quot;服务&quot;,&quot;form&quot;:&quot;表单&quot;,&quot;dom&quot;:&quot;表单元素&quot;,&quot;menu&quot;:&quot;菜单&quot;,&quot;entity&quot;:&quot;实体&quot;,&quot;entity_op&quot;:&quot;实体操作&quot;,&quot;custom&quot;:&quot;自定义&quot;}">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="selectDisabled" name="禁用" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.res.isEnabled" id="isEnabled_Field" name="是否显示：" customize="true">
+        <form:control type="widget/select_simple">
+          <form:attributes source="widget/select_simple">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="9">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;true&quot;:&quot;显示&quot;,&quot;false&quot;:&quot;不显示&quot;}">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="下拉框设置" id="defaultValue" name="默认值" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="基本设置" id="show" name="可见" value="$model.isShowMenuField">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.res.displayMode" id="displayMode_Field" name="打开方式：" customize="true">
+        <form:control type="widget/select_simple">
+          <form:attributes source="widget/select_simple">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="9">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;0&quot;:&quot;div中&quot;,&quot;1&quot;:&quot;iframe中&quot;,&quot;2&quot;:&quot;新页面中&quot;}">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="下拉框设置" id="defaultValue" name="默认值" value="0">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="基本设置" id="show" name="可见" value="$model.isShowMenuField">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.res.icon" id="icon_Field" name="图标选择：" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="9">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="75" group="基本设置" id="lableWidth" name="左外边距" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="输入框组" id="inputGroup" name="启用输入框组" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="$model.isShowMenuField">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="250">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.res.href" id="href_Field" name="链接路径：" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="9">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="75" group="基本设置" id="lableWidth" name="左外边距" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="$model.isShowMenuField">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="250">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.res.menuExt" id="menuExt_Field" name="扩展属性：" customize="true">
+        <form:control type="widget/textarea">
+          <form:attributes source="widget/textarea">
+            <dync:attribute default="12" group="HTML设置" id="span" name="占位数" value="9">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="75" group="HTML设置" id="lableWidth" name="lable宽度" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$model.isShowMenuField">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.res.creatorTime" id="creatorTime_Field" name="创建时间：" customize="true">
+        <form:control type="widget/date_time_picker">
+          <form:attributes source="widget/date_time_picker">
+            <dync:attribute default="6" group="基本设置" id="span" name="控件宽度" value="9">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="75" group="基本设置" id="lableWidth" name="文字宽度" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="inputReadonly" name="文本框只读" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="时间设置" id="readonly" name="控件禁用" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="YYYY-MM-DD HH:mm:ss" group="时间设置" id="format" name="时间格式" value="YYYY-MM-DD">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="时间设置" id="pickTime" name="时间面板" value="false">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="时间设置" id="useMinutes" name="分钟选择" value="false">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="时间设置" id="useSeconds" name="秒选择" value="false">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.res.source" id="source_Field" name="资源来源：" customize="true">
+        <form:control type="widget/select_simple">
+          <form:attributes source="widget/select_simple">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="9">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="120">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="selectDisabled" name="禁用" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;0&quot;:&quot;手工创建&quot;,&quot;1&quot;:&quot;IDE同步&quot;}">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="下拉框设置" id="defaultValue" name="默认值" value="&quot;0&quot;">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:TreeDataSource" id="resTree" name="资源树型数据源" impl="com.chinacreator.asp.sysmgmt.sysset.resmgt.ResTreeContentProviderImpl" type="custom"/>
+  </form:datasources>
+  <form:scripts>page_onload:function(){
+	$model.resInfo = {
+			infoType : &quot;none&quot;,
+	};
+	$model.mess = &quot;请选择资源&quot;;
+	this.resInfoController();
+},
+// 获取资源树
+getResTree:function(){
+	return $view.resTree;
+},
+// 新增资源
+addRes:function(){
+	var selectNode = this.getResTree().getSelectedNodes()[0];
+	if(angular.isUndefined(selectNode) || angular.isUndefined(selectNode.id)){
+		Messenger.post({
+		    'message': &quot;请选择需要新增资源的父资源！&quot;,
+		    'type': 'error',
+		});
+	}else if(&quot;menu&quot;==selectNode.type || &quot;custom&quot;==selectNode.type){
+		$model.resInfo = {
+				infoType : &quot;add&quot;,
+				node : {
+					type : selectNode.type,
+					obj : {
+						type : selectNode.type,
+						creatorTime : new Date(),
+						source : &quot;0&quot;,
+						parentId : selectNode.privilegeId,
+					}
+				}
+		};
+		this.resInfoController();
+	}else {
+		Messenger.post({
+		    'message': selectNode.name+&quot;下不允许新增！&quot;,
+		    'type': 'error',
+		});
+	}
+},
+// 删除资源
+delRes:function(){
+	var selectNodes = this.getResTree().getSelectedNodes();
+	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){
+		var menuIds = [];
+		var customIds = [];
+		var resNames = &quot;&quot;;
+		var _this = this;
+		var delErrMess = &quot;&quot;;
+		angular.forEach(selectNodes, function (value, key) {
+				if(&quot;menu&quot;==value.type &amp;&amp; &quot;0&quot;!=value.privilegeId){
+					menuIds.push(value.privilegeId);
+					resNames += value.name+&quot;,&quot;;
+				}else if(&quot;custom&quot;==value.type &amp;&amp; &quot;other&quot;!=value.id &amp;&amp; &quot;0&quot;==value.source){
+					customIds.push(value.privilegeId);
+					resNames += value.name+&quot;,&quot;;
+				}else{
+					delErrMess += value.name+&quot;,&quot;;
+				}
+        	});
+        if(delErrMess.length>0){
+        	Messenger.post({
+	                'message': delErrMess.substring(0,delErrMess.length-1) + &quot;不允许被删除！&quot;,
+	                'type': 'error',
+	            });
+	        return;
+        }
+        Modal.openDelConfirm({message:&quot;是否确认删除资源及其子资源?&lt;br>待删除资源：&quot;+resNames.substring(0, resNames.length-1)},function(){
+        	$http.post(&quot;ws/delRes&quot;,{&quot;customIds&quot;:customIds,&quot;menuIds&quot;:menuIds})
+        			.success(function(data, status, headers, config){
+						Messenger.post({
+			                'message': &quot;删除资源成功！&quot;,
+			                'type': 'success',
+			            });
+			            _this.refreshAsyncResTree();
+			            _this.cleanPermittedCache();
+			            $model.resInfo = {
+									infoType : &quot;none&quot;,
+							};
+						_this.resInfoController();
+					});
+        });		
+	}else{
+		Messenger.post({
+		    'message': &quot;请选择需要删除的资源！&quot;,
+		    'type': 'error',
+		});
+	}
+},
+// 移动资源
+moveResTree:function(){
+	if(angular.isUndefined($model.resTreeDrag)){
+		$model.resTreeDrag = false;
+	}
+	$model.resTreeDrag = !$model.resTreeDrag;
+	Messenger.post({
+		    'message': ($model.resTreeDrag?&quot;开启&quot;:&quot;关闭&quot;)+&quot;资源移动功能！&quot;,
+		    'type': 'info',
+		});
+},
+// 资源树拖拽前(节点是否可以拖拽)
+resTree_beforeDrag:function(treeId,treeNodes){
+	if(angular.isUndefined($model.resTreeDrag)){
+		$model.resTreeDrag = false;
+	}	
+	var resTreeDrag = $model.resTreeDrag;
+	if(resTreeDrag){
+		if(treeNodes[0].virtual){
+			resTreeDrag = false;
+		}
+	}
+	return resTreeDrag;
+},
+// 资源树拖拽为子节点(不能为子节点)
+resTree_dragInner:function(treeId,treeNodes,targetNode){
+	if(!angular.isUndefined(treeNodes) 
+			&amp;&amp; !angular.isUndefined(targetNode)){
+		for(var i in treeNodes){
+			if(treeNodes[i].virtual || &quot;menu&quot;!=treeNodes[i].type){
+				return false;
+			}
+		}
+		if(targetNode.virtual || &quot;menu&quot;!=targetNode.type){
+			return false;
+		}
+		return true;
+	}  
+	return false;
+},
+// 资源树拖拽结束前(不能为父节点)
+resTree_beforeDrop:function(treeId,treeNodes,targetNode,moveType,isCopy){
+	if(!angular.isUndefined(treeNodes) 
+			&amp;&amp; !angular.isUndefined(targetNode)){
+		if(treeNodes[0].getParentNode()==targetNode.getParentNode()){		
+			return true;
+		}	
+		for(var i in treeNodes){
+			if(treeNodes[i].virtual || &quot;menu&quot;!=treeNodes[i].type){
+				return false;
+			}
+		}
+		if(targetNode.virtual || &quot;menu&quot;!=targetNode.type){
+			return false;
+		}
+		return true;
+	}
+	return false;
+},
+// 资源树拖拽结束(排序保存操作)
+resTree_nodeDrop:function(event,treeId,treeNodes,targetNode,moveType,isCopy){
+	var resIds = [];
+	var parentId = null;
+	var sortResIds = [];
+	
+	if(!angular.isUndefined(treeNodes) &amp;&amp; angular.isArray(treeNodes)){
+		angular.forEach(treeNodes, function (value, key) {
+			resIds.push(value.id);
+        });
+	}
+	
+	var parentNode = null;
+	if(!angular.isUndefined(targetNode) &amp;&amp; moveType!=null){
+		if(moveType=='inner'){
+			parentNode = targetNode;			
+		}else{
+			parentNode = targetNode.getParentNode();
+		}
+	}else{
+		Messenger.post({
+			                'message': &quot;拖拽无效！移动失败！&quot;,
+			                'type': 'error',
+			            });
+		return;
+	}
+	
+	if(parentNode == null){
+		Messenger.post({
+			                'message': &quot;拖拽无效！移动失败！&quot;,
+			                'type': 'error',
+			            });
+		return;
+	}
+	
+	parentId = parentNode.id;
+	var parentType = parentNode.type;
+	var childrens = parentNode.children;
+	if(!angular.isUndefined(childrens) &amp;&amp; angular.isArray(childrens)){
+		angular.forEach(childrens, function (value, key) {
+			sortResIds.push(value.privilegeId);
+        });
+	}
+	
+	$http.post(&quot;ws/moveRes&quot;,{&quot;resIds&quot;:resIds,&quot;parentId&quot;:parentId,&quot;parentType&quot;:parentType,&quot;sortResIds&quot;:sortResIds})
+			.success(function(data, status, headers, config){
+				Messenger.post({
+	                'message': &quot;资源移动成功！&quot;,
+	                'type': 'success',
+	            });
+			});
+},
+// 强制异步刷新资源树
+refreshAsyncResTree:function(){
+	var _this = this;
+	var params = _this.getResTree().getParams();
+		if(angular.isUndefined(params)){
+			params = {};
+		}
+		params.isLoad = &quot;true&quot;;
+	var selectNodes = _this.getResTree().getSelectedNodes();
+	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){		
+		angular.forEach(selectNodes, function (value, key) {		
+			_this.getResTree().refresh2(params,true,false,false,value.getParentNode());		
+        	});
+	}else{
+		_this.getResTree().refresh2(params,true,false,false);		
+	}	
+},
+// 清除当前登录用户的权限缓存
+cleanPermittedCache:function(){
+	$http.post(&quot;ws/cleanPermittedCache&quot;,{});	
+},
+// 资源树单击事件
+resTree_nodeClick:function(event,treeId,treeNode,clickFlag){
+	if(treeNode.virtual){
+		$model.resInfo = {
+				infoType : &quot;none&quot;,
+		};
+	}else{
+		$model.resInfo = {
+				infoType : ((&quot;menu&quot;==treeNode.type || &quot;custom&quot;==treeNode.type) &amp;&amp; &quot;0&quot;==treeNode.obj.source)?&quot;edit&quot;:&quot;info&quot;,
+				node : treeNode
+		};
+	}
+	this.resInfoController();
+	$scope.$apply();
+},
+resInfoController:function(){
+	var info = $model.resInfo;
+	if(angular.isUndefined(info)){
+		info = {
+				infoType : &quot;none&quot;,
+		};
+	}
+	
+	var virtual = true;
+	if(&quot;none&quot;==info.infoType){
+		virtual = true;
+		$model.title = &quot;资源信息&quot;;
+		$model.isShowMessDiv = true;
+		$model.isShowMenuField = false;
+		$model.isResSave = false;
+	}else if(&quot;info&quot;==info.infoType){
+		virtual = false;
+		$model.title = &quot;资源信息&quot;;
+		$model.isEditCode = false;
+		$model.isEditName = false;
+		$model.isResSave = false;
+	}else if(&quot;add&quot;==info.infoType){
+		virtual = false;
+		$model.title = &quot;新增资源&quot;;
+		$model.isEditCode = true;
+		$model.isEditName = true;
+		$model.isResSave = true;
+	}else if(&quot;edit&quot;==info.infoType){
+		virtual = false;
+		$model.title = &quot;编辑资源&quot;;
+		$model.isEditCode = false;
+		$model.isEditName = true;
+		$model.isResSave = true;
+	}
+	
+	$model.isShowMessDiv = virtual; 
+	if(!virtual){
+		$view.mainForm.removeTipMessage();
+		var node = info.node;
+		$model.res = angular.copy(node.obj);
+		if(&quot;menu&quot;==node.type){		
+			$model.res.privilegeId = node.obj.menuId;
+			$model.res.privilegeCode = node.obj.menuCode;
+			$model.res.privilegeName = node.obj.menuName;
+			$model.res.type = &quot;menu&quot;;
+			$model.isShowMenuField = true;
+		}else{
+			$model.isShowMenuField = false;
+		}
+	}
+},
+// 保存资源
+resSave:function(){
+	if(this.validateForm() &amp;&amp; $view.mainForm.check()){
+		var info = $model.resInfo;
+		var _this = this;
+		if(!angular.isUndefined(info)){
+			if(&quot;add&quot;==info.infoType){
+				if(&quot;menu&quot;==info.node.type){
+					$model.res.menuCode = $model.res.privilegeCode;
+					$model.res.menuName = $model.res.privilegeName;
+					$http.post(&quot;ws/addMenu&quot;,{menuDTO:$model.res})
+						.success(function(data, status, headers, config){
+							Messenger.post({
+				                'message': &quot;新增菜单成功！&quot;,
+				                'type': 'success',
+				            });
+				            $model.res.menuId = data.result;
+				            $model.res.privilegeId = data.result;
+				            _this.refreshAsyncResTree();
+				            _this.cleanPermittedCache();
+				            $model.resInfo = {
+									infoType : &quot;edit&quot;,
+									node : {
+										type : &quot;menu&quot;,
+										obj : $model.res
+									}
+							};
+							_this.resInfoController();
+						});	
+				}else{
+					$http.post(&quot;ws/addRes&quot;,{privilegeDTO:$model.res})
+						.success(function(data, status, headers, config){
+							Messenger.post({
+				                'message': &quot;新增资源成功！&quot;,
+				                'type': 'success',
+				            });
+				            $model.res.privilegeId = data.result;
+				            _this.refreshAsyncResTree();
+				            _this.cleanPermittedCache();
+				            $model.resInfo = {
+									infoType : &quot;edit&quot;,
+									node : {
+										type : &quot;custom&quot;,
+										obj : $model.res
+									}
+							};
+							_this.resInfoController();
+						});					
+				}
+			}else if(&quot;edit&quot;==info.infoType){
+				if(&quot;menu&quot;==info.node.type){
+					$model.res.menuId = $model.res.privilegeId;
+					$model.res.menuCode = $model.res.privilegeCode;
+					$model.res.menuName = $model.res.privilegeName;
+					$http.post(&quot;ws/editMenu&quot;,{menuDTO:$model.res})
+						.success(function(data, status, headers, config){
+							Messenger.post({
+				                'message': &quot;编辑菜单成功！&quot;,
+				                'type': 'success',
+				            });
+				            _this.refreshAsyncResTree();
+						});
+				}else{
+					$http.post(&quot;ws/editRes&quot;,{privilegeDTO:$model.res})
+						.success(function(data, status, headers, config){
+							Messenger.post({
+				                'message': &quot;编辑资源成功！&quot;,
+				                'type': 'success',
+				            });
+				            _this.refreshAsyncResTree();
+						});				
+				}
+			}
+		}
+	}
+},
+// 重置资源
+resRefresh:function(){
+	this.resInfoController();
+},
+// 失去焦点事件(验证唯一)
+element_blur:function($event){
+	var elementId = $event.currentTarget.id;
+	if(!$view[elementId].check()){
+		return;
+	}	
+	var elementValue = $event.currentTarget.value;
+	var validataJson = $model.validataJson;	
+	if(angular.isUndefined(validataJson)){
+		validataJson = {};
+	}
+	
+	var info = $model.resInfo;
+	if(!angular.isUndefined(info)){
+		if(&quot;add&quot;==info.infoType || &quot;edit&quot;==info.infoType){
+			if(&quot;menu&quot;==info.node.type){
+				$model.res.menuId = $model.res.privilegeId;
+				$model.res.menuCode = $model.res.privilegeCode;
+				$model.res.menuName = $model.res.privilegeName;
+				$http.post(&quot;ws/validateFormByMenu&quot;,{&quot;elementId&quot;:elementId,&quot;elementValue&quot;:elementValue,&quot;formType&quot;:info.infoType,menuDTO:$model.res})
+					.success(function(data, status, headers, config){
+						if(!angular.isUndefined(data) &amp;&amp; !angular.isUndefined(data.result)){
+							validataJson[elementId] = data.result.validate;
+							$model.validataJson = validataJson;
+							if(&quot;error&quot;==data.result.validate){					
+								$view[elementId].setTipMessage(data.result.errmess);
+							}			
+						}
+					});
+			}else{
+				$http.post(&quot;ws/validateFormByRes&quot;,{&quot;elementId&quot;:elementId,&quot;elementValue&quot;:elementValue,&quot;formType&quot;:info.infoType,privilegeDTO:$model.res})
+					.success(function(data, status, headers, config){
+						if(!angular.isUndefined(data) &amp;&amp; !angular.isUndefined(data.result)){
+							validataJson[elementId] = data.result.validate;
+							$model.validataJson = validataJson;
+							if(&quot;error&quot;==data.result.validate){					
+								$view[elementId].setTipMessage(data.result.errmess);
+							}			
+						}
+					});
+			}
+		}
+	}
+	
+},
+// 验证表单(验证唯一)
+validateForm:function(){
+	var validataJson = $model.validataJson;
+	if(!angular.isUndefined(validataJson)){
+		for(var key in validataJson){  
+	        if(&quot;error&quot;==validataJson[key]){	        	
+	        	return false;
+	        }
+		}
+	}	  
+    return true;
+}</form:scripts>
+</form:Form>

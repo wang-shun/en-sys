@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:cc="http://www.chinacreator.com/schema/cc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+       http://www.chinacreator.com/schema/cc http://www.chinacreator.com/schema/cc.xsd"> 
+
+    <bean id="AuthenticationProvider" class="com.chinacreator.c2.sysmgr.SysMgrAuthenticationProviderImpl"/>
+    
+    <bean id="AuthorizationProvider" class="com.chinacreator.c2.sysmgr.SysMgrAuthorizationProviderImpl"/>
+    
+    <bean id="Subject" class="com.chinacreator.c2.sysmgr.SysMgrSubject"/>   
+    
+    <bean id="MenuService" class="com.chinacreator.c2.sysmgr.menu.SysMgrMenuServiceImpl" />
+    
+    <bean id="DictData" class="com.chinacreator.c2.sysmgr.dict.SysMgrDictData" />
+    
+    <bean id="DictService" class="com.chinacreator.c2.sysmgr.dict.SysMgrDictServiceImpl" />
+    
+    <bean id="LogService" class="com.chinacreator.c2.sysmgr.log.SysMgrLogServiceImpl"/>
+    
+    <bean id="RemoteHost" class="com.chinacreator.c2.sysmgr.SysMgrRemoteHost" />
+    
+    <bean id="LoginInterceptor" class="com.chinacreator.c2.sysmgr.log.SysMgrLoginInterceptor"/>
+    
+    <bean id="UserPreferencesService" class="com.chinacreator.c2.sysmgr.userpreferences.SysMgrUserPreferencesServiceImpl"/>   
+</beans>

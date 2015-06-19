@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="cleanPermittedCache" className="com.chinacreator.asp.comp.sys.core.security.service.AccessControlService" method="cleanPermittedCache">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>清除当前登录用户的权限缓存</name>
+  <desc>清除当前登录用户的权限缓存</desc>
+  <inputs/>
+  <outputs/>
+  <params/>
+  <return signature="V" type="void"/>
+</CustomRule>

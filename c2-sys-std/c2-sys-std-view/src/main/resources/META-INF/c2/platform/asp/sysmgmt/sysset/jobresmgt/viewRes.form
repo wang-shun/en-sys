@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="查看资源" sn="viewRes" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="查看资源">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="变量折叠" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="折叠默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="$model.privilege.result.privilegeName" id="privilegeName" name="资源名称：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.privilege.result.privilegeCode" id="privilegeCode" name="资源编码：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.privilege.result.type" id="type" name="资源类型：">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="{&quot;1&quot;:&quot;服务&quot;,&quot;2&quot;:&quot;表单&quot;,&quot;3&quot;:&quot;表单元素&quot;,&quot;4&quot;:&quot;菜单&quot;,&quot;5&quot;:&quot;实体&quot;,&quot;6&quot;:&quot;实体操作&quot;,&quot;9&quot;:&quot;自定义&quot;}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="disabled" name="禁用" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectDisabled" name="禁用" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.privilege.result.creatorTime" id="creatorTime" name="创建时间：">
+      <form:control type="widget/date_picker">
+        <form:attributes source="widget/date_picker">
+          <dync:attribute default="75" group="HTML设置" id="lableWidth" name="文本宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="readonly" name="只读状态" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="基本设置" id="inputReadonly" name="文本框只读" value="true">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="对话框工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField" name="关闭" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-times">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="closeModal()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="privilege" name="资源" logic="rule:asp.sysmgmt.sysset.jobresmgt.getResByPK" sn="getResByPK">
+      <form:param id="privilegeId" name="新输入参数"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>// 关闭&#xD;
+closeModal:function(){&#xD;
+	Modal.instance.close();&#xD;
+},</form:scripts>
+</form:Form>

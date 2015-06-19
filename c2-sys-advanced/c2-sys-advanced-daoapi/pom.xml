@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.chinacreator.c2</groupId>
+    <artifactId>c2-sys-advanced</artifactId>
+    <version>4.1.5-SNAPSHOT</version>
+  </parent>
+  <artifactId>c2-sys-advanced-daoapi</artifactId>
+  <name>c2-sys-advanced-daoapi</name>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.chinacreator.c2</groupId>
+      <artifactId>c2-sys-basic-daoapi</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+  <description>系统管理-高级-数据访问接口层</description>
+</project>

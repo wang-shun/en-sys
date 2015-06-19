@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getAdministratorJobId" log="false" className="com.chinacreator.asp.comp.sys.std.job.facade.JobFacade" method="getAdministratorJobId">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取管理员岗位ID</name>
+  <desc>获取管理员岗位ID</desc>
+  <inputs/>
+  <outputs>
+    <output autoValue="Result" desc="管理员岗位ID" id="result" name="方法返回值" type="String"/>
+  </outputs>
+  <params/>
+  <return signature="QString;" type="String"/>
+</CustomRule>

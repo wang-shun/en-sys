@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 机构岗位映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.advanced.org.dao.OrgJobDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+  <sql id="OrgJob_Column_List"> org_id ,job_id ,job_sn </sql>
+
+  <resultMap id="OrgJobResultMap" type="com.chinacreator.asp.comp.sys.advanced.org.eo.OrgJobEO">
+  	<result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="JOB_ID" property="jobId" jdbcType="VARCHAR" />
+    <result column="JOB_SN" property="jobSn" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <insert id="createBatch" parameterType="java.util.List" databaseId="oracle">
+        INSERT INTO td_sm_orgjob
+           (org_id, job_id)
+        <foreach collection="orgJobEOList" item="orgJobEO" separator="union all">
+         SELECT
+                  <![CDATA[#{orgJobEO.orgId,jdbcType=VARCHAR}]]>,
+                  <![CDATA[#{orgJobEO.jobId,jdbcType=VARCHAR}]]>
+         FROM DUAL
+        </foreach>
+  </insert>
+  
+  <delete id="delete" databaseId="oracle">
+  	 DELETE FROM td_sm_orgjob
+  	 <trim prefix="WHERE" prefixOverrides="AND |OR ">
+	  	 <if test="orgId != null">
+	  	 	<![CDATA[org_id = #{orgId,jdbcType=VARCHAR}]]>
+	  	 </if>
+	  	 <if test="jobId != null">
+	  	 	<![CDATA[AND job_id = #{jobId,jdbcType=VARCHAR}]]>
+	  	 </if>
+  	 </trim>
+  </delete>
+  
+  <delete id="deleteByJobIds" databaseId="oracle">
+  	DELETE FROM td_sm_orgjob WHERE job_id IN
+  	<foreach item="idItem" index="index" collection="jobIds" open="(" close=")">
+  		<if test="index&gt;999 and index%1000==0">) or job_id in(</if>
+			#{idItem}
+		<if test="index%1000!=999 and index&lt;jobIds.length-1">,</if>
+	</foreach>
+  </delete>
+  
+  <delete id="deleteByOrgIds" databaseId="oracle">
+  	DELETE FROM td_sm_orgjob WHERE org_id IN
+  	<foreach item="idItem" index="index" collection="orgIds" open="(" close=")">
+  		<if test="index&gt;999 and index%1000==0">) or org_id in(</if>
+			#{idItem}
+		<if test="index%1000!=999 and index&lt;orgIds.length-1">,</if>
+	</foreach>
+  </delete>
+  
+  <delete id="deleteByJobIdOrgIds" databaseId="oracle">
+  	DELETE FROM td_sm_orgjob WHERE job_id = #{jobId,jdbcType=VARCHAR} 
+  	AND (org_id IN
+  	<foreach item="idItem" index="index" collection="orgIds" open="(" close=")">
+  		<if test="index&gt;999 and index%1000==0">) or org_id in(</if>
+			#{idItem}
+		<if test="index%1000!=999 and index&lt;orgIds.length-1">,</if>		
+	</foreach>
+	)
+  </delete> 
+</mapper>

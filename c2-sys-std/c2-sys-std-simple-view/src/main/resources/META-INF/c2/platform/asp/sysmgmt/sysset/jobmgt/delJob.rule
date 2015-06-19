@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="delJob" className="com.chinacreator.asp.comp.sys.std.job.facade.JobFacade" method="deleteByPKs">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>删除岗位</name>
+  <desc>删除岗位</desc>
+  <inputs>
+    <input collection="false" desc="" id="jobIds" required="true" type="[LString;"/>
+  </inputs>
+  <outputs/>
+  <res>-3CJ-Lh4Q8myl96Lx7uZQg</res>
+  <params>
+    <param autoValue="Input.jobIds" name="jobIds" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

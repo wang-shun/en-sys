@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addDictType" className="com.chinacreator.asp.comp.sys.basic.dict.service.DictTypeService" method="create">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>新增字典类型</name>
+  <desc>新增字典类型</desc>
+  <inputs>
+    <input collection="false" desc="" id="result_out" required="true" type="com.chinacreator.asp.comp.sys.basic.dict.dto.DictTypeDTO"/>
+  </inputs>
+  <outputs/>
+  <res>SaRRtRBYTvGsNOgIjMkwtw</res>
+  <params>
+    <param name="dictTypeDTO" signature="QDictTypeDTO;" type="com.chinacreator.asp.comp.sys.basic.dict.dto.DictTypeDTO" value="Input.result_out"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

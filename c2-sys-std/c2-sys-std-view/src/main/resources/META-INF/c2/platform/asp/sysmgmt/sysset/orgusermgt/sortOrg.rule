@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="sortOrg" className="com.chinacreator.asp.sysmgmt.sysset.orgusermgt.OrgUserMgt" method="sortOrg">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>机构排序</name>
+  <inputs>
+    <input collection="false" desc="" id="orgIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>yFRlSFALRMeNpXv_EwGrDw</res>
+  <params>
+    <param autoValue="Input.orgIds" name="orgIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

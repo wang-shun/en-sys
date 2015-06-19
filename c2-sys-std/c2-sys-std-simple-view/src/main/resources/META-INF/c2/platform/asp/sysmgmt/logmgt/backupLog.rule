@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="backupLog" className="com.chinacreator.asp.comp.sys.basic.log.service.LogService" method="backupLog">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>备份日志</name>
+  <desc>备份日志&lt;br>      备份到距今指定天数之前的所有日志（含距今指定天数前的那一天）</desc>
+  <inputs>
+    <input collection="false" desc="" id="toNDaysAgo" required="true" type="int"/>
+  </inputs>
+  <outputs/>
+  <res>KUayPTzKT8yMto87YS9Bgw</res>
+  <params>
+    <param autoValue="Input.toNDaysAgo" name="toNDaysAgo" signature="I" type="int"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

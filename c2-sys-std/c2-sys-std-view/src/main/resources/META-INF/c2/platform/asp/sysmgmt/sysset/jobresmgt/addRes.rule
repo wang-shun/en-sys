@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addRes" log="false" className="com.chinacreator.asp.comp.sys.basic.privilege.service.PrivilegeService" method="create">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>新增资源</name>
+  <desc>新增权限</desc>
+  <inputs>
+    <input collection="false" desc="" id="privilegeDTO" required="true" type="com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO"/>
+  </inputs>
+  <outputs/>
+  <res>hSy-A1GlQt6uuI5MOB7DjQ</res>
+  <params>
+    <param autoValue="Input.privilegeDTO" name="privilegeDTO" signature="QPrivilegeDTO;" type="com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

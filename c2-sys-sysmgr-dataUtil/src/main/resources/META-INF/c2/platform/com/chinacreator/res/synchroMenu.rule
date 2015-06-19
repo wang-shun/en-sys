@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="synchroMenu" className="com.chinacreator.asp.comp.sys.datautil.ide.manager.SynchroSysMgtUtil" method="synchroMenu">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>同步IDE中的菜单到系统管理</name>
+  <desc>同步IDE中的菜单到系统管理</desc>
+  <inputs/>
+  <outputs/>
+  <params/>
+  <return signature="V" type="void"/>
+</CustomRule>

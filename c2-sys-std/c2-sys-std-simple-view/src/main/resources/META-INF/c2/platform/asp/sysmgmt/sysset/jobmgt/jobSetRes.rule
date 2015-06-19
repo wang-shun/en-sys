@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="jobSetRes" className="com.chinacreator.asp.sysmgmt.sysset.jobmgt.JobMgt" method="jobSetPrivileges">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>岗位设置资源</name>
+  <inputs>
+    <input collection="false" desc="" id="jobIds" required="true" type="[Ljava.lang.String;"/>
+    <input collection="false" desc="" id="addPrivileges" required="true" type="[Ljava.lang.String;"/>
+    <input collection="false" desc="" id="delPrivileges" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>jnwE9fD7RqmbE2VqgIkfAg</res>
+  <params>
+    <param autoValue="Input.jobIds" name="jobIds" signature="[QString;" type="[Ljava.lang.String;"/>
+    <param autoValue="Input.addPrivileges" name="addPrivileges" signature="[QString;" type="[Ljava.lang.String;"/>
+    <param autoValue="Input.delPrivileges" name="delPrivileges" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="delUserByOrg" className="com.chinacreator.asp.comp.sys.advanced.user.service.UserService" method="deleteByOrg">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>删除机构下用户</name>
+  <desc>删除机构下用户</desc>
+  <inputs>
+    <input collection="false" desc="机构" id="orgId" required="true"/>
+    <input collection="false" desc="" id="userIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>5oPwhNG6TjyzeeKVsP_Q9g</res>
+  <params>
+    <param autoValue="Input.orgId" name="orgId" signature="QString;" type="java.lang.String"/>
+    <param autoValue="Input.userIds" name="userIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>
