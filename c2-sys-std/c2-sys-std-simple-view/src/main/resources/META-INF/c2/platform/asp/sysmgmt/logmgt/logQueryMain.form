@@ -18,7 +18,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="事件" id="onload" name="载入事件" value="">
+      <dync:attribute default="" group="事件" id="onload" name="载入事件" value="page_onload()">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -68,13 +68,13 @@
             </dync:attribute>
           </form:attributes>
         </form:control>
-        <form:child xsi:type="form:Field" binding="model.log_logOperUserRealName" id="log_logOperUser_Field" name="操作用户：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLog.logOperUserRealName" id="log_logOperUser_Field" name="操作用户：" customize="true">
           <form:control type="widget/text">
             <form:attributes source="widget/text"/>
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.log_operType" id="log_operType_Field" name="操作类型：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLog.operType" id="log_operType_Field" name="操作类型：" customize="true">
           <form:control type="widget/select_simple">
             <form:attributes source="widget/select_simple">
               <dync:attribute default="" group="HTML设置" id="options" name="选项" value="{&quot;&quot;:&quot; &quot;,&quot;1&quot;:&quot;新增&quot;,&quot;2&quot;:&quot;删除&quot;,&quot;3&quot;:&quot;修改&quot;,&quot;4&quot;:&quot;其他&quot;}">
@@ -97,22 +97,34 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.log_logOperdesc" id="log_logOperdesc_Field" name="日志描述：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLog.logOperdesc" id="log_logOperdesc_Field" name="日志描述：" customize="true">
           <form:control type="widget/text">
             <form:attributes source="widget/text"/>
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.log_logVisitorial" id="log_logVisitorial_Field" name="操作来源：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLog.logVisitorial" id="log_logVisitorial_Field" name="操作来源：" customize="true">
           <form:control type="widget/text">
             <form:attributes source="widget/text"/>
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.log_startDate" id="log_startDate_Field" name="操作时间：" customize="true">
-          <form:control type="widget/date_time_picker">
-            <form:attributes source="widget/date_time_picker">
-              <dync:attribute default="6" group="HTML设置" id="span" name="控件宽度" value="3">
+        <form:child xsi:type="form:Field" binding="$model.searchLogDate" id="newField7" name="操作时间：" customize="true">
+          <form:control type="widget/date_time_range_picker">
+            <form:attributes source="widget/date_time_range_picker">
+              <dync:attribute default="" group="时间设置" id="startBind" name="开始时间数据绑定" value="$model.searchLog.startDate">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="时间设置" id="endBind" name="结束时间数据绑定" value="$model.searchLog.endDate">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="YYYY-MM-DD" group="时间设置" id="format" name="时间格式" value="YYYY-MM-DD HH:mm:ss">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" group="时间设置" id="pickTime" name="时间面板" value="true">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -120,18 +132,7 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.log_endDate" id="log_endDate_Field" name="—&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;" customize="true">
-          <form:control type="widget/date_time_picker">
-            <form:attributes source="widget/date_time_picker">
-              <dync:attribute default="6" group="HTML设置" id="span" name="控件宽度" value="3">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="model.log_logStatus" id="log_logStatus_Field" name="日志状态：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLog.logStatus" id="log_logStatus_Field" name="日志状态：" customize="true">
           <form:control type="widget/select_simple">
             <form:attributes source="widget/select_simple">
               <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="{&quot;1&quot;:&quot;成功&quot;,&quot;0&quot;:&quot;失败&quot;}">
@@ -146,7 +147,7 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.log_logContent" id="log_logContent_Field" name="日志内容：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLog.logContent" id="log_logContent_Field" name="日志内容：" customize="true">
           <form:control type="widget/text">
             <form:attributes source="widget/text">
               <dync:attribute default="6" group="布局属性" id="span" name="占位数" value="12">
@@ -156,54 +157,6 @@
             </form:attributes>
           </form:control>
           <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Group" id="log_newGroup1" name="普通工具条">
-          <form:control type="container/toolbar">
-            <form:attributes source="container/toolbar">
-              <dync:attribute default="center" group="布局设置" id="position" name="按钮位置" value="pull-right">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:child xsi:type="form:Field" id="log_searchLog_button" name="查询" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="searchLog()">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-primary">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" id="log_resetSearchLog_button" name="重置" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="resetSearchLog()">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-primary">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
         </form:child>
       </form:child>
       <form:child xsi:type="form:Group" binding="model.logList" id="logGroup" name="jqgrid表格">
@@ -238,10 +191,6 @@
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="true" group="表格设置" id="multiselect" name="多选" value="false">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="事件" id="ondblClickRow" name="双击行" value="logDetails()">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
@@ -590,13 +539,13 @@
             </dync:attribute>
           </form:attributes>
         </form:control>
-        <form:child xsi:type="form:Field" binding="model.logHistory_logOperUserRealName" id="logHis_logOperUser_Field" name="操作用户：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLogHis.logOperUserRealName" id="logHis_logOperUser_Field" name="操作用户：" customize="true">
           <form:control type="widget/text">
             <form:attributes source="widget/text"/>
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.logHistory_operType" id="logHis_operType_Field" name="操作类型：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLogHis.operType" id="logHis_operType_Field" name="操作类型：" customize="true">
           <form:control type="widget/select_simple">
             <form:attributes source="widget/select_simple">
               <dync:attribute default="" group="HTML设置" id="options" name="选项" value="{&quot;&quot;:&quot; &quot;,&quot;1&quot;:&quot;新增&quot;,&quot;2&quot;:&quot;删除&quot;,&quot;3&quot;:&quot;修改&quot;,&quot;4&quot;:&quot;其他&quot;}">
@@ -619,22 +568,34 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.logHistory_logOperdesc" id="logHis_logOperdesc_Field" name="日志描述：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLogHis.logOperdesc" id="logHis_logOperdesc_Field" name="日志描述：" customize="true">
           <form:control type="widget/text">
             <form:attributes source="widget/text"/>
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.logHistory_logVisitorial" id="logHis_logVisitorial_Field" name="操作来源：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLogHis.logVisitorial" id="logHis_logVisitorial_Field" name="操作来源：" customize="true">
           <form:control type="widget/text">
             <form:attributes source="widget/text"/>
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.logHistory_startDate" id="logHis_startDate_Field" name="操作时间：" customize="true">
-          <form:control type="widget/date_time_picker">
-            <form:attributes source="widget/date_time_picker">
-              <dync:attribute default="6" group="HTML设置" id="span" name="控件宽度" value="3">
+        <form:child xsi:type="form:Field" binding="$model.searchLogHisDate" id="newField8" name="操作时间：" customize="true">
+          <form:control type="widget/date_time_range_picker">
+            <form:attributes source="widget/date_time_range_picker">
+              <dync:attribute default="" group="时间设置" id="startBind" name="开始时间数据绑定" value="$model.searchLogHis.startDate">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="时间设置" id="endBind" name="结束时间数据绑定" value="$model.searchLogHis.endDate">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="YYYY-MM-DD" group="时间设置" id="format" name="时间格式" value="YYYY-MM-DD HH:mm:ss">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="false" group="时间设置" id="pickTime" name="时间面板" value="true">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -642,18 +603,7 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.logHistory_endDate" id="logHis_endDate_Field" name="—&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;" customize="true">
-          <form:control type="widget/date_time_picker">
-            <form:attributes source="widget/date_time_picker">
-              <dync:attribute default="6" group="HTML设置" id="span" name="控件宽度" value="3">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" binding="model.logHistory_logStatus" id="logHis_logStatus_Field" name="日志状态：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLogHis.logStatus" id="logHis_logStatus_Field" name="日志状态：" customize="true">
           <form:control type="widget/select_simple">
             <form:attributes source="widget/select_simple">
               <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="{&quot;1&quot;:&quot;成功&quot;,&quot;0&quot;:&quot;失败&quot;}">
@@ -668,7 +618,7 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" binding="model.logHistory_logContent" id="logHis_logContent_Field" name="日志内容：" customize="true">
+        <form:child xsi:type="form:Field" binding="$model.searchLogHis.logContent" id="logHis_logContent_Field" name="日志内容：" customize="true">
           <form:control type="widget/text">
             <form:attributes source="widget/text">
               <dync:attribute default="6" group="布局属性" id="span" name="占位数" value="12">
@@ -678,54 +628,6 @@
             </form:attributes>
           </form:control>
           <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Group" id="logHis_newGroup1" name="普通工具条">
-          <form:control type="container/toolbar">
-            <form:attributes source="container/toolbar">
-              <dync:attribute default="center" group="布局设置" id="position" name="按钮位置" value="pull-right">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:child xsi:type="form:Field" id="logHis_searchLog_button" name="查询" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="searchLogHistory()">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-primary">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" id="logHis_resetSearchLog_button" name="重置" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="resetSearchLogHistory()">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-primary">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
         </form:child>
       </form:child>
       <form:child xsi:type="form:Group" binding="model.logHistorylist" id="logHistoryGroup" name="jqgrid表格">
@@ -756,10 +658,6 @@
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="排序" id="multiSort" name="多列排序" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="事件" id="ondblClickRow" name="双击行" value="logHistoryDetails()">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
@@ -1104,7 +1002,7 @@
             </dync:attribute>
           </form:attributes>
         </form:control>
-        <form:child xsi:type="form:Field" binding="$model.logCon_logOperdesc" id="logCon_logOperdesc_Field" name="日志描述：">
+        <form:child xsi:type="form:Field" binding="$model.searchLogCon.logOperdesc" id="logCon_logOperdesc_Field" name="日志描述：">
           <form:control type="widget/text">
             <form:attributes source="widget/text">
               <dync:attribute default="75" group="基本设置" id="lableWidth" name="左外边距" value="100">
@@ -1114,7 +1012,7 @@
             </form:attributes>
           </form:control>
         </form:child>
-        <form:child xsi:type="form:Field" binding="$model.logCon_logType" id="logCon_logType_Field" name="日志类型：">
+        <form:child xsi:type="form:Field" binding="$model.searchLogCon.logType" id="logCon_logType_Field" name="日志类型：">
           <form:control type="widget/select_simple">
             <form:attributes source="widget/select_simple">
               <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="100">
@@ -1132,7 +1030,7 @@
             </form:attributes>
           </form:control>
         </form:child>
-        <form:child xsi:type="form:Field" binding="$model.logCon_logOper" id="logCon_logOper_Field" name="日志操作ID：">
+        <form:child xsi:type="form:Field" binding="$model.searchLogCon.logOper" id="logCon_logOper_Field" name="日志操作ID：">
           <form:control type="widget/text">
             <form:attributes source="widget/text">
               <dync:attribute default="75" group="基本设置" id="lableWidth" name="左外边距" value="100">
@@ -1142,7 +1040,7 @@
             </form:attributes>
           </form:control>
         </form:child>
-        <form:child xsi:type="form:Field" binding="$model.logCon_logEnabled" id="logCon_logEnabled_Field" name="是否记录日志：">
+        <form:child xsi:type="form:Field" binding="$model.searchLogCon.logEnabled" id="logCon_logEnabled_Field" name="是否记录日志：">
           <form:control type="widget/select_simple">
             <form:attributes source="widget/select_simple">
               <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;true&quot;:&quot;记录&quot;,&quot;false&quot;:&quot;不记录&quot;}">
@@ -1159,46 +1057,6 @@
               </dync:attribute>
             </form:attributes>
           </form:control>
-        </form:child>
-        <form:child xsi:type="form:Group" id="newGroup8" name="普通工具条">
-          <form:control type="container/toolbar">
-            <form:attributes source="container/toolbar">
-              <dync:attribute default="center" group="基本设置" id="position" name="按钮位置" value="pull-right">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:child xsi:type="form:Field" id="newField27" name="查询" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="searchLogConfigSub()">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" id="newField28" name="重置" customize="true">
-            <form:control type="widget/button">
-              <form:attributes source="widget/button">
-                <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resetSearchLogConfigSub()">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
         </form:child>
       </form:child>
       <form:child xsi:type="form:Group" binding="model.logConfiglist" id="logConfigGroup" name="jqgrid表格">
@@ -1256,6 +1114,10 @@
               <dync:render/>
               <dync:children/>
             </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="searchDivShow" name="搜索DIV展开" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
           </form:attributes>
         </form:control>
         <form:child xsi:type="form:Group" id="toolbar_table" name="toolbar_table">
@@ -1274,25 +1136,6 @@
                   <dync:children/>
                 </dync:attribute>
                 <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="blue">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-              </form:attributes>
-            </form:control>
-            <form:validation/>
-          </form:child>
-          <form:child xsi:type="form:Field" id="newField7" name="查询" customize="true">
-            <form:control type="widget/button_a_table">
-              <form:attributes source="widget/button_a_table">
-                <dync:attribute default="custom" group="事件设置" id="clickType" name="事件类型" value="expend">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
-                  <dync:render/>
-                  <dync:children/>
-                </dync:attribute>
-                <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="light-blue">
                   <dync:render/>
                   <dync:children/>
                 </dync:attribute>
@@ -1488,18 +1331,8 @@ backUpLog:function(){
 		    }
 		});	
 },
-searchLog:function(){
-	var param = {
-				logOperdesc:$model.log_logOperdesc,
-				logOperUserRealName:$model.log_logOperUserRealName,
-				logContent:$model.log_logContent,
-				operType:$model.log_operType,
-				logVisitorial:$model.log_logVisitorial,
-				startDate:angular.isUndefined($model.log_startDate)?'':$model.log_startDate,
-				endDate:angular.isUndefined($model.log_endDate)?'':$model.log_endDate,
-				logStatus:$model.log_logStatus
-				};				
-	this.getLogGroup().refresh(param);
+searchLog:function(){					
+	this.getLogGroup().refresh($model.searchLog);
 },
 resetSearchLog:function(){
 	$view.log_logOperUser_Field.clean();
@@ -1569,18 +1402,8 @@ delLogHistory:function(){
 		});
 	}
 },
-searchLogHistory:function(){
-	var param = {	
-				logOperdesc:$model.logHistory_logOperdesc,
-				logOperUserRealName:$model.logHistory_logOperUserRealName,
-				logContent:$model.logHistory_logContent,
-				operType:$model.logHistory_operType,
-				logVisitorial:$model.logHistory_logVisitorial,
-				startDate:angular.isUndefined($model.logHistory_startDate)?'':$model.logHistory_startDate,
-				endDate:angular.isUndefined($model.logHistory_endDate)?'':$model.logHistory_endDate,
-				logStatus:$model.logHistory_logStatus
-				};
-	this.getLogHistoryGroup().refresh(param);
+searchLogHistory:function(){	
+	this.getLogHistoryGroup().refresh($model.searchLogHis);
 },
 resetSearchLogHistory:function(){
 	$view.logHis_logOperUser_Field.clean();
@@ -1616,14 +1439,8 @@ editLogConfig:function(){
 		});	
 	}	
 },
-searchLogConfigSub:function(){
-	var param = {	
-				logOperdesc:$model.logCon_logOperdesc,
-				logType:$model.logCon_logType,
-				logOper:$model.logCon_logOper,
-				logEnabled:$model.logCon_logEnabled
-				};
-	this.getLogConfigGroup().refresh(param);
+searchLogConfigSub:function(){	
+	this.getLogConfigGroup().refresh($model.searchLogCon);
 },
 resetSearchLogConfigSub:function(){
 	$view.logCon_logOperdesc_Field.clean();
@@ -1633,5 +1450,47 @@ resetSearchLogConfigSub:function(){
 },
 refreshLogConfigGroup:function(){
 	this.getLogConfigGroup().refresh();
-},</form:scripts>
+},
+// 页面加载完成
+page_onload:function(){
+	var _this = this;
+	var doitLog = debounce(function(search){
+			if(_this.getLogGroup()){
+				_this.getLogGroup().refresh(search);
+			}
+		},300,false);	
+	
+	var doitLogHis = debounce(function(search){
+			if(_this.getLogHistoryGroup()){
+				_this.getLogHistoryGroup().refresh(search);
+			}
+		},300,false);
+	
+	var doitLogCon = debounce(function(search){
+			if(_this.getLogConfigGroup()){
+				_this.getLogConfigGroup().refresh(search);
+			}
+		},300,false);
+		
+	$scope.$watch(&quot;$model.searchLog&quot;,function(v,o){
+		if(angular.isUndefined(v)){
+			return ;
+		}
+		doitLog(v);
+	},true);	
+	
+	$scope.$watch(&quot;$model.searchLogHis&quot;,function(v,o){
+		if(angular.isUndefined(v)){
+			return ;
+		}
+		doitLogHis(v);
+	},true);
+	
+	$scope.$watch(&quot;$model.searchLogCon&quot;,function(v,o){
+		if(angular.isUndefined(v)){
+			return ;
+		}
+		doitLogCon(v);
+	},true);
+}</form:scripts>
 </form:Form>

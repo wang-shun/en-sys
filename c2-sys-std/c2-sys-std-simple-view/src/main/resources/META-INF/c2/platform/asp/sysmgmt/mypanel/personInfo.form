@@ -23,6 +23,7 @@
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+        <dync:render/>
         <dync:children/>
       </dync:attribute>
     </form:attributes>
@@ -30,12 +31,11 @@
   <form:child xsi:type="form:Group" id="newGroup1" name="个人信息">
     <form:control type="container/widgetbox">
       <form:attributes source="container/widgetbox">
-        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="true">
+        <dync:attribute default="" group="HTML配置" id="style" name="样式" value="margin-top:5px;">
           <dync:render/>
           <dync:children/>
         </dync:attribute>
-        <dync:attribute default="" group="HTML配置" id="style" name="样式" value="margin-top:5px;">
-          <dync:render/>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="true">
           <dync:children/>
         </dync:attribute>
       </form:attributes>
@@ -44,60 +44,6 @@
       <form:control type="container/toolbar_widget">
         <form:attributes source="container/toolbar_widget"/>
       </form:control>
-      <form:child xsi:type="form:Field" id="newField19" name="保存" res="wVaj5oxkTCK_FphU_Uyezw" customize="true">
-        <form:control type="widget/button">
-          <form:attributes source="widget/button">
-            <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="red">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="saveUser()">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-        <form:validation/>
-      </form:child>
-      <form:child xsi:type="form:Field" id="newField27" name="重置" customize="true">
-        <form:control type="widget/button">
-          <form:attributes source="widget/button">
-            <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resetUser()">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-        <form:validation/>
-      </form:child>
     </form:child>
     <form:child xsi:type="form:Group" id="newGroup2" name="通用容器">
       <form:control type="container/div">
@@ -744,6 +690,46 @@
           </form:attributes>
         </form:control>
         <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Group" id="newGroup" name="普通工具条">
+        <form:control type="container/toolbar">
+          <form:attributes source="container/toolbar"/>
+        </form:control>
+        <form:child xsi:type="form:Field" id="newField28" name="保存" res="wVaj5oxkTCK_FphU_Uyezw" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-success">
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="saveUser()">
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-lg">
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField29" name="重置" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resetUser()">
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-lg">
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
       </form:child>
     </form:child>
   </form:child>

@@ -1,6 +1,7 @@
 package com.chinacreator.asp.sysmgmt.sysset.jobmgt;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ import com.chinacreator.asp.comp.sys.basic.privilege.service.PrivilegeService;
 import com.chinacreator.asp.comp.sys.common.CommonConstants;
 import com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO;
 import com.chinacreator.asp.comp.sys.std.job.facade.JobFacade;
+import com.chinacreator.asp.sysmgmt.sysset.resmgt.ResourceTreeNode;
 import com.chinacreator.asp.sysmgmt.sysset.resmgt.ResourceTreeNodeBuilder;
 import com.chinacreator.c2.web.ds.TreeNode;
 
@@ -128,53 +130,103 @@ public class JobMgt {
 			}
 		}
 	}
-	
+
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void jobRemoveUsers(String[] jobIds){
+	public void jobRemoveUsers(String[] jobIds) {
 		jobIds = toRepeat(jobIds);
 		if (jobIds.length > 0) {
 			jobService.removeFromAllUsers(jobIds);
 		}
 	}
 
-	// ////////////////////////////////////////////
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void jobSetPrivileges(String[] jobIds, String[] addPrivileges,
-			String[] delPrivileges) {
+	public void addJob(JobDTO jobDTO, String orgId, String presetId,
+			String[] addResIds, String[] delResIds) {
+		jobFacade.create(jobDTO, orgId);
+
+		Set<String> addResIdSet = new HashSet<String>();
+		Set<String> delResIdSet = new HashSet<String>();
+		getAddAndDelResSet(addResIdSet, delResIdSet, presetId, addResIds,
+				delResIds);
+
+		if (!addResIdSet.isEmpty()) {
+			jobFacade.assignPrivilege(jobDTO.getJobId(),
+					addResIdSet.toArray(new String[addResIdSet.size()]));
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	public void jobSetRes(String[] jobIds, String presetId, String[] addResIds,
+			String[] delResIds) {
 		jobIds = toRepeat(jobIds);
-		addPrivileges = toRepeat(addPrivileges);
-		delPrivileges = toRepeat(delPrivileges);
-
 		if (jobIds.length > 0) {
-			Set<String> delIdSet = new HashSet<String>();
-			if (delPrivileges.length > 0) {
-				List<PrivilegeDTO> resList = new ArrayList<PrivilegeDTO>();
-				List<PrivilegeDTO> menuList = new ArrayList<PrivilegeDTO>();
-				Map<String, PrivilegeDTO> privilegeMap = new HashMap<String, PrivilegeDTO>();
-				buildPrivilegeList(resList, menuList, privilegeMap);
+			Set<String> addResIdSet = new HashSet<String>();
+			Set<String> delResIdSet = new HashSet<String>();
+			getAddAndDelResSet(addResIdSet, delResIdSet, presetId, addResIds,
+					delResIds);
 
-				ResourceTreeNodeBuilder builder = new ResourceTreeNodeBuilder(
-						resList);
-				Collection<TreeNode> resourceTreeNode = builder
-						.buileToCollection();
-
-				for (String delId : delPrivileges) {
-					delIdSet.add(delId);
-					PrivilegeDTO privilegeDTO = privilegeMap.get(delId);
-					if ("4".equals(privilegeDTO.getPrivilegeCode())) {
-						getChildByMenu(delId, menuList, delIdSet);
-					} else {
-						getChildByTreeNode(privilegeDTO.getPrivilegeCode(),
-								resourceTreeNode, delIdSet);
-					}
+			if (!delResIdSet.isEmpty()) {
+				if (jobIds.length == 1) {
+					jobFacade
+							.revokePrivileges(jobIds, delResIdSet
+									.toArray(new String[delResIdSet.size()]));
 				}
 			}
-			if (!delIdSet.isEmpty()) {
-				jobFacade.revokePrivileges(jobIds,
-						delIdSet.toArray(new String[delIdSet.size()]));
+			if (!addResIdSet.isEmpty()) {
+				jobFacade.assignPrivilege(jobIds,
+						addResIdSet.toArray(new String[addResIdSet.size()]));
 			}
-			if (addPrivileges.length > 0) {
-				jobFacade.assignPrivilege(jobIds, addPrivileges);
+		}
+	}
+
+	private void getAddAndDelResSet(Set<String> addResIdSet,
+			Set<String> delResIdSet, String presetId, String[] addResIds,
+			String[] delResIds) {
+		addResIds = toRepeat(addResIds);
+		delResIds = toRepeat(delResIds);
+
+		List<PrivilegeDTO> privilegeDTOs = new ArrayList<PrivilegeDTO>();
+
+		if (null != presetId && !presetId.trim().equals("")) {
+			String[] presetIds = toRepeat(presetId.split(","));
+			Set<String> presetIdSet = new HashSet<String>(
+					Arrays.asList(presetIds));
+			if (presetIdSet.contains(jobFacade.getAdministratorJobId())) {
+				privilegeDTOs = privilegeService.queryAll();
+			} else {
+				privilegeDTOs = jobFacade.queryPrivilegeByJobs(presetIds);
+			}
+		}
+
+		for (PrivilegeDTO privilegeDTO : privilegeDTOs) {
+			addResIdSet.add(privilegeDTO.getPrivilegeId());
+		}
+		if (null != addResIds && addResIds.length > 0) {
+			addResIdSet.addAll(Arrays.asList(addResIds));
+		}
+
+		if (delResIds.length > 0) {
+			List<PrivilegeDTO> resList = new ArrayList<PrivilegeDTO>();
+			List<PrivilegeDTO> menuList = new ArrayList<PrivilegeDTO>();
+			Map<String, PrivilegeDTO> privilegeMap = new HashMap<String, PrivilegeDTO>();
+			buildPrivilegeList(resList, menuList, privilegeMap);
+
+			ResourceTreeNodeBuilder builder = new ResourceTreeNodeBuilder(
+					resList);
+			Collection<TreeNode> resourceTreeNode = builder.buileToCollection();
+
+			for (String delId : delResIds) {
+				delResIdSet.add(delId);
+				PrivilegeDTO privilegeDTO = privilegeMap.get(delId);
+				if ("4".equals(privilegeDTO.getType())) {
+					getChildByMenu(delId, menuList, delResIdSet);
+				} else {
+					getChildByTreeNode(privilegeDTO.getPrivilegeCode(),
+							resourceTreeNode, delResIdSet);
+				}
+			}
+			if (!delResIdSet.isEmpty()) {
+				addResIdSet.removeAll(delResIdSet);
 			}
 		}
 	}
@@ -219,11 +271,11 @@ public class JobMgt {
 	private void getChildByTreeNode(String code,
 			Collection<TreeNode> resourceTreeNode, Set<String> set) {
 		for (TreeNode treeNode : resourceTreeNode) {
-			// ResourceTreeNode node = (ResourceTreeNode) treeNode;
-			// if (code.equals(node.getPid())) {
-			// set.add(node.getPrivilegeId());
-			// getChildByTreeNode(node.getId(), resourceTreeNode, set);
-			// }
+			ResourceTreeNode node = (ResourceTreeNode) treeNode;
+			if (code.equals(node.getPid())) {
+				set.add(node.getPrivilegeId());
+				getChildByTreeNode(node.getId(), resourceTreeNode, set);
+			}
 		}
 	}
 }

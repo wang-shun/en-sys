@@ -3,18 +3,23 @@
   <form:control type="page/normal">
     <form:attributes source="page/normal">
       <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="事件" id="onload" name="载入事件" value="">
+      <dync:attribute default="" group="事件" id="onload" name="载入事件" value="page_onload()">
+        <dync:render/>
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="true">
+        <dync:render/>
         <dync:children/>
       </dync:attribute>
     </form:attributes>
@@ -23,6 +28,7 @@
     <form:control type="container/div">
       <form:attributes source="container/div">
         <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-top:5px;">
+          <dync:render/>
           <dync:children/>
         </dync:attribute>
       </form:attributes>
@@ -32,18 +38,23 @@
     <form:control type="container/widgetbox">
       <form:attributes source="container/widgetbox">
         <dync:attribute default="12" group="布局配置" id="span" name="占位数" value="3">
+          <dync:render/>
           <dync:children/>
         </dync:attribute>
         <dync:attribute default="12px" group="布局配置" id="padding-left" name="左边距" value="0">
+          <dync:render/>
           <dync:children/>
         </dync:attribute>
         <dync:attribute default="12px" group="布局配置" id="padding-right" name="右边距" value="0">
+          <dync:render/>
           <dync:children/>
         </dync:attribute>
         <dync:attribute default="false" group="HTML配置" id="noPadding" name="无内边距" value="true">
+          <dync:render/>
           <dync:children/>
         </dync:attribute>
         <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="true">
+          <dync:render/>
           <dync:children/>
         </dync:attribute>
       </form:attributes>
@@ -56,18 +67,50 @@
         <form:control type="widget/button">
           <form:attributes source="widget/button">
             <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="addDictType()">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-plus">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="purple">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" id="newField8" name="编辑" res="ufKLkPcKT1GBiocitZ36eg" customize="true">
+        <form:control type="widget/button">
+          <form:attributes source="widget/button">
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="editDictType()">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-pencil">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="blue">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -78,48 +121,32 @@
         <form:control type="container/toolbar">
           <form:attributes source="container/toolbar">
             <dync:attribute default="normal" group="基本设置" id="type" name="类型" value="dropdown">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
         </form:control>
-        <form:child xsi:type="form:Field" id="newField8" name="编辑" res="ufKLkPcKT1GBiocitZ36eg" customize="true">
-          <form:control type="widget/button">
-            <form:attributes source="widget/button">
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="editDictType()">
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-pencil">
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="blue">
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
         <form:child xsi:type="form:Field" id="newField9" name="删除" res="t9jOyfLqQs6VfmgOjfexlg" customize="true">
           <form:control type="widget/button">
             <form:attributes source="widget/button">
               <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="delDictType()">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-trash-o">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="red">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -130,18 +157,23 @@
           <form:control type="widget/button">
             <form:attributes source="widget/button">
               <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="refreshTree()">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white btn-primary grid-btn">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -154,36 +186,43 @@
       <form:control type="widget/tree">
         <form:attributes source="widget/tree">
           <dync:attribute default="6" group="HTML设置" id="span" name="占位数" value="12">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="pId" group="数据设置" id="simpleDataPid" name="简单数据pId" value="pid">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="examples/zTree.json" group="数据设置" id="url" name="远程数据" value="">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="事件设置" id="nodeClick" name="单击" value="dictTypeTree_nodeClick(event, treeId, treeNode)">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="事件设置" id="nodeDbClick" name="双击" value="editDictType()">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="true" group="数据设置" id="async" name="异步加载" value="false">
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="事件设置" id="nodeDblClick" name="双击" value="editDictType()">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="显示设置" id="expendLevel" name="默认展开级数" value="1">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="auto" group="显示设置" id="height" name="高度" value="">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="false" group="显示设置" id="computeHeight" name="自动计算高度" value="true">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="12" group="显示设置" id="computeHeightFix" name="高度修正" value="0">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -195,6 +234,7 @@
     <form:control type="container/div">
       <form:attributes source="container/div">
         <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="9">
+          <dync:render/>
           <dync:children/>
         </dync:attribute>
       </form:attributes>
@@ -203,6 +243,7 @@
       <form:control type="container/div">
         <form:attributes source="container/div">
           <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="padding-top:10px;">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -211,9 +252,11 @@
         <form:control type="widget/text">
           <form:attributes source="widget/text">
             <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="75" group="基本设置" id="lableWidth" name="左外边距" value="100">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -223,9 +266,11 @@
         <form:control type="widget/text">
           <form:attributes source="widget/text">
             <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="75" group="基本设置" id="lableWidth" name="左外边距" value="100">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -235,99 +280,81 @@
         <form:control type="widget/select_simple">
           <form:attributes source="widget/select_simple">
             <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="100">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="{&quot;true&quot;:&quot;是&quot;,&quot;false&quot;:&quot;否&quot;}">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="下拉框设置" id="nullValue" name="空值选项" value=" ">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
         </form:control>
-      </form:child>
-      <form:child xsi:type="form:Group" id="newGroup5" name="普通工具条">
-        <form:control type="container/toolbar">
-          <form:attributes source="container/toolbar">
-            <dync:attribute default="center" group="基本设置" id="position" name="按钮位置" value="pull-right">
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-        <form:child xsi:type="form:Field" id="newField21" name="查询" customize="true">
-          <form:control type="widget/button">
-            <form:attributes source="widget/button">
-              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="searchDictData()">
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" id="newField22" name="重置" customize="true">
-          <form:control type="widget/button">
-            <form:attributes source="widget/button">
-              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resetSearchDictData()">
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
       </form:child>
     </form:child>
     <form:child xsi:type="form:Group" binding="model.dictDataList" id="dictDataGroup" name="jqgrid表格">
       <form:control type="container/table_jqgrid">
         <form:attributes source="container/table_jqgrid">
           <dync:attribute default="post" group="HTML配置" id="mtype" name="提交方式" value="get">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="false" group="HTML配置" id="multiSort" name="多列排序" value="true">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="表格名称" group="HTML配置" id="caption" name="表头" value="字典数据">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="false" group="表格设置" id="filterToolbar" name="工具栏查询" value="true">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="高级功能" id="sortServer" name="排序服务" value="sortDict">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="true" group="功能按钮" id="buttonAdd" name="新增按钮" value="false">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="true" group="功能按钮" id="buttonEdit" name="编辑按钮" value="false">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="true" group="功能按钮" id="buttonView" name="查看按钮" value="false">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="true" group="功能按钮" id="buttonDel" name="删除按钮" value="false">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="true" group="功能按钮" id="buttonSearch" name="查询按钮" value="false">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="true" group="功能按钮" id="buttonRefresh" name="刷新按钮" value="false">
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="事件" id="ondblClickRow" name="双击行" value="editDictData()">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="true" group="表格设置" id="toolbarShow" name="工具栏显示" value="false">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="表格设置" id="searchDIV" name="搜索DIV" value="searchDiv">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="表格设置" id="searchDivShow" name="搜索DIV展开" value="true">
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -340,12 +367,15 @@
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-plus">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="purple">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="addDictData()">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -356,12 +386,15 @@
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-pencil">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="blue">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="editDictData()">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -372,12 +405,15 @@
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-trash-o">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="red">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="delDictData()">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -388,28 +424,15 @@
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-sort">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="sortDictData()">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="blue">
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" id="newField19" name="查询" customize="true">
-          <form:control type="widget/button_a_table">
-            <form:attributes source="widget/button_a_table">
-              <dync:attribute default="custom" group="事件设置" id="clickType" name="事件类型" value="expend">
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="light-blue">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -420,12 +443,15 @@
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="custom" group="事件设置" id="clickType" name="事件类型" value="refrash">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -437,12 +463,15 @@
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="false" group="HTML设置" id="search" name="搜索" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="HTML设置" id="sortable" name="排序" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -453,12 +482,15 @@
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="false" group="HTML设置" id="search" name="搜索" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="HTML设置" id="sortable" name="排序" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -469,27 +501,35 @@
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="false" group="HTML设置" id="search" name="搜索" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="HTML设置" id="sortable" name="排序" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="格式设置" id="formatter" name="预定格式" value="select">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="格式设置" id="formatoptions" name="预定格式设置" value="{value:&quot;false:否;true:是&quot;}">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="查询设置" id="searchValue" name="可选值" value="{&quot; &quot;:&quot;&quot;,&quot;true&quot;:&quot;是&quot;,&quot;false&quot;:&quot;否&quot;}">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="查询设置" id="searchDefaultvalue" name="默认值" value=" ">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="text" group="查询设置" id="searchType" name="查询框" value="select">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -500,12 +540,15 @@
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="表格设置" id="key" name="主列" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -516,9 +559,11 @@
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -546,7 +591,7 @@ dictTypeTree_nodeClick:function(event, treeId, treeNode){
 		$model.search = {};
 	}
 	$model.search.dtypeId = treeNode.id;
-	this.getDictDataGroup().refresh({&quot;dtypeId&quot;:treeNode.id});
+	this.getDictDataGroup().refresh($model.search);
 },
 // 新增字典类型
 addDictType:function(){
@@ -753,5 +798,25 @@ resetSearchDictData:function(){
 // 刷新字典数据列表
 refreshGroup:function(){
 	this.getDictDataGroup().refresh();
+},
+// 页面加载完成
+page_onload:function(){
+	var _this = this;
+	var doit = debounce(function(search){
+			if(_this.getDictDataGroup()){
+				_this.getDictDataGroup().refresh(search);
+			}
+		},300,false);	
+		
+	$scope.$watch(&quot;$model.search&quot;,function(v,o){
+		if(angular.isUndefined(v)){
+			return ;
+		}else if(v.dictdataName==o.dictdataName
+				&amp;&amp; v.dictdataValue==o.dictdataValue
+				&amp;&amp; v.dictdataIsdefault==o.dictdataIsdefault){
+			return;
+		}
+		doit(v);
+	},true);
 }</form:scripts>
 </form:Form>

@@ -18,7 +18,7 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="事件" id="onload" name="载入事件" value="">
+      <dync:attribute default="" group="事件" id="onload" name="载入事件" value="page_onload()">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -329,50 +329,6 @@
           </form:attributes>
         </form:control>
         <form:validation/>
-      </form:child>
-      <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
-        <form:control type="container/div">
-          <form:attributes source="container/div">
-            <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="text-align:right;">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-        <form:child xsi:type="form:Field" id="newField21" name="查询" customize="true">
-          <form:control type="widget/button">
-            <form:attributes source="widget/button">
-              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="searchUser()">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" id="newField22" name="重置" customize="true">
-          <form:control type="widget/button">
-            <form:attributes source="widget/button">
-              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resetSearchUser()">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
       </form:child>
     </form:child>
     <form:child xsi:type="form:Group" binding="model.userlist" id="userGroup" name="jqgrid表格">
@@ -723,7 +679,7 @@ orgTree_nodeClick:function(event, treeId, treeNode){&#xD;
 		$model.search = {};&#xD;
 	}&#xD;
 	$model.search.orgId = treeNode.id;	&#xD;
-	this.getUserGroup().refresh({orgId:treeNode.id});&#xD;
+	this.getUserGroup().refresh($model.search);&#xD;
 	this.getJobSelectTree().refresh2({searchOrgId:treeNode.id},true,false,false);&#xD;
 },&#xD;
 // 新增机构&#xD;
@@ -992,6 +948,25 @@ job_Field_beforeClick:function(treeId,treeNode,clickFlag){
 	}&#xD;
 	return false;&#xD;
 },
-</form:scripts>
+// 页面加载完成
+page_onload:function(){&#xD;
+	var _this = this;&#xD;
+	var doit = debounce(function(search){&#xD;
+			if(_this.getUserGroup()){&#xD;
+				_this.getUserGroup().refresh(search);&#xD;
+			}&#xD;
+		},300,false);	&#xD;
+		
+	$scope.$watch(&quot;$model.search&quot;,function(v,o){&#xD;
+		if(angular.isUndefined(v)){&#xD;
+			return ;&#xD;
+		}else if(v.userName==o.userName &#xD;
+				&amp;&amp; v.userRealname==o.userRealname&#xD;
+				&amp;&amp; v.jobId==o.jobId){&#xD;
+			return;&#xD;
+		}&#xD;
+		doit(v);&#xD;
+	},true);	&#xD;
+}</form:scripts>
   <form:htmls></form:htmls>
 </form:Form>

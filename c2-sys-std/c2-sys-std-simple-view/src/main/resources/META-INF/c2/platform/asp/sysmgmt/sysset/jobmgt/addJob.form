@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="编辑岗位" res="NcDl-DmCQ0CJ2gU92qQXSQ" sn="editJob" type="form">
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="新增岗位" res="NcDl-DmCQ0CJ2gU92qQXSQ" sn="addJob" type="form">
   <form:control type="page/modal">
     <form:attributes source="page/modal">
       <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" group="HTML" id="title" name="标题" value="{{$params.type=='add'?'新增':'编辑'}}岗位">
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="新增岗位">
         <dync:render/>
         <dync:children/>
       </dync:attribute>
@@ -40,10 +40,6 @@
     <form:child xsi:type="form:Field" binding="$model.orgId" id="orgId" name="所属机构：" customize="true">
       <form:control type="widget/select_tree">
         <form:attributes source="widget/select_tree">
-          <dync:attribute default="75" group="控件外观" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
           <dync:attribute default="未选中数据 ..." group="控件外观" id="placeholder" name="占位字符串" value="''">
             <dync:render/>
             <dync:children/>
@@ -106,113 +102,102 @@
         </form:attributes>
       </form:control>
     </form:child>
-    <form:child xsi:type="form:Field" binding="model.job.result.jobFunction" id="jobFunction" name="岗位职责：">
-      <form:control type="widget/text">
-        <form:attributes source="widget/text">
-          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-    </form:child>
-    <form:child xsi:type="form:Field" binding="model.job.result.jobAmount" id="jobAmount" name="岗位编制人数：">
-      <form:control type="widget/text">
-        <form:attributes source="widget/text">
-          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="text" group="HTML设置" id="inputType" name="数据类型" value="number">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="min" name="最小值" value="0">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="max" name="最大值" value="999999999999">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-    </form:child>
-    <form:child xsi:type="form:Field" binding="model.job.result.jobNumber" id="jobNumber" name="岗位编号：">
-      <form:control type="widget/text">
-        <form:attributes source="widget/text">
-          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="combiOne">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^[\w]+$/">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入数字、字母、下划线!">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-    </form:child>
-    <form:child xsi:type="form:Field" binding="model.job.result.jobCondition" id="jobCondition" name="任职条件：">
-      <form:control type="widget/text">
-        <form:attributes source="widget/text">
-          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-    </form:child>
-    <form:child xsi:type="form:Field" binding="model.job.result.jobRank" id="jobRank" name="岗位级别：">
-      <form:control type="widget/text">
-        <form:attributes source="widget/text">
-          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="50">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-    </form:child>
     <form:child xsi:type="form:Field" binding="model.job.result.jobDesc" id="jobDesc" name="岗位描述：">
       <form:control type="widget/textarea">
         <form:attributes source="widget/textarea">
-          <dync:attribute default="75" group="HTML设置" id="lableWidth" name="lable宽度(px)" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
           <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="12" group="HTML设置" id="span" name="占位数" value="6">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
       </form:control>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div"/>
+      </form:control>
+      <form:child xsi:type="form:Field" binding="$model.hr" id="newField3" name="文本" customize="true">
+        <form:control type="widget/span">
+          <form:attributes source="widget/span">
+            <dync:attribute default="6" group="基础属性" id="span" name="占位数" value="12">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.presetId" id="preset_Field" name="预定义：" customize="true">
+      <form:control type="widget/select_tree">
+        <form:attributes source="widget/select_tree">
+          <dync:attribute default="6" group="控件外观" id="span" name="占位数" value="12">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="未选中数据 ..." group="控件外观" id="placeholder" name="占位字符串" value="''">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="树数据设置" id="treeBinding" name="树数据源" value="$model.jobSelectTree">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="auto" group="树显示设置" id="height" name="高度" value="350px">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="树显示设置" id="multiSelect" name="多选模式" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="树显示设置" id="expendLevel" name="默认展开级数" value="2">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup2" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div"/>
+      </form:control>
+      <form:child xsi:type="form:Field" binding="$model.resTree" id="resTree" name="resTree">
+        <form:control type="widget/tree">
+          <form:attributes source="widget/tree">
+            <dync:attribute default="6" group="显示设置" id="span" name="占位数" value="12">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="[&quot;id&quot;]" group="数据设置" id="autoParam" name="节点参数" value="[&quot;id&quot;,&quot;pid&quot;,&quot;type&quot;]">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="auto" group="显示设置" id="height" name="高度" value="350px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="0" group="显示设置" id="expendLevel" name="默认展开级数" value="2">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="勾选设置" id="checkEnable" name="勾选框" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="nodeCheck" name="勾选" value="resTree_nodeCheck(event,treeId,treeNode)">
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="{ &quot;Y&quot;: &quot;ps&quot;, &quot;N&quot;: &quot;ps&quot; }" group="勾选设置" id="chkboxType" name="父子节点关联" value="{ &quot;Y&quot;: &quot;p&quot;, &quot;N&quot;: &quot;s&quot; }">
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="勾选设置" id="autoCheckTrigger" name="关联触发" value="true">
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
     </form:child>
   </form:child>
   <form:child xsi:type="form:Group" id="newGroup" name="对话框底部工具条">
@@ -283,6 +268,8 @@
       <form:param id="jobId" name="新输入参数"/>
     </form:datasource>
     <form:datasource xsi:type="form:TreeDataSource" id="orgSelectTree" name="机构下拉框树型数据源" impl="com.chinacreator.asp.sysmgmt.sysset.jobmgt.OrgSelectTreeContentProviderImpl" type="custom"/>
+    <form:datasource xsi:type="form:TreeDataSource" id="jobSelectTree" name="岗位下拉框树型数据源" impl="com.chinacreator.asp.sysmgmt.sysset.jobmgt.JobSelectTreeContentProviderImpl" type="custom"/>
+    <form:datasource xsi:type="form:TreeDataSource" id="resTree" name="资源树型数据源" impl="com.chinacreator.asp.sysmgmt.sysset.jobmgt.JobResTreeContentProviderImpl" type="custom"/>
   </form:datasources>
   <form:scripts>// 保存&#xD;
 saveJob:function(){&#xD;
@@ -294,19 +281,28 @@ saveJob:function(){&#xD;
 			}else{&#xD;
 				$model.job.result.jobScope = &quot;1&quot;;&#xD;
 			}&#xD;
-			$http.post(&quot;ws/addJob&quot;,{jobDTO:$model.job.result,&quot;orgId&quot;:orgId})&#xD;
+			&#xD;
+			var resTreeNodeChecded = $model.resTreeNodeChecded;&#xD;
+			var presetId = $model.presetId;&#xD;
+			if(angular.isUndefined(presetId)){&#xD;
+				presetId = &quot;&quot;;&#xD;
+			}&#xD;
+			&#xD;
+			var addResIds = [];&#xD;
+			var delResIds = [];&#xD;
+			if(!angular.isUndefined(resTreeNodeChecded)){&#xD;
+				angular.forEach(resTreeNodeChecded, function (value, key) {&#xD;
+					if(value.resChecked){&#xD;
+						addResIds.push(value.id);&#xD;
+					}else{&#xD;
+						delResIds.push(value.id);&#xD;
+					}&#xD;
+			    });	&#xD;
+			}&#xD;
+			$http.post(&quot;ws/addJob&quot;,{jobDTO:$model.job.result,&quot;orgId&quot;:orgId,&quot;presetId&quot;:presetId,&quot;addResIds&quot;:addResIds,&quot;delResIds&quot;:delResIds})&#xD;
 					.success(function(data, status, headers, config){&#xD;
 						Messenger.post({&#xD;
 			                'message': &quot;新增岗位成功！&quot;,&#xD;
-			                'type': 'success',&#xD;
-			            });&#xD;
-			            $scope.saveType = 'success';&#xD;
-					});&#xD;
-		}else if('edit'==$params.type){&#xD;
-			$http.post(&quot;ws/editJob&quot;,{jobDTO:$model.job.result})&#xD;
-					.success(function(data, status, headers, config){&#xD;
-						Messenger.post({&#xD;
-			                'message': &quot;编辑岗位成功！&quot;,&#xD;
 			                'type': 'success',&#xD;
 			            });&#xD;
 			            $scope.saveType = 'success';&#xD;
@@ -330,6 +326,13 @@ resetJob:function(){&#xD;
 	$model.job.$reload();&#xD;
 	this.page_beforeDataSourceLoad();&#xD;
 	$model.validataJson = {};&#xD;
+	$model.resTreeNodeChecded = {};&#xD;
+	var presetId = $model.presetId;&#xD;
+	if(angular.isUndefined(presetId) || presetId==&quot;&quot;){&#xD;
+		$view.resTree.refresh2({&quot;jobIds&quot;:$params.jobIds},true,false,false);&#xD;
+	}else{&#xD;
+		$model.presetId = &quot;&quot;;&#xD;
+	}&#xD;
 },&#xD;
 // 关闭&#xD;
 closeModal:function(){&#xD;
@@ -387,16 +390,24 @@ page_beforeDataSourceLoad:function(){&#xD;
 		if(!angular.isUndefined(orgId) &amp;&amp; orgId!=&quot;&quot;  &amp;&amp; orgId!=&quot;0&quot;){&#xD;
 			$model.orgId = orgId;&#xD;
 		}&#xD;
-	}else if('edit'==$params.type){&#xD;
-		$http.post(&quot;ws/getOrgIdByJobId&quot;,{jobId:$params.jobId})&#xD;
-					.success(function(data, status, headers, config){&#xD;
-						$model.orgId = data.result;&#xD;
-					});&#xD;
 	}
 },
 
 page_onload:function(){
 	var _this = this;&#xD;
+	$model.hr = &quot;&lt;hr/>&quot;;&#xD;
+	&#xD;
+	$scope.$watch(&quot;$model.presetId&quot;,function(v){&#xD;
+		if(angular.isUndefined(v)){&#xD;
+			return ;&#xD;
+		}&#xD;
+		setTimeout(function(){&#xD;
+		if($view.resTree){&#xD;
+			$model.resTreeNodeChecded = {};&#xD;
+			$view.resTree.refresh2({&quot;presetId&quot;:v},true,false,false);&#xD;
+		}&#xD;
+		},0);		&#xD;
+	});&#xD;
 	&#xD;
 	$scope.$watch(&quot;$model.orgId&quot;,function(v){&#xD;
 		if(angular.isUndefined(v) || v==&quot;&quot;){&#xD;
@@ -404,5 +415,23 @@ page_onload:function(){
 		}		&#xD;
 		$view.jobName.getDom().focus();		&#xD;
 	});
+},
+// 勾选事件
+resTree_nodeCheck:function(event,treeId,treeNode){
+	var resTreeNodeChecded = $model.resTreeNodeChecded;&#xD;
+	&#xD;
+	if(angular.isUndefined(resTreeNodeChecded)){&#xD;
+		resTreeNodeChecded = {};&#xD;
+	}&#xD;
+	var resId = treeNode.id;&#xD;
+	var resName = treeNode.name;&#xD;
+	var resChecked = treeNode.checked;&#xD;
+	&#xD;
+	if(treeNode.checkedOld==treeNode.checked){&#xD;
+		delete resTreeNodeChecded[resId];&#xD;
+	}else{		&#xD;
+		resTreeNodeChecded[resId] = {&quot;id&quot;:resId,&quot;name&quot;:resName,&quot;resChecked&quot;:resChecked};&#xD;
+	}&#xD;
+	$model.resTreeNodeChecded = resTreeNodeChecded;
 }</form:scripts>
 </form:Form>

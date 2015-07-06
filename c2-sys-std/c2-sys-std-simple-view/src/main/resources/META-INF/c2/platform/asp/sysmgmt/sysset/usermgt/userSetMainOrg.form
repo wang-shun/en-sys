@@ -87,51 +87,51 @@
         </form:control>
         <form:validation/>
       </form:child>
+      <form:child xsi:type="form:Field" binding="$model.mainOrgTree" id="mainOrgTree" name="树" customize="true">
+        <form:control type="widget/tree">
+          <form:attributes source="widget/tree">
+            <dync:attribute default="6" group="显示设置" id="span" name="占位数" value="12">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="auto" group="显示设置" id="height" name="高度" value="400px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="显示设置" id="selectedMulti" name="多选" value="false">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="显示设置" id="checkEnable" name="勾选框" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="checkbox" group="显示设置" id="checkStyle" name="勾选框类型" value="radio">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="显示设置" id="expendAll" name="默认展开所有层级" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="显示设置" id="nameIsHtml" name="支持HTML" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="name" group="数据设置" id="nodeTitle" name="悬停提示" value="showName">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据设置" id="otherParam" name="初始化参数" value="{&quot;userIds&quot;:$params.userIds}">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
     </form:child>
-    <form:child xsi:type="form:Field" binding="$model.mainOrgTree" id="mainOrgTree" name="树" customize="true">
-      <form:control type="widget/tree">
-        <form:attributes source="widget/tree">
-          <dync:attribute default="6" group="显示设置" id="span" name="占位数" value="12">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="auto" group="显示设置" id="height" name="高度" value="400px">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="true" group="显示设置" id="selectedMulti" name="多选" value="false">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="false" group="显示设置" id="checkEnable" name="勾选框" value="true">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="checkbox" group="显示设置" id="checkStyle" name="勾选框类型" value="radio">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="false" group="显示设置" id="expendAll" name="默认展开所有层级" value="true">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="false" group="显示设置" id="nameIsHtml" name="支持HTML" value="true">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="name" group="数据设置" id="nodeTitle" name="悬停提示" value="showName">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据设置" id="otherParam" name="初始化参数" value="{&quot;userIds&quot;:$params.userIds}">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-      <form:validation/>
-    </form:child>
-    <form:child xsi:type="form:Group" id="newGroup3" name="简单容器(DIV)">
+    <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
       <form:control type="container/div">
         <form:attributes source="container/div"/>
       </form:control>

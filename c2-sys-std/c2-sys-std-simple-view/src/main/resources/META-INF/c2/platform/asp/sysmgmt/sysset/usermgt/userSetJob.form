@@ -96,47 +96,52 @@
         <form:validation/>
       </form:child>
     </form:child>
-    <form:child xsi:type="form:Field" binding="$model.jobTree" id="jobTree" name="jobTree">
-      <form:control type="widget/tree">
-        <form:attributes source="widget/tree">
-          <dync:attribute default="6" group="显示设置" id="span" name="占位数" value="12">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="false" group="勾选设置" id="checkEnable" name="勾选框" value="true">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="name" group="显示设置" id="nodeTitle" name="悬停提示属性" value="showName">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="false" group="显示设置" id="nameIsHtml" name="支持HTML" value="true">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据设置" id="otherParam" name="初始化参数" value="{userIds:$params.userIds}">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="auto" group="显示设置" id="height" name="高度" value="400px">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="0" group="显示设置" id="expendLevel" name="默认展开级数" value="">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="false" group="显示设置" id="expendAll" name="默认展开所有层级" value="true">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="事件设置" id="nodeCheck" name="勾选" value="jobTree_nodeCheck(event,treeId,treeNode)">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
+    <form:child xsi:type="form:Group" id="newGroup2" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div"/>
       </form:control>
+      <form:child xsi:type="form:Field" binding="$model.jobTree" id="jobTree" name="jobTree">
+        <form:control type="widget/tree">
+          <form:attributes source="widget/tree">
+            <dync:attribute default="6" group="显示设置" id="span" name="占位数" value="12">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="勾选设置" id="checkEnable" name="勾选框" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="name" group="显示设置" id="nodeTitle" name="悬停提示属性" value="showName">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="显示设置" id="nameIsHtml" name="支持HTML" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据设置" id="otherParam" name="初始化参数" value="{userIds:$params.userIds}">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="auto" group="显示设置" id="height" name="高度" value="400px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="0" group="显示设置" id="expendLevel" name="默认展开级数" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="显示设置" id="expendAll" name="默认展开所有层级" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="事件设置" id="nodeCheck" name="勾选" value="jobTree_nodeCheck(event,treeId,treeNode)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
     </form:child>
   </form:child>
   <form:child xsi:type="form:Group" id="newGroup" name="对话框工具条">

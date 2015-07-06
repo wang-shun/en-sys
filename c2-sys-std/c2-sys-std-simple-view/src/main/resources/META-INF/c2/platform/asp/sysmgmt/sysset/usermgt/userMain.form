@@ -193,50 +193,6 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Group" id="newGroup7" name="普通工具条">
-        <form:control type="container/div">
-          <form:attributes source="container/div">
-            <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="text-align:right;">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-        <form:child xsi:type="form:Field" id="newField21" name="查询" customize="true">
-          <form:control type="widget/button">
-            <form:attributes source="widget/button">
-              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="searchUser()">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" id="newField22" name="重置" customize="true">
-          <form:control type="widget/button">
-            <form:attributes source="widget/button">
-              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resetSearchUser()">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-      </form:child>
     </form:child>
     <form:child xsi:type="form:Group" binding="model.userlist" id="userGroup" name="jqgrid表格">
       <form:control type="container/table_jqgrid">
@@ -575,6 +531,7 @@
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -947,11 +904,23 @@ page_beforeDataSourceLoad:function(){
 		$model.search.userRealname = sUrn;&#xD;
 	}	&#xD;
 	$model.dictData.$filter = function(data){&#xD;
-		_this.getUserGroup().refresh($model.search);&#xD;
+		//_this.getUserGroup().refresh($model.search);&#xD;
 	}	&#xD;
 },
 page_onload:function(){
 	var _this = this;&#xD;
+	var doit = debounce(function(search){&#xD;
+			if(_this.getUserGroup()){&#xD;
+				_this.getUserGroup().refresh(search);&#xD;
+			}&#xD;
+		},300,false);	&#xD;
+		&#xD;
+	$scope.$watch(&quot;$model.search&quot;,function(v,o){&#xD;
+		if(angular.isUndefined(v)){&#xD;
+			return ;&#xD;
+		}&#xD;
+		doit(v);&#xD;
+	},true);&#xD;
 	&#xD;
 	$scope.$watch(&quot;$model.search.orgId&quot;,function(v){&#xD;
 		if(angular.isUndefined(v)){&#xD;

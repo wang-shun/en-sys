@@ -17,5 +17,7 @@
   <modules>
   	<module>c2-sys-std-oracle</module>
   	<module>c2-sys-std-mysql</module>
+  	<module>c2-sys-std-simple-oracle</module>
+  	<module>c2-sys-std-simple-mysql</module>
   </modules>
 </project>

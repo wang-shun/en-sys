@@ -22,6 +22,10 @@
         <dync:render/>
         <dync:children/>
       </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="页面加载完成" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
     </form:attributes>
   </form:control>
   <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
@@ -110,50 +114,6 @@
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Group" id="newGroup10" name="普通工具条">
-        <form:control type="container/div">
-          <form:attributes source="container/div">
-            <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="text-align:right;">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
-          </form:attributes>
-        </form:control>
-        <form:child xsi:type="form:Field" id="newField26" name="查询" customize="true">
-          <form:control type="widget/button">
-            <form:attributes source="widget/button">
-              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-search">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="searchJob()">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-        <form:child xsi:type="form:Field" id="newField27" name="重置" customize="true">
-          <form:control type="widget/button">
-            <form:attributes source="widget/button">
-              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resetSearchJob()">
-                <dync:render/>
-                <dync:children/>
-              </dync:attribute>
-            </form:attributes>
-          </form:control>
-          <form:validation/>
-        </form:child>
-      </form:child>
     </form:child>
     <form:child xsi:type="form:Group" binding="model.jobList" id="jobGroup" name="jqgrid表格">
       <form:control type="container/table_jqgrid">
@@ -206,7 +166,7 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" group="基本配置" id="caption" name="表头" value="岗位管理">
+          <dync:attribute default="" group="基本配置" id="caption" name="表头" value="岗位权限管理">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
@@ -277,7 +237,7 @@
           </form:control>
           <form:validation/>
         </form:child>
-        <form:child xsi:type="form:Field" id="newField1" name="设置资源" customize="true">
+        <form:child xsi:type="form:Field" id="newField1" name="设置权限" customize="true">
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-shield">
@@ -454,7 +414,7 @@ addJob:function(){&#xD;
 		orgId = $model.search.orgId;&#xD;
 	}&#xD;
 	var _this = this;&#xD;
-	Modal.open('f/editJob',{type:&quot;add&quot;,&quot;orgId&quot;:orgId,jobId:&quot;&quot;},function(result){&#xD;
+	Modal.open('f/addJob',{type:&quot;add&quot;,&quot;orgId&quot;:orgId,jobId:&quot;&quot;},function(result){&#xD;
 		if('success'==result){&#xD;
 	    	_this.refreshJobGroup();&#xD;
 	    }&#xD;
@@ -641,5 +601,21 @@ org_Field_beforeClick:function(treeId,treeNode,clickFlag){
 		return false;&#xD;
 	}&#xD;
 	return true;
+},
+// 页面加载完成
+page_onload:function(){
+	var _this = this;&#xD;
+	var doit = debounce(function(search){&#xD;
+			if(_this.getJobGroup()){&#xD;
+				_this.getJobGroup().refresh(search);&#xD;
+			}&#xD;
+		},300,false);	&#xD;
+		&#xD;
+	$scope.$watch(&quot;$model.search&quot;,function(v,o){&#xD;
+		if(angular.isUndefined(v)){&#xD;
+			return ;&#xD;
+		}&#xD;
+		doit(v);&#xD;
+	},true);	
 }</form:scripts>
 </form:Form>
