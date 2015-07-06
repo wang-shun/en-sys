@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="机构管理" res="GflDed7aS8yn10n_6hVHHA" sn="orgMain" type="form">
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="机构管理" res="TyOl7KHDQ9uTaTHZOkteMg" sn="orgMain" type="form">
   <form:control type="page/normal">
     <form:attributes source="page/normal">
       <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
@@ -400,7 +400,7 @@
         <form:control type="container/toolbar_table">
           <form:attributes source="container/toolbar_table"/>
         </form:control>
-        <form:child xsi:type="form:Field" id="newField16" name="用户管理" customize="true">
+        <form:child xsi:type="form:Field" id="newField16" name="用户管理" res="n6UvY9uYQUqNCb1Tououtw" customize="true">
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-link">
@@ -919,16 +919,16 @@ openUserMgt_click:function(){&#xD;
 		var sJid = $model.search.jobId;&#xD;
 		var sUn = $model.search.userName;&#xD;
 		var sUrn = $model.search.userRealname;&#xD;
-		if(!angular.isUndefined(sOid) &amp;&amp; sOid!=&quot;&quot;  &amp;&amp; sOid!=&quot;0&quot;){&#xD;
+		if(!angular.isUndefined(sOid) &amp;&amp; sOid!=null &amp;&amp; sOid!=&quot;&quot;  &amp;&amp; sOid!=&quot;0&quot;){&#xD;
 			url += &quot;&amp;sOid=&quot;+sOid;&#xD;
 		}&#xD;
-		if(!angular.isUndefined(sJid) &amp;&amp; sJid!=&quot;&quot; ){&#xD;
+		if(!angular.isUndefined(sJid) &amp;&amp; sJid!=null &amp;&amp; sJid!=&quot;&quot;){&#xD;
 			url += &quot;&amp;sJid=&quot;+sJid;&#xD;
 		}&#xD;
-		if(!angular.isUndefined(sUn) &amp;&amp; sUn!=&quot;&quot; ){&#xD;
+		if(!angular.isUndefined(sUn) &amp;&amp; sUn!=null &amp;&amp; sUn!=&quot;&quot;){&#xD;
 			url += &quot;&amp;sUn=&quot;+sUn;&#xD;
 		}&#xD;
-		if(!angular.isUndefined(sUrn) &amp;&amp; sUrn!=&quot;&quot; ){&#xD;
+		if(!angular.isUndefined(sUrn) &amp;&amp; sUrn!=null &amp;&amp; sUrn!=&quot;&quot;){&#xD;
 			url += &quot;&amp;sUrn=&quot;+sUrn;&#xD;
 		}	&#xD;
 	}&#xD;
@@ -936,6 +936,7 @@ openUserMgt_click:function(){&#xD;
 },&#xD;
 // 数据源加载前
 page_beforeDataSourceLoad:function($params){&#xD;
+	$model.search = {};&#xD;
 	var _this = this;
 	$model.dictData.$filter = function(data){&#xD;
 		_this.getUserGroup().refresh();&#xD;
@@ -957,7 +958,7 @@ page_onload:function(){&#xD;
 			}&#xD;
 		},300,false);	&#xD;
 		
-	$scope.$watch(&quot;$model.search&quot;,function(v,o){&#xD;
+	$scope.$watch(&quot;$model.search&quot;,function(v,o){	&#xD;
 		if(angular.isUndefined(v)){&#xD;
 			return ;&#xD;
 		}else if(v.userName==o.userName &#xD;

@@ -41,24 +41,37 @@
       <form:control type="widget/select_tree">
         <form:attributes source="widget/select_tree">
           <dync:attribute default="75" group="控件外观" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="未选中数据 ..." group="控件外观" id="placeholder" name="占位字符串" value="''">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="树数据设置" id="treeBinding" name="树数据源" value="$model.orgSelectTree">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="树数据设置" id="otherParam" name="初始化参数" value="{searchOrgId:$params.orgId}">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="auto" group="树显示设置" id="height" name="高度" value="350px">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="树显示设置" id="expendLevel" name="默认展开级数" value="2">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="树事件设置" id="beforeClick" name="单击前" value="orgId_Field_beforeClick(treeId,treeNode,clickFlag)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="控件外观" id="required" name="必填项" value="$model.isAdd">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="控件外观" id="show" name="可见" value="$model.isAdd">
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -74,6 +87,9 @@
           </dync:attribute>
           <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="true">
             <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="!$model.isAdd">
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -842,6 +858,8 @@ validateForm:function(){&#xD;
 },
 
 page_beforeDataSourceLoad:function(){&#xD;
+	$model.isAdd = 'add'==$params.type;	&#xD;
+	&#xD;
 	var orgId = $params.orgId;	&#xD;
 	if(!angular.isUndefined(orgId) &amp;&amp; orgId!=&quot;&quot;  &amp;&amp; orgId!=&quot;0&quot;){&#xD;
 		$model.orgId = orgId;&#xD;

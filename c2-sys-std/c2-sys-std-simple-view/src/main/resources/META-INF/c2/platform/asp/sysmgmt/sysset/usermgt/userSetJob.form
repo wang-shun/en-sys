@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="用户设置岗位" sn="userSetJob" type="form">
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="用户设置岗位" res="kYoZwJNrTWOXHza991bkQA" sn="userSetJob" type="form">
   <form:control type="page/modal">
     <form:attributes source="page/modal">
       <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="600px">
@@ -148,7 +148,7 @@
     <form:control type="container/toolbar_modal_footer">
       <form:attributes source="container/toolbar_modal_footer"/>
     </form:control>
-    <form:child xsi:type="form:Field" id="newField2" name="保存" customize="true">
+    <form:child xsi:type="form:Field" id="newField2" name="保存" res="pKpwDDyvQOChyBGCuHR_bg" customize="true">
       <form:control type="widget/button">
         <form:attributes source="widget/button">
           <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
@@ -167,7 +167,7 @@
       </form:control>
       <form:validation/>
     </form:child>
-    <form:child xsi:type="form:Field" id="newField5" name="回收" customize="true">
+    <form:child xsi:type="form:Field" id="newField5" name="回收" res="Z6d5wvDDSGK84IgNaRv6SQ" customize="true">
       <form:control type="widget/button">
         <form:attributes source="widget/button">
           <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-eraser">

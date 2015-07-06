@@ -68,6 +68,9 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
+          <dync:attribute default="false" group="控件外观" id="disabled" name="禁用" value="true">
+            <dync:children/>
+          </dync:attribute>
         </form:attributes>
       </form:control>
       <form:validation/>
@@ -106,96 +109,6 @@
         </form:attributes>
       </form:control>
     </form:child>
-    <form:child xsi:type="form:Field" binding="model.job.result.jobFunction" id="jobFunction" name="岗位职责：">
-      <form:control type="widget/text">
-        <form:attributes source="widget/text">
-          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-    </form:child>
-    <form:child xsi:type="form:Field" binding="model.job.result.jobAmount" id="jobAmount" name="岗位编制人数：">
-      <form:control type="widget/text">
-        <form:attributes source="widget/text">
-          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="text" group="HTML设置" id="inputType" name="数据类型" value="number">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="min" name="最小值" value="0">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="max" name="最大值" value="999999999999">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-    </form:child>
-    <form:child xsi:type="form:Field" binding="model.job.result.jobNumber" id="jobNumber" name="岗位编号：">
-      <form:control type="widget/text">
-        <form:attributes source="widget/text">
-          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="combiOne">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^[\w]+$/">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入数字、字母、下划线!">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-    </form:child>
-    <form:child xsi:type="form:Field" binding="model.job.result.jobCondition" id="jobCondition" name="任职条件：">
-      <form:control type="widget/text">
-        <form:attributes source="widget/text">
-          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-    </form:child>
-    <form:child xsi:type="form:Field" binding="model.job.result.jobRank" id="jobRank" name="岗位级别：">
-      <form:control type="widget/text">
-        <form:attributes source="widget/text">
-          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="50">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-        </form:attributes>
-      </form:control>
-    </form:child>
     <form:child xsi:type="form:Field" binding="model.job.result.jobDesc" id="jobDesc" name="岗位描述：">
       <form:control type="widget/textarea">
         <form:attributes source="widget/textarea">
@@ -204,10 +117,6 @@
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
-          <dync:attribute default="12" group="HTML设置" id="span" name="占位数" value="6">
             <dync:render/>
             <dync:children/>
           </dync:attribute>

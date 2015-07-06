@@ -8,6 +8,7 @@
     <input collection="false" desc="" id="jobIds" required="true" type="[Ljava.lang.String;"/>
   </inputs>
   <outputs/>
+  <res>EHRMkE80RAWC2AyCV30Csg</res>
   <params>
     <param autoValue="Input.jobIds" name="jobIds" signature="[QString;" type="[Ljava.lang.String;"/>
   </params>

@@ -9,6 +9,7 @@
     <input collection="false" desc="" id="userIds" required="true" type="[Ljava.lang.String;"/>
   </inputs>
   <outputs/>
+  <res>7V05755OTryYTDX30Z9F5A</res>
   <params>
     <param autoValue="Input.userIds" name="userIds" signature="[QString;" type="[Ljava.lang.String;"/>
   </params>

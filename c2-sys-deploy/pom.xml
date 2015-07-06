@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.chinacreator.c2</groupId>
     <artifactId>c2-sys-parent</artifactId>
-    <version>4.1.5-SNAPSHOT</version>
+    <version>4.2.0-SNAPSHOT</version>
   </parent>
   <artifactId>c2-sys-deploy</artifactId>
   <name>c2-sys-deploy</name>
@@ -17,7 +17,9 @@
   <modules>
   	<module>c2-sys-std-oracle</module>
   	<module>c2-sys-std-mysql</module>
+  	<module>c2-sys-std-sqlserver</module>
   	<module>c2-sys-std-simple-oracle</module>
   	<module>c2-sys-std-simple-mysql</module>
+  	<module>c2-sys-std-simple-sqlserver</module>
   </modules>
 </project>

@@ -26,6 +26,9 @@
         <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
         <dync:children/>
       </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+        <dync:children/>
+      </dync:attribute>
     </form:attributes>
   </form:control>
   <form:child xsi:type="form:Group" id="newGroup2" name="简单容器(DIV)">
@@ -467,6 +470,7 @@
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="false" group="表格设置" id="searchDivShow" name="搜索DIV展开" value="true">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -993,5 +997,9 @@ page_onload:function(){
 		}&#xD;
 		doit(v);&#xD;
 	},true);
+},
+// 数据源加载前
+page_beforeDataSourceLoad:function($params){
+	$model.search = {};
 }</form:scripts>
 </form:Form>

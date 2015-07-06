@@ -31,11 +31,18 @@ public class SysMgrMenuServiceImpl implements MenuService {
 		for (MenuDTO menuDTO : menuDTOList) {
 			if (menuId.equals(menuDTO.getParentId()) && menuDTO.getIsEnabled()) {
 				M m = new M();
-				m.setI(menuDTO.getIcon());
-				m.setL(menuDTO.getHref());
+				m.setI(menuDTO.getIcon());				
 				m.setT(menuDTO.getMenuName());
 				m.setO("2".equals(menuDTO.getDisplayMode()) ? "_blank"
 						: "_self");
+				String href = menuDTO.getHref();
+				if(null!=href && !href.trim().equals("") && "1".equals(menuDTO.getDisplayMode())){
+					if(href.startsWith("#/")){
+						href = href.substring(2);
+					}
+					href = "#/template/iframe.jsp?src="+href+"&title="+menuDTO.getMenuName();
+				}
+				m.setL(href);
 				m.setE(menuDTO.getMenuExt());
 				if ("0".equals(menuId)) {
 					menuList.add(m);

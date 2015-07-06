@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="资源管理" res="YWRDOyIBS826rltHSFMN2g" sn="resMain" type="form">
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="资源管理" res="5x-oYXOMR6e3dvtSLbeX0w" sn="resMain" type="form">
   <form:control type="page/normal">
     <form:attributes source="page/normal">
       <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
@@ -142,6 +142,29 @@
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField1" name="导入" res="Xdwg8zOUSp2ysB1IEFvvRA" customize="true">
+          <form:control type="widget/button">
+            <form:attributes source="widget/button">
+              <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white no-border">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-download">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="purple">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="expRes()">
                 <dync:render/>
                 <dync:children/>
               </dync:attribute>
@@ -337,7 +360,7 @@
               <dync:render/>
               <dync:children/>
             </dync:attribute>
-            <dync:attribute default="" group="数据校验" id="pattern" name="正则表达式" value="/^[\w]+$/">
+            <dync:attribute default="" group="数据校验" id="pattern" name="正则表达式" value="/^[\w-]+$/">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
@@ -376,7 +399,7 @@
               <dync:render/>
               <dync:children/>
             </dync:attribute>
-            <dync:attribute default="" group="数据校验" id="pattern" name="正则表达式" value="/^[\w\u4e00-\u9fa5]+$/">
+            <dync:attribute default="" group="数据校验" id="pattern" name="正则表达式" value="/^[\w\u4e00-\u9fa5\[\]:]+$/">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
@@ -592,6 +615,7 @@
         <form:control type="container/div">
           <form:attributes source="container/div">
             <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="!$model.isResSave">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -600,19 +624,23 @@
           <form:control type="container/toolbar">
             <form:attributes source="container/toolbar"/>
           </form:control>
-          <form:child xsi:type="form:Field" id="newField4" name="保存" customize="true">
+          <form:child xsi:type="form:Field" id="newField4" name="保存" res="ul3xvq1eSQGNdBf-AZ9Ecw" customize="true">
             <form:control type="widget/button">
               <form:attributes source="widget/button">
                 <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
                 <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-success">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
                 <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-lg">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
                 <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resSave()">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
@@ -623,12 +651,15 @@
             <form:control type="widget/button">
               <form:attributes source="widget/button">
                 <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
                 <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-lg">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
                 <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resRefresh()">
+                  <dync:render/>
                   <dync:children/>
                 </dync:attribute>
               </form:attributes>
@@ -878,6 +909,10 @@ resTree_nodeClick:function(event,treeId,treeNode,clickFlag){
 	}
 	this.resInfoController();
 	$scope.$apply();
+},
+// 导入
+expRes:function(){
+	window.location.href = '#/f/ideSynSys';
 },
 resInfoController:function(){
 	var info = $model.resInfo;

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.org.dao.GroupOrgDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+ <sql id="GroupOrg_Column_List"> org_id, group_id </sql>
+  
+  <resultMap id="GroupOrgResultMap" type="com.chinacreator.asp.comp.sys.basic.org.eo.GroupOrgEO">
+   <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+   <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="create" parameterType="com.chinacreator.asp.comp.sys.basic.org.eo.GroupOrgEO" databaseId="sqlserver">
+  	INSERT INTO td_sm_grouporg
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="orgId != null">
+              org_id,
+          </if>
+          <if test="groupId != null">
+              group_id,
+          </if>
+      </trim>
+      <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+          <if test="orgId != null">
+              <![CDATA[#{orgId,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="groupId != null">
+              <![CDATA[#{groupId,jdbcType=VARCHAR},]]>
+          </if>
+      </trim>
+  </insert>
+  
+  <delete id="delete" databaseId="sqlserver">
+  	DELETE FROM td_sm_grouporg  
+  	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+        <if test="orgId != null">
+            <![CDATA[org_id = #{orgId,jdbcType=VARCHAR}]]>
+        </if>
+        <if test="groupId != null">
+             <![CDATA[AND group_id = #{groupId,jdbcType=VARCHAR}]]>
+        </if>
+    </trim>
+  </delete>
+  
+  <delete id="deleteByOrgIds" databaseId="sqlserver">
+  	DELETE FROM td_sm_grouporg 
+  	WHERE org_id IN
+  	<foreach item="idItem" collection="array" open="("
+      separator="," close=")">
+            <![CDATA[#{idItem}]]>
+    </foreach>  
+  </delete>
+</mapper>

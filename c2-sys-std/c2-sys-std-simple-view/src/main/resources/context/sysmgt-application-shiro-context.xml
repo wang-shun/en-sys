@@ -49,8 +49,6 @@
 		<property name="realm" ref="ismRealm" />
 		<!-- 缓存配置 -->
 		<property name="cacheManager" ref="shiroCacheManager" />
-		<!-- session管理 -->
-		<property name="sessionManager" ref="sessionManager" />
 	</bean>
 
 	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
@@ -96,33 +94,5 @@
 	<!-- 缓存配置 -->
 	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
 		<property name="cacheManagerConfigFile" value="classpath:ehcache_shiro.xml" />
-	</bean>
-
-	<!-- session管理 -->
-	<bean id="sessionManager"
-		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-		<!-- session超时时间(毫秒) -->
-		<property name="globalSessionTimeout" value="${sysMgt.sessionTimeout}" />
-		<property name="deleteInvalidSessions" value="true" />
-		<property name="sessionValidationSchedulerEnabled" value="true" />
-		<!-- session验证 -->
-		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
-		<property name="sessionDAO" ref="sessionDAO" />
-	</bean>
-
-	<bean id="sessionFactory"
-		class="com.chinacreator.asp.comp.sys.core.security.shiro.impls.OnlineSessionFactory">
-	</bean>
-
-	<!-- session验证 -->
-	<bean id="sessionValidationScheduler"
-		class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
-		<!-- 验证频率(毫秒) -->
-		<property name="interval" value="${sysMgt.sessionTimeout}" />
-	</bean>
-	<bean id="sessionDAO"
-		class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-		<property name="activeSessionsCacheName" value="shiro-activeSessionsCache" />
 	</bean>
 </beans>

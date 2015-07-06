@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.chinacreator.c2</groupId>
     <artifactId>c2-sys-deploy</artifactId>
-    <version>4.1.5-SNAPSHOT</version>
+    <version>4.2.0-SNAPSHOT</version>
   </parent>
   <artifactId>c2-sys-std-oracle</artifactId>
   <name>c2-sys-std-oracle</name>
@@ -27,6 +27,11 @@
   	<dependency>
   		<groupId>com.chinacreator.c2</groupId>
   		<artifactId>c2-sys-sysmgr-apiImpl</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.chinacreator.c2</groupId>
+  		<artifactId>c2-sys-sysmgr-dataUtil</artifactId>
   		<version>${project.version}</version>
   	</dependency>
   </dependencies>

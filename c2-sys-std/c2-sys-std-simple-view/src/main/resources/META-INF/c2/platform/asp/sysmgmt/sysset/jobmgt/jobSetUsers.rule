@@ -10,6 +10,7 @@
     <input collection="false" desc="" id="delUserIds" required="true" type="[Ljava.lang.String;"/>
   </inputs>
   <outputs/>
+  <res>Gs1ryaXfQP6JxrGcmnIpKw</res>
   <params>
     <param autoValue="Input.jobIds" name="jobIds" signature="[QString;" type="[Ljava.lang.String;"/>
     <param autoValue="Input.addUserIds" name="addUserIds" signature="[QString;" type="[Ljava.lang.String;"/>
