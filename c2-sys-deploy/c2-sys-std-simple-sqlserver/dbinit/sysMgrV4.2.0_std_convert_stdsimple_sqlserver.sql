@@ -16,6 +16,6 @@ insert into tb_sm_menu (menu_id, is_enabled, href, icon, display_mode) values ('
 insert into tb_sm_menu (menu_id, is_enabled, href, icon, display_mode) values ('127', '1', '#/f/resMain', 'fa-tree', '0');
 
 -- 修改"字典管理"菜单排序
-update from tb_sm_privilege set sn = 5 where id = '123';
+update tb_sm_privilege set sn = 5 where id = '123';
 
 go
