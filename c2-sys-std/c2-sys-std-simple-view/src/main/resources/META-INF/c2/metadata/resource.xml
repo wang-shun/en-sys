@@ -91,7 +91,6 @@
     <resource id="W3C_DLSmTou-TaLWzB2rww" name="新增用户" path="ws/addUser" type="service"/>
     <resource id="-lEhzR00R5WGCRqXmwqkFw" name="编辑用户" path="ws/editUser" type="service"/>
     <resource id="HpPpnynZQqm39nPGIioE_A" name="删除用户" path="ws/delUser" type="service"/>
-    <resource id="5oPwhNG6TjyzeeKVsP_Q9g" name="删除机构下用户" path="ws/delUserByOrg" type="service"/>
     <resource id="xb8YR2SEQQO7PlHhJNkSSg" name="重置密码" path="ws/resetPasswords" type="service"/>
     <resource id="pFvb8ol7Qxud6EyyD5D2yA" name="机构下用户排序" path="ws/sortOrgUser" type="service"/>
     <resource id="iSNkDGGiTCCS1tFdzmkjPQ" name="回收用户的所有岗位" path="ws/userRemoveAllJobs" type="service"/>

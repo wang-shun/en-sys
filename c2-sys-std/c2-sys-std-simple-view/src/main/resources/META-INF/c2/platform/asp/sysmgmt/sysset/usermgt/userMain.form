@@ -87,6 +87,7 @@
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="事件设置" id="change" name="值改变" value="org_Field_change(newValue,oldValue)">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -679,11 +680,7 @@ editUser:function(){&#xD;
 	}&#xD;
 },&#xD;
 // 删除用户&#xD;
-delUser:function(){	&#xD;
-	var orgId = $model.search.orgId;&#xD;
-	if(angular.isUndefined(orgId)){&#xD;
-		orgId = null;&#xD;
-	}&#xD;
+delUser:function(){		&#xD;
 	var selectNodes = this.getUserGroup().getSelectDatas();&#xD;
 	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){&#xD;
 		var userIds = [];&#xD;
@@ -693,29 +690,17 @@ delUser:function(){	&#xD;
 				userIds.push(value.userId);&#xD;
 				userNames += value.userRealname+&quot;,&quot;;&#xD;
         	});&#xD;
-        if(null!=orgId){&#xD;
-        	Modal.openDelConfirm({message:&quot;是否确认删除机构下用户?&lt;br>待删除机构下用户：&quot;+userNames.substring(0, userNames.length-1)},function(){&#xD;
-        		$http.post(&quot;ws/delUserByOrg&quot;,{&quot;orgId&quot;:orgId,&quot;userIds&quot;:userIds})&#xD;
-        				.success(function(data, status, headers, config){&#xD;
-							Messenger.post({&#xD;
-				                'message': &quot;删除机构下用户成功！&quot;,&#xD;
-				                'type': 'success',&#xD;
-				            });&#xD;
-				            _this.refreshUserGroup();				           &#xD;
-						});&#xD;
-			});&#xD;
-        }else{&#xD;
-        	Modal.openDelConfirm({message:&quot;是否确认删除用户?&lt;br>待删除用户：&quot;+userNames.substring(0, userNames.length-1)},function(){&#xD;
-        		$http.post(&quot;ws/delUser&quot;,{&quot;userIds&quot;:userIds})&#xD;
-        				.success(function(data, status, headers, config){&#xD;
-							Messenger.post({&#xD;
-				                'message': &quot;删除用户成功！&quot;,&#xD;
-				                'type': 'success',&#xD;
-				            });&#xD;
-				            _this.refreshUserGroup();&#xD;
-						});&#xD;
-	        });	&#xD;
-        }&#xD;
+        &#xD;
+    	Modal.openDelConfirm({message:&quot;是否确认删除用户?&lt;br>待删除用户：&quot;+userNames.substring(0, userNames.length-1)},function(){&#xD;
+    		$http.post(&quot;ws/delUser&quot;,{&quot;userIds&quot;:userIds})&#xD;
+    				.success(function(data, status, headers, config){&#xD;
+						Messenger.post({&#xD;
+			                'message': &quot;删除用户成功！&quot;,&#xD;
+			                'type': 'success',&#xD;
+			            });&#xD;
+			            _this.refreshUserGroup();&#xD;
+					});&#xD;
+        });	&#xD;
         	&#xD;
 	}else{&#xD;
 		Messenger.post({&#xD;

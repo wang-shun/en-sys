@@ -69,6 +69,7 @@
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="事件设置" id="change" name="值改变" value="orgId_change(newValue,oldValue)">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -163,6 +164,7 @@
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="" group="事件设置" id="change" name="值改变" value="preset_Field_change(newValue,oldValue)">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -416,7 +418,7 @@ resTree_nodeCheck:function(event,treeId,treeNode){
 	if(angular.isUndefined(resTreeNodeChecded)){&#xD;
 		resTreeNodeChecded = {};&#xD;
 	}&#xD;
-	var resId = treeNode.id;&#xD;
+	var resId = treeNode.privilegeId;&#xD;
 	var resName = treeNode.name;&#xD;
 	var resChecked = treeNode.checked;&#xD;
 	&#xD;
