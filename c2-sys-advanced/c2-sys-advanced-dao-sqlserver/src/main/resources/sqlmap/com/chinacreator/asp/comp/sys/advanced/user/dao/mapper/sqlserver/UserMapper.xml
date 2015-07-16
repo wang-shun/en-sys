@@ -195,28 +195,16 @@
 		SELECT u.*
 		FROM td_sm_user u, td_sm_userinstance ui, td_sm_instance_org io
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-				u.user_id = ui.user_id
-				AND ui.id = io.userinstance_id
-				AND u.user_id in(
-			<if test="jobId != null">
+			u.user_id = ui.user_id
+			AND ui.id = io.userinstance_id
+			AND ui.scope_type = '1'
+      		And ui.scope_id = #{orgId,jdbcType=VARCHAR}	
+			AND u.user_id in(
 				SELECT user_id 
 				FROM td_sm_userinstance 
 				WHERE scope_type = '2' 
 				AND scope_id = #{jobId,jdbcType=VARCHAR}				
-			</if>
-			<if test="jobId != null and orgId != null">
-				AND user_id in(
-			</if>			
-			<if test="orgId != null">
-				SELECT user_id 
-				FROM td_sm_userinstance 
-				WHERE scope_type = '1'  
-				AND scope_id = #{orgId,jdbcType=VARCHAR}				
-			</if>
-			<if test="jobId != null and orgId != null">
-				)
-			</if>
-			)			    
+			)		    
 			<if test="userEO.userId != null">
 				AND u.user_id = #{userEO.userId,jdbcType=VARCHAR}
 			</if>

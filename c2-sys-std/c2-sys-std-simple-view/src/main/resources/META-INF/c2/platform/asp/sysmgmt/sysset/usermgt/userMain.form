@@ -638,7 +638,7 @@ getUserGroup:function(){&#xD;
 addUser:function(){&#xD;
 	var _this = this;&#xD;
 	var orgId = $model.search.orgId;&#xD;
-	if(angular.isUndefined(orgId)){&#xD;
+	if(angular.isUndefined(orgId) || null==orgId){&#xD;
 		orgId = &quot;&quot;;&#xD;
 	}&#xD;
 	Modal.open('f/editUser',{type:&quot;add&quot;,&quot;orgId&quot;:orgId,userId:&quot;&quot;},function(result){&#xD;
