@@ -22,6 +22,7 @@
     <module>c2-sys-advanced-dao-oracle</module>
     <module>c2-sys-advanced-dao-mysql</module>
     <module>c2-sys-advanced-dao-sqlserver</module>
+    <module>c2-sys-advanced-dao-dm</module>
     <module>c2-sys-advanced-resource</module>
     <module>c2-sys-advanced-spi</module>
   </modules>

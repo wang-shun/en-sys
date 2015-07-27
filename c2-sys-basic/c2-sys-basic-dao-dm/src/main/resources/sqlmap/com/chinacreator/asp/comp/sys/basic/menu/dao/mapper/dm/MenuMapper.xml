@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 菜单信息实体类映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.menu.dao.MenuDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+	<sql id="Menu_Column_List">
+		id,code,name,parent_id,type,perm_expr,is_enabled,href,icon,creator,creator_time,sn,display_mode,source,menu_ext
+	</sql>
+
+	<sql id="Privilege_Column_List">
+		id, code, name, parent_id, type,
+		perm_expr,creator,creator_time,sn,source
+	</sql>
+
+	<resultMap id="MenuResultMap"
+		type="com.chinacreator.asp.comp.sys.basic.menu.eo.MenuAllInfoEO">
+		<result column="ID" property="menuId" jdbcType="VARCHAR" />
+		<result column="CODE" property="menuCode" jdbcType="VARCHAR" />
+		<result column="NAME" property="menuName" jdbcType="VARCHAR" />
+		<result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="CHAR" />
+		<result column="PERM_EXPR" property="permExpr" jdbcType="VARCHAR" />
+		<result column="IS_ENABLED" property="isEnabled" jdbcType="CHAR" />
+		<result column="HREF" property="href" jdbcType="VARCHAR" />
+		<result column="ICON" property="icon" jdbcType="VARCHAR" />
+		<result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+		<result column="CREATOR_TIME" property="creatorTime" jdbcType="DATE" />
+		<result column="SN" property="sn" jdbcType="NUMERIC" />
+		<result column="DISPLAY_MODE" property="displayMode" jdbcType="VARCHAR" />
+		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>
+		<result column="MENU_EXT" property="menuExt" jdbcType="CLOB" />
+	</resultMap>
+
+	<resultMap id="PrivilegeResultMap"
+		type="com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeEO">
+		<result column="ID" property="privilegeId" jdbcType="VARCHAR" />
+		<result column="CODE" property="privilegeCode" jdbcType="VARCHAR" />
+		<result column="NAME" property="privilegeName" jdbcType="VARCHAR" />
+		<result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="CHAR" />
+		<result column="PERM_EXPR" property="permExpr" jdbcType="VARCHAR" />
+		<result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+		<result column="CREATOR_TIME" property="creatorTime" jdbcType="DATE" />
+		<result column="SN" property="sn" jdbcType="NUMERIC" />
+		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>	
+	</resultMap>
+
+	<insert id="create" parameterType="com.chinacreator.asp.comp.sys.basic.menu.eo.MenuEO"
+		databaseId="dm">
+		INSERT INTO tb_sm_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="menuId != null">
+				menu_id,
+			</if>
+			<if test="isEnabled != null">
+				is_enabled,
+			</if>
+			<if test="href != null">
+				href,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+			<if test="displayMode != null">
+				display_mode,
+			</if>
+			<if test="menuExt != null">
+				menu_ext,
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="menuId != null">
+              <![CDATA[#{menuId,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="isEnabled != null">
+               <![CDATA[#{isEnabled,jdbcType=CHAR},]]>
+			</if>
+			<if test="href != null">
+               <![CDATA[#{href,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="icon != null">
+               <![CDATA[#{icon,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="displayMode != null">
+				<![CDATA[#{displayMode,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="menuExt != null">
+				<![CDATA[#{menuExt,jdbcType=CLOB},]]>
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.chinacreator.asp.comp.sys.basic.menu.eo.MenuEO"
+		databaseId="dm">
+		UPDATE tb_sm_menu
+		<set>
+			<if test="isEnabled != null">
+                <![CDATA[is_enabled = #{isEnabled,jdbcType=CHAR},]]>
+			</if>
+			<if test="href != null">
+                <![CDATA[href = #{href,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="icon != null">
+                <![CDATA[icon = #{icon,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="displayMode != null">
+				<![CDATA[display_mode = #{displayMode,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="menuExt != null">
+				<![CDATA[menu_ext = #{menuExt,jdbcType=CLOB},]]>
+			</if>
+		</set>
+		WHERE <![CDATA[menu_id = #{menuId,jdbcType=VARCHAR}]]>
+	</update>
+
+	<delete id="deleteByPKs" databaseId="dm">
+		DELETE FROM tb_sm_menu
+		WHERE menu_id IN
+		<foreach item="idItem" index="index" collection="array" open="("
+			close=")">
+			<if test="index&gt;999 and index%1000==0">) or menu_id in(</if>
+          		<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+          	<if test="index%1000!=999 and index&lt;array.length-1">,</if>
+		</foreach>
+	</delete>
+
+	<delete id="deleteByMenuCodes" databaseId="dm">
+		DELETE FROM tb_sm_menu
+		WHERE menu_id IN ( SELECT id FROM
+		tb_sm_privilege WHERE code IN
+		<foreach item="idItem" index="index" collection="array" open="("
+			close=")">
+			<if test="index&gt;999 and index%1000==0">) or code in(</if>
+          		<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+          	<if test="index%1000!=999 and index&lt;array.length-1">,</if>
+		</foreach>
+		)
+	</delete>
+
+	<select id="queryAll" resultMap="MenuResultMap" databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+    	<![CDATA[
+      		FROM tb_sm_privilege,tb_sm_menu WHERE id = menu_id AND type = '4' ORDER BY sn,name
+      	]]>
+	</select>
+
+	<select id="queryByMenu" resultMap="MenuResultMap" databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+		FROM tb_sm_privilege,tb_sm_menu
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			id = menu_id AND type = '4'
+			<if test="menuAllInfoEO.menuId != null">
+              <![CDATA[AND id = #{menuAllInfoEO.menuId,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.menuCode != null">
+              <![CDATA[AND code = #{menuAllInfoEO.menuCode,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.menuName != null">
+              <![CDATA[AND name = #{menuAllInfoEO.menuName,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.parentId != null">
+              <![CDATA[AND parent_id = #{menuAllInfoEO.parentId,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.permExpr != null">
+              <![CDATA[AND perm_expr = #{menuAllInfoEO.permExpr,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.isEnabled != null">
+              <![CDATA[AND is_enabled = #{menuAllInfoEO.isEnabled,jdbcType=CHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.href != null">
+              <![CDATA[AND href = #{menuAllInfoEO.href,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.icon != null">
+              <![CDATA[AND icon = #{menuAllInfoEO.icon,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.creator != null">
+              <![CDATA[AND creator = #{menuAllInfoEO.creator,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.creatorTime != null">
+              <![CDATA[AND creator_time = #{menuAllInfoEO.creatorTime,jdbcType=DATE}]]>
+			</if>
+			<if test="menuAllInfoEO.displayMode != null">
+				<![CDATA[AND display_mode = #{menuAllInfoEO.displayMode,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.source != null">
+				<![CDATA[AND source = #{menuAllInfoEO.source,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.menuExt != null">
+				<![CDATA[AND menu_ext = #{menuAllInfoEO.menuExt,jdbcType=CLOB}]]>
+			</if>
+		</trim>
+		 ORDER BY sn,name
+	</select>
+
+	<select id="queryByMenuPermission" resultMap="MenuResultMap"
+		databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+		FROM tb_sm_privilege,tb_sm_menu
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			id = menu_id AND type = '4'
+			<if test="menuAllInfoEO.menuId != null">
+              <![CDATA[AND id = #{menuAllInfoEO.menuId,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.menuCode != null">
+              <![CDATA[AND code = #{menuAllInfoEO.menuCode,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.menuName != null">
+              <![CDATA[AND name = #{menuAllInfoEO.menuName,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.parentId != null">
+              <![CDATA[AND parent_id = #{menuAllInfoEO.parentId,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.permExpr != null">
+              <![CDATA[AND perm_expr = #{menuAllInfoEO.permExpr,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.isEnabled != null">
+              <![CDATA[AND is_enabled = #{menuAllInfoEO.isEnabled,jdbcType=CHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.href != null">
+              <![CDATA[AND href = #{menuAllInfoEO.href,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.icon != null">
+              <![CDATA[AND icon = #{menuAllInfoEO.icon,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.creator != null">
+              <![CDATA[AND creator = #{menuAllInfoEO.creator,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.creatorTime != null">
+              <![CDATA[AND creator_time = #{menuAllInfoEO.creatorTime,jdbcType=DATE}]]>
+			</if>
+			<if test="menuAllInfoEO.displayMode != null">
+				<![CDATA[AND display_mode = #{menuAllInfoEO.displayMode,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.source != null">
+				<![CDATA[AND source = #{menuAllInfoEO.source,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="menuAllInfoEO.menuExt != null">
+				<![CDATA[AND menu_ext = #{menuAllInfoEO.menuExt,jdbcType=CLOB}]]>
+			</if>
+			<if test="menuIdList != null">
+				AND (id IN
+				<foreach item="item" index="index" collection="menuIdList"
+					open="(" close=")">
+					<if test="index&gt;999 and index%1000==0">) or id in(</if>
+						#{item}
+					<if test="index%1000!=999 and index&lt;menuIdList.size-1">,</if>
+				</foreach>
+				)
+			</if>
+		</trim>
+		 ORDER BY sn,name
+	</select>
+
+	<select id="queryByPK" parameterType="java.lang.String"
+		resultMap="MenuResultMap" databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+		FROM tb_sm_privilege,tb_sm_menu
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			 id = menu_id AND type = '4'
+			<if test="menuId != null">
+              <![CDATA[AND id = #{menuId,jdbcType=VARCHAR}]]>
+			</if>
+		</trim>
+	</select>
+
+	<select id="queryByPKs" resultMap="MenuResultMap" databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+		FROM tb_sm_privilege,tb_sm_menu 
+		WHERE id = menu_id 
+		AND type = '4' 
+		AND (id IN
+		<foreach item="item" index="index" collection="menuIds" open="("
+			 close=")">
+			<if test="index&gt;999 and index%1000==0">) or id in(</if>
+				#{item}
+			<if test="index%1000!=999 and index&lt;menuIds.size-1">,</if>
+		</foreach>		
+		) ORDER BY sn,name
+	</select>
+
+	<select id="queryByMenuCode" parameterType="java.lang.String"
+		resultMap="MenuResultMap" databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+		FROM tb_sm_privilege,tb_sm_menu
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			id = menu_id AND type = '4'
+			<if test="menuCode != null">
+              <![CDATA[AND code = #{menuCode,jdbcType=VARCHAR}]]>
+			</if>			
+		</trim>
+	</select>
+
+	<select id="queryParents" resultMap="MenuResultMap" databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+		<![CDATA[
+			FROM tb_sm_menu RIGHT JOIN tb_sm_privilege ON tb_sm_menu.menu_id =
+			tb_sm_privilege.id
+			START WITH id = #{menuId,jdbcType=VARCHAR} AND type='4'
+			CONNECT BY PRIOR parent_id = id
+		]]>
+	</select>
+
+	<select id="queryParentsUnRecursive" resultMap="MenuResultMap"
+		databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+		<![CDATA[
+			FROM tb_sm_menu
+ 			RIGHT JOIN tb_sm_privilege
+    		ON tb_sm_menu.menu_id = tb_sm_privilege.id
+ 			WHERE id IN (SELECT parent_id FROM tb_sm_privilege WHERE id = #{menuId,jdbcType=VARCHAR})
+   			AND type = '4'
+		]]>
+	</select>
+
+	<select id="queryChildren" resultMap="MenuResultMap" databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+		<![CDATA[
+			FROM tb_sm_menu RIGHT JOIN tb_sm_privilege ON tb_sm_menu.menu_id =
+			tb_sm_privilege.id
+			START WITH parent_id = #{menuId,jdbcType=VARCHAR} AND type = '4'
+			CONNECT BY PRIOR id = parent_id
+			ORDER BY sn,name
+		]]>
+	</select>
+
+	<select id="queryChildrenPermission" resultMap="MenuResultMap"
+		databaseId="dm">
+		SELECT * FROM (SELECT
+		<include refid="Menu_Column_List" />
+		<![CDATA[
+			FROM tb_sm_menu RIGHT JOIN tb_sm_privilege ON tb_sm_menu.menu_id =
+			tb_sm_privilege.id
+			START WITH parent_id = #{menuId,jdbcType=VARCHAR} AND type = '4'
+			CONNECT BY PRIOR id = parent_id) WHERE id IN
+		]]>
+		<foreach item="item" index="index" collection="menuIdList"
+			open="(" close=")">
+			<if test="index&gt;999 and index%1000==0">) or id in(</if>
+				#{item}
+			<if test="index%1000!=999 and index&lt;menuIdList.size-1">,</if>
+		</foreach>
+		 ORDER BY sn,name
+	</select>
+
+	<select id="queryChildrenUnRecursive" resultMap="MenuResultMap"
+		databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+		<![CDATA[
+			FROM tb_sm_menu RIGHT JOIN tb_sm_privilege ON tb_sm_menu.menu_id =
+			tb_sm_privilege.id
+			where parent_id = #{menuId,jdbcType=VARCHAR}
+			AND type = '4'
+			ORDER BY sn,name
+		]]>
+	</select>
+
+	<select id="queryChildrenUnRecursivePermission" resultMap="MenuResultMap"
+		databaseId="dm">
+		SELECT
+		<include refid="Menu_Column_List" />
+		<![CDATA[
+			FROM tb_sm_menu RIGHT JOIN tb_sm_privilege ON tb_sm_menu.menu_id =
+			tb_sm_privilege.id
+			WHERE parent_id = #{menuId,jdbcType=VARCHAR}
+			AND type = '4'
+			AND (id IN
+		]]>
+		<foreach item="item" index="index" collection="menuIdList"
+			open="(" close=")">
+			<if test="index&gt;999 and index%1000==0">) or id in(</if>
+				#{item}
+			<if test="index%1000!=999 and index&lt;menuIdList.size-1">,</if>
+		</foreach>
+		) ORDER BY sn,name
+	</select>
+
+	<select id="isEnabledByMenuId" parameterType="java.lang.String"
+		resultType="int" databaseId="dm">
+		SELECT COUNT(*)
+		FROM tb_sm_menu
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			is_enabled = '1'
+			<if test="menuId != null">
+                <![CDATA[AND menu_id = #{menuId,jdbcType=VARCHAR}]]>
+			</if>
+		</trim>
+	</select>
+
+	<select id="isEnabledByMenuCode" parameterType="java.lang.String"
+		resultType="int" databaseId="dm">
+		SELECT COUNT(*)
+		FROM tb_sm_menu
+		RIGHT JOIN tb_sm_privilege ON
+		tb_sm_menu.menu_id = tb_sm_privilege.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			is_enabled = '1' AND type = '4'
+			<if test="menuCode != null">
+                <![CDATA[AND code = #{menuCode,jdbcType=VARCHAR}]]>
+			</if>
+		</trim>
+	</select>
+
+	<select id="existsByMenuCode" parameterType="java.lang.String"
+		resultType="int" databaseId="dm">
+		SELECT COUNT(*)
+		FROM tb_sm_privilege
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="menuCode != null">
+                <![CDATA[code = #{menuCode,jdbcType=VARCHAR}]]>
+			</if>
+		</trim>
+	</select>
+
+	<update id="setOrder" parameterType="com.chinacreator.asp.comp.sys.basic.menu.eo.MenuEO"
+		databaseId="dm">
+		UPDATE tb_sm_privilege
+		<set>
+			<if test="sn != null">
+              <![CDATA[sn = #{sn,jdbcType=NUMERIC}]]>
+			</if>
+		</set>
+		WHERE <![CDATA[id = #{menuId,jdbcType=VARCHAR}]]>
+	</update>
+
+	<select id="queryPrivilegesOfMenuByUserId" resultMap="PrivilegeResultMap"
+		parameterType="java.lang.String" databaseId="dm">
+		SELECT
+		<include refid="Privilege_Column_List" />
+        <![CDATA[
+        FROM tb_sm_privilege LEFT JOIN tb_sm_menu t on t.menu_id=id
+        WHERE type = '4' AND t.is_enabled='1' AND id IN (SELECT op_id
+                        FROM td_sm_roleresop
+                        WHERE role_id IN (SELECT role_id
+                                            FROM td_sm_role t
+                                            WHERE t.role_usage = '1'
+                                            AND role_id IN (SELECT role_id
+                                                                FROM td_sm_userinstancerole
+                                                                WHERE userinstance_id IN (SELECT id
+                                                                                            FROM td_sm_userinstance
+                                                                                            WHERE is_enabled = '1'
+                                                                                            AND user_id = #{userId,jdbcType=VARCHAR})
+                                                            UNION
+                                                            SELECT role_id
+                                                                FROM td_sm_grouprole
+                                                                WHERE group_id IN (SELECT group_id
+                                                                                        FROM td_sm_userinstancegroup
+                                                                                        WHERE userinstance_id IN (SELECT id
+                                                                                                                    FROM td_sm_userinstance
+                                                                                                                    WHERE is_enabled = '1'
+                                                                                                                    AND user_id = #{userId,jdbcType=VARCHAR})))))
+        ]]>
+	</select>
+
+	<select id="hasMenu" resultMap="PrivilegeResultMap" databaseId="dm">
+		SELECT
+		<include refid="Privilege_Column_List" />
+        <![CDATA[
+        FROM tb_sm_privilege LEFT JOIN tb_sm_menu t on t.menu_id=id
+        WHERE type = '4' AND t.is_enabled='1' AND id=#{menuId,jdbcType=VARCHAR} AND id IN (SELECT op_id
+                        FROM td_sm_roleresop
+                        WHERE role_id IN (SELECT role_id
+                                            FROM td_sm_role t
+                                            WHERE t.role_usage = '1'
+                                            AND role_id IN (SELECT role_id
+                                                                FROM td_sm_userinstancerole
+                                                                WHERE userinstance_id IN (SELECT id
+                                                                                            FROM td_sm_userinstance
+                                                                                            WHERE is_enabled = '1'
+                                                                                            AND user_id = #{userId,jdbcType=VARCHAR})
+                                                            UNION
+                                                            SELECT role_id
+                                                                FROM td_sm_grouprole
+                                                                WHERE group_id IN (SELECT group_id
+                                                                                        FROM td_sm_userinstancegroup
+                                                                                        WHERE userinstance_id IN (SELECT id
+                                                                                                                    FROM td_sm_userinstance
+                                                                                                                    WHERE is_enabled = '1'
+                                                                                                                    AND user_id = #{userId,jdbcType=VARCHAR})))))
+        ]]>
+	</select>
+
+	<select id="isMenuSCreator" resultType="int" databaseId="dm">
+		SELECT COUNT(*)
+		FROM tb_sm_menu RIGHT JOIN tb_sm_privilege ON
+		tb_sm_menu.menu_id =
+		tb_sm_privilege.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="userId != null">
+				creator = #{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="menuId != null">
+				AND id = #{menuId,jdbcType=VARCHAR}
+			</if>
+			AND type = '4'
+		</trim>
+	</select>
+
+	<select id="existsChildMenus" parameterType="java.lang.String"
+		resultType="int" databaseId="dm">
+      <![CDATA[
+      SELECT COUNT(*)
+      FROM tb_sm_menu RIGHT JOIN tb_sm_privilege ON tb_sm_menu.menu_id = tb_sm_privilege.id
+      START WITH parent_id = #{menuId,jdbcType=VARCHAR} AND type = '4'
+      CONNECT BY PRIOR id = parent_id 
+      ]]>
+	</select>
+
+	<select id="existsByMenuName" parameterType="java.lang.String"
+		resultType="int" databaseId="dm">
+      <![CDATA[
+      SELECT COUNT(*)
+		  FROM tb_sm_privilege p, tb_sm_menu m
+		 WHERE m.menu_id = p.id
+		   AND p.parent_id = #{parentId,jdbcType=VARCHAR}
+		   AND p.name = #{menuName,jdbcType=VARCHAR}
+		   AND p.type = '4'
+      ]]>
+	</select>
+
+	<select id="existsByMenuNameIgnoreMenuID" parameterType="java.lang.String"
+		resultType="int" databaseId="dm">
+      <![CDATA[
+      SELECT COUNT(*)
+		  FROM tb_sm_privilege p, tb_sm_menu m
+		 WHERE m.menu_id = p.id
+		   AND p.name = #{menuName,jdbcType=VARCHAR}
+		   AND p.parent_id = (SELECT p.parent_id
+		                        FROM tb_sm_privilege p, tb_sm_menu m
+		                       WHERE m.menu_id = p.id
+		                         AND m.menu_id = #{menuId,jdbcType=VARCHAR})
+		   AND m.menu_id != #{menuId,jdbcType=VARCHAR}
+		   AND p.type = '4'
+      ]]>
+	</select>
+</mapper>

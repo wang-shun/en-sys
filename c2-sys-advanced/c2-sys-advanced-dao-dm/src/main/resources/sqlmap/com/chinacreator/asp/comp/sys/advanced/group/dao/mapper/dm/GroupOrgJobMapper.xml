@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 用户组与机构岗位关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.advanced.group.dao.GroupOrgJobDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+  <sql id="GroupOrgJob_Column_List"> group_id,job_id </sql>
+
+  <resultMap id="GroupOrgJobResultMap" type="com.chinacreator.asp.comp.sys.advanced.group.eo.GroupOrgJobEO">
+  	<result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+    <result column="JOB_ID" property="jobId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <delete id="delete" databaseId="dm">
+  DELETE FROM td_sm_grouporgjob 
+  <trim prefix="WHERE" prefixOverrides="AND |OR ">
+	  	 <if test="groupId != null">
+	  	 	<![CDATA[group_id = #{groupId,jdbcType=VARCHAR}]]>
+	  	 </if>
+	  	 <if test="jobId != null">
+	  	 	<![CDATA[AND job_id = #{jobId,jdbcType=VARCHAR}]]>
+	  	 </if>
+  	 </trim>
+  </delete>
+  
+  <delete id="deleteByJobIds" databaseId="dm">
+  	DELETE FROM td_sm_grouporgjob 
+  	WHERE job_id IN
+  	<foreach item="idItem" index="index" collection="array" open="("
+       close=")">
+       <if test="index&gt;999 and index%1000==0">) or job_id in(</if>
+            <![CDATA[#{idItem}]]>
+       <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+    </foreach>
+  </delete>
+  
+  <insert id="create" parameterType="com.chinacreator.asp.comp.sys.advanced.group.eo.GroupOrgJobEO" databaseId="dm">
+      INSERT INTO td_sm_grouporgjob
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="groupId != null">
+              group_id,
+          </if>
+          <if test="jobId != null">
+              job_id,
+          </if>
+      </trim>
+      <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+          <if test="groupId != null">
+              <![CDATA[#{groupId,jdbcType=VARCHAR},]]>
+          </if>
+          <if test="jobId != null">
+              <![CDATA[#{jobId,jdbcType=VARCHAR},]]>
+          </if>
+      </trim>
+  </insert>
+  
+</mapper>

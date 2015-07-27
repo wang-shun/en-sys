@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.role.dao.RoleDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+  <delete id="deleteOrgRoleRelationByRoleIds" databaseId="dm">
+    DELETE td_sm_grouprole t
+    WHERE (t.role_id IN
+    <foreach item="idItem" index="index" collection="array" open="("
+       close=")">
+       		<if test="index&gt;999 and index%1000==0">) or t.role_id in(</if>
+            	<![CDATA[#{idItem}]]>
+            <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+    </foreach>
+    ) AND t.group_id IN (SELECT group_id FROM td_sm_group g WHERE g.type = '1')
+  </delete>
+  
+  <select id="isRoleSCreator" resultType="int" databaseId="dm">
+  	    SELECT
+        COUNT(*)
+        FROM td_sm_role
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="userId != null">
+                owner_id = #{userId,jdbcType=VARCHAR}
+            </if>
+            <if test="roleId != null">
+                AND role_id = #{roleId,jdbcType=VARCHAR}
+            </if>
+        </trim>
+  </select>
+  
+  <select id="queryRoleIdsByUserIds" resultType="java.lang.String" databaseId="dm">
+  	SELECT t.role_id FROM td_sm_role t 
+  	LEFT JOIN td_sm_userinstancerole t1 ON t.role_id = t1.role_id 
+  	LEFT JOIN td_sm_userinstance t2 ON t1.userinstance_id = t2.id 
+  	WHERE (t2.user_id IN 
+  	<foreach item="idItem" index="index" collection="userIds" open="(" close=")">
+  			<if test="index&gt;999 and index%1000==0">) or t2.user_id in(</if>
+            	<![CDATA[#{idItem}]]>
+            <if test="index%1000!=999 and index&lt;userIds.size-1">,</if>
+    </foreach>
+    ) AND t.role_type=#{roleType,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryRoleIdsByUserInstance" resultType="java.lang.String" databaseId="dm">
+  	SELECT t.role_id FROM td_sm_role t 
+  	LEFT JOIN td_sm_userinstancerole t1 ON t.role_id = t1.role_id 
+  	LEFT JOIN td_sm_userinstance t2 ON t1.userinstance_id = t2.id 
+  	WHERE (t2.user_id IN 
+  	<foreach item="idItem" index="index" collection="userInstanceIds" open="(" close=")">
+  		<if test="index&gt;999 and index%1000==0">) or t2.user_id in(</if>
+            <![CDATA[#{idItem}]]>
+        <if test="index%1000!=999 and index&lt;userInstanceIds.length-1">,</if>
+    </foreach>
+    ) AND t.role_type=#{roleType,jdbcType=VARCHAR}
+  </select>
+</mapper>

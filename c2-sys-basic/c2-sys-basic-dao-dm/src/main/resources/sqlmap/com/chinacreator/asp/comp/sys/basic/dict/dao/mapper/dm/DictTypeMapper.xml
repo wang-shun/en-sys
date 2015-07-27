@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 字典类型实体类映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.dict.dao.DictTypeDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.basic.dict.dao.DictDataDao"/>
+  <sql id="DictType_Column_List"> dicttype_id,dicttype_name,dicttype_desc </sql>
+  
+  <resultMap id="DictTypeResultMap" type="com.chinacreator.asp.comp.sys.basic.dict.eo.DictTypeEO">
+    <result column="DICTTYPE_ID" property="dicttypeId" jdbcType="VARCHAR" />
+    <result column="DICTTYPE_NAME" property="dicttypeName" jdbcType="VARCHAR" />
+    <result column="DICTTYPE_DESC" property="dicttypeDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="create" parameterType="com.chinacreator.asp.comp.sys.basic.dict.eo.DictTypeEO" databaseId="dm">
+    INSERT INTO td_sm_dicttype
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="dicttypeId != null">
+            dicttype_id,
+        </if>
+        <if test="dicttypeName != null">
+            dicttype_name,
+        </if>
+        <if test="dicttypeDesc != null">
+            dicttype_desc,
+        </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+        <if test="dicttypeId != null">
+             <![CDATA[#{dicttypeId,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="dicttypeName != null">
+             <![CDATA[#{dicttypeName,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="dicttypeDesc != null">
+             <![CDATA[#{dicttypeDesc,jdbcType=VARCHAR},]]>
+        </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.chinacreator.asp.comp.sys.basic.dict.eo.DictTypeEO" databaseId="dm">
+        UPDATE td_sm_dicttype
+        <set>
+            <if test="dicttypeName != null">
+                <![CDATA[dicttype_name = #{dicttypeName,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="dicttypeDesc != null">
+                <![CDATA[dicttype_desc = #{dicttypeDesc,jdbcType=VARCHAR}]]>
+            </if>
+        </set>
+        WHERE <![CDATA[dicttype_id = #{dicttypeId,jdbcType=VARCHAR}]]>
+  </update>
+  
+  <delete id="deleteByPKs" databaseId="dm">
+      DELETE FROM td_sm_dicttype
+      WHERE dicttype_id IN
+      <foreach item="idItem" index="index" collection="array" open="("
+          close=")">
+          <if test="index&gt;999 and index%1000==0">) or dicttype_id in(</if>
+          	<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+          <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+      </foreach>
+  </delete>
+  
+  <select id="queryAll" resultMap="DictTypeResultMap" databaseId="dm">
+        SELECT <include refid="DictType_Column_List"/>
+        FROM td_sm_dicttype
+  </select>
+  
+  <select id="queryByDictType" resultMap="DictTypeResultMap" databaseId="dm">
+        SELECT <include refid="DictType_Column_List"/>
+        FROM td_sm_dicttype
+         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+          <if test="dictTypeEO.dicttypeId != null">
+             <![CDATA[dicttype_id = #{dictTypeEO.dicttypeId,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="dictTypeEO.dicttypeName != null">
+               <![CDATA[AND dicttype_name = #{dictTypeEO.dicttypeName,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="dictTypeEO.dicttypeDesc != null">
+               <![CDATA[AND dicttype_desc = #{dictTypeEO.dicttypeDesc,jdbcType=VARCHAR}]]>
+          </if>
+      </trim>
+  </select>
+  
+  <select id="queryByPK" parameterType="java.lang.String" resultMap="DictTypeResultMap" databaseId="dm">
+        SELECT <include refid="DictType_Column_List"/>
+        FROM td_sm_dicttype
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+          <if test="dictTypeId != null">
+             <![CDATA[dicttype_id = #{dictTypeId,jdbcType=VARCHAR}]]>
+          </if>
+         </trim>
+  </select>
+  
+  <select id="existsByDictTypeId" parameterType="java.lang.String" resultType="int" databaseId="dm">
+         SELECT COUNT(*)
+        FROM td_sm_dicttype
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+          <if test="dictTypeId != null">
+             <![CDATA[dicttype_id = #{dictTypeId,jdbcType=VARCHAR}]]>
+          </if>
+         </trim>
+  </select>
+  
+  <select id="existsByDictTypeName" parameterType="java.lang.String" resultType="int" databaseId="dm">
+         SELECT COUNT(*)
+        FROM td_sm_dicttype
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+          <if test="dictTypeName != null">
+             <![CDATA[dicttype_name = #{dictTypeName,jdbcType=VARCHAR}]]>
+          </if>
+         </trim>
+  </select>
+  
+  <select id="existsByDictTypeNameIgnoreDictTypeID" parameterType="java.lang.String" resultType="int" databaseId="dm">
+         <![CDATA[
+         SELECT COUNT(*)
+		 FROM td_sm_dicttype
+		 WHERE dicttype_name = #{dictTypeName,jdbcType=VARCHAR}
+		 	AND dicttype_id != #{dictTypeId,jdbcType=VARCHAR}
+		 ]]>
+  </select>
+  
+</mapper>

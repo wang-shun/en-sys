@@ -18,8 +18,10 @@
   	<module>c2-sys-std-oracle</module>
   	<module>c2-sys-std-mysql</module>
   	<module>c2-sys-std-sqlserver</module>
+  	<module>c2-sys-std-dm</module>
   	<module>c2-sys-std-simple-oracle</module>
   	<module>c2-sys-std-simple-mysql</module>
   	<module>c2-sys-std-simple-sqlserver</module>
+  	<module>c2-sys-std-simple-dm</module>
   </modules>
 </project>

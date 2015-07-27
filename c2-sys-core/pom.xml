@@ -17,6 +17,7 @@
   	<module>c2-sys-core-dao-oracle</module>
   	<module>c2-sys-core-dao-mysql</module>
   	<module>c2-sys-core-dao-sqlserver</module>
+  	<module>c2-sys-core-dao-dm</module>
   	<module>c2-sys-core-daoapi</module>
   	<module>c2-sys-core-domain</module>
   	<module>c2-sys-core-domainapi</module>

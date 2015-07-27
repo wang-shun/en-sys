@@ -21,6 +21,7 @@
     <module>c2-sys-basic-dao-oracle</module>
     <module>c2-sys-basic-dao-mysql</module>
     <module>c2-sys-basic-dao-sqlserver</module>
+    <module>c2-sys-basic-dao-dm</module>
     <module>c2-sys-basic-resource</module>
     <module>c2-sys-basic-spi</module>
   </modules>
