@@ -50,18 +50,13 @@ public class RoleTypeServiceImpl implements RoleTypeService {
 					BeanCopierUtil.copy(roleTypeDTO, roleTypeEO);
 					roleTypeDao.create(roleTypeEO);
 				} else {
-					throw new IllegalArgumentException(
-							RoleMessages
-									.getString("ROLE.ROLETYPE_NAME_IS_EXIST"));
+					throw new IllegalArgumentException(RoleMessages.getString("ROLE.ROLETYPE_NAME_IS_EXIST"));
 				}
 			} else {
-				throw new NullPointerException(
-						RoleMessages
-								.getString("ROLE.ROLETYPE_NAME_IS_NULL_EMPTY_BLANK"));
+				throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPE_NAME_IS_NULL_EMPTY_BLANK"));
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLETYPEDTO_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPEDTO_IS_NULL"));
 		}
 
 	}
@@ -73,15 +68,11 @@ public class RoleTypeServiceImpl implements RoleTypeService {
 
 				if (null != roleTypeDTO.getTypeName()) {
 					if ("".equals(roleTypeDTO.getTypeName().trim())) {
-						throw new IllegalArgumentException(
-								RoleMessages
-										.getString("ROLE.ROLETYPE_NAME_IS_EMPTY_BLANK"));
+						throw new IllegalArgumentException(RoleMessages.getString("ROLE.ROLETYPE_NAME_IS_EMPTY_BLANK"));
 					}
-					if (roleTypeDao.existsByRoleTypeNameIgnoreRoleTypeID(
-							roleTypeDTO.getTypeName(), roleTypeDTO.getTypeId()) > 0) {
-						throw new IllegalArgumentException(
-								RoleMessages
-										.getString("ROLE.ROLETYPE_NAME_IS_EXIST"));
+					if (roleTypeDao.existsByRoleTypeNameIgnoreRoleTypeID(roleTypeDTO.getTypeName(),
+							roleTypeDTO.getTypeId()) > 0) {
+						throw new IllegalArgumentException(RoleMessages.getString("ROLE.ROLETYPE_NAME_IS_EXIST"));
 					}
 				}
 				RoleTypeEO roleTypeEO = new RoleTypeEO();
@@ -89,13 +80,10 @@ public class RoleTypeServiceImpl implements RoleTypeService {
 				roleTypeDao.update(roleTypeEO);
 
 			} else {
-				throw new NullPointerException(
-						RoleMessages
-								.getString("ROLE.ROLETYPE_ID_IS_NULL_EMPTY_BLANK"));
+				throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPE_ID_IS_NULL_EMPTY_BLANK"));
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLETYPEDTO_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPEDTO_IS_NULL"));
 		}
 	}
 
@@ -106,27 +94,21 @@ public class RoleTypeServiceImpl implements RoleTypeService {
 				for (String roleTypeId : roleTypeIds) {
 					if (isBlank(roleTypeId)) {
 						throw new NullPointerException(
-								RoleMessages
-										.getString("ROLE.MENUID_ARRAY_CONTAINS_NULL_EMPTY_BLANK_ITEM"));
+								RoleMessages.getString("ROLE.MENUID_ARRAY_CONTAINS_NULL_EMPTY_BLANK_ITEM"));
 					}
 				}
 				// 查询出所有角色类型下的角色ID，然后进行按角色ID批量删除角色及其关系的调用
-				List<String> roleIdList = roleDao
-						.queryRoleIdsByRoleTypeIds(roleTypeIds);
+				List<String> roleIdList = roleDao.queryRoleIdsByRoleTypeIds(roleTypeIds);
 				if (null != roleIdList && roleIdList.size() > 0) {
-					String[] roleIds = roleIdList.toArray(new String[roleIdList
-							.size()]);
+					String[] roleIds = roleIdList.toArray(new String[roleIdList.size()]);
 					roleService.deleteByPKs(roleIds);
 				}
 				roleTypeDao.deleteByPKs(roleTypeIds);
 			} else {
-				throw new NullPointerException(
-						RoleMessages
-								.getString("ROLE.ROLETYPE_ID_ARRAY_CONTAINS_NO_ITEM"));
+				throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPE_ID_ARRAY_CONTAINS_NO_ITEM"));
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLETYPE_ID_ARRAY_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPE_ID_ARRAY_IS_NULL"));
 		}
 
 	}
@@ -135,21 +117,17 @@ public class RoleTypeServiceImpl implements RoleTypeService {
 		List<RoleTypeEO> roleTypeEOList = roleTypeDao.queryAll();
 		List<RoleTypeDTO> roleTypeDTOList = new ArrayList<RoleTypeDTO>();
 		if (null != roleTypeEOList && roleTypeEOList.size() > 0) {
-			BeanCopierUtil.copy(roleTypeEOList, roleTypeDTOList,
-					RoleTypeEO.class, RoleTypeDTO.class);
+			BeanCopierUtil.copy(roleTypeEOList, roleTypeDTOList, RoleTypeEO.class, RoleTypeDTO.class);
 		}
 		return roleTypeDTOList;
 	}
 
 	public Page<RoleTypeDTO> queryAll(Pageable pageable, Sortable sortable) {
-		Page<RoleTypeEO> roleTypeEOPage = roleTypeDao.queryAll(pageable,
-				sortable);
-		Page<RoleTypeDTO> roleTypeDTOPage = new Page<RoleTypeDTO>(
-				pageable.getPageIndex(), pageable.getPageSize(), 0,
+		Page<RoleTypeEO> roleTypeEOPage = roleTypeDao.queryAll(pageable, sortable);
+		Page<RoleTypeDTO> roleTypeDTOPage = new Page<RoleTypeDTO>(pageable.getPageIndex(), pageable.getPageSize(), 0,
 				new ArrayList<RoleTypeDTO>());
 		if (null != roleTypeEOPage && roleTypeEOPage.getTotal() > 0) {
-			roleTypeDTOPage = BeanCopierUtil.copyPage(roleTypeEOPage,
-					RoleTypeEO.class, RoleTypeDTO.class);
+			roleTypeDTOPage = BeanCopierUtil.copyPage(roleTypeEOPage, RoleTypeEO.class, RoleTypeDTO.class);
 		}
 		return roleTypeDTOPage;
 	}
@@ -158,38 +136,30 @@ public class RoleTypeServiceImpl implements RoleTypeService {
 		if (null != roleTypeDTO) {
 			RoleTypeEO roleTypeEO = new RoleTypeEO();
 			BeanCopierUtil.copy(roleTypeDTO, roleTypeEO);
-			List<RoleTypeEO> roleTypeEOList = roleTypeDao
-					.queryByRoleType(roleTypeEO);
+			List<RoleTypeEO> roleTypeEOList = roleTypeDao.queryByRoleType(roleTypeEO);
 			List<RoleTypeDTO> roleTypeDTOList = new ArrayList<RoleTypeDTO>();
 			if (null != roleTypeEOList && roleTypeEOList.size() > 0) {
-				BeanCopierUtil.copy(roleTypeEOList, roleTypeDTOList,
-						RoleTypeEO.class, RoleTypeDTO.class);
+				BeanCopierUtil.copy(roleTypeEOList, roleTypeDTOList, RoleTypeEO.class, RoleTypeDTO.class);
 			}
 			return roleTypeDTOList;
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLETYPEDTO_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPEDTO_IS_NULL"));
 		}
 	}
 
-	public Page<RoleTypeDTO> queryByRoleType(RoleTypeDTO roleTypeDTO,
-			Pageable pageable, Sortable sortable) {
+	public Page<RoleTypeDTO> queryByRoleType(RoleTypeDTO roleTypeDTO, Pageable pageable, Sortable sortable) {
 		if (null != roleTypeDTO) {
 			RoleTypeEO roleTypeEO = new RoleTypeEO();
 			BeanCopierUtil.copy(roleTypeDTO, roleTypeEO);
-			Page<RoleTypeEO> roleTypeEOPage = roleTypeDao.queryByRoleType(
-					roleTypeEO, pageable, sortable);
-			Page<RoleTypeDTO> roleTypeDTOPage = new Page<RoleTypeDTO>(
-					pageable.getPageIndex(), pageable.getPageSize(), 0,
-					new ArrayList<RoleTypeDTO>());
+			Page<RoleTypeEO> roleTypeEOPage = roleTypeDao.queryByRoleType(roleTypeEO, pageable, sortable);
+			Page<RoleTypeDTO> roleTypeDTOPage = new Page<RoleTypeDTO>(pageable.getPageIndex(), pageable.getPageSize(),
+					0, new ArrayList<RoleTypeDTO>());
 			if (null != roleTypeEOPage && roleTypeEOPage.getTotal() > 0) {
-				roleTypeDTOPage = BeanCopierUtil.copyPage(roleTypeEOPage,
-						RoleTypeEO.class, RoleTypeDTO.class);
+				roleTypeDTOPage = BeanCopierUtil.copyPage(roleTypeEOPage, RoleTypeEO.class, RoleTypeDTO.class);
 			}
 			return roleTypeDTOPage;
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLETYPEDTO_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPEDTO_IS_NULL"));
 		}
 	}
 
@@ -203,9 +173,7 @@ public class RoleTypeServiceImpl implements RoleTypeService {
 			}
 			return roleTypeDTO;
 		} else {
-			throw new NullPointerException(
-					RoleMessages
-							.getString("ROLE.ROLETYPE_ID_IS_NULL_EMPTY_BLANK"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPE_ID_IS_NULL_EMPTY_BLANK"));
 		}
 	}
 
@@ -213,10 +181,18 @@ public class RoleTypeServiceImpl implements RoleTypeService {
 		if (!isBlank(roleTypeName)) {
 			return roleTypeDao.existsByRoleTypeName(roleTypeName) > 0;
 		} else {
-			throw new NullPointerException(
-					RoleMessages
-							.getString("ROLE.ROLETYPE_NAME_IS_NULL_EMPTY_BLANK"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPE_NAME_IS_NULL_EMPTY_BLANK"));
 		}
+	}
+
+	public boolean existsByRoleTypeNameIgnoreRoleTypeId(String roleTypeName, String roleTypeId) {
+		if (isBlank(roleTypeId)) {
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPE_ID_IS_NULL_EMPTY_BLANK"));
+		}
+		if (isBlank(roleTypeName)) {
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLETYPE_NAME_IS_NULL_EMPTY_BLANK"));
+		}
+		return roleTypeDao.existsByRoleTypeNameIgnoreRoleTypeID(roleTypeName, roleTypeId) > 0;
 	}
 
 	/**
@@ -233,5 +209,4 @@ public class RoleTypeServiceImpl implements RoleTypeService {
 	public String getAnonymousRoleTypeId() {
 		return CommonPropertiesUtil.getAnonymousRoleTypeId();
 	}
-
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="moveRes" className="com.chinacreator.asp.sysmgmt.sysset.resmgt.ResMgt" method="moveRes">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>移动资源</name>
+  <desc>移动资源</desc>
+  <inputs>
+    <input collection="false" desc="被移动的资源ID" id="resIds" required="true" type="[Ljava.lang.String;"/>
+    <input collection="false" desc="移动到的父资源ID" id="parentId" required="true"/>
+    <input collection="false" desc="移动到的父资源类型" id="parentType" required="true"/>
+    <input collection="false" desc="" id="sortResIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>38d4xpkfRCGEYslCCEK0Tw</res>
+  <params>
+    <param autoValue="Input.resIds" name="resIds" signature="[QString;" type="[Ljava.lang.String;"/>
+    <param autoValue="Input.parentId" name="parentId" signature="QString;" type="java.lang.String"/>
+    <param autoValue="Input.parentType" name="parentType" signature="QString;" type="java.lang.String"/>
+    <param autoValue="Input.sortResIds" name="sortResIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

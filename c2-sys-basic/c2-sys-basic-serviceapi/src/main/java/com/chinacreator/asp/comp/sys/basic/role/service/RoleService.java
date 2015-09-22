@@ -15,8 +15,7 @@ import com.chinacreator.c2.dao.mybatis.enhance.Sortable;
  * @author 彭盛
  * 
  */
-public interface RoleService extends
-		com.chinacreator.asp.comp.sys.core.role.service.RoleService {
+public interface RoleService extends com.chinacreator.asp.comp.sys.core.role.service.RoleService {
 
 	/**
 	 * 创建匿名角色
@@ -50,8 +49,31 @@ public interface RoleService extends
 	 * @return 分页后的角色数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<RoleDTO> queryByRole(RoleDTO roleDTO, Pageable pageable,
-			Sortable sortable);
+	public Page<RoleDTO> queryByRole(RoleDTO roleDTO, Pageable pageable, Sortable sortable);
+
+	/**
+	 * 查询角色(忽略匿名角色类型)
+	 * 
+	 * @param roleDTO
+	 *            角色数据传输对象
+	 * @return 角色数据传输对象列表<br>
+	 *         一条记录也没查询到的情况下返回无内容的List
+	 */
+	public List<RoleDTO> queryByRoleIgnoreAnonymous(RoleDTO roleDTO);
+
+	/**
+	 * 分页查询角色(忽略匿名角色类型)
+	 * 
+	 * @param roleDTO
+	 *            角色数据传输对象
+	 * @param pageable
+	 *            分页对象
+	 * @param sortable
+	 *            排序对象
+	 * @return 分页后的角色数据传输对象列表<br>
+	 *         一条记录也没查询到的情况下返回无内容的Page
+	 */
+	public Page<RoleDTO> queryByRoleIgnoreAnonymous(RoleDTO roleDTO, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 分页查询拥有特定角色的所有用户
@@ -63,10 +85,9 @@ public interface RoleService extends
 	 * @param sortable
 	 *            排序对象
 	 * @return 分页后的用户数据传输对象列表<br>
-	 *         一条记录也没查询到的情况下返回无内容的List
+	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<UserDTO> queryUsers(String roleId, Pageable pageable,
-			Sortable sortable);
+	public Page<UserDTO> queryUsers(String roleId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 查询拥有特定角色的指定机构下用户
@@ -94,8 +115,7 @@ public interface RoleService extends
 	 * @return 分页后的用户数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<UserDTO> queryUsers(String roleId, String orgId,
-			Pageable pageable, Sortable sortable);
+	public Page<UserDTO> queryUsers(String roleId, String orgId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 分页查询角色所拥有的权限
@@ -109,8 +129,7 @@ public interface RoleService extends
 	 * @return 分页后的权限数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的List
 	 */
-	public Page<PrivilegeDTO> queryPrivileges(String roleId, Pageable pageable,
-			Sortable sortable);
+	public Page<PrivilegeDTO> queryPrivileges(String roleId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 授予角色给机构下用户

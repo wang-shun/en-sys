@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="新增编辑角色类型" res="UAmrpgaxSP6SS30o_ihScg" sn="editRoleType" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="600px">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="{{$params.type=='add'?'新增':'编辑'}}角色类型">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="$model.roleType.result.typeName" id="typeName" name="角色类型名称：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="基本设置" id="lableWidth" name="左外边距" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据验证" value="combiTwo">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则表达式" value="/^[\w\u4e00-\u9fa5]+$/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入中文、数字、字母、下划线!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="50">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="blur" name="失去焦点" value="element_blur($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.roleType.result.typeDesc" id="typeDesc" name="角色类型描述：">
+      <form:control type="widget/textarea">
+        <form:attributes source="widget/textarea">
+          <dync:attribute default="75" group="HTML设置" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="200">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="对话框工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField" name="保存" res="JSwEJmx7QRW0mIAvWNjJzw" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-success">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="save()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField1" name="重置" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="reset()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField2" name="关闭" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-times">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="closeModal()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="roleType" name="角色类型" logic="rule:asp.sysmgmt.sysset.rolemgt.getRoleTypeByPK" sn="getRoleTypeByPK">
+      <form:param id="roleTypeId" name="新输入参数"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>// 保存
+save:function(){
+	if(this.validateForm() &amp;&amp; $view.mainForm.check()){
+		if('add'==$params.type){
+			$http.post(&quot;ws/addRoleType&quot;,{roleTypeDTO:$model.roleType.result})
+					.success(function(data, status, headers, config){
+						Messenger.post({
+			                'message': &quot;新增角色类型成功！&quot;,
+			                'type': 'success',
+			            });
+			            $scope.saveType = 'success';
+					});
+		}else if('edit'==$params.type){
+			$http.post(&quot;ws/editRoleType&quot;,{roleTypeDTO:$model.roleType.result})
+					.success(function(data, status, headers, config){
+						Messenger.post({
+			                'message': &quot;编辑角色类型成功！&quot;,
+			                'type': 'success',
+			            });
+			            $scope.saveType = 'success';
+					});
+		}else{
+			Messenger.post({
+	                'message': &quot;参数不正确！&quot;+$params.type,
+	                'type': 'error',
+	            });
+		}
+	}else{
+		Messenger.post({
+            'message': &quot;保存失败！验证未通过！&quot;,
+            'type': 'error',
+        });
+	}
+},
+// 重置
+reset:function(){
+	$view.mainForm.clean();
+	$model.roleType.$reload();
+	$model.validataJson = {};
+},
+// 关闭
+closeModal:function(){
+	Modal.instance.close($scope.saveType);
+},
+// 失去焦点事件(验证唯一)
+element_blur:function($event){	
+	var elementId = $event.currentTarget.id;
+	if(!$view[elementId].check()){
+		return;
+	}	
+	var elementValue = $event.currentTarget.value;
+	var validataJson = $model.validataJson;	
+	if(angular.isUndefined(validataJson)){
+		validataJson = {};
+	}
+	var roleTypeId = $model.roleType.result.typeId;
+	if(angular.isUndefined(roleTypeId)){
+		roleTypeId = &quot;&quot;;
+	}
+	$http.post(&quot;ws/validateFormByRoleType&quot;,{&quot;elementId&quot;:elementId,&quot;elementValue&quot;:elementValue,&quot;formType&quot;:$params.type,&quot;roleTypeId&quot;:roleTypeId})
+			.success(function(data, status, headers, config){
+				if(!angular.isUndefined(data) &amp;&amp; !angular.isUndefined(data.result)){
+					validataJson[elementId] = data.result.validate;
+					$model.validataJson = validataJson;
+					if(&quot;error&quot;==data.result.validate){					
+						$view[elementId].setTipMessage(data.result.errmess);
+					}			
+				}
+			});
+},
+// 验证表单(验证唯一)
+validateForm:function(){
+	var validataJson = $model.validataJson;
+	if(!angular.isUndefined(validataJson)){
+		for(var key in validataJson){  
+	        if(&quot;error&quot;==validataJson[key]){	        	
+	        	return false;
+	        }
+		}
+	}	  
+    return true;
+}</form:scripts>
+</form:Form>

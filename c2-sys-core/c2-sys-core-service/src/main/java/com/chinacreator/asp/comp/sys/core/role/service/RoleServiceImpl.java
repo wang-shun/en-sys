@@ -1,7 +1,9 @@
 package com.chinacreator.asp.comp.sys.core.role.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.chinacreator.asp.comp.sys.common.BeanCopierUtil;
 import com.chinacreator.asp.comp.sys.common.CommonConstants;
+import com.chinacreator.asp.comp.sys.common.CommonPropertiesUtil;
 import com.chinacreator.asp.comp.sys.common.PKGenerator;
 import com.chinacreator.asp.comp.sys.core.RoleMessages;
 import com.chinacreator.asp.comp.sys.core.UserMessages;
@@ -59,6 +62,19 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private UserInstanceUtil userInstanceUtil;
 
+	private static final String sfs_NOUPDATE_KEY = "noUpdate";
+	private static final String sfs_NODELETE_KEY = "noDelete";
+
+	private static final Set<String> sfset_INBUILT_ROLEID = new HashSet<String>() {
+		private static final long serialVersionUID = 1L;
+
+		{
+			add(CommonPropertiesUtil.getAdministratorRoleId());
+			add(CommonPropertiesUtil.getOrgManagerRoleId());
+			add(CommonPropertiesUtil.getRoleofeveryoneRoleId());
+		}
+	};
+
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void create(RoleDTO roleDTO) {
 		validataCreateRoleDTO(roleDTO); // 数据对象验证
@@ -81,9 +97,11 @@ public class RoleServiceImpl implements RoleService {
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void deleteByPKs(String... roleIds) {
 		String[] rIds = ValidatorUtil.validateRoleId(roleIds); // 数据为空验证
+		validataNoUpdateOrNoDeleteRole(sfs_NODELETE_KEY, rIds);
 		rolePrivilegeDao.deleteByRoles(rIds); // 删除角色与权限关系表
 		groupRoleDao.deleteByRoleIds(rIds); // 删除角色与用户组关系表
-		userInstanceRoleDao.deleteByRoleIds(rIds); // 删除角色与用户实例关系表
+		userInstanceRoleDao.deleteByRoleIds(CommonPropertiesUtil.getAdminUserId(),
+				CommonPropertiesUtil.getAdministratorRoleId(), rIds); // 删除角色与用户实例关系表
 		roleDao.deleteByPKs(rIds); // 删除角色表
 	}
 
@@ -93,6 +111,7 @@ public class RoleServiceImpl implements RoleService {
 		RoleEO roleEO = roleDao.queryByRoleName(roleName); // 通过角色名获取角色对象
 		if (null != roleEO) {
 			String roleId = roleEO.getRoleId(); // 获取角色ID
+			validataNoUpdateOrNoDeleteRole(sfs_NODELETE_KEY, roleId);
 			deleteByPKs(roleId);
 		}
 	}
@@ -145,8 +164,7 @@ public class RoleServiceImpl implements RoleService {
 		List<UserEO> listUserEO = roleDao.queryUsers(roleId);
 		/* 对象转换 */
 		List<UserDTO> ListUserDTO = new ArrayList<UserDTO>();
-		BeanCopierUtil.copy(listUserEO, ListUserDTO, UserEO.class,
-				UserDTO.class);
+		BeanCopierUtil.copy(listUserEO, ListUserDTO, UserEO.class, UserDTO.class);
 		return ListUserDTO;
 	}
 
@@ -155,12 +173,10 @@ public class RoleServiceImpl implements RoleService {
 		ValidatorUtil.validateRoleId(roleId);
 		// 用户活动范围验证
 		ValidatorUtil.validateScope(scopeType, scopeId);
-		List<UserEO> listUserEO = roleDao.queryUsersByScope(roleId, scopeType
-				+ "", scopeId);
+		List<UserEO> listUserEO = roleDao.queryUsersByScope(roleId, scopeType + "", scopeId);
 		/* 对象转换 */
 		List<UserDTO> listUserDTO = new ArrayList<UserDTO>();
-		BeanCopierUtil.copy(listUserEO, listUserDTO, UserEO.class,
-				UserDTO.class);
+		BeanCopierUtil.copy(listUserEO, listUserDTO, UserEO.class, UserDTO.class);
 		return listUserDTO;
 	}
 
@@ -169,8 +185,7 @@ public class RoleServiceImpl implements RoleService {
 		List<GroupEO> listGroupEO = roleDao.queryGroups(roleId);
 		/* 对象转换 */
 		List<GroupDTO> listGroupDTO = new ArrayList<GroupDTO>();
-		BeanCopierUtil.copy(listGroupEO, listGroupDTO, GroupEO.class,
-				GroupDTO.class);
+		BeanCopierUtil.copy(listGroupEO, listGroupDTO, GroupEO.class, GroupDTO.class);
 		return listGroupDTO;
 	}
 
@@ -179,35 +194,29 @@ public class RoleServiceImpl implements RoleService {
 		List<PrivilegeEO> listPrivilegeEO = roleDao.queryPrivileges(roleId);
 		/* 对象转换 */
 		List<PrivilegeDTO> listPrivilegeDTO = new ArrayList<PrivilegeDTO>();
-		BeanCopierUtil.copy(listPrivilegeEO, listPrivilegeDTO,
-				PrivilegeEO.class, PrivilegeDTO.class);
+		BeanCopierUtil.copy(listPrivilegeEO, listPrivilegeDTO, PrivilegeEO.class, PrivilegeDTO.class);
 		return listPrivilegeDTO;
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void assignToUser(String roleId, String userId, int scopeType,
-			String scopeId) {
-		assignToUsers(new String[] { roleId }, new String[] { userId },
-				scopeType, scopeId);
+	public void assignToUser(String roleId, String userId, int scopeType, String scopeId) {
+		assignToUsers(new String[] { roleId }, new String[] { userId }, scopeType, scopeId);
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void assignToUsers(String[] roleIds, String[] userIds,
-			int scopeType, String scopeId) {
+	public void assignToUsers(String[] roleIds, String[] userIds, int scopeType, String scopeId) {
 		// 角色ID验证，并去重复与空值
 		String[] rIds = ValidatorUtil.validateRoleId(roleIds);
 
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
 
 		List<UserInstanceRoleEO> userInstanceRoleEOList = new ArrayList<UserInstanceRoleEO>();
 		if (userInstanceIds.length > 0) {
 			for (String userInstanceId : userInstanceIds) {
 				for (String roleId : rIds) {
 					// 判断角色是否已经授予给用户实例
-					if (roleDao
-							.isAssingedToUserInstance(roleId, userInstanceId) <= 0) {
+					if (roleDao.isAssingedToUserInstance(roleId, userInstanceId) <= 0) {
 						UserInstanceRoleEO userInstanceRoleEO = new UserInstanceRoleEO();
 						userInstanceRoleEO.setRoleId(roleId);
 						userInstanceRoleEO.setUserInstanceId(userInstanceId);
@@ -216,8 +225,7 @@ public class RoleServiceImpl implements RoleService {
 				}
 			}
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 
 		}
 
@@ -227,20 +235,17 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void setToUser(String roleId, String[] userIds, int scopeType,
-			String scopeId) {
+	public void setToUser(String roleId, String[] userIds, int scopeType, String scopeId) {
 		setToUsers(new String[] { roleId }, userIds, scopeType, scopeId);
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void setToUsers(String[] roleIds, String[] userIds, int scopeType,
-			String scopeId) {
+	public void setToUsers(String[] roleIds, String[] userIds, int scopeType, String scopeId) {
 		// 角色ID验证，并去重复与空值
 		String[] rIds = ValidatorUtil.validateRoleId(roleIds);
 
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
 
 		if (userInstanceIds.length > 0) {
 			List<UserInstanceRoleEO> userInstanceRoleEOList = new ArrayList<UserInstanceRoleEO>();
@@ -253,49 +258,45 @@ public class RoleServiceImpl implements RoleService {
 				}
 			}
 			// 批量删除用户实例与角色关系
-			userInstanceRoleDao.deleteByRoleIds(roleIds);
+			userInstanceRoleDao.deleteByRoleIds(CommonPropertiesUtil.getAdminUserId(),
+					CommonPropertiesUtil.getAdministratorRoleId(), roleIds);
 			// 批量新增用户实例与角色关系
 			userInstanceRoleDao.createBatch(userInstanceRoleEOList);
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void revokeFromAllUsers(String... roleIds) {
 		String[] rIds = ValidatorUtil.validateRoleId(roleIds); // 数据为空验证
-		userInstanceRoleDao.deleteByRoleIds(rIds);
+		userInstanceRoleDao.deleteByRoleIds(CommonPropertiesUtil.getAdminUserId(),
+				CommonPropertiesUtil.getAdministratorRoleId(), rIds);
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void revokeFromUser(String roleId, String userId, int scopeType,
-			String scopeId) {
-		revokeFromUsers(new String[] { roleId }, new String[] { userId },
-				scopeType, scopeId);
+	public void revokeFromUser(String roleId, String userId, int scopeType, String scopeId) {
+		revokeFromUsers(new String[] { roleId }, new String[] { userId }, scopeType, scopeId);
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void revokeFromUsers(String[] roleIds, String[] userIds,
-			int scopeType, String scopeId) {
+	public void revokeFromUsers(String[] roleIds, String[] userIds, int scopeType, String scopeId) {
 		// 角色ID验证，并去重复与空值
 		String[] rIds = ValidatorUtil.validateRoleId(roleIds);
 
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
 
 		if (userInstanceIds.length > 0) {
 			for (String userInstanceId : userInstanceIds) {
 				for (String roleId : rIds) {
 					// 删除用户实例与角色关系
-					userInstanceRoleDao.deleteByUserInstanceIdAndRoleId(
-							userInstanceId, roleId);
+					userInstanceRoleDao.deleteByUserInstanceIdAndRoleId(CommonPropertiesUtil.getAdminUserId(),
+							CommonPropertiesUtil.getAdministratorRoleId(), userInstanceId, roleId);
 				}
 			}
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 		}
 	}
 
@@ -443,8 +444,7 @@ public class RoleServiceImpl implements RoleService {
 		String[] pIds = ValidatorUtil.validatePrivilegeId(privilegeIds);
 		for (String roleId : rIds) {
 			for (String privilegeId : pIds) {
-				rolePrivilegeDao.deleteByPrivilegeIdAndRoleId(privilegeId,
-						roleId);
+				rolePrivilegeDao.deleteByPrivilegeIdAndRoleId(privilegeId, roleId);
 			}
 		}
 	}
@@ -467,6 +467,15 @@ public class RoleServiceImpl implements RoleService {
 		return roleDao.existsByRoleName(roleName) > 0;
 	}
 
+	public boolean existsByRoleNameIgnoreRoleID(String roleName, String roleId) {
+		validataRoleName(roleName);
+		if (null == roleId || roleId.trim().equals("")) {
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEID_IS_NULL"));
+		}
+
+		return roleDao.existsByRoleNameIgnoreRoleID(roleName, roleId) > 0;
+	}
+
 	public boolean isAssingedToUser(String roleId, String userId) {
 		ValidatorUtil.validateRoleId(roleId);
 		ValidatorUtil.validateUserId(userId);
@@ -475,14 +484,12 @@ public class RoleServiceImpl implements RoleService {
 
 	}
 
-	public boolean isAssingedToUser(String roleId, String userId,
-			int scopeType, String scopeId) {
+	public boolean isAssingedToUser(String roleId, String userId, int scopeType, String scopeId) {
 		ValidatorUtil.validateRoleId(roleId);
 		ValidatorUtil.validateUserId(userId);
 		ValidatorUtil.validateScope(scopeType, scopeId);
 
-		return userInstanceDao.hasRoleByScope(userId, roleId, scopeType + "",
-				scopeId) > 0;
+		return userInstanceDao.hasRoleByScope(userId, roleId, scopeType + "", scopeId) > 0;
 
 	}
 
@@ -508,19 +515,15 @@ public class RoleServiceImpl implements RoleService {
 	 */
 	private void validataCreateRoleDTO(RoleDTO roleDTO) {
 		if (null != roleDTO) {
-			if (null == roleDTO.getRoleName()
-					|| roleDTO.getRoleName().trim().equals("")) {
-				throw new NullPointerException(
-						RoleMessages.getString("ROLE.ROLENAME_IS_NULL"));
+			if (null == roleDTO.getRoleName() || roleDTO.getRoleName().trim().equals("")) {
+				throw new NullPointerException(RoleMessages.getString("ROLE.ROLENAME_IS_NULL"));
 			} else {
 				if (existsByRoleName(roleDTO.getRoleName())) {
-					throw new IllegalArgumentException(
-							RoleMessages.getString("ROLE.ROLENAME_IS_EXIST"));
+					throw new IllegalArgumentException(RoleMessages.getString("ROLE.ROLENAME_IS_EXIST"));
 				}
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLEOBJECT_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEOBJECT_IS_NULL"));
 		}
 	}
 
@@ -532,14 +535,18 @@ public class RoleServiceImpl implements RoleService {
 	 */
 	private void validataUpdateRoleDTO(RoleDTO roleDTO) {
 		if (null != roleDTO) {
-			if (null == roleDTO.getRoleId()
-					|| roleDTO.getRoleId().trim().equals("")) {
-				throw new NullPointerException(
-						RoleMessages.getString("ROLE.ROLEID_IS_NULL"));
+			if (null == roleDTO.getRoleId() || roleDTO.getRoleId().trim().equals("")) {
+				throw new NullPointerException(RoleMessages.getString("ROLE.ROLEID_IS_NULL"));
+			} else {
+				validataNoUpdateOrNoDeleteRole(sfs_NOUPDATE_KEY, roleDTO.getRoleId());
+			}
+			if (null != roleDTO.getRoleName() && !roleDTO.getRoleName().trim().equals("")) {
+				if (roleDao.existsByRoleNameIgnoreRoleID(roleDTO.getRoleName(), roleDTO.getRoleId()) > 0) {
+					throw new IllegalArgumentException(RoleMessages.getString("ROLE.ROLENAME_IS_EXIST"));
+				}
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLEOBJECT_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEOBJECT_IS_NULL"));
 		}
 	}
 
@@ -551,8 +558,7 @@ public class RoleServiceImpl implements RoleService {
 	 */
 	private void validataRoleName(String roleName) {
 		if (null == roleName || roleName.trim().equals("")) {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLENAME_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLENAME_IS_NULL"));
 		}
 	}
 
@@ -564,8 +570,31 @@ public class RoleServiceImpl implements RoleService {
 	 */
 	private void validataQueryByRole(RoleDTO roleDTO) {
 		if (null == roleDTO) {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLEOBJECT_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEOBJECT_IS_NULL"));
+		}
+	}
+
+	/**
+	 * 验证禁止编辑删除角色
+	 * 
+	 * @param type
+	 *            类型(update:编辑，delete:删除)
+	 * @param roleIds
+	 *            角色ID
+	 */
+	private void validataNoUpdateOrNoDeleteRole(String type, String... roleIds) {
+		String[] rIds = ValidatorUtil.validateRoleId(roleIds);
+		for (String rId : rIds) {
+			if (sfset_INBUILT_ROLEID.contains(rId)) {
+				RoleDTO roleDTO = queryByPK(rId);
+				String mess = "%s角色不能被操作";
+				if (sfs_NOUPDATE_KEY.equals(type)) {
+					mess = RoleMessages.getString("ROLE.NOUPDATE");
+				} else if (sfs_NODELETE_KEY.equals(type)) {
+					mess = RoleMessages.getString("ROLE.NODELETE");
+				}
+				throw new IllegalArgumentException(String.format(mess, roleDTO.getRoleName()));
+			}
 		}
 	}
 }

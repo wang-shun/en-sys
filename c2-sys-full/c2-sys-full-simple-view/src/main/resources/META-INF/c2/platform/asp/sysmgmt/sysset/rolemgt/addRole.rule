@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addRole" className="com.chinacreator.asp.sysmgmt.sysset.rolemgt.RoleMgt" method="addRole">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>新增角色</name>
+  <inputs>
+    <input collection="false" desc="" id="roleDTO" required="true" type="com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO"/>
+    <input collection="false" desc="" id="presetId" required="true"/>
+    <input collection="false" desc="" id="addResIds" required="true" type="[Ljava.lang.String;"/>
+    <input collection="false" desc="" id="delResIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>Gzh3g3Z9SJ27z1r2NfJFjA</res>
+  <params>
+    <param autoValue="Input.roleDTO" name="roleDTO" signature="QRoleDTO;" type="com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO"/>
+    <param autoValue="Input.presetId" name="presetId" signature="QString;" type="java.lang.String"/>
+    <param autoValue="Input.addResIds" name="addResIds" signature="[QString;" type="[Ljava.lang.String;"/>
+    <param autoValue="Input.delResIds" name="delResIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

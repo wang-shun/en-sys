@@ -176,7 +176,10 @@
 
     <update id="update" parameterType="com.chinacreator.asp.comp.sys.core.role.eo.RoleEO" databaseId="dm">
         UPDATE td_sm_role
-        <set>            
+        <set>     
+        	<if test="roleName != null">
+        		<![CDATA[role_name = #{roleName,jdbcType=VARCHAR},]]>
+        	</if>        
             <if test="roleType != null">
                 <![CDATA[role_type = #{roleType,jdbcType=VARCHAR},]]>
             </if>

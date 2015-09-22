@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getOrgs" log="false" className="com.chinacreator.asp.sysmgmt.sysset.usermgt.UserMgt" method="getOrgs">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>用户新增修改页面，用户所属机构显示名称字符串</name>
+  <desc>用户新增修改页面，用户所属机构显示名称字符串</desc>
+  <inputs>
+    <input collection="false" desc="用户新增、修改类型" id="type" required="true"/>
+    <input collection="false" desc="机构ID" id="orgId" required="true"/>
+    <input collection="false" desc="用户ID" id="userId" required="true"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="机构显示名称字符串，例：&quot;(主)机构A&quot;&lt;br>          一条记录也没查询到的情况下返回空字符串" id="result" name="方法返回值"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.type" name="type" signature="QString;" type="java.lang.String"/>
+    <param autoValue="Input.orgId" name="orgId" signature="QString;" type="java.lang.String"/>
+    <param autoValue="Input.userId" name="userId" signature="QString;" type="java.lang.String"/>
+  </params>
+  <return signature="QString;" type="java.lang.String"/>
+</CustomRule>

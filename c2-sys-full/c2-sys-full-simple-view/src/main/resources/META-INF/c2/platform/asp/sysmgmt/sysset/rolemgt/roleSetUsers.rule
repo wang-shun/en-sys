@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="roleSetUsers" className="com.chinacreator.asp.sysmgmt.sysset.rolemgt.RoleMgt" method="roleSetUsers">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>角色分配用户</name>
+  <inputs>
+    <input collection="false" desc="" id="roleIds" required="true" type="[Ljava.lang.String;"/>
+    <input collection="false" desc="" id="addUsers" required="true" type="java.util.List"/>
+    <input collection="false" desc="" id="delUsers" required="true" type="java.util.List"/>
+  </inputs>
+  <outputs/>
+  <res>KN5dDI8vTmKCEeYeP38T0A</res>
+  <params>
+    <param autoValue="Input.roleIds" name="roleIds" signature="[QString;" type="[Ljava.lang.String;"/>
+    <param autoValue="Input.addUsers" name="addUsers" signature="QList&lt;QMap&lt;QString;QString;>;>;" type="java.util.List"/>
+    <param autoValue="Input.delUsers" name="delUsers" signature="QList&lt;QMap&lt;QString;QString;>;>;" type="java.util.List"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

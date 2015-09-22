@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="新增编辑用户" res="oVwn9stkR8-vFsfJwa0vDA" sn="editUser" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="{{$params.type=='add'?'新增':'编辑'}}用户">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad($params)">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="true" group="HTML配置" id="visible" name="可见" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="$model.orgId" id="orgId_Field" name="所属机构：" customize="true">
+      <form:control type="widget/select_tree">
+        <form:attributes source="widget/select_tree">
+          <dync:attribute default="75" group="控件外观" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="未选中数据 ..." group="控件外观" id="placeholder" name="占位字符串" value="''">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="树数据设置" id="treeBinding" name="树数据源" value="$model.orgSelectTree">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="树数据设置" id="otherParam" name="初始化参数" value="{searchOrgId:$params.orgId}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="auto" group="树显示设置" id="height" name="高度" value="350px">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="树显示设置" id="expendLevel" name="默认展开级数" value="2">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="树事件设置" id="beforeClick" name="单击前" value="orgId_Field_beforeClick(treeId,treeNode,clickFlag)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="控件外观" id="required" name="必填项" value="$model.isAdd">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="控件外观" id="show" name="可见" value="$model.isAdd">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.orgs.result" id="newField3" name="所属机构：" customize="true">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="!$model.isAdd">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userName" id="userName" name="账号：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="200">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^[\w.@-]+$/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入数字、字母、下划线!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="$params.type!=&quot;add&quot;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="combiOne">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="blur" name="失去焦点" value="element_blur($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userRealname" id="userRealname" name="姓名：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="50">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="combiTwo">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^[\w\u4e00-\u9fa5.@-]+$/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入中文、数字、字母、下划线!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userPassword" id="userPassword" name="密码：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="minlength" name="最小长度" value="6">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="$params.type!=&quot;add&quot;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="text" group="HTML设置" id="inputType" name="数据类型" value="password">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userPinyin" id="userPinyin" name="拼音：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^[\w]+$/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入数字、字母、下划线!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="combiOne">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userSex" id="userSex" name="性别：">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="" group="HTML设置" id="url" name="远程 地址" value="ws/getDictDataByDictTypeName?dictTypeName=性别">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="optionId" name="值属性名" value="dictdataName">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="optionName" name="显示属性名" value="dictdataValue">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="$model.dictData.result[&quot;性别&quot;]">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="selected" group="HTML设置" id="optionSelected" name="选中属性名" value="dictdataIsdefault">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userBirthday" id="userBirthday" name="生日：">
+      <form:control type="widget/date_picker">
+        <form:attributes source="widget/date_picker">
+          <dync:attribute default="75" group="HTML设置" id="lableWidth" name="文本宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userIdcard" id="userIdcard" name="身份证：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="18">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="idCard">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^(\d{6})(\d{4}|\d{2})(\d{2})(\d{2})(\d{3})([0-9]|X)*$/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="身份证格式不正确!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userMobiletel1" id="userMobiletel1" name="手机：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="11">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^1[3-8][0-9]\d{8}$/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="手机号码格式不正确!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="mobile">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userOicq" id="userOicq" name="QQ：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^\d{5,10}$/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="QQ号码格式不正确!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="qq">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userEmail" id="userEmail" name="邮箱：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="text" group="数据校验" id="valitype" name="数据类型" value="email">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="邮件格式不正确!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userAddress" id="userAddress" name="住址：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="50">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userPostalcode" id="userPostalcode" name="邮编：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="10">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^[1-9][0-9]{5}$/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="邮编格式不正确!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userHometel" id="userHometel" name="家庭电话：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="电话号码格式不正确!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="phone">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userWorktel" id="userWorktel" name="公司电话：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="电话号码格式不正确!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="phone">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userFax" id="userFax" name="传真：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="100">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="传真号码格式不正确!">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="custom" group="数据校验" id="valitype" name="数据类型" value="phone">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userWorkaddress" id="userWorkaddress" name="公司地址：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="maxlength" name="最大长度" value="50">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userType" id="userType" name="用户类型：" customize="true">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="optionName" name="显示属性名" value="dictdataValue">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="url" name="远程 地址" value="ws/getDictDataByDictTypeName?dictTypeName=用户类型">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="optionId" name="值属性名" value="dictdataName">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="$model.dictData.result[&quot;用户类型&quot;]">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="selected" group="HTML设置" id="optionSelected" name="选中属性名" value="dictdataIsdefault">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.userIsvalid" id="newField16" name="状态：" customize="true">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="optionId" name="值属性名" value="dictdataName">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="optionName" name="显示属性名" value="dictdataValue">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="url" name="远程 地址" value="ws/getDictDataByDictTypeName?dictTypeName=当前状态">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="$model.dictData.result[&quot;当前状态&quot;]">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="selected" group="HTML设置" id="optionSelected" name="选中属性名" value="dictdataIsdefault">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.worklength" id="worklength" name="工作年限：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="min" name="最小值" value="0">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="max" name="最大值" value="100">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="text" group="HTML设置" id="inputType" name="数据类型" value="number">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.politics" id="newField17" name="政治面貌：" customize="true">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="url" name="远程 地址" value="ws/getDictDataByDictTypeName?dictTypeName=政治面貌">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="optionId" name="值属性名" value="dictdataName">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="optionName" name="显示属性名" value="dictdataValue">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="$model.dictData.result[&quot;政治面貌&quot;]">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="selected" group="HTML设置" id="optionSelected" name="选中属性名" value="dictdataIsdefault">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.dredgeTime" id="dredgeTime" name="开通时间：">
+      <form:control type="widget/date_picker">
+        <form:attributes source="widget/date_picker">
+          <dync:attribute default="75" group="HTML设置" id="lableWidth" name="文本宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.user.result.pastTime" id="pastTime" name="过期时间：">
+      <form:control type="widget/date_picker">
+        <form:attributes source="widget/date_picker">
+          <dync:attribute default="75" group="HTML设置" id="lableWidth" name="文本宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.user.result.userLogincount" id="userLogincount" name="登录次数：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="text" group="HTML设置" id="inputType" name="数据类型" value="number">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.type==&quot;edit&quot;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.user.result.loginIp" id="loginIp" name="最后登录IP：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="HTML设置" id="show" name="可见" value="$params.type==&quot;edit&quot;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.user.result.lastloginDate" id="lastloginDate" name="最后登录时间：">
+      <form:control type="widget/date_picker">
+        <form:attributes source="widget/date_picker">
+          <dync:attribute default="75" group="HTML设置" id="lableWidth" name="文本宽度" value="110">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="readonly" name="只读状态" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="HTML设置" id="visible" name="可见状态" value="$params.type==&quot;edit&quot;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="基本设置" id="inputReadonly" name="文本框只读" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="对话框底部工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField" name="保存" res="EJr5zCAARCyOLes8cT1Zqw" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="saveUser()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-success">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField2" name="重置" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="resetUser()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-primary">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField1" name="关闭" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="closeModal()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-times">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-primary">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:LogicDataSource" id="dictData" name="字典数据" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+      <form:param id="dictTypeNames" name="新输入参数" value="[&quot;性别&quot;,&quot;用户类型&quot;,&quot;当前状态&quot;,&quot;政治面貌&quot;]"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:LogicDataSource" id="orgs" name="所属机构名称" logic="rule:asp.sysmgmt.sysset.usermgt.getOrgs" sn="getOrgs">
+      <form:param id="type" name="新输入参数"/>
+      <form:param id="orgId" name="新输入参数"/>
+      <form:param id="userId" name="新输入参数"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:TreeDataSource" id="orgSelectTree" name="机构下拉框树型数据源" impl="com.chinacreator.asp.sysmgmt.sysset.usermgt.OrgSelectTreeContentProviderImpl" type="custom"/>
+  </form:datasources>
+  <form:scripts>// 保存&#xD;
+saveUser:function(){&#xD;
+	if(this.validateForm() &amp;&amp; $view.mainForm.check() &amp;&amp; this.validateTime()){&#xD;
+		if('add'==$params.type){&#xD;
+			$http.post(&quot;ws/addUser&quot;,{userDto:$model.user.result,orgId:$model.orgId,sn:999})&#xD;
+					.success(function(data, status, headers, config){&#xD;
+				Messenger.post({&#xD;
+	                'message': &quot;新增用户成功！&quot;,&#xD;
+	                'type': 'success',&#xD;
+	            });&#xD;
+	            $scope.saveType = 'success';&#xD;
+			});&#xD;
+		}else if('edit'==$params.type){&#xD;
+			$http.post(&quot;ws/editUser&quot;,{userDto:$model.user.result})&#xD;
+					.success(function(data, status, headers, config){&#xD;
+						Messenger.post({&#xD;
+			                'message': &quot;编辑用户成功！&quot;,&#xD;
+			                'type': 'success',&#xD;
+			            });&#xD;
+			            $scope.saveType = 'success';&#xD;
+					});&#xD;
+		}else{&#xD;
+			Messenger.post({&#xD;
+	                'message': &quot;参数不正确！&quot;+$params.type,&#xD;
+	                'type': 'error',&#xD;
+	            });&#xD;
+		}&#xD;
+	}else{&#xD;
+		Messenger.post({&#xD;
+            'message': &quot;保存失败！验证未通过！&quot;,&#xD;
+            'type': 'error',&#xD;
+        });&#xD;
+	}&#xD;
+},&#xD;
+// 重置&#xD;
+resetUser:function(){&#xD;
+	$view.mainForm.clean();&#xD;
+	this.page_beforeDataSourceLoad();&#xD;
+	$model.dictData.$reload();&#xD;
+	$model.orgs.$reload();&#xD;
+	$model.validataJson = {};&#xD;
+},&#xD;
+// 关闭&#xD;
+closeModal:function(){&#xD;
+	Modal.instance.close($scope.saveType);&#xD;
+},&#xD;
+// 验证过期时间不能大于开通时间&#xD;
+validateTime:function(){&#xD;
+	var dredgeTime = $model.user.result.dredgeTime;&#xD;
+	var pastTime = $model.user.result.pastTime;&#xD;
+	if(!angular.isUndefined(dredgeTime) &amp;&amp; !angular.isUndefined(pastTime)){&#xD;
+		if(dredgeTime>pastTime){&#xD;
+			$view.dredgeTime.setTipMessage(&quot;过期时间不能大于开通时间！&quot;);&#xD;
+			$view.pastTime.setTipMessage(&quot;过期时间不能大于开通时间！&quot;);&#xD;
+			return false;&#xD;
+		}&#xD;
+	}&#xD;
+	return true;&#xD;
+},&#xD;
+// 失去焦点事件(验证唯一)&#xD;
+element_blur:function($event){	&#xD;
+	var elementId = $event.currentTarget.id;&#xD;
+	if(!$view[elementId].check()){&#xD;
+		return;&#xD;
+	}	&#xD;
+	var elementValue = $event.currentTarget.value;&#xD;
+	var validataJson = $model.validataJson;	&#xD;
+	if(angular.isUndefined(validataJson)){&#xD;
+		validataJson = {};&#xD;
+	}&#xD;
+	$http.post(&quot;ws/validateFormByUser&quot;,{&quot;elementId&quot;:elementId,&quot;elementValue&quot;:elementValue,&quot;formType&quot;:$params.type})&#xD;
+			.success(function(data, status, headers, config){&#xD;
+				if(!angular.isUndefined(data) &amp;&amp; !angular.isUndefined(data.result)){&#xD;
+					validataJson[elementId] = data.result.validate;&#xD;
+					$model.validataJson = validataJson;&#xD;
+					if(&quot;error&quot;==data.result.validate){					&#xD;
+						$view[elementId].setTipMessage(data.result.errmess);&#xD;
+					}			&#xD;
+				}&#xD;
+			});&#xD;
+},&#xD;
+// 验证表单(验证唯一)&#xD;
+validateForm:function(){&#xD;
+	var validataJson = $model.validataJson;&#xD;
+	if(!angular.isUndefined(validataJson)){&#xD;
+		for(var key in validataJson){  &#xD;
+	        if(&quot;error&quot;==validataJson[key]){	        	&#xD;
+	        	return false;&#xD;
+	        }&#xD;
+		}&#xD;
+	}	  &#xD;
+    return true;&#xD;
+},
+
+page_beforeDataSourceLoad:function(){&#xD;
+	$model.isAdd = 'add'==$params.type;	&#xD;
+	&#xD;
+	var orgId = $params.orgId;	&#xD;
+	if(!angular.isUndefined(orgId) &amp;&amp; orgId!=&quot;&quot;  &amp;&amp; orgId!=&quot;0&quot;){&#xD;
+		$model.orgId = orgId;&#xD;
+	}&#xD;
+&#xD;
+	$http.post(&quot;ws/getUserByPK&quot;,{&quot;userId&quot;:$params.userId})&#xD;
+		.success(function(data, status, headers, config){&#xD;
+			if(!angular.isUndefined(data.result.dredgeTime)){&#xD;
+				data.result.dredgeTime = parseInt(data.result.dredgeTime);&#xD;
+			}&#xD;
+			$model.user=data;&#xD;
+		});
+},
+
+orgId_Field_beforeClick:function(treeId,treeNode,clickFlag){
+	if(treeNode.id=='0'){&#xD;
+		return false;&#xD;
+	}&#xD;
+	return true;
+}</form:scripts>
+</form:Form>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addMenu" className="com.chinacreator.asp.sysmgmt.sysset.resmgt.ResMgt" method="addMenu">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>新增菜单</name>
+  <inputs>
+    <input collection="false" desc="" id="menuDTO" required="true" type="com.chinacreator.asp.comp.sys.basic.menu.dto.MenuDTO"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值"/>
+  </outputs>
+  <res>Az4Ddsd2Tduj5rreuoVujw</res>
+  <params>
+    <param autoValue="Input.menuDTO" name="menuDTO" signature="QMenuDTO;" type="com.chinacreator.asp.comp.sys.basic.menu.dto.MenuDTO"/>
+  </params>
+  <return signature="QString;" type="java.lang.String"/>
+</CustomRule>

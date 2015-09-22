@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="delDictData" className="com.chinacreator.asp.comp.sys.basic.dict.service.DictDataService" method="deleteByPKs">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>删除字典数据</name>
+  <desc>删除字典数据</desc>
+  <inputs>
+    <input collection="false" desc="" id="dictDataIds" required="true" type="[LString;"/>
+  </inputs>
+  <outputs/>
+  <res>ahNF-5qPRhqwSBQTHVBPVA</res>
+  <params>
+    <param autoValue="Input.dictDataIds" name="dictDataIds" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

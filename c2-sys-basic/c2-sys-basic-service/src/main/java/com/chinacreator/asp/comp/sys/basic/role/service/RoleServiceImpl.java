@@ -32,8 +32,7 @@ import com.chinacreator.c2.dao.mybatis.enhance.Sortable;
  * 
  */
 @Service
-public class RoleServiceImpl extends
-		com.chinacreator.asp.comp.sys.core.role.service.RoleServiceImpl
+public class RoleServiceImpl extends com.chinacreator.asp.comp.sys.core.role.service.RoleServiceImpl
 		implements RoleService {
 	@Autowired
 	private com.chinacreator.asp.comp.sys.core.role.dao.RoleDao roleCoreDao;
@@ -57,54 +56,75 @@ public class RoleServiceImpl extends
 
 	public Page<RoleDTO> queryAll(Pageable pageable, Sortable sortable) {
 		Page<RoleEO> roleEOPage = roleCoreDao.queryAll(pageable, sortable);
-		Page<RoleDTO> roleDTOPage = new Page<RoleDTO>(pageable.getPageIndex(),
-				pageable.getPageSize(), 0, new ArrayList<RoleDTO>());
+		Page<RoleDTO> roleDTOPage = new Page<RoleDTO>(pageable.getPageIndex(), pageable.getPageSize(), 0,
+				new ArrayList<RoleDTO>());
 		if (null != roleEOPage && roleEOPage.getTotal() > 0) {
-			roleDTOPage = BeanCopierUtil.copyPage(roleEOPage, RoleEO.class,
-					RoleDTO.class);
+			roleDTOPage = BeanCopierUtil.copyPage(roleEOPage, RoleEO.class, RoleDTO.class);
 		}
 		return roleDTOPage;
 	}
 
-	public Page<RoleDTO> queryByRole(RoleDTO roleDTO, Pageable pageable,
-			Sortable sortable) {
+	public List<RoleDTO> queryByRoleIgnoreAnonymous(RoleDTO roleDTO) {
+		if (null != roleDTO) {
+			RoleEO roleEO = new RoleEO();
+			BeanCopierUtil.copy(roleDTO, roleEO);
+			List<RoleEO> listEO = roleBasicDao.queryByRoleIgnoreAnonymous(roleEO,
+					CommonPropertiesUtil.getAnonymousRoleTypeId());
+			List<RoleDTO> listDTO = new ArrayList<RoleDTO>();
+			BeanCopierUtil.copy(listEO, listDTO, RoleEO.class, RoleDTO.class);
+			return listDTO;
+		} else {
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEDTO_IS_NULL"));
+		}
+	}
+
+	public Page<RoleDTO> queryByRole(RoleDTO roleDTO, Pageable pageable, Sortable sortable) {
 		if (null != roleDTO) {
 			RoleEO roleEO = new RoleEO();
 			BeanCopierUtil.copy(roleDTO, roleEO);
 
-			Page<RoleEO> roleEOPage = roleCoreDao.queryByRole(roleEO, pageable,
-					sortable);
-			Page<RoleDTO> roleDTOPage = new Page<RoleDTO>(
-					pageable.getPageIndex(), pageable.getPageSize(), 0,
+			Page<RoleEO> roleEOPage = roleCoreDao.queryByRole(roleEO, pageable, sortable);
+			Page<RoleDTO> roleDTOPage = new Page<RoleDTO>(pageable.getPageIndex(), pageable.getPageSize(), 0,
 					new ArrayList<RoleDTO>());
 			if (null != roleEOPage && roleEOPage.getTotal() > 0) {
-				roleDTOPage = BeanCopierUtil.copyPage(roleEOPage, RoleEO.class,
-						RoleDTO.class);
+				roleDTOPage = BeanCopierUtil.copyPage(roleEOPage, RoleEO.class, RoleDTO.class);
 			}
 			return roleDTOPage;
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLEDTO_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEDTO_IS_NULL"));
 		}
 	}
 
-	public Page<UserDTO> queryUsers(String roleId, Pageable pageable,
-			Sortable sortable) {
+	public Page<RoleDTO> queryByRoleIgnoreAnonymous(RoleDTO roleDTO, Pageable pageable, Sortable sortable) {
+		if (null != roleDTO) {
+			RoleEO roleEO = new RoleEO();
+			BeanCopierUtil.copy(roleDTO, roleEO);
+
+			Page<RoleEO> roleEOPage = roleBasicDao.queryByRoleIgnoreAnonymous(roleEO,
+					CommonPropertiesUtil.getAnonymousRoleTypeId(), pageable, sortable);
+			Page<RoleDTO> roleDTOPage = new Page<RoleDTO>(pageable.getPageIndex(), pageable.getPageSize(), 0,
+					new ArrayList<RoleDTO>());
+			if (null != roleEOPage && roleEOPage.getTotal() > 0) {
+				roleDTOPage = BeanCopierUtil.copyPage(roleEOPage, RoleEO.class, RoleDTO.class);
+			}
+			return roleDTOPage;
+		} else {
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEDTO_IS_NULL"));
+		}
+	}
+
+	public Page<UserDTO> queryUsers(String roleId, Pageable pageable, Sortable sortable) {
 		if (!isBlank(roleId)) {
-			Page<UserEO> userEOPage = roleCoreDao.queryUsers(roleId, pageable,
-					sortable);
-			Page<UserDTO> userDTOPage = new Page<UserDTO>(
-					pageable.getPageIndex(), pageable.getPageSize(), 0,
+			Page<UserEO> userEOPage = roleCoreDao.queryUsers(roleId, pageable, sortable);
+			Page<UserDTO> userDTOPage = new Page<UserDTO>(pageable.getPageIndex(), pageable.getPageSize(), 0,
 					new ArrayList<UserDTO>());
 
 			if (null != userEOPage && userEOPage.getTotal() > 0) {
-				userDTOPage = BeanCopierUtil.copyPage(userEOPage, UserEO.class,
-						UserDTO.class);
+				userDTOPage = BeanCopierUtil.copyPage(userEOPage, UserEO.class, UserDTO.class);
 			}
 			return userDTOPage;
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLEID_IS_NULL_EMPTY_BLANK"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEID_IS_NULL_EMPTY_BLANK"));
 		}
 	}
 
@@ -113,51 +133,38 @@ public class RoleServiceImpl extends
 			List<UserDTO> userDTOList = super.queryUsers(roleId, 1, orgId);
 			return userDTOList;
 		} else {
-			throw new NullPointerException(
-					RoleMessages
-							.getString("ROLE.ROLEID_OR_ORGID_IS_NULL_EMPTY_BLANK"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEID_OR_ORGID_IS_NULL_EMPTY_BLANK"));
 		}
 	}
 
-	public Page<UserDTO> queryUsers(String roleId, String orgId,
-			Pageable pageable, Sortable sortable) {
+	public Page<UserDTO> queryUsers(String roleId, String orgId, Pageable pageable, Sortable sortable) {
 		if (!isBlank(roleId)) {
 			/* 数据为空验证 */
 			ValidatorUtil.validateRoleId(roleId);
 			// 用户活动范围验证
 			if (isBlank(orgId)) {
-				throw new IllegalArgumentException(
-						RoleMessages
-								.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
+				throw new IllegalArgumentException(RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
 			}
-			Page<UserEO> listUserEOPage = roleCoreDao.queryUsersByScope(roleId,
-					"" + 1, orgId, pageable, sortable);
+			Page<UserEO> listUserEOPage = roleCoreDao.queryUsersByScope(roleId, "" + 1, orgId, pageable, sortable);
 			/* 对象转换 */
-			Page<UserDTO> listUserDTOPage = new Page<UserDTO>(
-					pageable.getPageIndex(), pageable.getPageSize(), 0,
+			Page<UserDTO> listUserDTOPage = new Page<UserDTO>(pageable.getPageIndex(), pageable.getPageSize(), 0,
 					new ArrayList<UserDTO>());
 			if (null != listUserEOPage && listUserEOPage.getTotal() > 0) {
-				listUserDTOPage = BeanCopierUtil.copyPage(listUserEOPage,
-						UserEO.class, UserDTO.class);
+				listUserDTOPage = BeanCopierUtil.copyPage(listUserEOPage, UserEO.class, UserDTO.class);
 			}
 			return listUserDTOPage;
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ROLEID_IS_NULL_EMPTY_BLANK"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEID_IS_NULL_EMPTY_BLANK"));
 		}
 	}
 
-	public Page<PrivilegeDTO> queryPrivileges(String roleId, Pageable pageable,
-			Sortable sortable) {
+	public Page<PrivilegeDTO> queryPrivileges(String roleId, Pageable pageable, Sortable sortable) {
 		ValidatorUtil.validateRoleId(roleId); // 数据为空验证
-		Page<PrivilegeEO> privilegeEOPage = roleCoreDao.queryPrivileges(roleId,
-				pageable, sortable);
-		Page<PrivilegeDTO> privilegeDTOPage = new Page<PrivilegeDTO>(
-				pageable.getPageIndex(), pageable.getPageSize(), 0,
+		Page<PrivilegeEO> privilegeEOPage = roleCoreDao.queryPrivileges(roleId, pageable, sortable);
+		Page<PrivilegeDTO> privilegeDTOPage = new Page<PrivilegeDTO>(pageable.getPageIndex(), pageable.getPageSize(), 0,
 				new ArrayList<PrivilegeDTO>());
 		if (null != privilegeEOPage && privilegeEOPage.getTotal() > 0) {
-			privilegeDTOPage = BeanCopierUtil.copyPage(privilegeEOPage,
-					PrivilegeEO.class, PrivilegeDTO.class);
+			privilegeDTOPage = BeanCopierUtil.copyPage(privilegeEOPage, PrivilegeEO.class, PrivilegeDTO.class);
 		}
 		return privilegeDTOPage;
 	}
@@ -166,8 +173,7 @@ public class RoleServiceImpl extends
 	public void assignToUser(String roleId, String userId, String orgId) {
 		// 机构ID验证
 		if (isBlank(orgId)) {
-			throw new IllegalArgumentException(
-					RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
+			throw new IllegalArgumentException(RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
 		}
 		// 调用核心的实现即可
 		super.assignToUser(roleId, userId, 1, orgId);
@@ -177,8 +183,7 @@ public class RoleServiceImpl extends
 	public void assignToUsers(String[] roleIds, String[] userIds, String orgId) {
 		// 机构ID验证
 		if (isBlank(orgId)) {
-			throw new IllegalArgumentException(
-					RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
+			throw new IllegalArgumentException(RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
 		}
 		// 调用核心的实现即可
 		super.assignToUsers(roleIds, userIds, 1, orgId);
@@ -188,8 +193,7 @@ public class RoleServiceImpl extends
 	public void setToUser(String roleId, String[] userIds, String orgId) {
 		// 机构ID验证
 		if (isBlank(orgId)) {
-			throw new IllegalArgumentException(
-					RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
+			throw new IllegalArgumentException(RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
 		}
 		// 调用核心的实现即可
 		super.setToUser(roleId, userIds, 1, orgId);
@@ -199,8 +203,7 @@ public class RoleServiceImpl extends
 	public void setToUsers(String[] roleIds, String[] userIds, String orgId) {
 		// 机构ID验证
 		if (isBlank(orgId)) {
-			throw new IllegalArgumentException(
-					RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
+			throw new IllegalArgumentException(RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
 		}
 		// 调用核心的实现即可
 		super.setToUsers(roleIds, userIds, 1, orgId);
@@ -214,13 +217,10 @@ public class RoleServiceImpl extends
 				// 进行角色和用户组之间的授予
 				super.assingToGroup(roleId, groupId);
 			} else {
-				throw new IllegalArgumentException(
-						RoleMessages.getString("ROLE.GROUPID_OF_ORG_NOT_EXIST"));
+				throw new IllegalArgumentException(RoleMessages.getString("ROLE.GROUPID_OF_ORG_NOT_EXIST"));
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages
-							.getString("ROLE.ROLEID_OR_ORGID_CANT_BE_NULL_EMPTY_BLANK"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEID_OR_ORGID_CANT_BE_NULL_EMPTY_BLANK"));
 		}
 	}
 
@@ -232,30 +232,24 @@ public class RoleServiceImpl extends
 				for (String orgId : orgIds) {
 					if (isBlank(orgId)) {
 						throw new NullPointerException(
-								RoleMessages
-										.getString("ROLE.ORGID_ARRAY_CONTAINS_NULL_EMPTY_BLANK_ITEM"));
+								RoleMessages.getString("ROLE.ORGID_ARRAY_CONTAINS_NULL_EMPTY_BLANK_ITEM"));
 					} else {
 						String groupId = orgDao.queryGroupIdByOrgId(orgId);
 						groupIdList.add(groupId);
 					}
 				}
 				if (groupIdList.size() > 0) {
-					String[] groupIds = groupIdList
-							.toArray(new String[groupIdList.size()]);
+					String[] groupIds = groupIdList.toArray(new String[groupIdList.size()]);
 					super.assingToGroups(roleIds, groupIds);
 				} else {
 					throw new IllegalArgumentException(
-							RoleMessages
-									.getString("ROLE.ORGID_ARRAY_DIDNT_MATCH_WITH_GROUPID"));
+							RoleMessages.getString("ROLE.ORGID_ARRAY_DIDNT_MATCH_WITH_GROUPID"));
 				}
 			} else {
-				throw new NullPointerException(
-						RoleMessages
-								.getString("ROLE.ORGID_ARRAY_CONTAINS_NO_ITEM"));
+				throw new NullPointerException(RoleMessages.getString("ROLE.ORGID_ARRAY_CONTAINS_NO_ITEM"));
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ORGID_ARRAY_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ORGID_ARRAY_IS_NULL"));
 		}
 	}
 
@@ -267,30 +261,24 @@ public class RoleServiceImpl extends
 				for (String orgId : orgIds) {
 					if (isBlank(orgId)) {
 						throw new NullPointerException(
-								RoleMessages
-										.getString("ROLE.ORGID_ARRAY_CONTAINS_NULL_EMPTY_BLANK_ITEM"));
+								RoleMessages.getString("ROLE.ORGID_ARRAY_CONTAINS_NULL_EMPTY_BLANK_ITEM"));
 					} else {
 						String groupId = orgDao.queryGroupIdByOrgId(orgId);
 						groupIdList.add(groupId);
 					}
 				}
 				if (groupIdList.size() > 0) {
-					String[] groupIds = groupIdList
-							.toArray(new String[groupIdList.size()]);
+					String[] groupIds = groupIdList.toArray(new String[groupIdList.size()]);
 					super.setToGroups(roleId, groupIds);
 				} else {
 					throw new IllegalArgumentException(
-							RoleMessages
-									.getString("ROLE.ORGID_ARRAY_DIDNT_MATCH_WITH_GROUPID"));
+							RoleMessages.getString("ROLE.ORGID_ARRAY_DIDNT_MATCH_WITH_GROUPID"));
 				}
 			} else {
-				throw new NullPointerException(
-						RoleMessages
-								.getString("ROLE.ORGID_ARRAY_CONTAINS_NO_ITEM"));
+				throw new NullPointerException(RoleMessages.getString("ROLE.ORGID_ARRAY_CONTAINS_NO_ITEM"));
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ORGID_ARRAY_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ORGID_ARRAY_IS_NULL"));
 		}
 	}
 
@@ -302,30 +290,24 @@ public class RoleServiceImpl extends
 				for (String orgId : orgIds) {
 					if (isBlank(orgId)) {
 						throw new NullPointerException(
-								RoleMessages
-										.getString("ROLE.ORGID_ARRAY_CONTAINS_NULL_EMPTY_BLANK_ITEM"));
+								RoleMessages.getString("ROLE.ORGID_ARRAY_CONTAINS_NULL_EMPTY_BLANK_ITEM"));
 					} else {
 						String groupId = orgDao.queryGroupIdByOrgId(orgId);
 						groupIdList.add(groupId);
 					}
 				}
 				if (groupIdList.size() > 0) {
-					String[] groupIds = groupIdList
-							.toArray(new String[groupIdList.size()]);
+					String[] groupIds = groupIdList.toArray(new String[groupIdList.size()]);
 					super.setRolesToGroups(roleIds, groupIds);
 				} else {
 					throw new IllegalArgumentException(
-							RoleMessages
-									.getString("ROLE.ORGID_ARRAY_DIDNT_MATCH_WITH_GROUPID"));
+							RoleMessages.getString("ROLE.ORGID_ARRAY_DIDNT_MATCH_WITH_GROUPID"));
 				}
 			} else {
-				throw new NullPointerException(
-						RoleMessages
-								.getString("ROLE.ORGID_ARRAY_CONTAINS_NO_ITEM"));
+				throw new NullPointerException(RoleMessages.getString("ROLE.ORGID_ARRAY_CONTAINS_NO_ITEM"));
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ORGID_ARRAY_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ORGID_ARRAY_IS_NULL"));
 		}
 	}
 
@@ -343,13 +325,10 @@ public class RoleServiceImpl extends
 				// 回收角色和用户组之间的授予
 				super.revokeFromGroup(roleId, groupId);
 			} else {
-				throw new IllegalArgumentException(
-						RoleMessages.getString("ROLE.GROUPID_OF_ORG_NOT_EXIST"));
+				throw new IllegalArgumentException(RoleMessages.getString("ROLE.GROUPID_OF_ORG_NOT_EXIST"));
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages
-							.getString("ROLE.ROLEID_OR_ORGID_CANT_BE_NULL_EMPTY_BLANK"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ROLEID_OR_ORGID_CANT_BE_NULL_EMPTY_BLANK"));
 		}
 	}
 
@@ -361,30 +340,24 @@ public class RoleServiceImpl extends
 				for (String orgId : orgIds) {
 					if (isBlank(orgId)) {
 						throw new NullPointerException(
-								RoleMessages
-										.getString("ROLE.ORGID_ARRAY_CONTAINS_NULL_EMPTY_BLANK_ITEM"));
+								RoleMessages.getString("ROLE.ORGID_ARRAY_CONTAINS_NULL_EMPTY_BLANK_ITEM"));
 					} else {
 						String groupId = orgDao.queryGroupIdByOrgId(orgId);
 						groupIdList.add(groupId);
 					}
 				}
 				if (groupIdList.size() > 0) {
-					String[] groupIds = groupIdList
-							.toArray(new String[groupIdList.size()]);
+					String[] groupIds = groupIdList.toArray(new String[groupIdList.size()]);
 					super.revokeFromGroups(roleIds, groupIds);
 				} else {
 					throw new IllegalArgumentException(
-							RoleMessages
-									.getString("ROLE.ORGID_ARRAY_DIDNT_MATCH_WITH_GROUPID"));
+							RoleMessages.getString("ROLE.ORGID_ARRAY_DIDNT_MATCH_WITH_GROUPID"));
 				}
 			} else {
-				throw new NullPointerException(
-						RoleMessages
-								.getString("ROLE.ORGID_ARRAY_CONTAINS_NO_ITEM"));
+				throw new NullPointerException(RoleMessages.getString("ROLE.ORGID_ARRAY_CONTAINS_NO_ITEM"));
 			}
 		} else {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ORGID_ARRAY_IS_NULL"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ORGID_ARRAY_IS_NULL"));
 		}
 	}
 
@@ -392,8 +365,7 @@ public class RoleServiceImpl extends
 	public void revokeFromUser(String roleId, String userId, String orgId) {
 		// 机构ID验证
 		if (isBlank(orgId)) {
-			throw new IllegalArgumentException(
-					RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
+			throw new IllegalArgumentException(RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
 		}
 		super.revokeFromUser(roleId, userId, 1, orgId);
 	}
@@ -402,8 +374,7 @@ public class RoleServiceImpl extends
 	public void revokeFromUsers(String[] roleIds, String[] userIds, String orgId) {
 		// 机构ID验证
 		if (isBlank(orgId)) {
-			throw new IllegalArgumentException(
-					RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
+			throw new IllegalArgumentException(RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
 		}
 		super.revokeFromUsers(roleIds, userIds, 1, orgId);
 	}
@@ -411,16 +382,14 @@ public class RoleServiceImpl extends
 	public boolean isAssignedToUser(String roleId, String userId, String orgId) {
 		// 机构ID验证
 		if (isBlank(orgId)) {
-			throw new IllegalArgumentException(
-					RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
+			throw new IllegalArgumentException(RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
 		}
 		return super.isAssingedToUser(roleId, userId, 1, orgId);
 	}
 
 	public boolean isAssignedToOrg(String roleId, String orgId) {
 		if (isBlank(orgId)) {
-			throw new NullPointerException(
-					RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
+			throw new NullPointerException(RoleMessages.getString("ROLE.ORGID_IS_NULL_EMPTY_BLANK"));
 		}
 		String groupId = orgDao.queryGroupIdByOrgId(orgId);
 		return super.isAssignedToGroup(roleId, groupId);

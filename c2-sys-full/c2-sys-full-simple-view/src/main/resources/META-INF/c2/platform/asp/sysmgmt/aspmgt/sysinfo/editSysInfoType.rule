@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="editSysInfoType" className="com.chinacreator.asp.comp.sys.basic.sysinfo.service.SysRTSettingTypeService" method="update">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>编辑参数类型</name>
+  <desc>修改系统信息类型</desc>
+  <inputs>
+    <input collection="false" desc="" id="systemTypeDTO" required="true" type="com.chinacreator.asp.comp.sys.basic.sysinfo.dto.SystemTypeDTO"/>
+  </inputs>
+  <outputs/>
+  <res>YZM1YcfoSoC71WHcNhBKAg</res>
+  <params>
+    <param autoValue="Input.systemTypeDTO" name="systemTypeDTO" signature="QSystemTypeDTO;" type="com.chinacreator.asp.comp.sys.basic.sysinfo.dto.SystemTypeDTO"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

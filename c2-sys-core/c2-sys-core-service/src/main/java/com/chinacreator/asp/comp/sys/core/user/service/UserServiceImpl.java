@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.chinacreator.asp.comp.sys.common.BeanCopierUtil;
 import com.chinacreator.asp.comp.sys.common.CommonConstants;
+import com.chinacreator.asp.comp.sys.common.CommonPropertiesUtil;
 import com.chinacreator.asp.comp.sys.common.PKGenerator;
 import com.chinacreator.asp.comp.sys.core.UserMessages;
 import com.chinacreator.asp.comp.sys.core.common.UserInstanceUtil;
@@ -77,8 +78,7 @@ public class UserServiceImpl implements UserService {
 		BeanCopierUtil.copy(userDto, userEO);
 
 		// 用户密码加密
-		userEO.setUserPassword(passwordService.encryptPassword(userDto
-				.getUserPassword()));
+		userEO.setUserPassword(passwordService.encryptPassword(userDto.getUserPassword()));
 
 		// 新增用户
 		userDao.create(userEO);
@@ -90,14 +90,12 @@ public class UserServiceImpl implements UserService {
 		ValidatorUtil.validateScope(scopeType, scopeId);
 
 		if (null == userDto) {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERDTO_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERDTO_IS_NULL"));
 		}
 
 		// 用户是否存在
 		boolean isExists = false;
-		if (null != userDto.getUserId()
-				&& !userDto.getUserId().trim().equals("")) {
+		if (null != userDto.getUserId() && !userDto.getUserId().trim().equals("")) {
 			isExists = existsByPK(userDto.getUserId());
 		}
 
@@ -106,10 +104,8 @@ public class UserServiceImpl implements UserService {
 			create(userDto);
 		} else {
 			// 如果用户存在则判断用户实例是否存在
-			if (userInstanceDao.existsByUserIdAndScope(userDto.getUserId(),
-					scopeType + "", scopeId) > 0) {
-				throw new IllegalArgumentException(
-						UserMessages.getString("USER.USERINSTANCE_IS_EXISTS"));
+			if (userInstanceDao.existsByUserIdAndScope(userDto.getUserId(), scopeType + "", scopeId) > 0) {
+				throw new IllegalArgumentException(UserMessages.getString("USER.USERINSTANCE_IS_EXISTS"));
 			}
 		}
 
@@ -143,17 +139,13 @@ public class UserServiceImpl implements UserService {
 		if (null != userDTOList && !userDTOList.isEmpty()) {
 			for (UserDTO userDTO : userDTOList) {
 				if (null == userDTO) {
-					throw new NullPointerException(
-							UserMessages.getString("USER.USERDTO_IS_NULL"));
+					throw new NullPointerException(UserMessages.getString("USER.USERDTO_IS_NULL"));
 				}
-				if (null == userDTO.getUserId()
-						|| userDTO.getUserId().trim().equals("")) {
-					throw new NullPointerException(
-							UserMessages.getString("USER.USERID_IS_NULL"));
+				if (null == userDTO.getUserId() || userDTO.getUserId().trim().equals("")) {
+					throw new NullPointerException(UserMessages.getString("USER.USERID_IS_NULL"));
 				}
 				if (null == userDTO.getUserSn()) {
-					throw new NullPointerException(
-							UserMessages.getString("USER.USERSN_IS_NULL"));
+					throw new NullPointerException(UserMessages.getString("USER.USERSN_IS_NULL"));
 				}
 				UserEO userEO = new UserEO();
 				// 对象转换
@@ -167,8 +159,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void deleteByPKs(String... userIds) {
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserId(userIds);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserId(userIds);
 		// 删除用户实例
 		deleteUserInstancesByUserInstanceIds(userInstanceIds);
 		// 删除用户
@@ -181,17 +172,14 @@ public class UserServiceImpl implements UserService {
 			UserEO userEO = userDao.queryByUserName(userName);
 			deleteByPKs(userEO.getUserId());
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERNAME_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERNAME_IS_NULL"));
 		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void deleteUserInstanceByScope(String userId, int scopeType,
-			String scopeId) {
+	public void deleteUserInstanceByScope(String userId, int scopeType, String scopeId) {
 		// 获取用户实例
-		String userInstanceId = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userId, scopeType, scopeId);
+		String userInstanceId = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userId, scopeType, scopeId);
 		// 删除用户实例
 		deleteUserInstancesByUserInstanceIds(userInstanceId);
 	}
@@ -201,14 +189,13 @@ public class UserServiceImpl implements UserService {
 		if (null != userInstanceIds && userInstanceIds.length > 0) {
 			for (String uiId : userInstanceIds) {
 				if (null == uiId || uiId.trim().equals("")) {
-					throw new NullPointerException(
-							UserMessages
-									.getString("USER.USERINSTANCEID_IS_NULL"));
+					throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 				}
 			}
-			
+
 			// 删除用户实例与角色关系
-			userInstanceRoleDao.deleteByUserInstanceIds(userInstanceIds);
+			userInstanceRoleDao.deleteByUserInstanceIds(CommonPropertiesUtil.getAdminUserId(),
+					CommonPropertiesUtil.getAdministratorRoleId(), userInstanceIds);
 			// 删除用户实例与用户组关系
 			userInstanceGroupDao.deleteByUserInstanceIds(userInstanceIds);
 			// 删除用户实例
@@ -220,8 +207,7 @@ public class UserServiceImpl implements UserService {
 		List<UserDTO> userDtoList = new ArrayList<UserDTO>();
 		List<UserEO> userEoList = userDao.queryAll();
 
-		BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class,
-				UserDTO.class);
+		BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class, UserDTO.class);
 
 		return userDtoList;
 	}
@@ -233,8 +219,7 @@ public class UserServiceImpl implements UserService {
 			BeanCopierUtil.copy(userDto, userEO);
 
 			List<UserEO> userEoList = userDao.queryByUser(userEO);
-			BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class,
-					UserDTO.class);
+			BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class, UserDTO.class);
 		}
 		return userDtoList;
 	}
@@ -263,8 +248,7 @@ public class UserServiceImpl implements UserService {
 		List<UserDTO> userDtoList = new ArrayList<UserDTO>();
 		if (null != userRealname && !userRealname.trim().equals("")) {
 			List<UserEO> userEoList = userDao.queryByUserRealName(userRealname);
-			BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class,
-					UserDTO.class);
+			BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class, UserDTO.class);
 		}
 		return userDtoList;
 	}
@@ -272,8 +256,7 @@ public class UserServiceImpl implements UserService {
 	public List<UserDTO> queryByScope(int scopeType, String scopeId) {
 		List<UserDTO> userDtoList = new ArrayList<UserDTO>();
 		List<UserEO> userEoList = userDao.queryByScope(scopeType + "", scopeId);
-		BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class,
-				UserDTO.class);
+		BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class, UserDTO.class);
 
 		return userDtoList;
 	}
@@ -281,10 +264,8 @@ public class UserServiceImpl implements UserService {
 	public List<RoleDTO> queryRoles(String userId) {
 		List<RoleDTO> roleDTOList = new ArrayList<RoleDTO>();
 		if (null != userId && !userId.trim().equals("")) {
-			List<RoleEO> roleEoList = userInstanceDao
-					.queryRolesByUserId(userId);
-			BeanCopierUtil.copy(roleEoList, roleDTOList, RoleEO.class,
-					RoleDTO.class);
+			List<RoleEO> roleEoList = userInstanceDao.queryRolesByUserId(userId);
+			BeanCopierUtil.copy(roleEoList, roleDTOList, RoleEO.class, RoleDTO.class);
 		}
 		return roleDTOList;
 	}
@@ -292,10 +273,8 @@ public class UserServiceImpl implements UserService {
 	public List<RoleDTO> queryRoles(String userId, int scopeType, String scopeId) {
 		List<RoleDTO> roleDTOList = new ArrayList<RoleDTO>();
 		if (null != userId && !userId.trim().equals("")) {
-			List<RoleEO> roleEoList = userInstanceDao.queryRolesByScope(userId,
-					scopeType + "", scopeId);
-			BeanCopierUtil.copy(roleEoList, roleDTOList, RoleEO.class,
-					RoleDTO.class);
+			List<RoleEO> roleEoList = userInstanceDao.queryRolesByScope(userId, scopeType + "", scopeId);
+			BeanCopierUtil.copy(roleEoList, roleDTOList, RoleEO.class, RoleDTO.class);
 		}
 		return roleDTOList;
 	}
@@ -303,22 +282,17 @@ public class UserServiceImpl implements UserService {
 	public List<GroupDTO> queryGroups(String userId) {
 		List<GroupDTO> groupDTOList = new ArrayList<GroupDTO>();
 		if (null != userId && !userId.trim().equals("")) {
-			List<GroupEO> groupEOList = userInstanceDao
-					.queryGroupsByUserId(userId);
-			BeanCopierUtil.copy(groupEOList, groupDTOList, GroupEO.class,
-					GroupDTO.class);
+			List<GroupEO> groupEOList = userInstanceDao.queryGroupsByUserId(userId);
+			BeanCopierUtil.copy(groupEOList, groupDTOList, GroupEO.class, GroupDTO.class);
 		}
 		return groupDTOList;
 	}
 
-	public List<GroupDTO> queryGroups(String userId, int scopeType,
-			String scopeId) {
+	public List<GroupDTO> queryGroups(String userId, int scopeType, String scopeId) {
 		List<GroupDTO> groupDTOList = new ArrayList<GroupDTO>();
 		if (null != userId && !userId.trim().equals("")) {
-			List<GroupEO> groupEOList = userInstanceDao.queryGroupsByScope(
-					userId, scopeType + "", scopeId);
-			BeanCopierUtil.copy(groupEOList, groupDTOList, GroupEO.class,
-					GroupDTO.class);
+			List<GroupEO> groupEOList = userInstanceDao.queryGroupsByScope(userId, scopeType + "", scopeId);
+			BeanCopierUtil.copy(groupEOList, groupDTOList, GroupEO.class, GroupDTO.class);
 		}
 		return groupDTOList;
 	}
@@ -326,50 +300,40 @@ public class UserServiceImpl implements UserService {
 	public List<PrivilegeDTO> queryPrivileges(String userId) {
 		List<PrivilegeDTO> privilegeDTOList = new ArrayList<PrivilegeDTO>();
 		if (null != userId && !userId.trim().equals("")) {
-			List<PrivilegeEO> privilegeEOList = userInstanceDao
-					.queryPrivilegesByUserId(userId);
-			BeanCopierUtil.copy(privilegeEOList, privilegeDTOList,
-					PrivilegeEO.class, PrivilegeDTO.class);
+			List<PrivilegeEO> privilegeEOList = userInstanceDao.queryPrivilegesByUserId(userId);
+			BeanCopierUtil.copy(privilegeEOList, privilegeDTOList, PrivilegeEO.class, PrivilegeDTO.class);
 		}
 		return privilegeDTOList;
 	}
 
-	public List<PrivilegeDTO> queryPrivileges(String userId, int scopeType,
-			String scopeId) {
+	public List<PrivilegeDTO> queryPrivileges(String userId, int scopeType, String scopeId) {
 		List<PrivilegeDTO> privilegeDTOList = new ArrayList<PrivilegeDTO>();
 		if (null != userId && !userId.trim().equals("")) {
-			List<PrivilegeEO> privilegeEOList = userInstanceDao
-					.queryPrivilegesByScope(userId, scopeType + "", scopeId);
-			BeanCopierUtil.copy(privilegeEOList, privilegeDTOList,
-					PrivilegeEO.class, PrivilegeDTO.class);
+			List<PrivilegeEO> privilegeEOList = userInstanceDao.queryPrivilegesByScope(userId, scopeType + "", scopeId);
+			BeanCopierUtil.copy(privilegeEOList, privilegeDTOList, PrivilegeEO.class, PrivilegeDTO.class);
 		}
 		return privilegeDTOList;
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void assignRole(String userId, String roleId, int scopeType,
-			String scopeId) {
-		assignRoles(new String[] { userId }, new String[] { roleId },
-				scopeType, scopeId);
+	public void assignRole(String userId, String roleId, int scopeType, String scopeId) {
+		assignRoles(new String[] { userId }, new String[] { roleId }, scopeType, scopeId);
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void assignRoles(String[] userIds, String[] roleIds, int scopeType,
-			String scopeId) {
+	public void assignRoles(String[] userIds, String[] roleIds, int scopeType, String scopeId) {
 		// 角色ID验证，并去重复与空值
 		String[] rIds = ValidatorUtil.validateRoleId(roleIds);
 
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
 
 		List<UserInstanceRoleEO> userInstanceRoleEOList = new ArrayList<UserInstanceRoleEO>();
 		if (userInstanceIds.length > 0) {
 			for (String userInstanceId : userInstanceIds) {
 				for (String roleId : rIds) {
 					// 判断角色是否已经授予给用户实例
-					if (roleDao
-							.isAssingedToUserInstance(roleId, userInstanceId) <= 0) {
+					if (roleDao.isAssingedToUserInstance(roleId, userInstanceId) <= 0) {
 						UserInstanceRoleEO userInstanceRoleEO = new UserInstanceRoleEO();
 						userInstanceRoleEO.setRoleId(roleId);
 						userInstanceRoleEO.setUserInstanceId(userInstanceId);
@@ -378,8 +342,7 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 
 		}
 
@@ -389,20 +352,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void setRoles(String userId, String[] roleIds, int scopeType,
-			String scopeId) {
+	public void setRoles(String userId, String[] roleIds, int scopeType, String scopeId) {
 		setRoles(new String[] { userId }, roleIds, scopeType, scopeId);
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void setRoles(String[] userIds, String[] roleIds, int scopeType,
-			String scopeId) {
+	public void setRoles(String[] userIds, String[] roleIds, int scopeType, String scopeId) {
 		// 角色ID验证，并去重复与空值
 		String[] rIds = ValidatorUtil.validateRoleId(roleIds);
 
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
 
 		if (userInstanceIds.length > 0) {
 			List<UserInstanceRoleEO> userInstanceRoleEOList = new ArrayList<UserInstanceRoleEO>();
@@ -415,73 +375,64 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 			// 批量删除用户实例与角色关系
-			userInstanceRoleDao.deleteByUserInstanceIds(userInstanceIds);
+			userInstanceRoleDao.deleteByUserInstanceIds(CommonPropertiesUtil.getAdminUserId(),
+					CommonPropertiesUtil.getAdministratorRoleId(), userInstanceIds);
 			// 批量新增用户实例与角色关系
 			userInstanceRoleDao.createBatch(userInstanceRoleEOList);
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void revokeAllRoles(String... userIds) {
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserId(userIds);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserId(userIds);
 		if (userInstanceIds.length > 0) {
 			// 删除用户实例与角色关系
-			userInstanceRoleDao.deleteByUserInstanceIds(userInstanceIds);
+			userInstanceRoleDao.deleteByUserInstanceIds(CommonPropertiesUtil.getAdminUserId(),
+					CommonPropertiesUtil.getAdministratorRoleId(), userInstanceIds);
 		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void revokeRole(String userId, String roleId, int scopeType,
-			String scopeId) {
-		revokeRoles(new String[] { userId }, new String[] { roleId },
-				scopeType, scopeId);
+	public void revokeRole(String userId, String roleId, int scopeType, String scopeId) {
+		revokeRoles(new String[] { userId }, new String[] { roleId }, scopeType, scopeId);
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void revokeRoles(String[] userIds, String[] roleIds, int scopeType,
-			String scopeId) {
+	public void revokeRoles(String[] userIds, String[] roleIds, int scopeType, String scopeId) {
 		// 角色ID验证，并去重复与空值
 		String[] rIds = ValidatorUtil.validateRoleId(roleIds);
 
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
 
 		if (userInstanceIds.length > 0) {
 			for (String userInstanceId : userInstanceIds) {
 				for (String roleId : rIds) {
 					// 删除用户实例与角色关系
-					userInstanceRoleDao.deleteByUserInstanceIdAndRoleId(
-							userInstanceId, roleId);
+					userInstanceRoleDao.deleteByUserInstanceIdAndRoleId(CommonPropertiesUtil.getAdminUserId(),
+							CommonPropertiesUtil.getAdministratorRoleId(), userInstanceId, roleId);
 				}
 			}
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void addToGroup(String userId, String groupId, int scopeType,
-			String scopeId) {
-		addToGroups(new String[] { userId }, new String[] { groupId },
-				scopeType, scopeId);
+	public void addToGroup(String userId, String groupId, int scopeType, String scopeId) {
+		addToGroups(new String[] { userId }, new String[] { groupId }, scopeType, scopeId);
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void addToGroups(String[] userIds, String[] groupIds, int scopeType,
-			String scopeId) {
+	public void addToGroups(String[] userIds, String[] groupIds, int scopeType, String scopeId) {
 		// 用户组ID验证，并去重复与空值
 		String[] gIds = ValidatorUtil.validateGroupId(groupIds);
 
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
 
 		if (userInstanceIds.length > 0) {
 			List<UserInstanceGroupEO> userInstanceGroupEOList = new ArrayList<UserInstanceGroupEO>();
@@ -501,27 +452,22 @@ public class UserServiceImpl implements UserService {
 				userInstanceGroupDao.createBatch(userInstanceGroupEOList);
 			}
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void setGroup(String userId, String groupId, int scopeType,
-			String scopeId) {
-		setGroups(new String[] { userId }, new String[] { groupId }, scopeType,
-				scopeId);
+	public void setGroup(String userId, String groupId, int scopeType, String scopeId) {
+		setGroups(new String[] { userId }, new String[] { groupId }, scopeType, scopeId);
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void setGroups(String[] userIds, String[] groupIds, int scopeType,
-			String scopeId) {
+	public void setGroups(String[] userIds, String[] groupIds, int scopeType, String scopeId) {
 		// 用户组ID验证，并去重复与空值
 		String[] gIds = ValidatorUtil.validateGroupId(groupIds);
 
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
 
 		if (userInstanceIds.length > 0) {
 			List<UserInstanceGroupEO> userInstanceGroupEOList = new ArrayList<UserInstanceGroupEO>();
@@ -541,16 +487,14 @@ public class UserServiceImpl implements UserService {
 			// 批量新增用户实例与用户组关系
 			userInstanceGroupDao.createBatch(userInstanceGroupEOList);
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void removeFromAllGroups(String... userIds) {
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserId(userIds);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserId(userIds);
 
 		if (userInstanceIds.length > 0) {
 			// 删除用户实例与用户组关系
@@ -559,127 +503,101 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void removeFromGroup(String userId, String groupId, int scopeType,
-			String scopeId) {
-		removeFromGroups(new String[] { userId }, new String[] { groupId },
-				scopeType, scopeId);
+	public void removeFromGroup(String userId, String groupId, int scopeType, String scopeId) {
+		removeFromGroups(new String[] { userId }, new String[] { groupId }, scopeType, scopeId);
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void removeFromGroups(String[] userIds, String[] groupIds,
-			int scopeType, String scopeId) {
+	public void removeFromGroups(String[] userIds, String[] groupIds, int scopeType, String scopeId) {
 		// 用户组ID验证，并去重复与空值
 		String[] gIds = ValidatorUtil.validateGroupId(groupIds);
 
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
 
 		if (userInstanceIds.length > 0) {
 			for (String userInstanceId : userInstanceIds) {
 				for (String groupId : gIds) {
-					userInstanceGroupDao.deleteByUserInstanceIdAndGroupId(
-							userInstanceId, groupId);
+					userInstanceGroupDao.deleteByUserInstanceIdAndGroupId(userInstanceId, groupId);
 				}
 			}
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void setEnabledByScope(String userId, int scopeType, String scopeId,
-			boolean enabled) {
+	public void setEnabledByScope(String userId, int scopeType, String scopeId, boolean enabled) {
 		if (null != userId && !userId.trim().equals("")) {
 			ValidatorUtil.validateScope(scopeType, scopeId);
 
-			userInstanceDao.setEnabledByScope(userId, scopeType + "", scopeId,
-					enabled ? "1" : "0");
+			userInstanceDao.setEnabledByScope(userId, scopeType + "", scopeId, enabled ? "1" : "0");
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERID_IS_NULL"));
 		}
 	}
 
 	public boolean hasDirectRole(String userId, String roleId) {
-		if (null != userId && !userId.trim().equals("") && null != roleId
-				&& !roleId.trim().equals("")) {
+		if (null != userId && !userId.trim().equals("") && null != roleId && !roleId.trim().equals("")) {
 
 			return userInstanceDao.hasRole(userId, roleId) > 0;
 		}
 		return false;
 	}
 
-	public boolean hasDirectRole(String userId, String roleId, int scopeType,
-			String scopeId) {
-		if (null != userId && !userId.trim().equals("") && null != roleId
-				&& !roleId.trim().equals("")) {
-			return userInstanceDao.hasRoleByScope(userId, roleId, scopeType
-					+ "", scopeId) > 0;
+	public boolean hasDirectRole(String userId, String roleId, int scopeType, String scopeId) {
+		if (null != userId && !userId.trim().equals("") && null != roleId && !roleId.trim().equals("")) {
+			return userInstanceDao.hasRoleByScope(userId, roleId, scopeType + "", scopeId) > 0;
 		}
 		return false;
 	}
 
 	public boolean hasRole(String userId, String roleId) {
-		if (null != userId && !userId.trim().equals("") && null != roleId
-				&& !roleId.trim().equals("")) {
+		if (null != userId && !userId.trim().equals("") && null != roleId && !roleId.trim().equals("")) {
 			return userInstanceDao.hasAllRole(userId, roleId) > 0;
 		}
 		return false;
 	}
 
-	public boolean hasRole(String userId, String roleId, int scopeType,
-			String scopeId) {
-		if (null != userId && !userId.trim().equals("") && null != roleId
-				&& !roleId.trim().equals("")) {
-			return userInstanceDao.hasAllRoleByScope(userId, roleId, scopeType
-					+ "", scopeId) > 0;
+	public boolean hasRole(String userId, String roleId, int scopeType, String scopeId) {
+		if (null != userId && !userId.trim().equals("") && null != roleId && !roleId.trim().equals("")) {
+			return userInstanceDao.hasAllRoleByScope(userId, roleId, scopeType + "", scopeId) > 0;
 		}
 		return false;
 	}
 
 	public boolean belongsToGroup(String userId, String groupId) {
-		if (null != userId && !userId.trim().equals("") && null != groupId
-				&& !groupId.trim().equals("")) {
+		if (null != userId && !userId.trim().equals("") && null != groupId && !groupId.trim().equals("")) {
 			return groupDao.containsUser(groupId, userId) > 0;
 		}
 		return false;
 	}
 
-	public boolean belongsToGroup(String userId, String groupId, int scopeType,
-			String scopeId) {
-		if (null != userId && !userId.trim().equals("") && null != groupId
-				&& !groupId.trim().equals("")) {
-			return groupDao.containsUserByScope(groupId, userId,
-					scopeType + "", scopeId) > 0;
+	public boolean belongsToGroup(String userId, String groupId, int scopeType, String scopeId) {
+		if (null != userId && !userId.trim().equals("") && null != groupId && !groupId.trim().equals("")) {
+			return groupDao.containsUserByScope(groupId, userId, scopeType + "", scopeId) > 0;
 		}
 		return false;
 	}
 
 	public boolean hasPrivilege(String userId, String privilegeId) {
-		if (null != userId && !userId.trim().equals("") && null != privilegeId
-				&& !privilegeId.trim().equals("")) {
+		if (null != userId && !userId.trim().equals("") && null != privilegeId && !privilegeId.trim().equals("")) {
 			return userInstanceDao.hasPrivilege(userId, privilegeId) > 0;
 		}
 		return false;
 	}
 
-	public boolean hasPrivilege(String userId, String privilegeId,
-			int scopeType, String scopeId) {
-		if (null != userId && !userId.trim().equals("") && null != privilegeId
-				&& !privilegeId.trim().equals("")) {
-			return userInstanceDao.hasPrivilegeByScope(userId, privilegeId,
-					scopeType + "", scopeId) > 0;
+	public boolean hasPrivilege(String userId, String privilegeId, int scopeType, String scopeId) {
+		if (null != userId && !userId.trim().equals("") && null != privilegeId && !privilegeId.trim().equals("")) {
+			return userInstanceDao.hasPrivilegeByScope(userId, privilegeId, scopeType + "", scopeId) > 0;
 		}
 		return false;
 	}
 
 	public boolean isEnabledByScope(String userId, int scopeType, String scopeId) {
 		if (null != userId && !userId.trim().equals("")) {
-			int result = userInstanceDao.isEnabledByScope(userId, scopeType
-					+ "", scopeId) != null ? userInstanceDao.isEnabledByScope(
-					userId, scopeType + "", scopeId) : 0;
+			int result = userInstanceDao.isEnabledByScope(userId, scopeType + "", scopeId) != null
+					? userInstanceDao.isEnabledByScope(userId, scopeType + "", scopeId) : 0;
 			return result > 0;
 		}
 		return false;
@@ -689,8 +607,7 @@ public class UserServiceImpl implements UserService {
 		if (null != userId && !userId.trim().equals("")) {
 			return userDao.existsByPK(userId) > 0;
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERID_IS_NULL"));
 		}
 	}
 
@@ -698,8 +615,7 @@ public class UserServiceImpl implements UserService {
 		if (null != userName && !userName.trim().equals("")) {
 			return userDao.existsByUserName(userName) > 0;
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERNAME_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERNAME_IS_NULL"));
 		}
 	}
 
@@ -711,30 +627,22 @@ public class UserServiceImpl implements UserService {
 	 */
 	private void validateBeforeCreation(UserDTO userDto) {
 		if (null != userDto) {
-			if (null == userDto.getUserName()
-					|| userDto.getUserName().trim().equals("")) {
-				throw new NullPointerException(
-						UserMessages.getString("USER.USERNAME_IS_NULL"));
+			if (null == userDto.getUserName() || userDto.getUserName().trim().equals("")) {
+				throw new NullPointerException(UserMessages.getString("USER.USERNAME_IS_NULL"));
 			} else {
 				// 判断用户是否存在
 				if (userDao.existsByUserName(userDto.getUserName()) > 0) {
-					throw new IllegalArgumentException(
-							UserMessages.getString("USER.USERNAME_IS_EXISTS"));
+					throw new IllegalArgumentException(UserMessages.getString("USER.USERNAME_IS_EXISTS"));
 				}
 			}
-			if (null == userDto.getUserPassword()
-					|| userDto.getUserPassword().trim().equals("")) {
-				throw new NullPointerException(
-						UserMessages.getString("USER.USERPASSWORD_IS_NULL"));
+			if (null == userDto.getUserPassword() || userDto.getUserPassword().trim().equals("")) {
+				throw new NullPointerException(UserMessages.getString("USER.USERPASSWORD_IS_NULL"));
 			}
-			if (null == userDto.getUserRealname()
-					|| userDto.getUserRealname().trim().equals("")) {
-				throw new NullPointerException(
-						UserMessages.getString("USER.USERREALNAME_IS_NULL"));
+			if (null == userDto.getUserRealname() || userDto.getUserRealname().trim().equals("")) {
+				throw new NullPointerException(UserMessages.getString("USER.USERREALNAME_IS_NULL"));
 			}
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERDTO_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERDTO_IS_NULL"));
 		}
 	}
 
@@ -746,14 +654,11 @@ public class UserServiceImpl implements UserService {
 	 */
 	private void validateBeforeUpdation(UserDTO userDto) {
 		if (null != userDto) {
-			if (null == userDto.getUserId()
-					|| userDto.getUserId().trim().equals("")) {
-				throw new NullPointerException(
-						UserMessages.getString("USER.USERID_IS_NULL"));
+			if (null == userDto.getUserId() || userDto.getUserId().trim().equals("")) {
+				throw new NullPointerException(UserMessages.getString("USER.USERID_IS_NULL"));
 			}
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERDTO_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERDTO_IS_NULL"));
 		}
 
 	}
@@ -763,28 +668,22 @@ public class UserServiceImpl implements UserService {
 		ValidatorUtil.validateUserId(userId);
 
 		if (null != password && !password.trim().equals("")) {
-			userDao.updatePasswordByUserId(userId,
-					passwordService.encryptPassword(password));
+			userDao.updatePasswordByUserId(userId, passwordService.encryptPassword(password));
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERPASSWORD_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERPASSWORD_IS_NULL"));
 		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void updatePassword(String userName, String oldPassword,
-			String newPassword) {
+	public void updatePassword(String userName, String oldPassword, String newPassword) {
 		if (null == userName || userName.trim().equals("")) {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERNAME_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERNAME_IS_NULL"));
 		}
 		if (null == oldPassword || oldPassword.trim().equals("")) {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USEROLDPASSWORD_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USEROLDPASSWORD_IS_NULL"));
 		}
 		if (null == newPassword || newPassword.trim().equals("")) {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERNEWPASSWORD_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERNEWPASSWORD_IS_NULL"));
 		}
 
 		// 判断用户是否存在
@@ -792,44 +691,33 @@ public class UserServiceImpl implements UserService {
 			UserEO userEO = userDao.queryByUserName(userName);
 			if (null != userEO) {
 				// 判断原密码是否一致
-				if (passwordService.passwordsMatch(oldPassword,
-						userEO.getUserPassword())) {
-					userDao.updatePasswordByUserName(userName,
-							passwordService.encryptPassword(newPassword));
+				if (passwordService.passwordsMatch(oldPassword, userEO.getUserPassword())) {
+					userDao.updatePasswordByUserName(userName, passwordService.encryptPassword(newPassword));
 				} else {
-					throw new IllegalArgumentException(
-							UserMessages
-									.getString("USER.USEROLDPASSWORD_IS_ERROR"));
+					throw new IllegalArgumentException(UserMessages.getString("USER.USEROLDPASSWORD_IS_ERROR"));
 				}
 			} else {
-				throw new NullPointerException(
-						UserMessages.getString("USER.USER_IS_NOT_EXISTS"));
+				throw new NullPointerException(UserMessages.getString("USER.USER_IS_NOT_EXISTS"));
 			}
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USER_IS_NOT_EXISTS"));
+			throw new NullPointerException(UserMessages.getString("USER.USER_IS_NOT_EXISTS"));
 		}
 	}
 
 	public List<RoleDTO> queryDirectRoles(String userId) {
 		List<RoleDTO> roleDTOList = new ArrayList<RoleDTO>();
 		if (null != userId && !userId.trim().equals("")) {
-			List<RoleEO> roleEoList = userInstanceDao
-					.queryDirectRolesByUserId(userId);
-			BeanCopierUtil.copy(roleEoList, roleDTOList, RoleEO.class,
-					RoleDTO.class);
+			List<RoleEO> roleEoList = userInstanceDao.queryDirectRolesByUserId(userId);
+			BeanCopierUtil.copy(roleEoList, roleDTOList, RoleEO.class, RoleDTO.class);
 		}
 		return roleDTOList;
 	}
 
-	public List<RoleDTO> queryDirectRoles(String userId, int scopeType,
-			String scopeId) {
+	public List<RoleDTO> queryDirectRoles(String userId, int scopeType, String scopeId) {
 		List<RoleDTO> roleDTOList = new ArrayList<RoleDTO>();
 		if (null != userId && !userId.trim().equals("")) {
-			List<RoleEO> roleEoList = userInstanceDao.queryDirectRolesByScope(
-					userId, scopeType + "", scopeId);
-			BeanCopierUtil.copy(roleEoList, roleDTOList, RoleEO.class,
-					RoleDTO.class);
+			List<RoleEO> roleEoList = userInstanceDao.queryDirectRolesByScope(userId, scopeType + "", scopeId);
+			BeanCopierUtil.copy(roleEoList, roleDTOList, RoleEO.class, RoleDTO.class);
 		}
 		return roleDTOList;
 	}
@@ -837,15 +725,14 @@ public class UserServiceImpl implements UserService {
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void revokeAllRoles(String[] userIds, int scopeType, String scopeId) {
 		// 获取用户实例
-		String[] userInstanceIds = userInstanceUtil
-				.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
+		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserIdAndScope(userIds, scopeType, scopeId);
 
 		if (userInstanceIds.length > 0) {
 			// 删除用户实例与角色关系
-			userInstanceRoleDao.deleteByUserInstanceIds(userInstanceIds);
+			userInstanceRoleDao.deleteByUserInstanceIds(CommonPropertiesUtil.getAdminUserId(),
+					CommonPropertiesUtil.getAdministratorRoleId(), userInstanceIds);
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERINSTANCEID_IS_NULL"));
 		}
 	}
 
@@ -853,8 +740,7 @@ public class UserServiceImpl implements UserService {
 		if (null != userRealname && !userRealname.trim().equals("")) {
 			return userDao.existsByUserRealname(userRealname) > 0;
 		} else {
-			throw new NullPointerException(
-					UserMessages.getString("USER.USERREALNAME_IS_NULL"));
+			throw new NullPointerException(UserMessages.getString("USER.USERREALNAME_IS_NULL"));
 		}
 	}
 }

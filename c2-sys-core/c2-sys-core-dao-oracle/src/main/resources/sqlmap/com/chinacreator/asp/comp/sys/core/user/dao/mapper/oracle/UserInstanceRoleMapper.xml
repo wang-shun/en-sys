@@ -35,27 +35,57 @@
     <delete id="deleteByUserInstanceIds" parameterType="java.lang.String" databaseId="oracle">
         DELETE FROM td_sm_userinstancerole
         WHERE userinstance_id IN
-        <foreach item="idItem" index="index" collection="array" open="(" close=")">
+        <foreach item="idItem" index="index" collection="userInstanceIds" open="(" close=")">
         	<if test="index&gt;999 and index%1000==0">) or userinstance_id in(</if>
             	<![CDATA[#{idItem}]]>
-            <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+            <if test="index%1000!=999 and index&lt;userInstanceIds.length-1">,</if>
         </foreach>
+        and (
+	        role_id!=#{adminRoleId,jdbcType=VARCHAR}
+	        or 
+	        userinstance_id not in( 
+	        	select id from td_sm_userinstance 
+	        		where 
+	        		scope_type='0' 
+	        		and 
+	        		user_id = #{adminUserId,jdbcType=VARCHAR})
+        )
     </delete>
     
     <delete id="deleteByRoleIds" parameterType="java.lang.String" databaseId="oracle">
         DELETE FROM td_sm_userinstancerole
         WHERE role_id IN
-        <foreach item="idItem" index="index" collection="array" open="(" close=")">
+        <foreach item="idItem" index="index" collection="roleIds" open="(" close=")">
         	<if test="index&gt;999 and index%1000==0">) or role_id in(</if>
             	<![CDATA[#{idItem}]]>
-            <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+            <if test="index%1000!=999 and index&lt;roleIds.length-1">,</if>
         </foreach>
+        and (
+	        role_id!=#{adminRoleId,jdbcType=VARCHAR}
+	        or 
+	        userinstance_id not in( 
+	        	select id from td_sm_userinstance 
+	        		where 
+	        		scope_type='0' 
+	        		and 
+	        		user_id = #{adminUserId,jdbcType=VARCHAR})
+        )
     </delete>
     
     <delete id="deleteByUserInstanceIdAndRoleId" databaseId="oracle">
         <![CDATA[
         DELETE FROM td_sm_userinstancerole
         WHERE userinstance_id = #{userInstanceId,jdbcType=VARCHAR} AND role_id = #{roleId,jdbcType=VARCHAR}
+        and (
+	        role_id!=#{adminRoleId,jdbcType=VARCHAR}
+	        or 
+	        userinstance_id not in( 
+	        	select id from td_sm_userinstance 
+	        		where 
+	        		scope_type='0' 
+	        		and 
+	        		user_id = #{adminUserId,jdbcType=VARCHAR})
+        )
         ]]>
     </delete>
     

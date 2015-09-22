@@ -143,8 +143,7 @@ public interface RoleService {
 	 *            用户活动范围ID（当用户活动范围类型为0时，该用户活动范围ID为null；当用户活动范围类型为1时，
 	 *            该用户活动范围ID为机构ID；当用户活动范围类型为2时， 该用户活动范围ID为岗位ID；以此类推）
 	 */
-	public void assignToUser(String roleId, String userId, int scopeType,
-			String scopeId);
+	public void assignToUser(String roleId, String userId, int scopeType, String scopeId);
 
 	/**
 	 * 批量授予角色给用户
@@ -159,8 +158,7 @@ public interface RoleService {
 	 *            用户活动范围ID（当用户活动范围类型为0时，该用户活动范围ID为null；当用户活动范围类型为1时，
 	 *            该用户活动范围ID为机构ID；当用户活动范围类型为2时， 该用户活动范围ID为岗位ID；以此类推）
 	 */
-	public void assignToUsers(String[] roleIds, String[] userIds,
-			int scopeType, String scopeId);
+	public void assignToUsers(String[] roleIds, String[] userIds, int scopeType, String scopeId);
 
 	/**
 	 * 设置角色给用户
@@ -175,8 +173,7 @@ public interface RoleService {
 	 *            用户活动范围ID（当用户活动范围类型为0时，该用户活动范围ID为null；当用户活动范围类型为1时，
 	 *            该用户活动范围ID为机构ID；当用户活动范围类型为2时， 该用户活动范围ID为岗位ID；以此类推）
 	 */
-	public void setToUser(String roleId, String[] userIds, int scopeType,
-			String scopeId);
+	public void setToUser(String roleId, String[] userIds, int scopeType, String scopeId);
 
 	/**
 	 * 批量设置角色给用户
@@ -191,8 +188,7 @@ public interface RoleService {
 	 *            用户活动范围ID（当用户活动范围类型为0时，该用户活动范围ID为null；当用户活动范围类型为1时，
 	 *            该用户活动范围ID为机构ID；当用户活动范围类型为2时， 该用户活动范围ID为岗位ID；以此类推）
 	 */
-	public void setToUsers(String[] roleIds, String[] userIds, int scopeType,
-			String scopeId);
+	public void setToUsers(String[] roleIds, String[] userIds, int scopeType, String scopeId);
 
 	/**
 	 * 批量回收指定角色与其授予的所有用户关系
@@ -215,8 +211,7 @@ public interface RoleService {
 	 *            用户活动范围ID（当用户活动范围类型为0时，该用户活动范围ID为null；当用户活动范围类型为1时，
 	 *            该用户活动范围ID为机构ID；当用户活动范围类型为2时， 该用户活动范围ID为岗位ID；以此类推）
 	 */
-	public void revokeFromUser(String roleId, String userId, int scopeType,
-			String scopeId);
+	public void revokeFromUser(String roleId, String userId, int scopeType, String scopeId);
 
 	/**
 	 * 批量回收指定角色与其授予的指定用户关系
@@ -231,8 +226,7 @@ public interface RoleService {
 	 *            用户活动范围ID（当用户活动范围类型为0时，该用户活动范围ID为null；当用户活动范围类型为1时，
 	 *            该用户活动范围ID为机构ID；当用户活动范围类型为2时， 该用户活动范围ID为岗位ID；以此类推）
 	 */
-	public void revokeFromUsers(String[] roleIds, String[] userIds,
-			int scopeType, String scopeId);
+	public void revokeFromUsers(String[] roleIds, String[] userIds, int scopeType, String scopeId);
 
 	/**
 	 * 添加角色给用户组
@@ -398,6 +392,17 @@ public interface RoleService {
 	public boolean existsByRoleName(String roleName);
 
 	/**
+	 * 判断角色名称是否存在(忽略指定角色ID名称，编辑时用)
+	 * 
+	 * @param roleName
+	 *            角色名称
+	 * @param roleId
+	 *            角色ID
+	 * @return true:存在，false:不存在
+	 */
+	public boolean existsByRoleNameIgnoreRoleID(String roleName, String roleId);
+
+	/**
 	 * 判断角色是否已分配给用户
 	 * 
 	 * @param roleId
@@ -422,8 +427,7 @@ public interface RoleService {
 	 *            该用户活动范围ID为机构ID；当用户活动范围类型为2时， 该用户活动范围ID为岗位ID；以此类推）
 	 * @return true:有，false:无
 	 */
-	public boolean isAssingedToUser(String roleId, String userId,
-			int scopeType, String scopeId);
+	public boolean isAssingedToUser(String roleId, String userId, int scopeType, String scopeId);
 
 	/**
 	 * 判断角色是否分配给用户组

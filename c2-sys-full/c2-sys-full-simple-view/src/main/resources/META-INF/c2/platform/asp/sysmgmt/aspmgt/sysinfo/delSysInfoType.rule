@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="delSysInfoType" className="com.chinacreator.asp.comp.sys.basic.sysinfo.service.SysRTSettingTypeService" method="deleteByPKs">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>删除参数类型</name>
+  <desc>删除系统信息类型</desc>
+  <inputs>
+    <input collection="false" desc="" id="ids" required="true" type="[LString;"/>
+  </inputs>
+  <outputs/>
+  <res>NxDrpBvzRZGbTBnkF7tTuA</res>
+  <params>
+    <param autoValue="Input.ids" name="ids" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="orgRemoveRoles" className="com.chinacreator.asp.comp.sys.basic.org.service.OrgService" method="revokeAllRoles">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>机构回收角色</name>
+  <desc>批量回收机构拥有的所有角色</desc>
+  <inputs>
+    <input collection="false" desc="" id="orgIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>2OW9e4jDSOqMHwmGKuaq_Q</res>
+  <params>
+    <param autoValue="Input.orgIds" name="orgIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

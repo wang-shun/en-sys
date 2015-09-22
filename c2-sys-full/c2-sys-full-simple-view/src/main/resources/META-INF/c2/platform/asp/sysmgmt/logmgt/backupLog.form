@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="备份日志" res="E5rhZ4rnTVW5RqPYjL4Wfg" sn="backupLog" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="600px">
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="备份日志">
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="model.backupDay" id="backupDay_Field" name="备份几天前的日志：" customize="true">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="text" group="数据校验" id="valitype" name="数据类型" value="number">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="min" name="最小值" value="0">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="150">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="value" name="默认值" value="0">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="text" group="HTML设置" id="inputType" name="数据类型" value="number">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="max" name="最大值" value="999999">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="数据校验" id="required" name="必填项" value="true">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="对话框工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField" name="备份" res="iBctUE9WSSerIYaLjQsa1g" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-paste">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-success">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="backupLog()">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField1" name="重置" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resetBackupDay()">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField2" name="关闭" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-times">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="closeModal()">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+  </form:datasources>
+  <form:scripts>// 备份&#xD;
+backupLog:function(){&#xD;
+	if($view.mainForm.check()){	&#xD;
+		var backupDay = $model.backupDay; &#xD;
+		var mess = &quot;&quot;;&#xD;
+		var _this = this;&#xD;
+		if(backupDay&lt;0){&#xD;
+			Messenger.post({&#xD;
+			    'message': &quot;备份天数必须为正整数！&quot;,&#xD;
+			    'type': 'error',&#xD;
+			});&#xD;
+			return;&#xD;
+		}else if(0==backupDay){&#xD;
+			mess = &quot;是否确认备份所有日志?&quot;;&#xD;
+		}else{&#xD;
+			mess = &quot;是否确认备份&quot;+backupDay+&quot;天前的日志?&quot;;&#xD;
+		}&#xD;
+		Modal.openConfirm({message:mess},function(){&#xD;
+			$http.post(&quot;ws/backupLog&quot;,{&quot;toNDaysAgo&quot;:backupDay})&#xD;
+					.success(function(data, status, headers, config){&#xD;
+						Messenger.post({&#xD;
+			                'message': &quot;备份日志成功！&quot;,&#xD;
+			                'type': 'success',&#xD;
+			            });&#xD;
+				       $scope.saveType = 'success';&#xD;
+				       _this.closeModal();&#xD;
+					});&#xD;
+		});&#xD;
+	}	&#xD;
+},&#xD;
+// 重置&#xD;
+resetBackupDay:function(){&#xD;
+	$view.backupDay_Field.clean();&#xD;
+},&#xD;
+// 关闭&#xD;
+closeModal:function(){&#xD;
+	Modal.instance.close($scope.saveType);&#xD;
+}</form:scripts>
+</form:Form>

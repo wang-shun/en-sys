@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache name="shiro-ehcache" updateCheck="false"> 
+    
+    <diskStore path="java.io.tmpdir/shiro-ehcache"/>
+    <defaultCache
+        maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="false"
+        diskPersistent="false"
+        diskExpiryThreadIntervalSeconds="120">
+   </defaultCache>
+   <cache name="shiro-activeSessionsCache"
+       maxElementsInMemory="1000000"
+       eternal="true"
+       timeToLiveSeconds="0"
+       timeToIdleSeconds="0"
+       diskPersistent="true"
+       overflowToDisk="true"
+       diskExpiryThreadIntervalSeconds="600">
+       <!-- <terracotta/> -->
+   </cache>
+<!--    <terracottaConfig url="localhost:9510"/> -->
+</ehcache>

@@ -18,8 +18,7 @@ import com.chinacreator.c2.dao.mybatis.enhance.Sortable;
  * @author 彭盛
  * 
  */
-public interface UserService extends
-		com.chinacreator.asp.comp.sys.core.user.service.UserService {
+public interface UserService extends com.chinacreator.asp.comp.sys.core.user.service.UserService {
 
 	/**
 	 * 在指定机构下新增用户
@@ -116,8 +115,7 @@ public interface UserService extends
 	 * @return 分页后的用户数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<UserDTO> queryByUser(UserDTO userDto, Pageable pageable,
-			Sortable sortable);
+	public Page<UserDTO> queryByUser(UserDTO userDto, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 查询指定机构下用户
@@ -130,7 +128,7 @@ public interface UserService extends
 	 *         一条记录也没查询到的情况下返回无内容的List
 	 */
 	public List<UserDTO> queryByOrg(UserDTO userDto, String orgId);
-	
+
 	/**
 	 * 分页查询指定机构下用户
 	 * 
@@ -145,8 +143,40 @@ public interface UserService extends
 	 * @return 分页后的用户数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<UserDTO> queryByOrg(UserDTO userDto, String orgId,
-			Pageable pageable, Sortable sortable);
+	public Page<UserDTO> queryByOrg(UserDTO userDto, String orgId, Pageable pageable, Sortable sortable);
+
+	/**
+	 * 查询指定机构及角色下用户
+	 * 
+	 * @param userDto
+	 *            用户数据传输对象
+	 * @param orgId
+	 *            机构ID
+	 * @param roleId
+	 *            角色ID
+	 * @return 用户数据传输对象列表<br>
+	 *         一条记录也没查询到的情况下返回无内容的List
+	 */
+	public List<UserDTO> queryByOrgRole(UserDTO userDto, String orgId, String roleId);
+
+	/**
+	 * 分页查询指定机构及角色下用户
+	 * 
+	 * @param userDto
+	 *            用户数据传输对象
+	 * @param orgId
+	 *            机构ID
+	 * @param roleId
+	 *            角色ID
+	 * @param pageable
+	 *            分页对象
+	 * @param sortable
+	 *            排序对象
+	 * @return 分页后的用户数据传输对象列表<br>
+	 *         一条记录也没查询到的情况下返回无内容的Page
+	 */
+	public Page<UserDTO> queryByOrgRole(UserDTO userDto, String orgId, String roleId, Pageable pageable,
+			Sortable sortable);
 
 	/**
 	 * 查询指定用户所属机构
@@ -210,8 +240,7 @@ public interface UserService extends
 	 * @return 分页后的角色数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的List
 	 */
-	public Page<RoleDTO> queryDirectRoles(String userId, Pageable pageable,
-			Sortable sortable);
+	public Page<RoleDTO> queryDirectRoles(String userId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 查询指定机构下用户所拥有的直接角色
@@ -235,8 +264,7 @@ public interface UserService extends
 	 * @return 角色数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的List
 	 */
-	public Page<RoleDTO> queryDirectRoles(String userId, String orgId,
-			Pageable pageable, Sortable sortable);
+	public Page<RoleDTO> queryDirectRoles(String userId, String orgId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 分页查询指定用户所拥有的角色
@@ -250,8 +278,7 @@ public interface UserService extends
 	 * @return 分页后的角色数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<RoleDTO> queryRoles(String userId, Pageable pageable,
-			Sortable sortable);
+	public Page<RoleDTO> queryRoles(String userId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 查询指定机构下的用户所拥有的角色
@@ -279,8 +306,7 @@ public interface UserService extends
 	 * @return 分页后的角色数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<RoleDTO> queryRoles(String userId, String orgId,
-			Pageable pageable, Sortable sortable);
+	public Page<RoleDTO> queryRoles(String userId, String orgId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 查询指定用户创建的角色
@@ -334,8 +360,7 @@ public interface UserService extends
 	 * @return 分页后的权限数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<PrivilegeDTO> queryDirectPrivileges(String userId,
-			Pageable pageable, Sortable sortable);
+	public Page<PrivilegeDTO> queryDirectPrivileges(String userId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 查询机构下用户拥有的直接权限
@@ -363,8 +388,7 @@ public interface UserService extends
 	 * @return 分页后的权限数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的List
 	 */
-	public Page<PrivilegeDTO> queryDirectPrivileges(String userId,
-			String orgId, Pageable pageable, Sortable sortable);
+	public Page<PrivilegeDTO> queryDirectPrivileges(String userId, String orgId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 分页查询用户拥有的权限
@@ -378,8 +402,7 @@ public interface UserService extends
 	 * @return 分页后的权限数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<PrivilegeDTO> queryPrivileges(String userId, Pageable pageable,
-			Sortable sortable);
+	public Page<PrivilegeDTO> queryPrivileges(String userId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 查询指定机构下用户拥有的权限
@@ -407,8 +430,7 @@ public interface UserService extends
 	 * @return 分页后的权限数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的List
 	 */
-	public Page<PrivilegeDTO> queryPrivileges(String userId, String orgId,
-			Pageable pageable, Sortable sortable);
+	public Page<PrivilegeDTO> queryPrivileges(String userId, String orgId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 查询用户所拥有的菜单
@@ -634,8 +656,7 @@ public interface UserService extends
 	 * @param orgId
 	 *            机构ID
 	 */
-	public void assignPrivileges(String[] userIds, String[] privilegeIds,
-			String orgId);
+	public void assignPrivileges(String[] userIds, String[] privilegeIds, String orgId);
 
 	/**
 	 * 设置指定机构下用户拥有的权限
@@ -659,8 +680,7 @@ public interface UserService extends
 	 * @param orgId
 	 *            机构ID
 	 */
-	public void setPrivilegesToUsers(String[] userIds, String[] privilegeIds,
-			String orgId);
+	public void setPrivilegesToUsers(String[] userIds, String[] privilegeIds, String orgId);
 
 	/**
 	 * 回收用户的所有直接权限
@@ -702,8 +722,7 @@ public interface UserService extends
 	 * @param orgId
 	 *            机构ID
 	 */
-	public void revokePrivileges(String[] userIds, String[] privilegeIds,
-			String orgId);
+	public void revokePrivileges(String[] userIds, String[] privilegeIds, String orgId);
 
 	/**
 	 * 判断用户是否属于指定机构
@@ -764,8 +783,7 @@ public interface UserService extends
 	 *            机构ID
 	 * @return true:有，false:无
 	 */
-	public boolean hasDirectPrivilege(String userId, String privilegeId,
-			String orgId);
+	public boolean hasDirectPrivilege(String userId, String privilegeId, String orgId);
 
 	/**
 	 * 判断指定机构下用户是否拥有指定权限

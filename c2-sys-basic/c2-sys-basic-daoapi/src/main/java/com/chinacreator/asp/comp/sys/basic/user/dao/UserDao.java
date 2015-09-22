@@ -30,9 +30,8 @@ public interface UserDao {
 	 * @return 用户数据访问对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的List
 	 */
-	public Page<UserEO> queryByUser(@Param("userEO") UserEO userEO,
-			Pageable pageable, Sortable sortable);
-	
+	public Page<UserEO> queryByUser(@Param("userEO") UserEO userEO, Pageable pageable, Sortable sortable);
+
 	/**
 	 * 查询用户的直接权限
 	 * 
@@ -42,8 +41,7 @@ public interface UserDao {
 	 *            用户ID
 	 * @return 直接权限列表
 	 */
-	public List<PrivilegeEO> queryDirectPrivileges(
-			@Param("roleType") String roleType, @Param("userId") String userId);
+	public List<PrivilegeEO> queryDirectPrivileges(@Param("roleType") String roleType, @Param("userId") String userId);
 
 	/**
 	 * 查询用户的直接权限（带分页）
@@ -58,8 +56,7 @@ public interface UserDao {
 	 *            排序条件
 	 * @return 分页后的直接权限列表
 	 */
-	public Page<PrivilegeEO> queryDirectPrivileges(
-			@Param("roleType") String roleType, @Param("userId") String userId,
+	public Page<PrivilegeEO> queryDirectPrivileges(@Param("roleType") String roleType, @Param("userId") String userId,
 			Pageable pageable, Sortable sortable);
 
 	/**
@@ -73,9 +70,8 @@ public interface UserDao {
 	 *            用户ID
 	 * @return 直接权限列表
 	 */
-	public List<PrivilegeEO> queryDirectOrgUserPrivileges(
-			@Param("roleType") String roleType, @Param("orgId") String orgId,
-			@Param("userId") String userId);
+	public List<PrivilegeEO> queryDirectOrgUserPrivileges(@Param("roleType") String roleType,
+			@Param("orgId") String orgId, @Param("userId") String userId);
 
 	/**
 	 * 查询机构用户的直接权限(带分页)
@@ -92,9 +88,8 @@ public interface UserDao {
 	 *            排序条件
 	 * @return 分页后的直接权限列表
 	 */
-	public Page<PrivilegeEO> queryDirectOrgUserPrivileges(
-			@Param("roleType") String roleType, @Param("orgId") String orgId,
-			@Param("userId") String userId, Pageable pageable, Sortable sortable);
+	public Page<PrivilegeEO> queryDirectOrgUserPrivileges(@Param("roleType") String roleType,
+			@Param("orgId") String orgId, @Param("userId") String userId, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 查询用户的菜单信息
@@ -114,8 +109,7 @@ public interface UserDao {
 	 *            用户ID
 	 * @return 菜单信息列表
 	 */
-	public List<MenuAllInfoEO> queryOrgUserMenus(@Param("orgId") String orgId,
-			@Param("userId") String userId);
+	public List<MenuAllInfoEO> queryOrgUserMenus(@Param("orgId") String orgId, @Param("userId") String userId);
 
 	/**
 	 * 查询用户的所有机构
@@ -136,8 +130,7 @@ public interface UserDao {
 	 * @return 用户数据访问对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的List
 	 */
-	public List<UserEO> queryByOrg(@Param("userEO") UserEO userEO,
-			@Param("orgId") String orgId);
+	public List<UserEO> queryByOrg(@Param("userEO") UserEO userEO, @Param("orgId") String orgId);
 
 	/**
 	 * 查询机构下用户
@@ -153,8 +146,81 @@ public interface UserDao {
 	 * @return 用户数据访问对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<UserEO> queryByOrg(@Param("userEO") UserEO userEO,
-			@Param("orgId") String orgId, Pageable pageable, Sortable sortable);
+	public Page<UserEO> queryByOrg(@Param("userEO") UserEO userEO, @Param("orgId") String orgId, Pageable pageable,
+			Sortable sortable);
+
+	/**
+	 * 查询拥有角色的用户
+	 * 
+	 * @param userEO
+	 *            用户数据访问对象
+	 * @param roleId
+	 *            角色ID
+	 * @param everyoneRoleId
+	 *            普通用户角色ID
+	 * @return 用户数据访问对象列表<br>
+	 *         一条记录也没查询到的情况下返回无内容的List
+	 */
+	public List<UserEO> queryByRole(@Param("userEO") UserEO userEO, @Param("roleId") String roleId,
+			@Param("everyoneRoleId") String everyoneRoleId);
+
+	/**
+	 * 分页查询拥有角色的用户
+	 * 
+	 * @param userEO
+	 *            用户数据访问对象
+	 * @param roleId
+	 *            角色ID
+	 * @param everyoneRoleId
+	 *            普通用户角色ID
+	 * @param pageable
+	 *            分页对象
+	 * @param sortable
+	 *            排序对象
+	 * @return 分页后的用户数据访问对象列表<br>
+	 *         一条记录也没查询到的情况下返回无内容的Page
+	 */
+	public Page<UserEO> queryByRole(@Param("userEO") UserEO userEO, @Param("roleId") String roleId,
+			@Param("everyoneRoleId") String everyoneRoleId, Pageable pageable, Sortable sortable);
+
+	/**
+	 * 查询机构下拥有角色的用户
+	 * 
+	 * @param userEO
+	 *            用户数据访问对象
+	 * @param orgId
+	 *            机构ID
+	 * @param roleId
+	 *            角色ID
+	 * @param everyoneRoleId
+	 *            普通用户角色ID
+	 * @return 用户数据访问对象列表<br>
+	 *         一条记录也没查询到的情况下返回无内容的List
+	 */
+	public List<UserEO> queryByOrgRole(@Param("userEO") UserEO userEO, @Param("orgId") String orgId,
+			@Param("roleId") String roleId, @Param("everyoneRoleId") String everyoneRoleId);
+
+	/**
+	 * 分页查询机构下拥有角色的用户
+	 * 
+	 * @param userEO
+	 *            用户数据访问对象
+	 * @param orgId
+	 *            机构ID
+	 * @param roleId
+	 *            角色ID
+	 * @param everyoneRoleId
+	 *            普通用户角色ID
+	 * @param pageable
+	 *            分页对象
+	 * @param sortable
+	 *            排序对象
+	 * @return 分页后的用户数据访问对象列表<br>
+	 *         一条记录也没查询到的情况下返回无内容的Page
+	 */
+	public Page<UserEO> queryByOrgRole(@Param("userEO") UserEO userEO, @Param("orgId") String orgId,
+			@Param("roleId") String roleId, @Param("everyoneRoleId") String everyoneRoleId, Pageable pageable,
+			Sortable sortable);
 
 	/**
 	 * 查询用户实例的匿名角色ID
@@ -165,8 +231,7 @@ public interface UserDao {
 	 *            匿名角色类型ID
 	 * @return 用户实例的匿名角色ID，没有匿名角色则返回空
 	 */
-	public String queryAnonymousRoleId(
-			@Param("userInstanceId") String userInstanceId,
+	public String queryAnonymousRoleId(@Param("userInstanceId") String userInstanceId,
 			@Param("anonymousRoleTypeId") String anonymousRoleTypeId);
 
 	/**
@@ -183,8 +248,7 @@ public interface UserDao {
 	 * @return 匿名角色ID
 	 */
 	public String queryAnonymousRoleIdByScope(@Param("userId") String userId,
-			@Param("anonymousRoleTypeId") String anonymousRoleTypeId,
-			@Param("scopeId") String scopeId,
+			@Param("anonymousRoleTypeId") String anonymousRoleTypeId, @Param("scopeId") String scopeId,
 			@Param("scopeType") String scopeType);
 
 	/**
@@ -196,8 +260,7 @@ public interface UserDao {
 	 *            用户ID数组
 	 * @return 匿名角色ID集合
 	 */
-	public List<String> queryAnonymousRoleIdsByUserIds(
-			@Param("anonymousRoleTypeId") String anonymousRoleTypeId,
+	public List<String> queryAnonymousRoleIdsByUserIds(@Param("anonymousRoleTypeId") String anonymousRoleTypeId,
 			@Param("userIds") String... userIds);
 
 	/**
@@ -213,10 +276,8 @@ public interface UserDao {
 	 *            用户ID数组
 	 * @return 匿名角色ID集合
 	 */
-	public List<String> queryAnonymousRoleIdsByUserIdsAndScope(
-			@Param("anonymousRoleTypeId") String anonymousRoleTypeId,
-			@Param("scopeId") String scopeId,
-			@Param("scopeType") String scopeType,
+	public List<String> queryAnonymousRoleIdsByUserIdsAndScope(@Param("anonymousRoleTypeId") String anonymousRoleTypeId,
+			@Param("scopeId") String scopeId, @Param("scopeType") String scopeType,
 			@Param("userIds") String... userIds);
 
 	/**
@@ -232,8 +293,7 @@ public interface UserDao {
 	 *            角色ID
 	 * @return 大于0表示有直接角色关联，否则没有直接角色关联
 	 */
-	public int hasDirectRole(@Param("userId") String userId,
-			@Param("scopeType") String scopeType,
+	public int hasDirectRole(@Param("userId") String userId, @Param("scopeType") String scopeType,
 			@Param("scopeId") String scopeId, @Param("roleId") String roleId);
 
 	/**
@@ -249,8 +309,7 @@ public interface UserDao {
 	 *            角色ID
 	 * @return 大于0表示有角色关联，否则没有角色关联
 	 */
-	public int hasRole(@Param("userId") String userId,
-			@Param("scopeType") String scopeType,
+	public int hasRole(@Param("userId") String userId, @Param("scopeType") String scopeType,
 			@Param("scopeId") String scopeId, @Param("roleId") String roleId);
 
 	/**
@@ -264,8 +323,7 @@ public interface UserDao {
 	 *            权限ID
 	 * @return 大于0表示有直接权限关联，否则没有直接权限关联
 	 */
-	public int hasDirectPrivilege(@Param("userId") String userId,
-			@Param("roleType") String roleType,
+	public int hasDirectPrivilege(@Param("userId") String userId, @Param("roleType") String roleType,
 			@Param("privilegeId") String privilegeId);
 
 	/**
@@ -281,7 +339,6 @@ public interface UserDao {
 	 *            权限ID
 	 * @return 大于0表示有直接权限关联，否则没有直接权限关联
 	 */
-	public int hasDirectOrgUserPrivilege(@Param("userId") String userId,
-			@Param("orgId") String orgId, @Param("roleType") String roleType,
-			@Param("privilegeId") String privilegeId);
+	public int hasDirectOrgUserPrivilege(@Param("userId") String userId, @Param("orgId") String orgId,
+			@Param("roleType") String roleType, @Param("privilegeId") String privilegeId);
 }

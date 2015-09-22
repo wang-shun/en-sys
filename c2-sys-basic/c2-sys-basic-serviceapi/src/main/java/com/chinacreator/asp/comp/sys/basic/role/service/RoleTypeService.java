@@ -79,8 +79,7 @@ public interface RoleTypeService {
 	 * @return 分页后的角色类型数据传输对象列表<br>
 	 *         一条记录也没查询到的情况下返回无内容的Page
 	 */
-	public Page<RoleTypeDTO> queryByRoleType(RoleTypeDTO roleTypeDTO,
-			Pageable pageable, Sortable sortable);
+	public Page<RoleTypeDTO> queryByRoleType(RoleTypeDTO roleTypeDTO, Pageable pageable, Sortable sortable);
 
 	/**
 	 * 查询角色类型
@@ -100,6 +99,17 @@ public interface RoleTypeService {
 	 * @return true:存在，false:不存在
 	 */
 	public boolean existsByRoleTypeName(String roleTypeName);
+
+	/**
+	 * 判断角色类型名称是否存在(忽略指定角色类型ID名称，编辑时用)
+	 * 
+	 * @param roleTypeName
+	 *            角色类型名称
+	 * @param roleTypeId
+	 *            角色类型ID
+	 * @return true:存在，false:不存在
+	 */
+	public boolean existsByRoleTypeNameIgnoreRoleTypeId(String roleTypeName, String roleTypeId);
 
 	/**
 	 * 获取匿名角色类型ID

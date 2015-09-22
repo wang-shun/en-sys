@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="editUser" className="com.chinacreator.asp.comp.sys.advanced.user.service.UserService" method="update">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>编辑用户</name>
+  <desc>修改用户</desc>
+  <inputs>
+    <input collection="false" desc="" id="userDto" required="true" type="com.chinacreator.asp.comp.sys.core.user.dto.UserDTO"/>
+  </inputs>
+  <outputs/>
+  <res>-lEhzR00R5WGCRqXmwqkFw</res>
+  <params>
+    <param autoValue="Input.userDto" name="userDto" signature="QUserDTO;" type="com.chinacreator.asp.comp.sys.core.user.dto.UserDTO"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>
