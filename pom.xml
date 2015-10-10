@@ -6,7 +6,7 @@
 	<packaging>pom</packaging>
 	<name>c2-sys-parent</name>
 	<description>系统管理</description>
-	<version>4.2.1-SNAPSHOT</version>
+	<version>4.2.1</version>
 
 	<parent>
 		<groupId>com.chinacreator.c2</groupId>

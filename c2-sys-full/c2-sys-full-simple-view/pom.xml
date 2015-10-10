@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.chinacreator.c2</groupId>
     <artifactId>c2-sys-full</artifactId>
-    <version>4.2.1-SNAPSHOT</version>
+    <version>4.2.1</version>
   </parent>
   <artifactId>c2-sys-full-simple-view</artifactId>
   <name>c2-sys-full-simple-view</name>
