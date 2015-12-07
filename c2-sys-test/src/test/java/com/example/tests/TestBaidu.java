@@ -74,9 +74,7 @@ public class TestBaidu {
 	    driver.findElement(By.id("su")).click();
 	    Thread.sleep(2000);
 	    snapshot((TakesScreenshot)driver,"open_baidu.png");
-
 	    System.out.println(driver.findElement(By.xpath("//div[@class='s_tab']")).getText());
-
 	  }
 	  
 	  @After
