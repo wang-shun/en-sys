@@ -8,6 +8,7 @@ public class TestUnitNothing {
 
 	@Test
 	public void test() {
+	
 		assertEquals(1, 1);
 	}
 
