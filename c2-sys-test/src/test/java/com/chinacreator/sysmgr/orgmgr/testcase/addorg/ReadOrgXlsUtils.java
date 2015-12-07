@@ -25,8 +25,8 @@ public class ReadOrgXlsUtils {
 
 	private final String xlspath = Common.getResdataPath()+"/orgdata.xls";
 	private static ReadOrgXlsUtils instance;
-	public static final int NORMALDATA = 0;       	//Õı³£Á÷Êı¾İ´ÓµÚÒ»¸ösheetÖĞ¶ÁÈ¡
-	public static final int EXCEPTIONDATA = 1;		//Òì³£Á÷Êı¾İ´ÓµÚ¶ş¸ösheetÖĞ¶ÁÈ¡
+	public static final int NORMALDATA = 0;       	//æ­£å¸¸æµæ•°æ®ä»ç¬¬ä¸€ä¸ªsheetä¸­è¯»å–
+	public static final int EXCEPTIONDATA = 1;		//å¼‚å¸¸æµæ•°æ®ä»ç¬¬äºŒä¸ªsheetä¸­è¯»å–
 	
 	public static ReadOrgXlsUtils getInstance(){
 		if(instance==null){
@@ -55,7 +55,7 @@ public class ReadOrgXlsUtils {
 		}
 
 		List<OrgBean> list = new ArrayList<OrgBean>();
-		// µÃµ½×ÜĞĞÊı
+		// å¾—åˆ°æ€»è¡Œæ•°
 		int rowNum = sheet.getLastRowNum();
 		Map<Integer, String> temp = new HashMap<Integer, String>();
 		readTitle(sheet, temp);
@@ -64,7 +64,7 @@ public class ReadOrgXlsUtils {
 		BeanInfo beanInfo = Introspector.getBeanInfo(OrgBean.class);
 		List<String[]> records = new ArrayList<String[]>();
 		for (int i = 1; i <= rowNum; i++) {
-			// µ±Ç°ĞĞ
+			// å½“å‰è¡Œ
 			HSSFRow row = sheet.getRow(i);
 			int colNum = row.getLastCellNum();
 			// String[] data = new String[colNum];
