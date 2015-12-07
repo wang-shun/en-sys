@@ -22,3 +22,4 @@ deploy-to-cloud:
 web-cloud-test:
   script:
     - mvn test
+  stage: test
