@@ -7,7 +7,7 @@ build:
   script:
     - export LANGUAGE="en_US.utf8"
     - export LANG="en_US.utf8"
-    - mvn clean install
+    - mvn -Dtest=TestUnit* clean install
   stage: build
 
 deploy-to-cloud:
