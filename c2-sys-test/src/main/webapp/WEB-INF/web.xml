@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+    <display-name>ChinaCreator Enterprise-Development Platform Product</display-name>
+
+    <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓系统基础配置，请勿修改↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+    <!-- 平台中跟WebApplicationContext配置文件路径 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:c2-core-context.xml,classpath*:context/*-context.xml,classpath*:custom/*-context.xml</param-value>
+    </context-param>
+    
+    <!-- 平台全局属性初始化 -->
+    <listener>
+        <listener-class>com.chinacreator.c2.web.init.ServerInitListener</listener-class>
+    </listener>
+
+    <!-- ApplicationContext初始化 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- 平台扩展初始化 -->
+    <listener>
+        <listener-class>com.chinacreator.c2.web.init.StartupsInitListener</listener-class>
+    </listener>
+
+    <!-- 平台Servlet注册 -->
+    <servlet>
+        <servlet-name>C2 Core Servlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:web-core-context.xml,classpath*:web/*-context.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>C2 Core Servlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- 编码统一使用UTF-8 -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 系统基础配置，请勿修改 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+
+    <!-- 消息中心 -->
+    <!--<servlet>-->
+        <!--<description>AtmosphereServlet</description>-->
+        <!--<servlet-name>AtmosphereServlet</servlet-name>-->
+        <!--<servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>-->
+        <!--<init-param>-->
+            <!--<param-name>org.atmosphere.cpr.packages</param-name>-->
+            <!--<param-value>com.chinacreator.ccep.bf.notification.service</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>org.atmosphere.cpr.Broadcaster.supportOutOfOrderBroadcast</param-name>-->
+            <!--<param-value>false</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>0</load-on-startup>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>AtmosphereServlet</servlet-name>-->
+        <!--<url-pattern>/msg/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!-- 系统管理基础过滤器 -->
+    <!--
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+        -->
+    <!-- 支持CAS单点登录 -->
+    <!--
+    <listener>
+        <listener-class>
+            org.jasig.cas.client.session.SingleSignOutHttpSessionListener
+        </listener-class>
+    </listener>
+    -->
+</web-app>

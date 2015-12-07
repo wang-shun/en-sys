@@ -32,6 +32,7 @@
 		<module>c2-sys-sysmgr-apiImpl</module>
 		<module>c2-sys-sysmgr-dataUtil</module>
 		<module>c2-sys-deploy</module>
+		<module>c2-sys-test</module>
 	</modules>
 
 
