@@ -1,0 +1,25 @@
+stages:
+  - build
+  - deploy
+  - test
+
+build:
+  script:
+    - export LANGUAGE="en_US.utf8"
+    - export LANG="en_US.utf8"
+    - mvn -Dtest=TestUnit* clean install
+  stage: build
+
+deploy-to-cloud:
+  script:
+    - export LANGUAGE="en_US.utf8"
+    - export LANG="en_US.utf8"
+    - mvn cf:push
+  only:
+    - develop
+  stage: deploy
+  
+web-cloud-test:
+  script:
+    - mvn test
+  stage: test
