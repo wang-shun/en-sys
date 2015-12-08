@@ -10,16 +10,16 @@ build:
     - mvn clean install -DfailIfNoTests=false -Dtest=TestUnit* 
   stage: build
 
-deploy-to-cloud:
-  script:
-    - export LANGUAGE="en_US.utf8"
-    - export LANG="en_US.utf8"
-    - mvn cf:push
-  only:
-    - develop
-  stage: deploy
+#deploy-to-cloud:
+#  script:
+#    - export LANGUAGE="en_US.utf8"
+#    - export LANG="en_US.utf8"
+#    - mvn cf:push
+#  only:
+#    - develop
+#  stage: deploy
   
 web-cloud-test:
   script:
-    - mvn test
+    - mvn -DfailIfNoTests=false -Dtest=com.chinacreator.sysmgr.TestAll test
   stage: test
