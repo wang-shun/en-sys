@@ -33,6 +33,7 @@
 		<module>c2-sys-sysmgr-dataUtil</module>
 		<module>c2-sys-deploy</module>
 		<module>c2-sys-test</module>
+		<module>c2-sys-test-webApp</module>
 	</modules>
 
 
