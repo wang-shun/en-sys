@@ -3,12 +3,12 @@ stages:
   - deploy
   - test
 
-build:
-  script:
-    - export LANGUAGE="en_US.utf8"
-    - export LANG="en_US.utf8"
-    - mvn clean install -DfailIfNoTests=false -Dtest=TestUnit* 
-  stage: build
+#build:
+#  script:
+#    - export LANGUAGE="en_US.utf8"
+#    - export LANG="en_US.utf8"
+#    - mvn clean install -DfailIfNoTests=false -Dtest=TestUnit* 
+#  stage: build
 
 #deploy-to-cloud:
 #  script:
