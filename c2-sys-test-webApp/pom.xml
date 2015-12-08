@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.chinacreator.c2</groupId>
+    <artifactId>c2-sys-parent</artifactId>
+    <version>4.2.1</version>
+  </parent>
+  <artifactId>c2-sys-test-webApp</artifactId>
+  <name>c2-sys-test-webApp</name>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <packaging>pom</packaging>
+  <description>系统管理-测试-webApp</description>
+  <modules>
+  	<module>c2-sys-test-webApp-std-oracle</module>
+  	<module>c2-sys-test-webApp-std-simple-oracle</module>  	
+  	<module>c2-sys-test-webApp-full-simple-oracle</module>
+  </modules>
+</project>

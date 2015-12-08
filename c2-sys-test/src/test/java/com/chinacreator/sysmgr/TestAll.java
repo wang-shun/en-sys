@@ -77,7 +77,8 @@ public class TestAll {
 		//nodeUrl = "http://172.16.72.5:32768/wd/hub";
 		
 		//测试应用访问地址
-		baseUrl = "http://172.16.25.21:8080";
+		baseUrl = "http://c2.chinacreator.com";
+//		baseUrl = "http://172.16.25.21:8080";
 		
 		TestSuite suite = new TestSuite();
 		suite.addTestSuite(login.class);

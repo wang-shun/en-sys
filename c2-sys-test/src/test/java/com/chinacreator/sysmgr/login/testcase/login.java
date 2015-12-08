@@ -46,7 +46,8 @@ public class login extends TestCase{
 	@Test
 	public void testlogin() {
 		Common.DeleteDirectory();//删除截图目录下的所有文件
-		TestAll.driver.get(TestAll.baseUrl + "/sys");
+//		TestAll.driver.get(TestAll.baseUrl + "/sys");
+		TestAll.driver.get(TestAll.baseUrl + "/c2_sys_full_test");
 	  	TestAll.driver.manage().window().maximize();
 	  	
 	  	System.out.println("title,url = "+TestAll.driver.getTitle()+","+TestAll.driver.getCurrentUrl());
