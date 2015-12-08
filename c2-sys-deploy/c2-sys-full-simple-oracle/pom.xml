@@ -35,4 +35,33 @@
   		<version>${project.version}</version>
   	</dependency>
   </dependencies>
+  
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.cloudfoundry</groupId>
+				<artifactId>cf-maven-plugin</artifactId>
+				<version>1.0.4</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<target>http://api.172.16.71.17.xip.io</target>
+					<org>jcptrjb</org>
+					<space>Development</space>
+					<appname>sys-test</appname>
+					<url>sys-test.c2.chinacreator.com</url>
+					<memory>1024</memory>
+					<instances>1</instances>
+					<username>yilin.yan</username>
+					<password>laopo1025</password>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

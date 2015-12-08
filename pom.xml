@@ -44,26 +44,4 @@
 		<version-shiro>1.2.2</version-shiro>
 		<version-ehcache>2.6.6</version-ehcache>
 	</properties>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.cloudfoundry</groupId>
-				<artifactId>cf-maven-plugin</artifactId>
-				<version>1.0.4</version>
-				<configuration>
-					<target>http://api.172.16.71.17.xip.io</target>
-					<org>jcptrjb</org>
-					<space>Development</space>
-					<appname>sys-test</appname>
-					<url>sys-test.c2.chinacreator.com</url>
-					<memory>1024</memory>
-					<instances>1</instances>
-					<username>yilin.yan</username>
-					<password>laopo1025</password>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>
