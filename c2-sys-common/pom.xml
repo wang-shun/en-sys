@@ -9,8 +9,7 @@
 	<artifactId>c2-sys-common</artifactId>
 	<name>c2-sys-common</name>
 	<properties>
-		<encoding>UTF-8</encoding>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 	</properties>
 	<description>系统管理-公用</description>
 	<dependencies>
