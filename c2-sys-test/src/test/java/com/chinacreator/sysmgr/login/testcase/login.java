@@ -53,7 +53,7 @@ public class login extends TestCase{
 	  	System.out.println("title,url = "+TestAll.driver.getTitle()+","+TestAll.driver.getCurrentUrl());
 	  	
 		TestAll.driver.findElement(By.id("username")).clear();
-		TestAll.driver.findElement(By.id("username")).sendKeys("admin");
+		TestAll.driver.findElement(By.id("username")).sendKeys("adminA");
 		TestAll.driver.findElement(By.id("password")).clear();
 		TestAll.driver.findElement(By.id("password")).sendKeys("123456");
 		TestAll.driver.findElement(By.xpath("//button[@type='submit']")).click();
