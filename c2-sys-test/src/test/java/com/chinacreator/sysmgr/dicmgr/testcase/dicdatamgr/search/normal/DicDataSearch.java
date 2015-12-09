@@ -5,16 +5,19 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.chinacreator.sysmgr.TestAll;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.order.normal.DicDataOrder;
 import com.chinacreator.sysmgr.utils.Common;
 
 public class DicDataSearch extends TestCase{
-
+	Logger logger = LoggerFactory.getLogger(DicDataSearch.class);
 	@Test
 	public void testDicDataSearch() throws Exception{
 		//选择字典类型树
-		TestAll.driver.findElement(By.xpath("//a[@title='测试类型修改后']")).click();
+		TestAll.driver.findElement(By.xpath("//a[@title='测试类型修改后se']")).click();
 		
 		//按照字典真实值查询
 		TestAll.driver.findElement(By.id("dictdataName_Field")).clear();
@@ -57,6 +60,7 @@ public class DicDataSearch extends TestCase{
 		TestAll.driver.findElement(By.id("dictdataIsdefault_Field")).click();
 		TestAll.driver.findElement(By.xpath("//*[@id='dictdataIsdefault_Field']/option[1]")).click();
 		Common.waitFor(2, TestAll.driver);
+		logger.info("字典数据查询：操作成功！");
 	}
 
 }

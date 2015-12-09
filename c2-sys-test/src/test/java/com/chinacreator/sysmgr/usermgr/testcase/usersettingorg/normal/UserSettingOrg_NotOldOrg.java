@@ -28,7 +28,7 @@ public class UserSettingOrg_NotOldOrg extends TestCase{
 		TestAll.driver.findElement(By.id("newField4")).click();
 		
 		//选择主机构
-		TestAll.driver.findElement(By.xpath("//a[@title='株洲市']/preceding-sibling::*[@class='button chk radio_false_full']")).click();
+		TestAll.driver.findElement(By.xpath("//a[@title='株洲市se']/preceding-sibling::*[@class='button chk radio_false_full']")).click();
 		
 		//去掉用户保留在原机构下
 		TestAll.driver.findElement(By.xpath("//*[@id='newField5Wrapper']/div/span/label")).click();
@@ -52,7 +52,7 @@ public class UserSettingOrg_NotOldOrg extends TestCase{
 		
 		//检查是否设置成功
 		try {
-			assertEquals("(主)株洲市", TestAll.driver.findElement(By.xpath("//tr[2]/td[6]")).getText());
+			assertEquals("(主)株洲市se", TestAll.driver.findElement(By.xpath("//tr[2]/td[6]")).getText());
 		    } catch (Error e) {
 		      TestAll.verificationErrors.append(e.toString());
 		 }

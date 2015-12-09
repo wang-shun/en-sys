@@ -2,10 +2,15 @@ package com.chinacreator.sysmgr.log.log_msg.testcase;
 import junit.framework.TestCase;
 
 import org.openqa.selenium.By;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.chinacreator.sysmgr.TestAll;
+import com.chinacreator.sysmgr.log.OpenLogMgr;
 import com.chinacreator.sysmgr.utils.Common;
 
 public class LogQuery extends TestCase{
+	Logger logger = LoggerFactory.getLogger(LogQuery.class);
 	 public void testLogQuery() throws Exception {
 
 		    TestAll.driver.findElement(By.xpath("//div[@id='t_logGroup']/div/button[3]")).click();
@@ -26,16 +31,25 @@ public class LogQuery extends TestCase{
 		    //日志状态
 		    TestAll.driver.findElement(By.id("log_logStatus_Field")).sendKeys("成功");
 		    
-		    //查询
-		    TestAll.driver.findElement(By.id("log_searchLog_button")).click();
-		    // Warning: verifyTextPresent may require manual changes
 		    try {
-		      assertTrue(TestAll.driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*删除机构[\\s\\S]*$"));
+		      assertTrue(TestAll.driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*删除字典类型[\\s\\S]*$"));
+		      logger.info("日志查询：操作成功！");
 		  
 		    } catch (Error e) {
 		      TestAll.verificationErrors.append(e.toString());
+		      logger.info("日志查询：操作失败！");
 	
 		    }
+		    
+		    //清空查询条件
+		    TestAll.driver.findElement(By.id("log_logOperUser_Field")).clear();
+		    TestAll.driver.findElement(By.id("log_operType_Field")).sendKeys("");
+		    TestAll.driver.findElement(By.id("log_logOperdesc_Field")).clear();
+		    TestAll.driver.findElement(By.id("log_logVisitorial_Field")).clear();
+		    TestAll.driver.findElement(By.id("log_logStatus_Field")).sendKeys("");
+		    Common.waitFor(3, TestAll.driver);
+		    
+		    //点击查询按钮收起查询框
 		    TestAll.driver.findElement(By.xpath("//div[@id='t_logGroup']/div/button[3]")).click();
 		  }
 	  		

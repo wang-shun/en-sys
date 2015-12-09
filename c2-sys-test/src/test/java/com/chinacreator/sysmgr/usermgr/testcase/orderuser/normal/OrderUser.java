@@ -7,12 +7,15 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.chinacreator.sysmgr.TestAll;
+import com.chinacreator.sysmgr.usermgr.testcase.edituser.exception.EditUser_NochooseUser;
 import com.chinacreator.sysmgr.utils.Common;
 
 public class OrderUser extends TestCase{
-
+	Logger logger = LoggerFactory.getLogger(OrderUser.class);
 	@Test
 	public void testOrderUser() throws Exception{
 		//排序
@@ -23,12 +26,20 @@ public class OrderUser extends TestCase{
 		
 		Actions actions = new Actions(TestAll.driver);
 		actions.clickAndHold(FirstRow).moveToElement(SecondRow).release().build().perform();
+
 		
-		try {
-			assertEquals("用户排序保存成功！", TestAll.driver.findElement(By.xpath("//div/div")).getText());
-		    } catch (Error e) {
-		      TestAll.verificationErrors.append(e.toString());
-		    }
+		for (int second = 0;; second++) {
+	    	if (second >= 60) fail("timeout");
+	    	try { if ("用户排序保存成功！".equals(TestAll.driver.findElement(By.xpath("//div/div")).getText()))
+	    		{logger.info("正常流-用户排序：操作成功@@");
+	    		break;} 
+	    	} catch (Exception e) {
+	    		logger.error("正常流-用户排序：操作失败!!!");
+	    		Common.TakePic();
+	    	}
+	    }
+		//关闭alert弹框
+		TestAll.driver.findElement(By.xpath("//*[@id='ng-app']/body/ul/li[1]/div/button")).click();
 		Common.waitFor(1, TestAll.driver);
 		
 	}

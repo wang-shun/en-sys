@@ -9,19 +9,24 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.chinacreator.sysmgr.TestAll;
 import com.chinacreator.sysmgr.usermgr.bean.UserBean;
+import com.chinacreator.sysmgr.usermgr.testcase.OpenUserMgr;
 import com.chinacreator.sysmgr.usermgr.testcase.adduser.ReadUserXlsUtils;
 import com.chinacreator.sysmgr.utils.Common;
 
 
 
 public class AddUserXls extends TestCase{
-
+	Logger logger = LoggerFactory.getLogger(AddUserXls.class);
 	@Test
 	public void testAddUserXls() throws Exception{
+		logger.info("===========开始新增用户===========");
 		List<UserBean> list = ReadUserXlsUtils.getInstance().testData(ReadUserXlsUtils.NORMALDATA);
 		if(list!=null&&!list.isEmpty()){
 			for(int i=0;i<list.size();i++){
@@ -89,13 +94,26 @@ public class AddUserXls extends TestCase{
 				// 保存
 				TestAll.driver.findElement(By.id("newField")).click();
 												
-				try {
-					assertEquals("新增用户成功！", TestAll.driver.findElement(By.xpath("//div/div")).getText());
-				    } catch (Error e) {
-				      TestAll.verificationErrors.append(e.toString());
-				      Common.TakePic();
-				    }
-				 
+//				try {
+//					assertEquals("新增用户成功！", TestAll.driver.findElement(By.xpath("//div/div")).getText());
+//				    } catch (Error e) {
+//				      TestAll.verificationErrors.append(e.toString());
+//				      Common.TakePic();
+//				    }
+//				 
+				//判断alert为正确弹框还是错误弹框
+				WebElement webElement = TestAll.driver.findElement(By.xpath("//ul[contains(@class,'messenger')]/li[1]/div"));
+				if (webElement.getAttribute("class").contains("message-success"))
+					logger.info("正常流：用户 '"+ bean.getUserRealname()+"' 添加成功@@");
+				else if (webElement.getAttribute("class").contains("message-error"))
+					{
+					logger.error("正常流：用户 '"+ bean.getUserRealname()+"' 添加失败!!!");
+					Common.TakePic();
+					}
+				//关闭alert弹框
+				TestAll.driver.findElement(By.xpath("//*[@id='ng-app']/body/ul/li[1]/div/button")).click();
+				
+				
 				//关闭
 				TestAll.driver.findElement(By.id("newField1")).click();
 				Common.waitFor(1, TestAll.driver);
@@ -103,6 +121,7 @@ public class AddUserXls extends TestCase{
 			
 				//刷新
 				TestAll.driver.findElement(By.id("newField20")).click();
+				Common.waitFor(2, TestAll.driver);
 			}
 
 	}

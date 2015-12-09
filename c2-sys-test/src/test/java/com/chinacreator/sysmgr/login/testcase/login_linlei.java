@@ -1,5 +1,6 @@
 package com.chinacreator.sysmgr.login.testcase;
 
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
@@ -8,14 +9,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.chinacreator.sysmgr.TestAll;
 
 public class login_linlei extends TestCase{
 	@Before
 	public void setUp() throws Exception {
-		TestAll.driver = new FirefoxDriver();
-	    TestAll.baseUrl = "http://172.16.25.21:8080/";
+		//TestAll.driver = new FirefoxDriver();
+		DesiredCapabilities capability = DesiredCapabilities.firefox();
+		capability.setBrowserName("firefox");
+		TestAll.driver = new RemoteWebDriver(new URL(TestAll.nodeUrl), capability);
+		
+	    //TestAll.baseUrl = "http://172.16.25.21:8080/";
 	    TestAll.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 	@Test

@@ -6,6 +6,40 @@ import junit.textui.TestRunner;
 
 import org.openqa.selenium.WebDriver;
 
+import com.chinacreator.sysmgr.dicmgr.testcase.OpenDicMgr;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.adddicdata.exception.AddDicData_DicDataNameIsAgain;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.adddicdata.exception.AddDicData_DicDataNameIsNull;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.adddicdata.normal.AddDicData;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.deldicdata.exception.DelDicData_NotChooseData;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.deldicdata.normal.DelDicData;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.deldicdata.normal.DelDicData_All;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.deldicdata.normal.DelDicData_Cancel;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.editdicdata.exception.EditDicData_DicDataNameIsNull;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.editdicdata.normal.EditDicData;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.order.normal.DicDataOrder;
+import com.chinacreator.sysmgr.dicmgr.testcase.dicdatamgr.search.normal.DicDataSearch;
+import com.chinacreator.sysmgr.dicmgr.testcase.dictypemgr.adddictype.exception.AddDicType_TypeNameIsAgain;
+import com.chinacreator.sysmgr.dicmgr.testcase.dictypemgr.adddictype.exception.AddDicType_TypeNameIsNull;
+import com.chinacreator.sysmgr.dicmgr.testcase.dictypemgr.adddictype.normal.AddDicType;
+import com.chinacreator.sysmgr.dicmgr.testcase.dictypemgr.deldictype.normal.DelDicType;
+import com.chinacreator.sysmgr.dicmgr.testcase.dictypemgr.deldictype.normal.DelDicType_Cancel;
+import com.chinacreator.sysmgr.dicmgr.testcase.dictypemgr.editdictype.exception.EditDicType_TypeNameIsAgain;
+import com.chinacreator.sysmgr.dicmgr.testcase.dictypemgr.editdictype.exception.EditDicType_TypeNameIsNull;
+import com.chinacreator.sysmgr.dicmgr.testcase.dictypemgr.editdictype.normal.EditDicType;
+import com.chinacreator.sysmgr.log.OpenLogMgr;
+import com.chinacreator.sysmgr.log.log_config.testcase.LogConfigEdit;
+import com.chinacreator.sysmgr.log.log_config.testcase.LogConfigEdit2;
+import com.chinacreator.sysmgr.log.log_config.testcase.OpenLogConfigTab;
+import com.chinacreator.sysmgr.log.log_config.testcase.checkLog;
+import com.chinacreator.sysmgr.log.log_history.testcase.HisLogDel;
+import com.chinacreator.sysmgr.log.log_history.testcase.HisLogDetail;
+import com.chinacreator.sysmgr.log.log_history.testcase.LogHisQuery;
+import com.chinacreator.sysmgr.log.log_history.testcase.OpenHisLogTab;
+import com.chinacreator.sysmgr.log.log_msg.testcase.LogBackUp;
+import com.chinacreator.sysmgr.log.log_msg.testcase.LogDetail;
+import com.chinacreator.sysmgr.log.log_msg.testcase.LogQuery;
+import com.chinacreator.sysmgr.log.log_msg.testcase.LogRefresh;
+import com.chinacreator.sysmgr.log.log_msg.testcase.OpenLogTab;
 import com.chinacreator.sysmgr.login.testcase.login;
 import com.chinacreator.sysmgr.login.testcase.logout;
 import com.chinacreator.sysmgr.orgmgr.testcase.OpenOrgMgr;
@@ -30,7 +64,6 @@ import com.chinacreator.sysmgr.resourcemgr.testcase.addresource.normal.AddMenu_d
 import com.chinacreator.sysmgr.resourcemgr.testcase.addresource.normal.AddMenu_iframe;
 import com.chinacreator.sysmgr.resourcemgr.testcase.delrescource.normal.DelMenu;
 import com.chinacreator.sysmgr.resourcemgr.testcase.delrescource.normal.DelMenu_multiple;
-import com.chinacreator.sysmgr.resourcemgr.testcase.editresource.exception.EditMenu_NameIsNull;
 import com.chinacreator.sysmgr.resourcemgr.testcase.editresource.normal.EditMenu;
 import com.chinacreator.sysmgr.resourcemgr.testcase.impresource.normal.impresource;
 import com.chinacreator.sysmgr.rolemgr.testcase.OpenRoleMgr;
@@ -47,6 +80,7 @@ import com.chinacreator.sysmgr.rolemgr.testcase.rolemgr.editrole.normal.EditRole
 import com.chinacreator.sysmgr.rolemgr.testcase.roletypemgr.addroletype.exception.AddRoleType_TypeNameIsAgain;
 import com.chinacreator.sysmgr.rolemgr.testcase.roletypemgr.addroletype.exception.AddRoleType_TypeNameIsNull;
 import com.chinacreator.sysmgr.rolemgr.testcase.roletypemgr.addroletype.normal.AddRoleType;
+import com.chinacreator.sysmgr.rolemgr.testcase.roletypemgr.delroletype.normal.DelRoleType;
 import com.chinacreator.sysmgr.usermgr.testcase.OpenUserMgr;
 import com.chinacreator.sysmgr.usermgr.testcase.adduser.Exception.AddUserXlsException;
 import com.chinacreator.sysmgr.usermgr.testcase.adduser.normal.AddUserXls;
@@ -77,8 +111,9 @@ public class TestAll {
 		//nodeUrl = "http://172.16.72.5:32768/wd/hub";
 		
 		//测试应用访问地址
-		baseUrl = "http://c2.chinacreator.com";
 //		baseUrl = "http://172.16.25.21:8080";
+		baseUrl = "http://c2.chinacreator.com";
+		
 		
 		TestSuite suite = new TestSuite();
 		suite.addTestSuite(login.class);
@@ -154,7 +189,7 @@ public class TestAll {
 		//编辑菜单-正常流
 		suite.addTestSuite(EditMenu.class);
 		//编辑菜单-资源名称为空
-		suite.addTestSuite(EditMenu_NameIsNull.class);
+		//suite.addTestSuite(EditMenu_NameIsNull.class);
 		//资源导入
 		suite.addTestSuite(impresource.class);
 		
@@ -181,7 +216,7 @@ public class TestAll {
 		suite.addTestSuite(EditRole_RoleNameIsNull.class);
 		suite.addTestSuite(EditRole_RoleNameIsAgain.class);
 		
-//		
+		
 //		
 //		
 //		//=======================权限管理=================================
@@ -237,84 +272,87 @@ public class TestAll {
 //		
 //		
 //		
-//		//=======================字典管理=================================
-//		//打开字典管理页
-//		suite.addTestSuite(OpenDicMgr.class);
-//		//新增字典类型-正常流
-//		suite.addTestSuite(AddDicType.class);
-//		//新增字典类型-字典类型名称为空
-//		suite.addTestSuite(AddDicType_TypeNameIsNull.class);
-//		//新增字典类型-字典类型名称重复
-//		suite.addTestSuite(AddDicType_TypeNameIsAgain.class);
-//		//编辑字典类型-正常流
-//		suite.addTestSuite(EditDicType.class);
-//		//编辑字典类型-字典类型名称为空
-//		suite.addTestSuite(EditDicType_TypeNameIsNull.class);
-//		//编辑字典类型-字典类型名称重复
-//		suite.addTestSuite(EditDicType_TypeNameIsAgain.class);
-//		//新增字典数据-正常流
-//		suite.addTestSuite(AddDicData.class);
-//		//新增字典数据-数据名称为空
-//		suite.addTestSuite(AddDicData_DicDataNameIsNull.class);
-//		//新增字典数据-数据名称重复
-//		suite.addTestSuite(AddDicData_DicDataNameIsAgain.class);
-//		//编辑字典数据-正常流
-//		suite.addTestSuite(EditDicData.class);
-//		//编辑字典数据-数据名称为空
-//		suite.addTestSuite(EditDicData_DicDataNameIsNull.class);
-//		//字典数据排序
-//		suite.addTestSuite(DicDataOrder.class);
-//		//字典数据查询
-//		suite.addTestSuite(DicDataSearch.class);
-//		//删除字典数据-取消删除
-//		suite.addTestSuite(DelDicData_Cancel.class);
-//		//删除字典数据-确认删除一条记录
-//		suite.addTestSuite(DelDicData.class);
-//		//删除字典数据-全部删除
-//		suite.addTestSuite(DelDicData_All.class);
-//		//删除字典数据-未选择数据删除
-//		suite.addTestSuite(DelDicData_NotChooseData.class);
-//		//删除字典类型-取消删除
-//		suite.addTestSuite(DelDicType_Cancel.class);
-//		//删除字典类型-删除一条记录
-//		suite.addTestSuite(DelDicType.class);
-//		
-//		
-//		
-//		
-//		
-//		
-//		//=======================日志管理=================================
-//		//打开日志管理页
-//		suite.addTestSuite(OpenLogMgr.class);
-//		//日志查询
-//		suite.addTestSuite(LogQuery.class);
-//		//日志详情
-//		suite.addTestSuite(LogDetail.class);
-//		//日志备份
-//		suite.addTestSuite(LogBackUp.class);
-//		//打开历史日志列表Tab页
-//		suite.addTestSuite(OpenHisLogTab.class);
-//		//查看历史日志详情
-//		suite.addTestSuite(HisLogDel.class);
-//		//历史日志查询
-//		suite.addTestSuite(HisLogDetail.class);
-//		//删除历史日志
-//		suite.addTestSuite(HisLogDel.class);
-//		//打开日志配置页
-//		suite.addTestSuite(OpenLogConfigTab.class);
-//		//修改日志配置项
-//		suite.addTestSuite(LogConfigEdit.class);
-//		//打开日志列表Tab页
-//		suite.addTestSuite(OpenLogTab.class);
-//		//日志备份
-//		suite.addTestSuite(LogBackUp.class);
-//		//刷新日志列表
-//		suite.addTestSuite(LogRefresh.class);
-//		//检查配置是否生效
-//		suite.addTestSuite(checkLog.class);
-//		
-//		
+		//=======================字典管理=================================
+		//打开字典管理页
+		suite.addTestSuite(OpenDicMgr.class);
+		//新增字典类型-正常流
+		suite.addTestSuite(AddDicType.class);
+		//新增字典类型-字典类型名称为空
+		suite.addTestSuite(AddDicType_TypeNameIsNull.class);
+		//新增字典类型-字典类型名称重复
+		suite.addTestSuite(AddDicType_TypeNameIsAgain.class);
+		//编辑字典类型-正常流
+		suite.addTestSuite(EditDicType.class);
+		//编辑字典类型-字典类型名称为空
+		suite.addTestSuite(EditDicType_TypeNameIsNull.class);
+		//编辑字典类型-字典类型名称重复
+		suite.addTestSuite(EditDicType_TypeNameIsAgain.class);
+		//新增字典数据-正常流
+		suite.addTestSuite(AddDicData.class);
+		//新增字典数据-数据名称为空
+		suite.addTestSuite(AddDicData_DicDataNameIsNull.class);
+		//新增字典数据-数据名称重复
+		suite.addTestSuite(AddDicData_DicDataNameIsAgain.class);
+		//编辑字典数据-正常流
+		suite.addTestSuite(EditDicData.class);
+		//编辑字典数据-数据名称为空
+		suite.addTestSuite(EditDicData_DicDataNameIsNull.class);
+		//字典数据排序
+		suite.addTestSuite(DicDataOrder.class);
+		//字典数据查询
+		suite.addTestSuite(DicDataSearch.class);
+		//删除字典数据-取消删除
+		suite.addTestSuite(DelDicData_Cancel.class);
+		//删除字典数据-确认删除一条记录
+		suite.addTestSuite(DelDicData.class);
+		//删除字典数据-全部删除
+		suite.addTestSuite(DelDicData_All.class);
+		//删除字典数据-未选择数据删除
+		suite.addTestSuite(DelDicData_NotChooseData.class);
+		//删除字典类型-取消删除
+		suite.addTestSuite(DelDicType_Cancel.class);
+		//删除字典类型-删除一条记录
+		suite.addTestSuite(DelDicType.class);
+		
+		
+		
+		
+		
+		
+		//=======================日志管理=================================
+		//打开日志管理页
+		suite.addTestSuite(OpenLogMgr.class);
+		//日志查询
+		suite.addTestSuite(LogQuery.class);
+		//日志详情
+		suite.addTestSuite(LogDetail.class);
+		//日志备份
+		suite.addTestSuite(LogBackUp.class);
+		//打开历史日志列表Tab页
+		suite.addTestSuite(OpenHisLogTab.class);
+		//查看历史日志详情
+		suite.addTestSuite(HisLogDetail.class);
+		//历史日志查询
+		suite.addTestSuite(LogHisQuery.class);
+		//删除历史日志
+		suite.addTestSuite(HisLogDel.class);
+		//打开日志配置页
+		suite.addTestSuite(OpenLogConfigTab.class);
+		//修改日志配置项
+		suite.addTestSuite(LogConfigEdit.class);
+		//打开日志列表Tab页
+		suite.addTestSuite(OpenLogTab.class);
+		//日志备份
+		suite.addTestSuite(LogBackUp.class);
+		//刷新日志列表
+		suite.addTestSuite(LogRefresh.class);;
+		//打开日志配置页
+		suite.addTestSuite(OpenLogConfigTab.class);
+		//修改日志配置项
+		suite.addTestSuite(LogConfigEdit2.class);
+		
+		
+		
 		//=======================删除测试数据=================================
 		//打开资源管理页
 		suite.addTestSuite(OpenResMgr.class);
@@ -328,6 +366,8 @@ public class TestAll {
 		suite.addTestSuite(DelRole.class);
 		//删除多个角色
 		suite.addTestSuite(DelRole_Multiple.class);
+		//删除角色类型
+		suite.addTestSuite(DelRoleType.class);
 		//打开用户管理页
 		suite.addTestSuite(OpenUserMgr.class);
 		//删除一个用户

@@ -112,6 +112,7 @@ public class Common {
 					.getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(srcFile, new File("c:\\c2log\\sys-role-421\\Error\\" + ds
 					+ ".png"));
+			System.out.println("save snapshot path is:c:\\c2log\\sys-role-421\\Error");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -136,4 +137,22 @@ public class Common {
 		m.moveToElement(el).build().perform();
 	}
 	
+	
+	/**
+	 * 判断元素是否存在
+	 */
+	public static boolean isElementExist (By Locator )
+	{
+		try
+		{
+			TestAll.driver.findElement( Locator );
+			return true;
+		}
+		catch(org.openqa.selenium.NoSuchElementException ex)
+		{
+			return false;
+		}
+	}
+
+
 }

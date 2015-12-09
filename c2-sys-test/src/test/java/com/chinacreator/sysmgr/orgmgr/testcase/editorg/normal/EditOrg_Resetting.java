@@ -11,12 +11,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.chinacreator.sysmgr.TestAll;
 import com.chinacreator.sysmgr.utils.Common;
 
 public class EditOrg_Resetting extends TestCase{
-
+	Logger logger = LoggerFactory.getLogger(EditOrg_Resetting.class);
 	@Test
 	public void testEditOrg_Resetting() throws Exception{
 		 // 修改后信息
@@ -68,6 +70,8 @@ public class EditOrg_Resetting extends TestCase{
  	    TestAll.driver.findElement(By.id("orgDesc")).sendKeys(orgDesc);
  	    // 重置
  	    TestAll.driver.findElement(By.id("newField")).click();
+ 	    
+ 	    logger.info("编辑机构-重置：操作成功！");
  		 
  		 //关闭
  		 TestAll.driver.findElement(By.xpath("//div[@class='modal-footer']/button[3]")).click();

@@ -6,13 +6,16 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.chinacreator.sysmgr.TestAll;
+import com.chinacreator.sysmgr.usermgr.testcase.adduser.Exception.AddUserXlsException;
 import com.chinacreator.sysmgr.utils.Common;
 
 
 public class EditUser extends TestCase{
-
+	Logger logger = LoggerFactory.getLogger(EditUser.class);
 	@Test
 	public void testEditUser() throws Exception{
 		//查询要编辑的用户
@@ -42,7 +45,7 @@ public class EditUser extends TestCase{
 		
 		//修改姓名
 		TestAll.driver.findElement(By.id("userRealname")).clear();
-		TestAll.driver.findElement(By.id("userRealname")).sendKeys("张三丰");
+		TestAll.driver.findElement(By.id("userRealname")).sendKeys("张三丰se");
 		
 		//密码不允许修改
 		try {
@@ -93,11 +96,24 @@ public class EditUser extends TestCase{
 		
 		//保存
 		TestAll.driver.findElement(By.id("newField")).click();
-		try {
-			assertEquals("编辑用户成功！", TestAll.driver.findElement(By.xpath("//div/div")).getText());
-		    } catch (Error e) {
-		      TestAll.verificationErrors.append(e.toString());
-		    }
+//		try {
+//			assertEquals("编辑用户成功！", TestAll.driver.findElement(By.xpath("//div/div")).getText());
+//		    } catch (Error e) {
+//		      TestAll.verificationErrors.append(e.toString());
+//		    }
+		
+		//判断alert为正确弹框还是错误弹框
+		WebElement webElement = TestAll.driver.findElement(By.xpath("//ul[contains(@class,'messenger')]/li[1]/div"));
+		if (webElement.getAttribute("class").contains("message-success"))
+			logger.info("正常流：编辑用户添加成功@@");
+		else if (webElement.getAttribute("class").contains("message-error"))
+			{
+			logger.error("正常流：编辑用户添加失败!!!");
+			Common.TakePic();
+			}
+		
+		//关闭alert弹框
+		TestAll.driver.findElement(By.xpath("//*[@id='ng-app']/body/ul/li[1]/div/button")).click();
 		
 		//关闭
 		TestAll.driver.findElement(By.id("newField1")).click();
