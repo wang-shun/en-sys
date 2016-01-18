@@ -62,7 +62,7 @@
   
   <select id="queryAll" resultMap="DictTypeResultMap" databaseId="sqlserver">
         SELECT <include refid="DictType_Column_List"/>
-        FROM td_sm_dicttype
+        FROM td_sm_dicttype order by dicttype_name
   </select>
   
   <select id="queryByDictType" resultMap="DictTypeResultMap" databaseId="sqlserver">
