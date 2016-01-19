@@ -320,6 +320,7 @@ save:function(){&#xD;
 	            });&#xD;
 				$scope.saveType = 'success';	           &#xD;
 	            _this.reset();&#xD;
+	            _this.closeModal();&#xD;
 			});&#xD;
 },&#xD;
 // 回收&#xD;

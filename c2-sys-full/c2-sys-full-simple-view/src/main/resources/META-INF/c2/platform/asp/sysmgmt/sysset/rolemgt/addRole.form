@@ -315,6 +315,7 @@
   <form:scripts>// 保存
 save:function(){
 	if(this.validateForm() &amp;&amp; $view.mainForm.check()){
+		var _this = this;
 		if('add'==$params.type){
 			$model.role.result.roleType = $model.roleType;
 			
@@ -342,6 +343,7 @@ save:function(){
 			                'type': 'success',
 			            });
 			            $scope.saveType = 'success';
+			            _this.closeModal();
 					});
 		}else{
 			Messenger.post({

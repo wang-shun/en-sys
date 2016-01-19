@@ -274,6 +274,7 @@ saveMainOrg:function(){&#xD;
 		            	_this.resetMainOrgTree();&#xD;
 		            }&#xD;
 		            $scope.saveType = 'success';&#xD;
+		            _this.closeModal();&#xD;
 				});&#xD;
 	}else{&#xD;
 		Messenger.post({&#xD;

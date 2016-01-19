@@ -280,6 +280,7 @@ save:function(){
 	            });
 				$scope.saveType = 'success';	           
 	            _this.reset();
+	            _this.closeModal();
 			});
 },
 // 回收
