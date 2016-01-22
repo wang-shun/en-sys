@@ -16,8 +16,7 @@ import com.chinacreator.c2.sysmgr.exception.AuthenticationException;
 public class SysMgrAuthenticationProviderImpl implements AuthenticationProvider {
 
 	@Override
-	public boolean login(AuthenticationToken token)
-			throws AuthenticationException {
+	public boolean login(AuthenticationToken token) throws AuthenticationException {
 		boolean isLogin = false;
 		try {
 			isLogin = getAccessControlService().login(token);
@@ -30,21 +29,40 @@ public class SysMgrAuthenticationProviderImpl implements AuthenticationProvider 
 	}
 
 	@Override
-	public SysMgrSubject login(String username, String password)
-			throws AuthenticationException {
-		if (null != username && null != password && !"".equals(username.trim())
-				&& !"".equals(password.trim())) {
+	public SysMgrSubject login(String username, String password) throws AuthenticationException {
+		if (null != username && null != password && !"".equals(username.trim()) && !"".equals(password.trim())) {
 			AuthenticationToken token = new SysMgrUsernamePasswordToken();
 			((SysMgrUsernamePasswordToken) token).setUsername(username);
-			((SysMgrUsernamePasswordToken) token).setPassword(password
-					.toCharArray());
+			((SysMgrUsernamePasswordToken) token).setPassword(password.toCharArray());
 			if (login(token)) {
 				return getSubject();
 			}
 		} else {
-			throw new SysException(
-					AccessControlMessages
-							.getString("ACCESSCONTROL.USERNAME_ORPASSWORD_NULL"));
+			throw new SysException(AccessControlMessages.getString("ACCESSCONTROL.USERNAME_ORPASSWORD_NULL"));
+		}
+		return null;
+	}
+
+	@Override
+	public String loginToRedirectUri(String username, String password) throws AuthenticationException {
+		if (null != username && null != password && !"".equals(username.trim()) && !"".equals(password.trim())) {
+			AuthenticationToken token = new SysMgrUsernamePasswordToken();
+			((SysMgrUsernamePasswordToken) token).setUsername(username);
+			((SysMgrUsernamePasswordToken) token).setPassword(password.toCharArray());
+			if (login(token)) {
+				LoginSuccessToRedirectUri loginSuccessToRedirectUri = null;
+				try {
+					loginSuccessToRedirectUri = (LoginSuccessToRedirectUri) ApplicationContextManager.getContext().
+							getBean("LoginSuccessToRedirectUri");
+					if (null != loginSuccessToRedirectUri) {
+						return loginSuccessToRedirectUri.getRedirectUri();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			throw new SysException(AccessControlMessages.getString("ACCESSCONTROL.USERNAME_ORPASSWORD_NULL"));
 		}
 		return null;
 	}
@@ -71,13 +89,11 @@ public class SysMgrAuthenticationProviderImpl implements AuthenticationProvider 
 	}
 
 	private AccessControlService getAccessControlService() {
-		return ApplicationContextManager.getContext().getBean(
-				AccessControlService.class);
+		return ApplicationContextManager.getContext().getBean(AccessControlService.class);
 	}
 
 	private SysMgrSubject getSysMgrSubject() {
-		return ApplicationContextManager.getContext().getBean(
-				SysMgrSubject.class);
+		return ApplicationContextManager.getContext().getBean(SysMgrSubject.class);
 	}
 
 }

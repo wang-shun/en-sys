@@ -16,8 +16,7 @@ public class CommonPropertiesUtil {
 	 * @return 超级管理员用户ID
 	 */
 	public static String getAdminUserId() {
-		String id = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ADMINUSERID);
+		String id = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ADMINUSERID);
 		return (null != id && !id.trim().equals("")) ? id : "-1";
 	}
 
@@ -27,8 +26,7 @@ public class CommonPropertiesUtil {
 	 * @return 超级管理员用户帐号
 	 */
 	public static String getAdminUserName() {
-		String name = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ADMINUSERNAME);
+		String name = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ADMINUSERNAME);
 		return (null != name && !name.trim().equals("")) ? name : "admin";
 	}
 
@@ -38,8 +36,7 @@ public class CommonPropertiesUtil {
 	 * @return 匿名角色类型ID
 	 */
 	public static String getAnonymousRoleTypeId() {
-		String id = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ANONYMOUSROLETYPEID);
+		String id = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ANONYMOUSROLETYPEID);
 		return (null != id && !id.trim().equals("")) ? id : "-1";
 	}
 
@@ -49,8 +46,7 @@ public class CommonPropertiesUtil {
 	 * @return 超级管理员角色ID
 	 */
 	public static String getAdministratorRoleId() {
-		String id = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ADMINISTRATORROLEID);
+		String id = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ADMINISTRATORROLEID);
 		return (null != id && !id.trim().equals("")) ? id : "1";
 	}
 
@@ -60,10 +56,8 @@ public class CommonPropertiesUtil {
 	 * @return 超级管理员角色名称
 	 */
 	public static String getAdministratorRoleName() {
-		String name = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ADMINISTRATORROLENAME);
-		return (null != name && !name.trim().equals("")) ? name
-				: "administrator";
+		String name = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ADMINISTRATORROLENAME);
+		return (null != name && !name.trim().equals("")) ? name : "administrator";
 	}
 
 	/**
@@ -72,8 +66,7 @@ public class CommonPropertiesUtil {
 	 * @return 每个用户都缺省拥有的角色ID
 	 */
 	public static String getRoleofeveryoneRoleId() {
-		String id = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ROLEOFEVERYONEROLEID);
+		String id = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ROLEOFEVERYONEROLEID);
 		return (null != id && !id.trim().equals("")) ? id : "2";
 	}
 
@@ -83,10 +76,8 @@ public class CommonPropertiesUtil {
 	 * @return 每个用户都缺省拥有的角色名称
 	 */
 	public static String getRoleofeveryoneRoleName() {
-		String name = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ROLEOFEVERYONEROLENAME);
-		return (null != name && !name.trim().equals("")) ? name
-				: "roleofeveryone";
+		String name = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ROLEOFEVERYONEROLENAME);
+		return (null != name && !name.trim().equals("")) ? name : "roleofeveryone";
 	}
 
 	/**
@@ -95,8 +86,7 @@ public class CommonPropertiesUtil {
 	 * @return 机构管理员角色ID
 	 */
 	public static String getOrgManagerRoleId() {
-		String id = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ORGMANAGERROLEID);
+		String id = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ORGMANAGERROLEID);
 		return (null != id && !id.trim().equals("")) ? id : "3";
 	}
 
@@ -106,8 +96,7 @@ public class CommonPropertiesUtil {
 	 * @return 机构管理员角色名称
 	 */
 	public static String getOrgManagerRoleName() {
-		String name = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ORGMANAGERROLENAME);
+		String name = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ORGMANAGERROLENAME);
 		return (null != name && !name.trim().equals("")) ? name : "orgmanager";
 	}
 
@@ -117,8 +106,7 @@ public class CommonPropertiesUtil {
 	 * @return 管理员岗位ID
 	 */
 	public static String getAdministratorJobId() {
-		String id = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ADMINISTRATORJOBID);
+		String id = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ADMINISTRATORJOBID);
 		return (null != id && !id.trim().equals("")) ? id : "1";
 	}
 
@@ -128,8 +116,7 @@ public class CommonPropertiesUtil {
 	 * @return 普通用户岗位ID
 	 */
 	public static String getRoleofeveryoneJobId() {
-		String id = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ROLEOFEVERYONEJOBID);
+		String id = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ROLEOFEVERYONEJOBID);
 		return (null != id && !id.trim().equals("")) ? id : "2";
 	}
 
@@ -139,10 +126,8 @@ public class CommonPropertiesUtil {
 	 * @return 默认密码
 	 */
 	public static String getDefaultPwd() {
-		String defaultPwd = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_DEFAULTPWD);
-		return (null != defaultPwd && !defaultPwd.trim().equals("")) ? defaultPwd
-				: "123456";
+		String defaultPwd = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_DEFAULTPWD);
+		return (null != defaultPwd && !defaultPwd.trim().equals("")) ? defaultPwd : "123456";
 	}
 
 	/**
@@ -151,10 +136,8 @@ public class CommonPropertiesUtil {
 	 * @return 登录页面路径
 	 */
 	public static String getLoginUrl() {
-		String loginUrl = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_LOGINURL);
-		return (null != loginUrl && !loginUrl.trim().equals("")) ? loginUrl
-				: "/login.html";
+		String loginUrl = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_LOGINURL);
+		return (null != loginUrl && !loginUrl.trim().equals("")) ? loginUrl : "/login.html";
 	}
 
 	/**
@@ -166,10 +149,9 @@ public class CommonPropertiesUtil {
 	 *         only：仅删除指定机构下用户。<br>
 	 */
 	public static String getDelMainOrgUserMode() {
-		String delMainOrgUserMode = ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_DELMAINORGUSERMODE);
-		return (null != delMainOrgUserMode && !delMainOrgUserMode.trim()
-				.equals("")) ? delMainOrgUserMode : "all";
+		String delMainOrgUserMode = ConfigManager.getInstance()
+				.getConfig(CommonConstants.sfs_SYSMGT_DELMAINORGUSERMODE);
+		return (null != delMainOrgUserMode && !delMainOrgUserMode.trim().equals("")) ? delMainOrgUserMode : "all";
 	}
 
 	/**
@@ -179,8 +161,7 @@ public class CommonPropertiesUtil {
 	 *         false：机构名称可以重复，新增修改机构前不进行机构名称唯一性校验
 	 */
 	public static boolean isUniqueOrgName() {
-		return !"false".equals(ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ISUNIQUEORGNAME));
+		return !"false".equals(ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ISUNIQUEORGNAME));
 	}
 
 	/**
@@ -190,7 +171,25 @@ public class CommonPropertiesUtil {
 	 *         false：机构显示名称可以重复，新增修改机构前不进行机构显示名称唯一性校验
 	 */
 	public static boolean isUniqueOrgShowName() {
-		return !"false".equals(ConfigManager.getInstance().getConfig(
-				CommonConstants.sfs_SYSMGT_ISUNIQUEORGSHOWNAME));
+		return !"false".equals(ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ISUNIQUEORGSHOWNAME));
+	}
+
+	/**
+	 * 用户登录成功，是否判断用户密码为默认密码时跳转修改密码页面
+	 * 
+	 * @return true:是 false:否
+	 */
+	public static boolean isUpdateDefaultPwd() {
+		return "true".equals(ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_ISUPDATEDEFAULTPWD));
+	}
+
+	/**
+	 * 获取修改默认密码页面地址
+	 * 
+	 * @return 修改默认密码页面地址
+	 */
+	public static String getUpdateDefaultPwdUrl() {
+		String url = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_UPDATEDEFAULTPWDURL);
+		return (null != url && !url.trim().equals("")) ? url : "f/modifyDefaultPwd";
 	}
 }

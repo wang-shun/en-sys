@@ -107,4 +107,15 @@ public class CommonConstants {
 	 * properties文件key:机构显示名称是否同级唯一
 	 */
 	public static final String sfs_SYSMGT_ISUNIQUEORGSHOWNAME = "sysMgt.isUniqueOrgShowName";
+
+	/**
+	 * properties文件key:用户登录成功，是否判断用户密码为默认密码时跳转修改密码页面
+	 */
+	public static final String sfs_SYSMGT_ISUPDATEDEFAULTPWD = "sysMgt.isUpdateDefaultPwd";
+
+	/**
+	 * properties文件key:修改默认密码页面地址
+	 */
+	public static final String sfs_SYSMGT_UPDATEDEFAULTPWDURL = "sysMgt.updateDefaultPwdUrl";
+
 }
