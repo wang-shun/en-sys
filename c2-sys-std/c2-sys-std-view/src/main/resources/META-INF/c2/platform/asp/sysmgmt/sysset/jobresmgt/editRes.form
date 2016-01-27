@@ -236,6 +236,7 @@
   <form:scripts>// 保存
 saveRes:function(){
 	if(this.validateForm() &amp;&amp; $view.mainForm.check()){
+		var _this = this;
 		if('add'==$params.type){			
 			$http.post(&quot;ws/addRes&quot;,{privilegeDTO:$model.privilege.result})
 					.success(function(data, status, headers, config){
@@ -244,6 +245,7 @@ saveRes:function(){
 			                'type': 'success',
 			            });
 			            $scope.saveType = 'success';
+			            _this.closeModal();
 					});			
 		}else if('edit'==$params.type){
 			$http.post(&quot;ws/editRes&quot;,{privilegeDTO:$model.privilege.result})
@@ -253,6 +255,7 @@ saveRes:function(){
 			                'type': 'success',
 			            });
 			            $scope.saveType = 'success';
+			            _this.closeModal();
 					});
 		}else{
 			Messenger.post({

@@ -173,6 +173,7 @@
   <form:scripts>// 保存
 save:function(){
 	if(this.validateForm() &amp;&amp; $view.mainForm.check()){
+		var _this = this;
 		if('add'==$params.type){
 			$http.post(&quot;ws/addRoleType&quot;,{roleTypeDTO:$model.roleType.result})
 					.success(function(data, status, headers, config){
@@ -181,6 +182,7 @@ save:function(){
 			                'type': 'success',
 			            });
 			            $scope.saveType = 'success';
+			            _this.closeModal();
 					});
 		}else if('edit'==$params.type){
 			$http.post(&quot;ws/editRoleType&quot;,{roleTypeDTO:$model.roleType.result})
@@ -190,6 +192,7 @@ save:function(){
 			                'type': 'success',
 			            });
 			            $scope.saveType = 'success';
+			            _this.closeModal();
 					});
 		}else{
 			Messenger.post({

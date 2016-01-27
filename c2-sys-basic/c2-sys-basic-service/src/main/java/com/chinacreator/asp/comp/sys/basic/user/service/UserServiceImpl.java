@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.shiro.authc.credential.PasswordService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -23,11 +25,17 @@ import com.chinacreator.asp.comp.sys.basic.org.eo.OrgEO;
 import com.chinacreator.asp.comp.sys.basic.role.service.RoleTypeService;
 import com.chinacreator.asp.comp.sys.basic.user.dao.UserInstanceOrgDao;
 import com.chinacreator.asp.comp.sys.basic.user.eo.UserInstanceOrgEO;
+import com.chinacreator.asp.comp.sys.basic.user.spi.AfterCreateUserSpi;
+import com.chinacreator.asp.comp.sys.basic.user.spi.AfterResetPasswordSpi;
+import com.chinacreator.asp.comp.sys.basic.user.spi.BeforeCreateUserSpi;
+import com.chinacreator.asp.comp.sys.basic.user.spi.BeforeResetPasswordSpi;
 import com.chinacreator.asp.comp.sys.basic.userpreferences.service.UserPreferencesService;
 import com.chinacreator.asp.comp.sys.common.BeanCopierUtil;
 import com.chinacreator.asp.comp.sys.common.CommonConstants;
 import com.chinacreator.asp.comp.sys.common.CommonPropertiesUtil;
 import com.chinacreator.asp.comp.sys.common.PKGenerator;
+import com.chinacreator.asp.comp.sys.common.exception.SysException;
+import com.chinacreator.asp.comp.sys.common.spiutil.CommonSortSpiUtil;
 import com.chinacreator.asp.comp.sys.core.common.UserInstanceUtil;
 import com.chinacreator.asp.comp.sys.core.group.dto.GroupDTO;
 import com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO;
@@ -48,10 +56,13 @@ import com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceRoleEO;
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
 import com.chinacreator.c2.dao.mybatis.enhance.Sortable;
+import com.chinacreator.c2.ioc.ApplicationContextManager;
 
 @Service
 public class UserServiceImpl extends com.chinacreator.asp.comp.sys.core.user.service.UserServiceImpl
 		implements UserService {
+
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private UserInstanceUtil userInstanceUtil;
@@ -104,6 +115,59 @@ public class UserServiceImpl extends com.chinacreator.asp.comp.sys.core.user.ser
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void create(UserDTO userDto, String orgId, int sn) {
+		try {
+			// 新增用户前操作
+			beforeCreate(userDto, orgId, sn);
+
+			// 系统管理新增用户
+			sysMgrCreate(userDto, orgId, sn);
+		} catch (Exception e) {
+			// 新增用户前失败异常回调
+			beforeCreateExceptionCallback(userDto, orgId, sn);
+			throw new SysException(e.getMessage(), e);
+		}
+
+		try {
+			// 新增用户后操作
+			afterCreate(userDto, orgId, sn);
+		} catch (Exception e) {
+			// 新增用户前失败异常回调
+			beforeCreateExceptionCallback(userDto, orgId, sn);
+			// 新增用户后失败异常回调
+			afterCreateExceptionCallback(userDto, orgId, sn);
+			throw new SysException(e.getMessage(), e);
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeCreate(UserDTO userDto, String orgId, int sn) {
+		Map<String, BeforeCreateUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeCreateUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无新增用户前操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用新增用户前操作：" + key);
+					maps.get(key).beforeCreate(userDto, orgId, sn);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无新增用户前操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void sysMgrCreate(UserDTO userDto, String orgId, int sn) {
 		if (isBlank(orgId)) {
 			throw new NullPointerException(UserMessages.getString("USER.USEROEG_ID_IS_NULL"));
 		}
@@ -138,6 +202,87 @@ public class UserServiceImpl extends com.chinacreator.asp.comp.sys.core.user.ser
 
 		} else {
 			throw new IllegalArgumentException(UserMessages.getString("USER.USERINSTANCE_IS_NOT_EXISTS"));
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterCreate(UserDTO userDto, String orgId, int sn) {
+		Map<String, AfterCreateUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterCreateUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无新增用户后操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用新增用户后操作：" + key);
+					maps.get(key).afterCreate(userDto, orgId, sn);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无新增用户后操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeCreateExceptionCallback(UserDTO userDto, String orgId, int sn) {
+		Map<String, BeforeCreateUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeCreateUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无新增用户前失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用新增用户前失败异常回调：" + key);
+					maps.get(key).createExceptionCallback(userDto, orgId, sn);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无新增用户前失败异常回调！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterCreateExceptionCallback(UserDTO userDto, String orgId, int sn) {
+		Map<String, AfterCreateUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterCreateUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无新增用户后失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用新增用户后失败异常回调：" + key);
+					maps.get(key).createExceptionCallback(userDto, orgId, sn);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无新增用户后失败异常回调！");
 		}
 	}
 
@@ -1339,6 +1484,59 @@ public class UserServiceImpl extends com.chinacreator.asp.comp.sys.core.user.ser
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void resetPasswords(String... userIds) {
+		try {
+			// 重置密码前操作
+			beforeResetPasswords(userIds);
+
+			// 系统管理重置密码
+			sysMgrResetPasswords(userIds);
+		} catch (Exception e) {
+			// 重置密码前失败异常回调
+			beforeResetPasswordsExceptionCallback(userIds);
+			throw new SysException(e.getMessage(), e);
+		}
+
+		try {
+			// 重置密码后操作
+			afterResetPasswords(userIds);
+		} catch (Exception e) {
+			// 重置密码前失败异常回调
+			beforeResetPasswordsExceptionCallback(userIds);
+			// 重置密码后失败异常回调
+			afterResetPasswordsExceptionCallback(userIds);
+			throw new SysException(e.getMessage(), e);
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeResetPasswords(String... userIds) {
+		Map<String, BeforeResetPasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeResetPasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无重置密码前操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用重置密码前操作：" + key);
+					maps.get(key).beforeResetPasswords(userIds);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无重置密码前操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void sysMgrResetPasswords(String... userIds) {
 		if (null == userIds || userIds.length == 0) {
 			throw new NullPointerException(UserMessages.getString("USER.USER_ID_ARRAY_IS_NULL"));
 		}
@@ -1349,6 +1547,87 @@ public class UserServiceImpl extends com.chinacreator.asp.comp.sys.core.user.ser
 		}
 
 		userCoreDao.updatePasswordByUserIds(userIds, passwordService.encryptPassword(getDefaultPwd()));
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterResetPasswords(String... userIds) {
+		Map<String, AfterResetPasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterResetPasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无重置密码后操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用重置密码后操作：" + key);
+					maps.get(key).afterResetPasswords(userIds);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无重置密码后操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeResetPasswordsExceptionCallback(String... userIds) {
+		Map<String, BeforeResetPasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeResetPasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无重置密码前失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用重置密码前失败异常回调：" + key);
+					maps.get(key).resetPasswordsExceptionCallback(userIds);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无重置密码前失败异常回调！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterResetPasswordsExceptionCallback(String... userIds) {
+		Map<String, AfterResetPasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterResetPasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无重置密码后失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用重置密码后失败异常回调：" + key);
+					maps.get(key).resetPasswordsExceptionCallback(userIds);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无重置密码后失败异常回调！");
+		}
 	}
 
 	/**

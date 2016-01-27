@@ -19,6 +19,7 @@
         <dync:children/>
       </dync:attribute>
       <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="true">
+        <dync:render/>
         <dync:children/>
       </dync:attribute>
     </form:attributes>
@@ -176,15 +177,19 @@
         <form:control type="widget/button">
           <form:attributes source="widget/button">
             <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-lg">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-success">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="modifyPwd()">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -195,12 +200,15 @@
         <form:control type="widget/button">
           <form:attributes source="widget/button">
             <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-lg">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="resetPwd()">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -212,6 +220,7 @@
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
     <form:datasource xsi:type="form:LogicDataSource" id="user" name="用户" logic="rule:asp.sysmgmt.mypanel.getLogUser" sn="getLogUser"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="defaultPwd" name="默认密码" logic="rule:asp.sysmgmt.mypanel.getDefaultPwd" sn="getDefaultPwd"/>
   </form:datasources>
   <form:scripts>// 保存
 modifyPwd:function(){
@@ -240,14 +249,28 @@ resetPwd:function(){
 },
 // 自定义验证新密码与确认密码
 confirmPwdValidate:function(){
+	var isValidate = false;
 	var newPwd = $model.newPwd;
 	var confirmPwd = $model.confirmPwd;
-	if(confirmPwd==newPwd){
-		return true;
+	if(confirmPwd!=newPwd){
+		isValidate = false;
+		$view.newField1.setTipMessage(&quot;新密码与确认密码不一致！&quot;);
+		$view.newField2.setTipMessage(&quot;新密码与确认密码不一致！&quot;);
+	}else{
+		isValidate = true;
 	}
-	$view.newField1.setTipMessage(&quot;新密码与确认密码不一致！&quot;);
-	$view.newField2.setTipMessage(&quot;新密码与确认密码不一致！&quot;);
-	return false;
+	
+	if(isValidate){
+		if(newPwd==$model.defaultPwd.result){
+			isValidate = false;
+			$view.newField1.setTipMessage(&quot;新密码不能与初始密码一致！&quot;);
+			$view.newField2.setTipMessage(&quot;确认密码不能与初始密码一致！&quot;);
+		}else{
+			isValidate = true;	
+		}
+	}
+	
+	return isValidate;
 }
 </form:scripts>
 </form:Form>

@@ -2,8 +2,11 @@ package com.chinacreator.asp.comp.sys.core.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.shiro.authc.credential.PasswordService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +15,8 @@ import com.chinacreator.asp.comp.sys.common.BeanCopierUtil;
 import com.chinacreator.asp.comp.sys.common.CommonConstants;
 import com.chinacreator.asp.comp.sys.common.CommonPropertiesUtil;
 import com.chinacreator.asp.comp.sys.common.PKGenerator;
+import com.chinacreator.asp.comp.sys.common.exception.SysException;
+import com.chinacreator.asp.comp.sys.common.spiutil.CommonSortSpiUtil;
 import com.chinacreator.asp.comp.sys.core.UserMessages;
 import com.chinacreator.asp.comp.sys.core.common.UserInstanceUtil;
 import com.chinacreator.asp.comp.sys.core.common.ValidatorUtil;
@@ -32,6 +37,13 @@ import com.chinacreator.asp.comp.sys.core.user.eo.UserEO;
 import com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceEO;
 import com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceGroupEO;
 import com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceRoleEO;
+import com.chinacreator.asp.comp.sys.core.user.spi.AfterDeleteUserSpi;
+import com.chinacreator.asp.comp.sys.core.user.spi.AfterUpdatePasswordSpi;
+import com.chinacreator.asp.comp.sys.core.user.spi.AfterUpdateUserSpi;
+import com.chinacreator.asp.comp.sys.core.user.spi.BeforeDeleteUserSpi;
+import com.chinacreator.asp.comp.sys.core.user.spi.BeforeUpdatePasswordSpi;
+import com.chinacreator.asp.comp.sys.core.user.spi.BeforeUpdateUserSpi;
+import com.chinacreator.c2.ioc.ApplicationContextManager;
 
 /**
  * 用户服务接口实现类
@@ -41,6 +53,8 @@ import com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceRoleEO;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private UserDao userDao;
@@ -123,6 +137,59 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void update(UserDTO userDto) {
+		try {
+			// 编辑用户前操作
+			beforeUpdate(userDto);
+
+			// 系统管理编辑用户
+			sysMgrUpdate(userDto);
+		} catch (Exception e) {
+			// 编辑用户前失败异常回调
+			beforeUpdateExceptionCallback(userDto);
+			throw new SysException(e.getMessage(), e);
+		}
+
+		try {
+			// 编辑用户后操作
+			afterUpdate(userDto);
+		} catch (Exception e) {
+			// 编辑用户前失败异常回调
+			beforeUpdateExceptionCallback(userDto);
+			// 编辑用户后失败异常回调
+			afterUpdateExceptionCallback(userDto);
+			throw new SysException(e.getMessage(), e);
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeUpdate(UserDTO userDto) {
+		Map<String, BeforeUpdateUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeUpdateUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无编辑用户前操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用编辑用户前操作：" + key);
+					maps.get(key).beforeUpdate(userDto);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无编辑用户前操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void sysMgrUpdate(UserDTO userDto) {
 		// 对象验证
 		validateBeforeUpdation(userDto);
 
@@ -132,6 +199,87 @@ public class UserServiceImpl implements UserService {
 
 		// 修改用户
 		userDao.update(userEO);
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterUpdate(UserDTO userDto) {
+		Map<String, AfterUpdateUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterUpdateUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无编辑用户后操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用编辑用户后操作：" + key);
+					maps.get(key).afterUpdate(userDto);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无编辑用户后操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeUpdateExceptionCallback(UserDTO userDto) {
+		Map<String, BeforeUpdateUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeUpdateUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无编辑用户前失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用编辑用户前失败异常回调：" + key);
+					maps.get(key).updateExceptionCallback(userDto);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无编辑用户前失败异常回调！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterUpdateExceptionCallback(UserDTO userDto) {
+		Map<String, AfterUpdateUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterUpdateUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无编辑用户后失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用编辑用户后失败异常回调：" + key);
+					maps.get(key).updateExceptionCallback(userDto);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无编辑用户后失败异常回调！");
+		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
@@ -158,12 +306,146 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void deleteByPKs(String... userIds) {
+		try {
+			// 删除用户前操作
+			beforeDeleteByPKs(userIds);
+
+			// 系统管理删除用户
+			sysMgrDeleteByPKs(userIds);
+		} catch (Exception e) {
+			// 删除用户前失败异常回调
+			beforeDeleteByPKsExceptionCallback(userIds);
+			throw new SysException(e.getMessage(), e);
+		}
+
+		try {
+			// 删除用户后操作
+			afterDeleteByPKs(userIds);
+		} catch (Exception e) {
+			// 删除用户前失败异常回调
+			beforeDeleteByPKsExceptionCallback(userIds);
+			// 删除用户后失败异常回调
+			afterDeleteByPKsExceptionCallback(userIds);
+			throw new SysException(e.getMessage(), e);
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeDeleteByPKs(String... userIds) {
+		Map<String, BeforeDeleteUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeDeleteUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无删除用户前操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用删除用户前操作：" + key);
+					maps.get(key).beforeDeleteByPKs(userIds);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无删除用户前操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void sysMgrDeleteByPKs(String... userIds) {
 		// 获取用户实例
 		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserId(userIds);
 		// 删除用户实例
 		deleteUserInstancesByUserInstanceIds(userInstanceIds);
 		// 删除用户
 		userDao.deleteByPKs(userIds);
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterDeleteByPKs(String... userIds) {
+		Map<String, AfterDeleteUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterDeleteUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无删除用户后操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用删除用户后操作：" + key);
+					maps.get(key).afterDeleteByPKs(userIds);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无删除用户后操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeDeleteByPKsExceptionCallback(String... userIds) {
+		Map<String, BeforeDeleteUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeDeleteUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无删除用户前失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用删除用户前失败异常回调：" + key);
+					maps.get(key).deleteByPKsExceptionCallback(userIds);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无删除用户前失败异常回调！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterDeleteByPKsExceptionCallback(String... userIds) {
+		Map<String, AfterDeleteUserSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterDeleteUserSpi.class);
+		} catch (Exception e) {
+			logger.debug("无删除用户后失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用删除用户后失败异常回调：" + key);
+					maps.get(key).deleteByPKsExceptionCallback(userIds);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无删除用户后失败异常回调！");
+		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
@@ -660,11 +942,63 @@ public class UserServiceImpl implements UserService {
 		} else {
 			throw new NullPointerException(UserMessages.getString("USER.USERDTO_IS_NULL"));
 		}
-
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void updatePassword(String userId, String password) {
+		try {
+			// 修改用户密码前操作
+			beforeUpdatePassword(userId, password);
+
+			// 系统管理修改用户密码
+			sysMgrUpdatePassword(userId, password);
+		} catch (Exception e) {
+			// 修改用户密码前失败异常回调
+			beforeUpdatePasswordExceptionCallback(userId, password);
+			throw new SysException(e.getMessage(), e);
+		}
+
+		try {
+			// 修改用户密码后操作
+			afterUpdatePassword(userId, password);
+		} catch (Exception e) {
+			// 修改用户密码前失败异常回调
+			beforeUpdatePasswordExceptionCallback(userId, password);
+			// 修改用户密码后失败异常回调
+			afterUpdatePasswordExceptionCallback(userId, password);
+			throw new SysException(e.getMessage(), e);
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeUpdatePassword(String userId, String password) {
+		Map<String, BeforeUpdatePasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeUpdatePasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无修改用户密码前操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用修改用户密码前操作：" + key);
+					maps.get(key).beforeUpdatePassword(userId, password);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无修改用户密码前操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void sysMgrUpdatePassword(String userId, String password) {
 		ValidatorUtil.validateUserId(userId);
 
 		if (null != password && !password.trim().equals("")) {
@@ -675,7 +1009,141 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterUpdatePassword(String userId, String password) {
+		Map<String, AfterUpdatePasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterUpdatePasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无修改用户密码后操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用修改用户密码后操作：" + key);
+					maps.get(key).afterUpdatePassword(userId, password);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无修改用户密码后操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeUpdatePasswordExceptionCallback(String userId, String password) {
+		Map<String, BeforeUpdatePasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeUpdatePasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无修改用户密码前失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用修改用户密码前失败异常回调：" + key);
+					maps.get(key).updatePasswordExceptionCallback(userId, password);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无修改用户密码前失败异常回调！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterUpdatePasswordExceptionCallback(String userId, String password) {
+		Map<String, AfterUpdatePasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterUpdatePasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无修改用户密码后失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用修改用户密码后失败异常回调：" + key);
+					maps.get(key).updatePasswordExceptionCallback(userId, password);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无修改用户密码后失败异常回调！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void updatePassword(String userName, String oldPassword, String newPassword) {
+		try {
+			// 修改用户密码前操作
+			beforeUpdatePassword(userName, oldPassword, newPassword);
+
+			// 系统管理修改用户密码
+			sysMgrUpdatePassword(userName, oldPassword, newPassword);
+		} catch (Exception e) {
+			// 修改用户密码前失败异常回调
+			beforeUpdatePasswordExceptionCallback(userName, oldPassword, newPassword);
+			throw new SysException(e.getMessage(), e);
+		}
+
+		try {
+			// 修改用户密码后操作
+			afterUpdatePassword(userName, oldPassword, newPassword);
+		} catch (Exception e) {
+			// 修改用户密码前失败异常回调
+			beforeUpdatePasswordExceptionCallback(userName, oldPassword, newPassword);
+			// 修改用户密码后失败异常回调
+			afterUpdatePasswordExceptionCallback(userName, oldPassword, newPassword);
+			throw new SysException(e.getMessage(), e);
+		}
+	}
+	
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeUpdatePassword(String userName, String oldPassword, String newPassword) {
+		Map<String, BeforeUpdatePasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeUpdatePasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无修改用户密码前操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用修改用户密码前操作：" + key);
+					maps.get(key).beforeUpdatePassword(userName, oldPassword, newPassword);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无修改用户密码前操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void sysMgrUpdatePassword(String userName, String oldPassword, String newPassword) {
 		if (null == userName || userName.trim().equals("")) {
 			throw new NullPointerException(UserMessages.getString("USER.USERNAME_IS_NULL"));
 		}
@@ -701,6 +1169,87 @@ public class UserServiceImpl implements UserService {
 			}
 		} else {
 			throw new NullPointerException(UserMessages.getString("USER.USER_IS_NOT_EXISTS"));
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterUpdatePassword(String userName, String oldPassword, String newPassword) {
+		Map<String, AfterUpdatePasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterUpdatePasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无修改用户密码后操作！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			try {
+				for (String key : maps.keySet()) {
+					logger.debug("调用修改用户密码后操作：" + key);
+					maps.get(key).afterUpdatePassword(userName, oldPassword, newPassword);
+				}
+			} catch (Exception e) {
+				throw new SysException(e.getMessage(), e);
+			}
+		} else {
+			logger.debug("无修改用户密码后操作！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void beforeUpdatePasswordExceptionCallback(String userName, String oldPassword, String newPassword) {
+		Map<String, BeforeUpdatePasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeUpdatePasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无修改用户密码前失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用修改用户密码前失败异常回调：" + key);
+					maps.get(key).updatePasswordExceptionCallback(userName, oldPassword, newPassword);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无修改用户密码前失败异常回调！");
+		}
+	}
+
+	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	private void afterUpdatePasswordExceptionCallback(String userName, String oldPassword, String newPassword) {
+		Map<String, AfterUpdatePasswordSpi> maps = null;
+		try {
+			maps = ApplicationContextManager.getContext().getBeansOfType(AfterUpdatePasswordSpi.class);
+		} catch (Exception e) {
+			logger.debug("无修改用户密码后失败异常回调！");
+		}
+		if (null != maps && !maps.isEmpty()) {
+			try {
+				maps = CommonSortSpiUtil.sortSpi(maps);
+			} catch (Exception e) {
+				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
+			}
+			for (String key : maps.keySet()) {
+				try {
+					logger.debug("调用修改用户密码后失败异常回调：" + key);
+					maps.get(key).updatePasswordExceptionCallback(userName, oldPassword, newPassword);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			logger.debug("无修改用户密码后失败异常回调！");
 		}
 	}
 

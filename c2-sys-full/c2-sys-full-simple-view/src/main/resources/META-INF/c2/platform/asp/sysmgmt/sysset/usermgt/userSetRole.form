@@ -273,6 +273,7 @@ save:function(){
 	            });
 				$scope.saveType = 'success';	           
 	            _this.reset();
+	            _this.closeModal();
 			});
 },
 // 回收
@@ -308,6 +309,10 @@ remove:function(){
 },
 // 重置
 reset:function(){	
+	var orgId = $params.orgId;
+	if(angular.isUndefined(orgId) || null==orgId || &quot;&quot;==orgId){
+		orgId = &quot;&quot;;
+	}
 	$model.roleTreeNodeChecded = {};
 	$view.roleTree.refresh2({&quot;orgId&quot;:orgId,&quot;userIds&quot;:$params.userIds},true,false,false);
 },
