@@ -15,8 +15,10 @@ import com.chinacreator.asp.comp.sys.basic.role.dto.RoleTypeDTO;
 import com.chinacreator.asp.comp.sys.basic.role.service.RoleTypeService;
 import com.chinacreator.asp.comp.sys.common.CommonPropertiesUtil;
 import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
+import com.chinacreator.c2.dao.mybatis.enhance.Order;
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
+import com.chinacreator.c2.dao.mybatis.enhance.Sortable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
@@ -60,6 +62,18 @@ public class RoleDataArrayContentProviderImpl implements ArrayContentProvider {
 					e.printStackTrace();
 					return page;
 				}
+				Sortable sortable = context.getSortable();
+				if (null != sortable) {
+					List<Order> orderList = sortable.getOrders();
+					if (null != orderList) {
+						for (Order order : orderList) {
+							if (order.getOrderProperty().equals("roleTypeName")) {
+								order.setOrderProperty("roleType");
+							}
+						}
+					}
+				}
+
 				Page<RoleDTO> rolePage = roleService.queryByRoleIgnoreAnonymous(roleDTO, context.getPageable(),
 						context.getSortable());
 
@@ -75,7 +89,8 @@ public class RoleDataArrayContentProviderImpl implements ArrayContentProvider {
 							roleMap.put("roleTypeName", roleTypeDTO.getTypeName());
 							roleMap.put("isUD", !sfset_INBUILT_ROLEID.contains(r.getRoleId()));
 							roleMap.put("isAdmin", r.getRoleId().equals(CommonPropertiesUtil.getAdministratorRoleId()));
-							roleMap.put("isEveryone", r.getRoleId().equals(CommonPropertiesUtil.getRoleofeveryoneRoleId()));
+							roleMap.put("isEveryone",
+									r.getRoleId().equals(CommonPropertiesUtil.getRoleofeveryoneRoleId()));
 
 							roleMapList.add(roleMap);
 						}

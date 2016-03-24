@@ -38,7 +38,7 @@ public class AuthorizeService extends AuthorizingRealm {
 							.getString("ACCESSCONTROL.LOGINNAME_IS_NULL"));
 		}
 
-		SimpleUser user = null;
+		SimpleUser user = null; 
 		try {
 			user = getIdentitifyInfomationFetcher().findBy(username);
 		} catch (Exception e) {

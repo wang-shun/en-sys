@@ -3,7 +3,7 @@
 
 <!-- 字典数据实体类映射关系 -->
 <mapper namespace="com.chinacreator.asp.comp.sys.basic.dict.dao.DictDataDao">
-<cache />
+<cache type="org.mybatis.caches.c2.impl.C2DefaultDaoCache"/>
   <sql id="DictData_Column_List"> dictdata_id,dicttype_id,dictdata_name,dictdata_value,dictdata_order,dictdata_isdefault </sql>
   <resultMap id="DictDataResultMap" type="com.chinacreator.asp.comp.sys.basic.dict.eo.DictDataEO">
     <result column="DICTDATA_ID" property="dictdataId" jdbcType="VARCHAR" />

@@ -3,7 +3,7 @@
 
 <!-- 系统信息实体类映射关系 -->
 <mapper namespace="com.chinacreator.asp.comp.sys.basic.sysinfo.dao.SysRTSettingDao">
-<cache />
+<cache type="org.mybatis.caches.c2.impl.C2DefaultDaoCache"/>
   <sql id="SystemInfo_Column_List"> id, info_name, info_content, info_desc, info_type, canremove, remark </sql>
   <resultMap id="SystemInfoResultMap" type="com.chinacreator.asp.comp.sys.basic.sysinfo.eo.SystemInfoEO">
     <result column="ID" property="id" jdbcType="VARCHAR" />

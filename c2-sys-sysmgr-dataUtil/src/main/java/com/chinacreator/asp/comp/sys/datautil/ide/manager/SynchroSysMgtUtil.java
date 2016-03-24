@@ -129,8 +129,6 @@ public class SynchroSysMgtUtil {
 						privilegeEO.setSource("1");
 						addPrivilegeList.add(privilegeEO);
 					}
-				} else {
-					throw new SysException("资源ID为空！");
 				}
 			}
 		}
