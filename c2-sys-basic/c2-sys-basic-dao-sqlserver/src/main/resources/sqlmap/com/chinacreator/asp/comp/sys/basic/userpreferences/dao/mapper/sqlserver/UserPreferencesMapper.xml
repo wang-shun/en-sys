@@ -3,7 +3,7 @@
 
 <mapper
 	namespace="com.chinacreator.asp.comp.sys.basic.userpreferences.dao.UserPreferencesDao">
-<cache />
+<cache type="org.mybatis.caches.c2.impl.C2DefaultDaoCache"/>
 	<sql id="UserPreferences_Column_List">
 		USER_ID, INFO_NAME, INFO_CONTENT, INFO_DESC,
 		INFO_LASTUPDATE

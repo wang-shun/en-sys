@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.chinacreator.c2</groupId>
     <artifactId>c2-sys-parent</artifactId>
-    <version>4.2.2</version>
+    <version>4.2.3</version>
   </parent>
   <artifactId>c2-sys-basic</artifactId>
   <name>c2-sys-basic</name>
@@ -22,6 +22,7 @@
     <module>c2-sys-basic-dao-mysql</module>
     <module>c2-sys-basic-dao-sqlserver</module>
     <module>c2-sys-basic-dao-dm</module>
+    <module>c2-sys-basic-dao-postgresql</module>
     <module>c2-sys-basic-resource</module>
     <module>c2-sys-basic-spi</module>
   </modules>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao">
-<cache />
+<cache type="org.mybatis.caches.c2.impl.C2DefaultDaoCache"/>
 	<resultMap id="UserResultMap" type="com.chinacreator.asp.comp.sys.core.user.eo.UserEO">
 		<id column="USER_ID" property="userId" jdbcType="VARCHAR" />
 		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />

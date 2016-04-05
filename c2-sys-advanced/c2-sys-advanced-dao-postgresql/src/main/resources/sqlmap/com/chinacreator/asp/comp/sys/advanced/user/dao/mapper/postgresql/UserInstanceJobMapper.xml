@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 用户实例与岗位映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.advanced.user.dao.UserInstanceJobDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+  <sql id="UserInstanceJob_Column_List"> userinstance_id, is_main, sn </sql>
+
+  <resultMap id="UserInstanceJobResultMap" type="com.chinacreator.asp.comp.sys.advanced.user.eo.UserInstanceJobEO">
+  	<result column="USERINSTANCE_ID" property="userinstanceId" jdbcType="VARCHAR" />
+    <result column="IS_MAIN" property="isMain" jdbcType="CHAR" typeHandler="com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler"/>
+    <result column="SN" property="sn" jdbcType="NUMERIC" />
+  </resultMap>
+  
+  <resultMap id="UserInstanceResultMap" type="com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceEO">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="SCOPE_ID" property="scopeId" jdbcType="VARCHAR" />
+		<result column="SCOPE_TYPE" property="scopeType" jdbcType="CHAR" />
+		<result column="IS_ENABLED" property="isEnabled" jdbcType="CHAR" typeHandler="com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler"/>
+	</resultMap>
+  
+  <insert id="create" parameterType="com.chinacreator.asp.comp.sys.advanced.user.eo.UserInstanceJobEO" databaseId="postgresql">
+  	INSERT INTO td_sm_instance_job
+  	<trim prefix="(" suffix=")" suffixOverrides=",">
+  		<if test="userinstanceId != null">
+				userinstance_id,
+		</if>
+		<if test="isMain != null">
+				is_main,
+		</if>
+		<if test="sn != null">
+				sn,
+		</if>
+  	</trim>
+  	<trim prefix="values (" suffix=")" suffixOverrides=",">
+		<if test="userinstanceId != null">
+                #{userinstanceId,jdbcType=VARCHAR},
+        </if>
+        <if test="isMain != null">
+            #{isMain,jdbcType=CHAR,typeHandler=com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler},
+        </if>
+        <if test="sn != null">
+            #{sn,jdbcType=NUMERIC},
+        </if>
+	</trim>
+  </insert>
+  
+  <delete id="deleteByUserInstanceIds" databaseId="postgresql">
+  	DELETE FROM td_sm_instance_job WHERE userinstance_id IN
+  	 <foreach item="idItem" index="index" collection="array" open="(" 
+            close=")">
+            <if test="index&gt;999 and index%1000==0">) or userinstance_id in(</if>
+            	<![CDATA[#{idItem}]]>
+            <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+     </foreach> 
+  </delete>
+  
+  <select id="queryUserJobsInOrg" resultMap="UserInstanceResultMap" databaseId="postgresql">
+  	SELECT t.scope_id ,t.id
+	  FROM td_sm_userinstance t
+	 WHERE t.scope_type = '2' 
+	   AND t.scope_id IN (SELECT t0.job_id FROM td_sm_job t0 
+	    INNER JOIN td_sm_orgjob t1 ON t0.job_id = t1.job_id WHERE t1.org_id = #{orgId,jdbcType=VARCHAR})
+	   AND (t.user_id IN 
+		<foreach item="idItem" index="index" collection="userIds" open="(" close=")">
+			<if test="index&gt;999 and index%1000==0">) or t.user_id in(</if>
+				#{idItem}
+			<if test="index%1000!=999 and index&lt;userIds.length-1">,</if>
+		</foreach>
+		)
+  </select>  
+</mapper>

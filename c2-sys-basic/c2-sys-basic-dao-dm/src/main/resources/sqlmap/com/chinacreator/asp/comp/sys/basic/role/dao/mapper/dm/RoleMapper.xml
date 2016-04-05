@@ -22,7 +22,7 @@
     </resultMap>
     
   <delete id="deleteOrgRoleRelationByRoleIds" databaseId="dm">
-    DELETE td_sm_grouprole t
+    DELETE FROM td_sm_grouprole t
     WHERE (t.role_id IN
     <foreach item="idItem" index="index" collection="array" open="("
        close=")">
