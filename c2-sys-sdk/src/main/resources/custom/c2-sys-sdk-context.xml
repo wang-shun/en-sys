@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd   http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">  
+  <beans profile="c2sysConsumer"> 
+    <dubbo:reference id="jobService" interface="com.chinacreator.asp.comp.sys.sdk.job.service.JobService"/>  
+    <dubbo:reference id="jobFacade" interface="com.chinacreator.asp.comp.sys.sdk.job.service.JobFacade"/>
+    <dubbo:reference id="orgService" interface="com.chinacreator.asp.comp.sys.sdk.org.service.OrgService"/>
+    <dubbo:reference id="orgFacade" interface="com.chinacreator.asp.comp.sys.sdk.org.service.OrgFacade"/>
+    <dubbo:reference id="roleService" interface="com.chinacreator.asp.comp.sys.sdk.role.service.RoleService"/>  
+    <dubbo:reference id="userService" interface="com.chinacreator.asp.comp.sys.sdk.user.service.UserService"/>  
+    <dubbo:reference id="userFacade" interface="com.chinacreator.asp.comp.sys.sdk.user.service.UserFacade"/>
+    <dubbo:reference id="dictDataService" interface="com.chinacreator.asp.comp.sys.sdk.dict.service.DictDataService"/>  
+    <dubbo:reference id="dictTypeService" interface="com.chinacreator.asp.comp.sys.sdk.dict.service.DictTypeService"/>  
+    <dubbo:reference id="logConfigService" interface="com.chinacreator.asp.comp.sys.sdk.log.service.LogConfigService"/>  
+    <dubbo:reference id="logHistoryService" interface="com.chinacreator.asp.comp.sys.sdk.log.service.LogHistoryService"/>  
+    <dubbo:reference id="logService" interface="com.chinacreator.asp.comp.sys.sdk.log.service.LogService"/>  
+    <dubbo:reference id="menuService" interface="com.chinacreator.asp.comp.sys.sdk.menu.service.MenuService"/>  
+    <dubbo:reference id="privilegeService" interface="com.chinacreator.asp.comp.sys.sdk.privilege.service.PrivilegeService"/>  
+    <dubbo:reference id="roleTypeService" interface="com.chinacreator.asp.comp.sys.sdk.role.service.RoleTypeService"/>  
+    <dubbo:reference id="sysRTSettingService" interface="com.chinacreator.asp.comp.sys.sdk.sysinfo.service.SysRTSettingService"/>  
+    <dubbo:reference id="sysRTSettingTypeService" interface="com.chinacreator.asp.comp.sys.sdk.sysinfo.service.SysRTSettingTypeService"/>  
+    <dubbo:reference id="userPreferencesService" interface="com.chinacreator.asp.comp.sys.sdk.userpreferences.service.UserPreferencesService"/>  
+    <dubbo:reference id="groupService" interface="com.chinacreator.asp.comp.sys.sdk.group.service.GroupService"/>  
+    <dubbo:reference id="accessControlService" interface="com.chinacreator.asp.comp.sys.sdk.security.service.AccessControlService"/> 
+  </beans> 
+</beans>
