@@ -3,6 +3,7 @@ package com.chinacreator.c2.sys.sdk.service;
 import java.util.List;
 
 import com.chinacreator.c2.sys.sdk.bean.Orgnization;
+import com.chinacreator.c2.sys.sdk.exception.SysResourcesException;
 
 /**
  * 机构服务接口
@@ -30,8 +31,9 @@ public interface OrgService {
      * 删除机构
      * 
      * @param orgIds机构ID数组
+     * @throws SysResourcesException 删除机构时发生时错误，如果机构id不存在，不会抛出异常
      */
-    public void delete(String... orgIds);
+    public void delete(String... orgIds) throws SysResourcesException;
     
     /**
      * 查询机构
