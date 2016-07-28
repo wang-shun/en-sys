@@ -34,6 +34,7 @@
 		<module>c2-sys-deploy</module>
 		<module>c2-sys-test</module>
 		<module>c2-sys-sdk</module>
+		<module>c2-sys-sdk-provider</module>
 	</modules>
 
 	<properties>
