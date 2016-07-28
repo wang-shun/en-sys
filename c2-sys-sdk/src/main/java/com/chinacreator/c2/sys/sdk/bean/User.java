@@ -5,6 +5,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
+import com.chinacreator.c2.sys.sdk.service.UserService;
+
 
 /**
  * 用户数据传输对象类
@@ -16,6 +20,7 @@ public class User implements Serializable, OrgUserModel {
     /**
     * 用户ID
     */
+    @NotNull(groups = UserService.Update.class)
     private String userId;
 
     /**
