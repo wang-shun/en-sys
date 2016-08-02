@@ -11,8 +11,9 @@ import java.util.List;
  */
 public interface RoleService {
     /**
-     * 查询所有的角色
+     * 查询角色列表
+     * @param role 查询条件对象，null表示查所有的
      * @return 角色列表
      */
-    public List<Role> query();
+    public List<Role> query(Role role);
 }

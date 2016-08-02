@@ -24,7 +24,7 @@ public interface UserService {
      * @param orgId机构ID
      * @param sn用户在机构下的排序号
      */
-    public String create(@NotNull User user,@NotNull String orgId) throws SysResourcesException;
+    public String create(@NotNull(message="user.NotNull.message") User user,@NotNull(message="org.id.NotNull.message") String orgId) throws SysResourcesException;
 
     /**
      * 添加用户的所属机构，如需设置主机构请使用{@link #setMainOrg(String[], String, boolean)}
@@ -32,7 +32,7 @@ public interface UserService {
      * @param userId 用户ID
      * @param orgId 机构ID
      */
-    public void addOrg(@NotNull String userId, @NotNull String orgId)
+    public void addOrg(@NotNull(message="user.id.NotNull.message") String userId, @NotNull(message="org.id.NotNull.message") String orgId)
         throws SysResourcesException;
 
     /**
@@ -48,7 +48,7 @@ public interface UserService {
      * @param userId
      * @param orgId
      */
-    public void deleteUserOrgRelationship(@NotNull String userId, @NotNull String orgId)
+    public void deleteUserOrgRelationship(@NotNull(message="user.id.NotNull.message") String userId, @NotNull(message="org.id.NotNull.message") String orgId)
         throws SysResourcesException;
 
     /**
@@ -57,7 +57,7 @@ public interface UserService {
      * @param user 用户数据传输对象
      */
     @interface Update{}
-    public void update(@NotNull User user) throws SysResourcesException;
+    public void update(@NotNull(message="user.NotNull.message") User user) throws SysResourcesException;
 
     /**
      * 用户设置主机构
@@ -66,7 +66,7 @@ public interface UserService {
      * @param orgId 主机构ID
      * @param isRetain 用户是否保留在原机构下(true:是，false:否)
      */
-    public void setMainOrg(String[] userIds, String orgId, boolean isRetain)
+    public void setMainOrg(@NotNull(message="user.id.NotNull.message") String[] userIds,@NotNull(message="org.id.NotNull.message") String orgId, boolean isRetain)
         throws SysResourcesException;
 
     /**
@@ -96,7 +96,7 @@ public interface UserService {
      * @return 机构数据传输对象列表<br>
      *         一条记录也没查询到的情况下返回无内容的List
      */
-    public List<Orgnization> getOrgs(String userId);
+    public List<Orgnization> getOrgs(@NotNull(message="user.id.NotNull.message") String userId);
 
     /**
      * 查询指定用户所属主机构
@@ -105,7 +105,7 @@ public interface UserService {
      * @return 机构数据传输对象<br>
      *         没查询到的情况下返回null
      */
-    public Orgnization getMainOrg(String userId);
+    public Orgnization getMainOrg(@NotNull(message="user.id.NotNull.message") String userId);
 
     /**
      * 判断用户是否属于指定机构
@@ -114,7 +114,7 @@ public interface UserService {
      * @param orgId 机构ID
      * @return true:是，false:否
      */
-    public boolean inOrg(String userId, String orgId);
+    public boolean inOrg(@NotNull(message="user.id.NotNull.message") String userId,@NotNull(message="org.id.NotNull.message") String orgId);
 
     /**
      * 判断指定机构是否用户的主机构
@@ -123,7 +123,7 @@ public interface UserService {
      * @param orgId 机构ID
      * @return true:是，false:否
      */
-    public boolean isMainOrg(String userId, String orgId);
+    public boolean isMainOrg(@NotNull(message="user.id.NotNull.message") String userId,@NotNull(message="org.id.NotNull.message") String orgId);
 
     /**
      * 查询用户
@@ -140,7 +140,7 @@ public interface UserService {
      * @param userId 用户ID
      * @return 用户数据传输对象<br>
      */
-    public User get(User user);
+    public User get(@NotNull(message="user.NotNull.message") User user);
 
     /**
      * 按用户ID查询用户
@@ -148,7 +148,7 @@ public interface UserService {
      * @param userIds 用户ID
      * @return
      */
-    public List<User> query(String... userIds);
+    public List<User> query(@NotNull(message="user.id.NotNull.message") String... userIds);
 
     /**
      * 查询指定用户所拥有的角色
@@ -157,7 +157,7 @@ public interface UserService {
      * @return 角色数据传输对象列表<br>
      *         一条记录也没查询到的情况下返回无内容的List
      */
-    public List<Role> getRoles(String userId);
+    public List<Role> getRoles(@NotNull(message="user.id.NotNull.message") String userId);
 
     /**
      * 判断用户是否拥有指定角色（包括直接授予用户的角色和授予用户所属用户组的角色）
@@ -166,5 +166,5 @@ public interface UserService {
      * @param roleId 角色ID
      * @return true:有，false:无
      */
-    public boolean hasRole(String userId, String roleId);
+    public boolean hasRole(@NotNull(message="user.id.NotNull.message") String userId, String roleId);
 }

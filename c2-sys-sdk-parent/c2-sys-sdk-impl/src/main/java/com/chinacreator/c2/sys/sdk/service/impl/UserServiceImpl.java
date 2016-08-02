@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     @Qualifier("com.chinacreator.asp.comp.sys.advanced.org.service.OrgServiceImpl")
     private OrgService orgService;
-
+    
     @Override
     public String create(User user, String orgId) throws SysResourcesException {
         UserDTO userDto = new UserDTO();

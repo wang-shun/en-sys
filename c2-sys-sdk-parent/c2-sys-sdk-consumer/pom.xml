@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.chinacreator.c2</groupId>
+    <artifactId>c2-sys-sdk-parent</artifactId>
+    <version>4.2.3</version>
+  </parent>
+  <artifactId>c2-sys-sdk-consumer</artifactId>
+  <description>系统管理SDK远程服务消费者</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.chinacreator.c2</groupId>
+  		<artifactId>c2-sys-sdk</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  </dependencies>
+</project>

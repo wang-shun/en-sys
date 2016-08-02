@@ -12,7 +12,9 @@
 		<module>c2-sys-sdk-provider</module>
 		<module>c2-sys-sdk-deploy</module>
 		<module>c2-sys-sdk-test</module>
-	</modules>
+		<module>c2-sys-sdk-consumer</module>
+		<module>c2-sys-sdk-impl</module>
+  </modules>
 	<build>
 		<plugins>
 			<plugin>

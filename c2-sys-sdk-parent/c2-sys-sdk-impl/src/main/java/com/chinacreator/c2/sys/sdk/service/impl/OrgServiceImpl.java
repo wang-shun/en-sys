@@ -24,16 +24,17 @@ public class OrgServiceImpl implements OrgService {
     private com.chinacreator.asp.comp.sys.advanced.org.service.OrgService orgService;
 
     @Override
-    public void create(Orgnization org) {
+    public String create(Orgnization org) {
         OrgDTO orgDTO = new OrgDTO();
-        BeanCopierUtil.copy(orgDTO, org);
+        BeanCopierUtil.copy(org, orgDTO);
         orgService.create(orgDTO);
+        return orgDTO.getOrgId();
     }
 
     @Override
     public void update(Orgnization org) {
         OrgDTO orgDTO = new OrgDTO();
-        BeanCopierUtil.copy(orgDTO, org);
+        BeanCopierUtil.copy(org, orgDTO);
         orgService.update(orgDTO);
     }
 
@@ -74,7 +75,7 @@ public class OrgServiceImpl implements OrgService {
 
     @Override
     public List<Orgnization> getChildrens(String orgId, boolean cascade) {
-        List<OrgDTO> orgList = orgService.queryChildOrgs(orgId, true);
+        List<OrgDTO> orgList = orgService.queryChildOrgs(orgId, cascade);
         List<Orgnization> retList = new ArrayList<Orgnization>();
         BeanCopierUtil.copy(orgList, retList, OrgDTO.class, Orgnization.class);
 

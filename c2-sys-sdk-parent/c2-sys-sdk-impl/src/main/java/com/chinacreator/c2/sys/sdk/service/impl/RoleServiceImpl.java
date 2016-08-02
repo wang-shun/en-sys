@@ -22,8 +22,10 @@ public class RoleServiceImpl implements RoleService {
     private com.chinacreator.asp.comp.sys.advanced.role.service.RoleService roleSevice;
 
     @Override
-    public List<Role> query() {
-        List<RoleDTO> roleList = roleSevice.queryAll();
+    public List<Role> query(Role role) {
+        RoleDTO roleDTO=new RoleDTO();
+        BeanCopierUtil.copy(role, roleDTO);
+        List<RoleDTO> roleList = roleSevice.queryByRole(roleDTO);
         List<Role> retList = new ArrayList<Role>();
         BeanCopierUtil.copy(roleList, retList, RoleDTO.class, Role.class);
 

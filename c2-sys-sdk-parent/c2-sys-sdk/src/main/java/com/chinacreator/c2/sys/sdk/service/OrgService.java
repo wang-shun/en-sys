@@ -5,6 +5,8 @@ import com.chinacreator.c2.sys.sdk.exception.SysResourcesException;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 
 /**
  * 机构服务接口
@@ -18,7 +20,7 @@ public interface OrgService {
      *
      * @param org 机构数据传输对象
      */
-    public void create(Orgnization org) throws SysResourcesException;
+    public String create(@NotNull(message="{org.NotNull.message}") Orgnization org) throws SysResourcesException;
 
     /**
      * 删除机构
@@ -26,14 +28,14 @@ public interface OrgService {
      * @param orgIds 机构ID
      * @throws SysResourcesException 删除机构时发生时错误，如果机构id不存在，不会抛出异常
      */
-    public void delete(String orgId) throws SysResourcesException;
+    public void delete(@NotNull(message="{org.id.NotNull.message}") String orgId) throws SysResourcesException;
 
     /**
      * 修改机构
      *
      * @param org 机构数据传输对象
      */
-    public void update(Orgnization org) throws SysResourcesException;
+    public void update(@NotNull(message="{org.NotNull.message}") Orgnization org) throws SysResourcesException;
 
     /**
      * 查询机构
@@ -42,7 +44,7 @@ public interface OrgService {
      * @return 机构数据传输对象<br>
      *         没查询到的情况下返回null
      */
-    public Orgnization get(String orgId);
+    public Orgnization get(@NotNull(message="{org.id.NotNull.message}") String orgId);
 
     /**
      * 查询子机构，不包含自身
@@ -51,7 +53,7 @@ public interface OrgService {
      * @param cascade
      * @return
      */
-    public List<Orgnization> getChildrens(String orgId, boolean cascade);
+    public List<Orgnization> getChildrens(@NotNull(message="{org.id.NotNull.message}") String orgId, boolean cascade);
 
     /**
      * 查询当前机构及其所有父机构，不包含自身
@@ -60,7 +62,7 @@ public interface OrgService {
      * @return 当前机构及其父机构数据传输对象列表，第一个是顶级机构<br>
      *         一条记录也没查询到的情况下返回无内容的List
      */
-    public List<Orgnization> getParents(String orgId);
+    public List<Orgnization> getParents(@NotNull(message="{org.id.NotNull.message}") String orgId);
 
     /**
      * 判断机构是否拥有指定角色
@@ -69,7 +71,7 @@ public interface OrgService {
      * @param roleId 角色ID
      * @return true:有，false:无
      */
-    public boolean hasRole(String orgId, String roleId);
+    public boolean hasRole(@NotNull(message="{org.id.NotNull.message}") String orgId,@NotNull  String roleId);
 
     /**
      * 查询机构
@@ -87,5 +89,5 @@ public interface OrgService {
      * @param userId 用户ID
      * @return true:有，false:无
      */
-    public boolean containsUser(String orgId, String userId);
+    public boolean containsUser(@NotNull(message="{org.id.NotNull.message}") String orgId,@NotNull String userId);
 }

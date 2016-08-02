@@ -10,50 +10,22 @@
 	<name>c2-sys-sdk-provider</name>
 	<description>系统管理服务提供者</description>
 	<dependencies>
+		
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-module-generic-tree</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<artifactId>c2-desb-base</artifactId>
+			<version>1.0.6</version>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-sdk</artifactId>
+			<artifactId>c2-sys-sdk-impl</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-advanced-serviceapi</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-advanced-spi</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-full-facadeapi</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-full-spi</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sys-common</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-desb-base</artifactId>
-			<version>1.0.6</version>
 		</dependency>
 	</dependencies>
 </project>
