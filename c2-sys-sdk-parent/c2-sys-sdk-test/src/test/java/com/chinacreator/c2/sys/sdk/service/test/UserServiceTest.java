@@ -75,7 +75,7 @@ public class UserServiceTest extends C2JunitTests {
         List<User> queryByOrg = userService.queryByOrg(user, orgId, cascade);
         System.err.println(JSON.toJSONString(queryByOrg));
     }
-    
+    @Test
     public void queryByRole() {
         User user = new User();
         user.setUserName("01DC06C4C71E410B84F9C0437703EB7C");
@@ -83,7 +83,7 @@ public class UserServiceTest extends C2JunitTests {
         List<User> queryByRole = userService.queryByRole(user, roleId);
         System.err.println(JSON.toJSONString(queryByRole));
     }
-    
+    @Test
     public void getOrgs() {
         String userId = "01DC06C4C71E410B84F9C0437703EB7C";
         List<Orgnization> orgs = userService.getOrgs(userId);
@@ -141,7 +141,7 @@ public class UserServiceTest extends C2JunitTests {
         Assert.assertTrue(query.size() > 0);
     }
     
-    @Test
+    
     public void hasRole() {
         String userId = "01DC06C4C71E410B84F9C0437703EB7C";
         String roleId = "2";
