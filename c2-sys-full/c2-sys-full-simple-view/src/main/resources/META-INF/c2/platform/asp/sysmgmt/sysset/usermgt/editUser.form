@@ -114,11 +114,11 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^[\w.@-]+$/">
+          <dync:attribute default="" group="数据校验" id="pattern" name="正则验证" value="/^[a-z_0-9.@-]+$/">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入数字、字母、下划线!">
+          <dync:attribute default="" group="数据校验" id="patternError" name="正则验证失败提示" value="只能输入数字、小写字母、下划线!">
             <dync:render/>
             <dync:children/>
           </dync:attribute>

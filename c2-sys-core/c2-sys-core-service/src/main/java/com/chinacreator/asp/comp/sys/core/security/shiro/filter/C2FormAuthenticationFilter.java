@@ -43,6 +43,11 @@ public class C2FormAuthenticationFilter extends FormAuthenticationFilter {
 	            }
 	            
 	            HttpServletResponse httpResponse=(HttpServletResponse)response;
+	            
+	            httpResponse.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+				httpResponse.setHeader("Pragma", "no-cache");
+				httpResponse.setDateHeader("Expires", 0);
+				
 	            httpResponse.addHeader("nologin","c2login");
 	            httpResponse.addHeader("loginurl",getLoginUrl());
 	            saveRequestAndFowardToLogin(request,httpResponse);

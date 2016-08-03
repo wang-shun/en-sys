@@ -8,6 +8,12 @@ import java.sql.SQLException;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
+/**
+ * mybatis数据库字段boolean与char类型相互转换处理器
+ * 
+ * @author 彭盛
+ * 
+ */
 public class BooleanCharTypeHandler extends BaseTypeHandler<Boolean> {
 
 	@Override
