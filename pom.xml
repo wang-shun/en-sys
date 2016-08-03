@@ -6,7 +6,7 @@
 	<packaging>pom</packaging>
 	<name>c2-sys-parent</name>
 	<description>系统管理</description>
-	<version>4.2.3</version>
+	<version>4.3.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>com.chinacreator.c2</groupId>
@@ -27,7 +27,6 @@
 		<module>c2-sys-core</module>
 		<module>c2-sys-basic</module>
 		<module>c2-sys-advanced</module>
-		<module>c2-sys-std</module>
 		<module>c2-sys-full</module>
 		<module>c2-sys-sysmgr-apiImpl</module>
 		<module>c2-sys-sysmgr-dataUtil</module>

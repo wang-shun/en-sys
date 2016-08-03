@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.chinacreator.c2</groupId>
 		<artifactId>c2-sys-core</artifactId>
-		<version>4.2.3</version>
+		<version>4.3.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>c2-sys-core-service</artifactId>
 	<name>c2-sys-core-service</name>
