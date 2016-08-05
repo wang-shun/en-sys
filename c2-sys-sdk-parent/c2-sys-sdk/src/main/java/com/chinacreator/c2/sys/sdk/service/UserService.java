@@ -56,7 +56,6 @@ public interface UserService {
      *
      * @param user 用户数据传输对象
      */
-    @interface Update{}
     public void update(@NotNull(message="user.NotNull.message") User user) throws SysResourcesException;
 
     /**
