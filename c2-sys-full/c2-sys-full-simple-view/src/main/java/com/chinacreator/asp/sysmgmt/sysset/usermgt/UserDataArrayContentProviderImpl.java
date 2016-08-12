@@ -72,21 +72,27 @@ public class UserDataArrayContentProviderImpl implements ArrayContentProvider {
 				extFields.put("mainOrgShowName", mainOrg.getOrgShowName());
 			}
 			StringBuffer str = new StringBuffer();
+			StringBuffer strOrgIds = new StringBuffer();
 			for (OrgDTO orgDTO : orgList) {
 				if (null != orgDTO) {
 					if (null != mainOrgId && !mainOrgId.trim().equals("") && mainOrgId.equals(orgDTO.getOrgId())) {
 						str.insert(0, ",");
 						str.insert(0, orgDTO.getOrgShowName());
 						str.insert(0, MyPanelMessages.getString("MYPANEL.MAINORG"));
-
+						strOrgIds.insert(0, ",");
+						strOrgIds.insert(0, orgDTO.getOrgId());
 					} else {
 						str.append(orgDTO.getOrgShowName());
 						str.append(",");
+						
+						strOrgIds.append(orgDTO.getOrgId());
+						strOrgIds.append(",");
 					}
 				}
 			}
 
 			extFields.put("orgShowName", (str.length() > 0 ? str.substring(0, str.length() - 1) : ""));
+			extFields.put("orgIds", (strOrgIds.length()>0?strOrgIds.substring(0, strOrgIds.length()-1):""));
 
 			List<RoleDTO> roleList = new ArrayList<RoleDTO>();
 			if (null != orgId && !orgId.trim().equals("") && !orgId.trim().equals("0")) {

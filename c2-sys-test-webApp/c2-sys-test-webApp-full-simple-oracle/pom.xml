@@ -17,21 +17,26 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+			<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-runtime</artifactId>
-			<version>4.2.1</version>
+			<version>4.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-ui-components</artifactId>
-			<version>4.2.4-SNAPSHOT</version>
+			<version>4.2.8.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-full-simple-oracle</artifactId>
-			<version>${project.version}</version>
-		</dependency>		
+			<artifactId>c2-sys-mysql</artifactId>
+			<version>4.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-sys-sdk-impl</artifactId>
+			<version>4.3.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -40,29 +45,12 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>8.1.9.v20130131</version>
 			</plugin>
-			<plugin>
-				<groupId>org.cloudfoundry</groupId>
-				<artifactId>cf-maven-plugin</artifactId>
-				<version>1.0.4</version>
-				<executions>
-					<execution>
-						<phase>install</phase>
-						<goals>
-							<goal>push</goal>
-						</goals>
-					</execution>
-				</executions>
+				<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<target>http://api.172.16.71.17.xip.io</target>
-					<org>jcptrjb</org>
-					<space>Development</space>
-					<appname>c2_sys_full_test</appname>
-					<url>c2_sys_full_test.c2.chinacreator.com</url>
-					<memory>1024</memory>
-					<instances>1</instances>
-					<username>yilin.yan</username>
-					<password>laopo1025</password>
-					<buildpack>java-buildpack-offline-v24-ctxpath</buildpack>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 		</plugins>
