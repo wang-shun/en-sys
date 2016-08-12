@@ -1,9 +1,11 @@
 package com.chinacreator.c2.sys.sdk.service;
 
-import com.chinacreator.c2.sys.sdk.bean.Orgnization;
+import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sys.sdk.bean.User;
 import com.chinacreator.c2.sys.sdk.exception.SysResourcesException;
+
+import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
 
@@ -24,6 +26,7 @@ public interface UserService {
      * @param orgId机构ID
      * @param sn用户在机构下的排序号
      */
+	@ApiOperation(value="创建机构，有XXX限制")
     public String create(@NotNull(message="user.NotNull.message") User user,@NotNull(message="org.id.NotNull.message") String orgId) throws SysResourcesException;
 
     /**
@@ -95,7 +98,7 @@ public interface UserService {
      * @return 机构数据传输对象列表<br>
      *         一条记录也没查询到的情况下返回无内容的List
      */
-    public List<Orgnization> getOrgs(@NotNull(message="user.id.NotNull.message") String userId);
+    public List<Organization> getOrgs(@NotNull(message="user.id.NotNull.message") String userId);
 
     /**
      * 查询指定用户所属主机构
@@ -104,7 +107,7 @@ public interface UserService {
      * @return 机构数据传输对象<br>
      *         没查询到的情况下返回null
      */
-    public Orgnization getMainOrg(@NotNull(message="user.id.NotNull.message") String userId);
+    public Organization getMainOrg(@NotNull(message="user.id.NotNull.message") String userId);
 
     /**
      * 判断用户是否属于指定机构

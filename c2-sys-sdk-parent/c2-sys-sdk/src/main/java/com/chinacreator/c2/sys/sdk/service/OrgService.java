@@ -1,6 +1,6 @@
 package com.chinacreator.c2.sys.sdk.service;
 
-import com.chinacreator.c2.sys.sdk.bean.Orgnization;
+import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.exception.SysResourcesException;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface OrgService {
      *
      * @param org 机构数据传输对象
      */
-    public String create(@NotNull(message="{org.NotNull.message}") Orgnization org) throws SysResourcesException;
+    public String create(@NotNull(message="{org.NotNull.message}") Organization org) throws SysResourcesException;
 
     /**
      * 删除机构
@@ -31,12 +31,19 @@ public interface OrgService {
     public void delete(@NotNull(message="{org.id.NotNull.message}") String orgId) throws SysResourcesException;
 
     /**
-     * 修改机构
+     * 更新机构信息，仅更新参数中的非空属性
      *
      * @param org 机构数据传输对象
      */
-    public void update(@NotNull(message="{org.NotNull.message}") Orgnization org) throws SysResourcesException;
+    public void update(@NotNull(message="{org.NotNull.message}") String orgId, @NotNull(message="{org.NotNull.message}") Organization org) throws SysResourcesException;
 
+    
+    /**
+     * 替换机构信息，使用参数中的机构对象整体替换库中现有的记录，如果机构id不存在则创建一条新纪录
+     *
+     * @param org 机构数据传输对象
+     */
+    public void replace(@NotNull(message="{org.NotNull.message}") String orgId, @NotNull(message="{org.NotNull.message}") Organization org) throws SysResourcesException;
     /**
      * 查询机构
      *
@@ -44,7 +51,7 @@ public interface OrgService {
      * @return 机构数据传输对象<br>
      *         没查询到的情况下返回null
      */
-    public Orgnization get(@NotNull(message="{org.id.NotNull.message}") String orgId);
+    public Organization get(@NotNull(message="{org.id.NotNull.message}") String orgId);
 
     /**
      * 查询子机构，不包含自身
@@ -53,7 +60,7 @@ public interface OrgService {
      * @param cascade
      * @return
      */
-    public List<Orgnization> getChildrens(@NotNull(message="{org.id.NotNull.message}") String orgId, boolean cascade);
+    public List<Organization> getChildren(@NotNull(message="{org.id.NotNull.message}") String orgId, boolean cascade);
 
     /**
      * 查询当前机构及其所有父机构，不包含自身
@@ -62,7 +69,7 @@ public interface OrgService {
      * @return 当前机构及其父机构数据传输对象列表，第一个是顶级机构<br>
      *         一条记录也没查询到的情况下返回无内容的List
      */
-    public List<Orgnization> getParents(@NotNull(message="{org.id.NotNull.message}") String orgId);
+    public List<Organization> getParents(@NotNull(message="{org.id.NotNull.message}") String orgId);
 
     /**
      * 判断机构是否拥有指定角色
@@ -80,7 +87,7 @@ public interface OrgService {
      * @return 机构数据传输对象列表<br>
      *         一条记录也没查询到的情况下返回无内容的List
      */
-    public List<Orgnization> query(Orgnization org);
+    public List<Organization> query(Organization org);
 
     /**
      * 判断机构下是否有指定用户

@@ -1,26 +1,23 @@
 package com.chinacreator.c2.sys.sdk.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.chinacreator.asp.comp.sys.advanced.org.service.OrgService;
-import com.chinacreator.asp.comp.sys.advanced.role.service.RoleService;
 import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
 import com.chinacreator.asp.comp.sys.common.BeanCopierUtil;
 import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.asp.comp.sys.std.user.facade.UserFacade;
-
-import com.chinacreator.c2.sys.sdk.bean.Orgnization;
+import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sys.sdk.bean.User;
 import com.chinacreator.c2.sys.sdk.exception.SysResourcesException;
 import com.chinacreator.c2.sys.sdk.service.UserService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Service("sdkUserService")
@@ -110,18 +107,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Orgnization> getOrgs(String userId) {
+    public List<Organization> getOrgs(String userId) {
         List<OrgDTO> orgList = userService.queryOrgs(userId);
-        List<Orgnization> retList = new ArrayList<Orgnization>();
-        BeanCopierUtil.copy(orgList, retList, OrgDTO.class, Orgnization.class);
+        List<Organization> retList = new ArrayList<Organization>();
+        BeanCopierUtil.copy(orgList, retList, OrgDTO.class, Organization.class);
 
         return retList;
     }
 
     @Override
-    public Orgnization getMainOrg(String userId) {
+    public Organization getMainOrg(String userId) {
         OrgDTO orgDTO = userService.queryMainOrg(userId);
-        Orgnization orgnization = new Orgnization();
+        Organization orgnization = new Organization();
         BeanCopierUtil.copy(orgDTO, orgnization);
 
         return orgnization;
