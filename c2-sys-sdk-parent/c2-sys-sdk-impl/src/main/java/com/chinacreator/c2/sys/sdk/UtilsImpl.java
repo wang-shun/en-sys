@@ -9,7 +9,7 @@ import com.chinacreator.asp.comp.sys.common.BeanCopierUtil;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.sys.sdk.bean.OrgUserModel;
-import com.chinacreator.c2.sys.sdk.bean.Orgnization;
+import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.User;
 import com.chinacreator.c2.sys.selecttree.cache.OrgUserTreeCache;
 import com.chinacreator.c2.sys.selecttree.treenode.OrgUserTreeNode;
@@ -50,7 +50,7 @@ public class UtilsImpl implements Utils {
                     OrgUserModel orgUserModel=null;
                     Object dto=input.getDTO();
                     if ("org".equals(input.getType())) {
-                        orgUserModel = new Orgnization();
+                        orgUserModel = new Organization();
                     } else if ("user".equals(input.getType())) {
                         orgUserModel = new User();
                     }
