@@ -11,39 +11,39 @@ import java.sql.Timestamp;
  * 
  * @author 彭盛
  */
-@ApiModel(value = "机构数据传输对象")
+@ApiModel(value = "机构")
 public class Organization implements Serializable, OrgUserModel {
     private static final long serialVersionUID = 1L;
     
     /**
      * 机构ID
      */
-    @ApiModelProperty(value = "机构id")
+    @ApiModelProperty(value = "机构id",required=true)
     private String id;
     
     /**
      * 父机构ID,根机构的父机构id=0
      */
-    @ApiModelProperty(value = "父机构ID,根机构的父机构id=0")
+    @ApiModelProperty(value = "父机构ID,根机构的父机构id=0",required=true)
     private String pid;
+    
+    /**
+     * 机构编号，对应系统管理表中的orgNumer
+     */
+    @ApiModelProperty(value = "机构编号",required=true)
+    private String code;
+    
+    /**
+     * 机构名称
+     */
+    @ApiModelProperty(value = "机构名称",notes="如果全局配置中sysMgt.isUniqueOrgName为true,那么机构名称必须全局唯一",required=true)
+    private String name;
     
     /**
      * 机构排序ID
      */
     @ApiModelProperty(value = "机构排序ID")
     private Integer sn;
-    
-    /**
-     * 机构编号，对应系统管理表中的orgNumer
-     */
-    @ApiModelProperty(value = "机构编号，对应系统管理表中的orgNumer")
-    private String code;
-    
-    /**
-     * 机构名称
-     */
-    @ApiModelProperty(value = "机构名称")
-    private String name;
     
     /**
      * 机构描述

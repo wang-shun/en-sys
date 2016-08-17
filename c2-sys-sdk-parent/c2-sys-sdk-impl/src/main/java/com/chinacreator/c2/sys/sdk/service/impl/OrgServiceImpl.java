@@ -1,31 +1,13 @@
 package com.chinacreator.c2.sys.sdk.service.impl;
 
-import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
-import com.chinacreator.asp.comp.sys.common.BeanCopierUtil;
-
-import com.chinacreator.c2.sys.sdk.bean.Organization;
-import com.chinacreator.c2.sys.sdk.exception.SysResourcesException;
-import com.chinacreator.c2.sys.sdk.service.OrgService;
-
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
 import io.swagger.jaxrs.PATCH;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
-import org.springframework.stereotype.Service;
-
 import java.sql.Timestamp;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,12 +23,28 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
+import com.chinacreator.c2.sys.sdk.bean.Organization;
+import com.chinacreator.c2.sys.sdk.service.OrgService;
+import com.chinacreator.c2.web.exception.RequiredPropertyNotFoundException;
+import com.chinacreator.c2.web.exception.ResourceNotFoundException;
+import com.chinacreator.c2.web.exception.UniqueConstraintException;
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
+
 
 @Service("sdkOrgService")
 @Path("/api/v1/organizations")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Api("机构接口")
+@Api("系统管理 - 机构")
+@ApiResponses({
+	@ApiResponse(code = 401, message = "没有权限访问", response = Error.class),
+	})
 public class OrgServiceImpl implements OrgService {
     @Autowired
     @Qualifier("com.chinacreator.asp.comp.sys.advanced.org.service.OrgServiceImpl")
@@ -85,17 +83,21 @@ public class OrgServiceImpl implements OrgService {
     }
 
     @POST
-    @ApiOperation(value = "新增机构", notes = "约束：\n"
-        +"1.机构名称不能为空\n"
-        +"2.父机构ID不能为空\n"
-        +"3.机构编号不能为空\n"
-        +"4.如果在c2-config.properties里面配置了sysMgt.isUniqueOrgName=true,机构名称必须全局唯一\n"
-        +"5.机构编号必须全局唯一\n"
-        +"6.如果在c2-config.properties里面配置了sysMgt.isUniqueOrgShowName=true,在同一级机构下，机构显示名称必须唯一")
-    public Organization create(@ApiParam("机构数据传输对象") Organization org) throws SysResourcesException {
+    @ApiOperation(value = "新增机构")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "创建成功", response = Organization.class),
+		@ApiResponse(code = 400, message = "机构数据无效", response = Error.class) 
+		})
+    public Organization create(Organization org) throws UniqueConstraintException, RequiredPropertyNotFoundException {
         OrgDTO orgDTO = toDto(org);
-        orgService.create(orgDTO);
-
+        try{
+        	orgService.create(orgDTO);
+        }catch (IllegalArgumentException e) {
+        	throw new UniqueConstraintException(e.getMessage());
+		}catch (NullPointerException e) {
+			throw new RequiredPropertyNotFoundException(e.getMessage());
+		}
+        
         return toBean(orgDTO);
     }
 
@@ -112,9 +114,14 @@ public class OrgServiceImpl implements OrgService {
     @Path("/{id}")
     @PUT
     @ApiOperation(value = "替换机构信息，使用参数中的机构对象（包含空属性）整体替换库中现有的记录,如果机构id不存在则创建一条新纪录", notes = "参数中的机构对象的属性约束请参照创建{@link #create(Organization)}接口\n")
-    public Organization replace(@ApiParam("机构ID") @PathParam("id") String orgId,@ApiParam("机构数据传输对象") Organization org) throws SysResourcesException {
-        org.setId(orgId);
-        if (get(orgId) == null) {
+    public Organization replace(@ApiParam("机构ID") @PathParam("id") String orgId,@ApiParam("机构数据传输对象") Organization org) throws UniqueConstraintException, RequiredPropertyNotFoundException {
+        Organization oldOrg = null;
+		try {
+			oldOrg = get(orgId);
+		} catch (ResourceNotFoundException e) {
+		}
+    	org.setId(orgId);
+        if (oldOrg == null) {
             Organization organization = create(org);
             return organization;
         } else {
@@ -169,11 +176,14 @@ public class OrgServiceImpl implements OrgService {
 
     @Path("/{id}")
     @GET
-    @ApiOperation(value = "查询机构")
-    public Organization get(@ApiParam("机构ID") @PathParam("id") String orgId) {
+    @ApiOperation(value = "获取机构数据")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "获取成功", response = Organization.class),
+		@ApiResponse(code = 404, message = "机构不存在", response = Error.class) 
+		})
+    public Organization get(@ApiParam("机构ID") @PathParam("id") String orgId) throws ResourceNotFoundException {
         OrgDTO orgDTO = orgService.queryByPK(orgId);
         Organization orgnization = toBean(orgDTO);
-
         return orgnization;
     }
 
