@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-module-rest-docs</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<packaging>war</packaging>
