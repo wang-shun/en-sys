@@ -10,17 +10,23 @@ import javax.validation.constraints.NotNull;
 
 /**
  * 机构服务接口
- * 只能查出授权给应用的机构数据，如果在新增、修改、删除此外的机构，将会抛出没有没有权限的异常{@link com.chinacreator.c2.sys.sdk.exception.SysResourceUnauthorizedException}
  *
  * @author 彭盛
  */
 public interface OrgService {
     /**
      * 新增机构
-     *
+     * 约束：
+     * 1.机构名称不能为空
+     * 2.父机构ID不能为空
+     * 3.机构编号不能为空
+     * 4.如果在c2-config.properties里面配置了sysMgt.isUniqueOrgName=true,机构名称必须全局唯一
+     * 5.机构编号必须全局唯一
+     * 6.如果在c2-config.properties里面配置了sysMgt.isUniqueOrgShowName=true,在同一级机构下，机构显示名称必须唯一
      * @param org 机构数据传输对象
+     * @return 新增机构对象
      */
-    public String create(@NotNull(message="{org.NotNull.message}") Organization org) throws SysResourcesException;
+    public Organization create(@NotNull(message = "{org.NotNull.message}") Organization org) throws SysResourcesException;
 
     /**
      * 删除机构
@@ -28,22 +34,28 @@ public interface OrgService {
      * @param orgIds 机构ID
      * @throws SysResourcesException 删除机构时发生时错误，如果机构id不存在，不会抛出异常
      */
-    public void delete(@NotNull(message="{org.id.NotNull.message}") String orgId) throws SysResourcesException;
+    public void delete(@NotNull(message = "{org.id.NotNull.message}") String orgId) throws SysResourcesException;
 
     /**
      * 更新机构信息，仅更新参数中的非空属性
+     * 参数中的非空属性的约束请参照创建{@link #create(Organization)}接口
      *
+     * @param orgId 要更新的机构ID
      * @param org 机构数据传输对象
+     * @return 修改后的机构对象
      */
-    public void update(@NotNull(message="{org.NotNull.message}") String orgId, @NotNull(message="{org.NotNull.message}") Organization org) throws SysResourcesException;
+    public Organization update(@NotNull(message = "{org.NotNull.message}") String orgId, @NotNull(message = "{org.NotNull.message}") Organization org) throws SysResourcesException;
 
-    
     /**
-     * 替换机构信息，使用参数中的机构对象整体替换库中现有的记录，如果机构id不存在则创建一条新纪录
-     *
+     * 替换机构信息，使用参数中的机构对象（包含空属性）整体替换库中现有的记录,如果机构id不存在则创建一条新纪录
+     * 参数中的机构对象的属性约束请参照创建{@link #create(Organization)}接口
+     * 
+     * @param orgId 机构ID
      * @param org 机构数据传输对象
+     * @return 替换后的机构对象
      */
-    public void replace(@NotNull(message="{org.NotNull.message}") String orgId, @NotNull(message="{org.NotNull.message}") Organization org) throws SysResourcesException;
+    public Organization replace(@NotNull(message = "{org.NotNull.message}") String orgId, @NotNull(message = "{org.NotNull.message}") Organization org) throws SysResourcesException;
+
     /**
      * 查询机构
      *
@@ -51,16 +63,16 @@ public interface OrgService {
      * @return 机构数据传输对象<br>
      *         没查询到的情况下返回null
      */
-    public Organization get(@NotNull(message="{org.id.NotNull.message}") String orgId);
+    public Organization get(@NotNull(message = "{org.id.NotNull.message}") String orgId);
 
     /**
      * 查询子机构，不包含自身
      *
-     * @param orgId
-     * @param cascade
-     * @return
+     * @param orgId 机构ID
+     * @param cascade 是否递归查询所有子机构
+     * @return 子机构数据传输对象列表
      */
-    public List<Organization> getChildren(@NotNull(message="{org.id.NotNull.message}") String orgId, boolean cascade);
+    public List<Organization> getChildren(@NotNull(message = "{org.id.NotNull.message}") String orgId, boolean cascade);
 
     /**
      * 查询当前机构及其所有父机构，不包含自身
@@ -69,7 +81,7 @@ public interface OrgService {
      * @return 当前机构及其父机构数据传输对象列表，第一个是顶级机构<br>
      *         一条记录也没查询到的情况下返回无内容的List
      */
-    public List<Organization> getParents(@NotNull(message="{org.id.NotNull.message}") String orgId);
+    public List<Organization> getParents(@NotNull(message = "{org.id.NotNull.message}") String orgId);
 
     /**
      * 判断机构是否拥有指定角色
@@ -78,7 +90,7 @@ public interface OrgService {
      * @param roleId 角色ID
      * @return true:有，false:无
      */
-    public boolean hasRole(@NotNull(message="{org.id.NotNull.message}") String orgId,@NotNull  String roleId);
+    public boolean hasRole(@NotNull(message = "{org.id.NotNull.message}") String orgId, @NotNull String roleId);
 
     /**
      * 查询机构
@@ -96,5 +108,5 @@ public interface OrgService {
      * @param userId 用户ID
      * @return true:有，false:无
      */
-    public boolean containsUser(@NotNull(message="{org.id.NotNull.message}") String orgId,@NotNull String userId);
+    public boolean containsUser(@NotNull(message = "{org.id.NotNull.message}") String orgId, @NotNull String userId);
 }

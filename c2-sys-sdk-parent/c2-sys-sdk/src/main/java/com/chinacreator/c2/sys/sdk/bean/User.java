@@ -1,7 +1,11 @@
 package com.chinacreator.c2.sys.sdk.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
@@ -9,402 +13,358 @@ import java.util.Map;
  * 用户数据传输对象类
  * @author 彭盛
  */
+@ApiModel(value = "用户数据传输对象")
 public class User implements Serializable, OrgUserModel {
     private static final long serialVersionUID = 1L;
 
     /**
     * 用户ID
     */
-    private String userId;
+    @ApiModelProperty(value = "用户ID")
+    private String id;
 
     /**
     * 用户账号
     */
-    private String userName;
+    @ApiModelProperty(value = "用户账号")
+    private String name;
 
     /**
     * 用户密码
     */
-    private String userPassword;
+    @ApiModelProperty(value = "用户密码")
+    private String password;
 
     /**
     * 用户实名
     */
-    private String userRealname;
-
-    /**
-    * 拼音
-    */
-    private String userPinyin;
+    @ApiModelProperty(value = "用户实名")
+    private String realname;
 
     /**
     * 性别
     */
-    private String userSex;
+    @ApiModelProperty(value = "性别")
+    private String sex;
 
     /**
     * 家庭电话
     */
-    private String userHometel;
+    @ApiModelProperty(value = "家庭电话")
+    private String hometel;
 
     /**
     * 公司电话
     */
-    private String userWorktel;
+    @ApiModelProperty(value = "公司电话")
+    private String worktel;
 
     /**
     * 公司地址
     */
-    private String userWorkaddress;
+    @ApiModelProperty(value = "公司地址")
+    private String workaddress;
 
     /**
     * 手机1
     */
-    private String userMobiletel1;
+    @ApiModelProperty(value = "手机1")
+    private String mobiletel1;
 
     /**
     * 手机2
     */
-    private String userMobiletel2;
+    @ApiModelProperty(value = "手机2")
+    private String mobiletel2;
 
     /**
     * 传真
     */
-    private String userFax;
+    @ApiModelProperty(value = "传真")
+    private String fax;
 
     /**
-    * OICQ
+    * qq
     */
-    private String userOicq;
+    @ApiModelProperty(value = "qq")
+    private String qq;
 
     /**
     * 生日
     */
-    private Date userBirthday;
+    @ApiModelProperty(value = "生日")
+    private Timestamp birthday;
 
     /**
     * 邮箱
     */
-    private String userEmail;
+    @ApiModelProperty(value = "邮箱")
+    private String email;
 
     /**
     * 住址
     */
-    private String userAddress;
+    @ApiModelProperty(value = "住址")
+    private String address;
 
     /**
     * 邮编
     */
-    private String userPostalcode;
+    @ApiModelProperty(value = "邮编")
+    private String postalcode;
 
     /**
     * 身份证
     */
-    private String userIdcard;
+    @ApiModelProperty(value = "身份证")
+    private String idcard;
 
     /**
     * 是否使用
     */
-    private Integer userIsvalid;
+    @ApiModelProperty(value = "是否使用")
+    private Integer isvalid;
 
     /**
     * 注册日期
     */
-    private Date userRegdate;
+    @ApiModelProperty(value = "注册日期")
+    private Timestamp regdate;
 
     /**
     * 登陆次数
     */
-    private Integer userLogincount;
+    @ApiModelProperty(value = "登陆次数")
+    private Integer logincount;
 
     /**
     * 用户类型
     */
-    private String userType;
+    @ApiModelProperty(value = "用户类型")
+    private String type;
 
     /**
     * 过期时间
     */
-    private Date pastTime;
+    @ApiModelProperty(value = "过期时间")
+    private Timestamp pastTime;
 
     /**
     * 开通时间
     */
+    @ApiModelProperty(value = "开通时间")
     private String dredgeTime;
 
     /**
     * 用户最后登陆时间
     */
-    private Date lastloginDate;
+    @ApiModelProperty(value = "用户最后登陆时间")
+    private Timestamp lastloginDate;
 
     /**
     * 工作年限
     */
+    @ApiModelProperty(value = "工作年限")
     private String worklength;
 
     /**
     * 政治面貌
     */
+    @ApiModelProperty(value = "政治面貌")
     private String politics;
 
     /**
     * 登录IP
     */
+    @ApiModelProperty(value = "登录IP")
     private String loginIp;
-
-    /**
-    * 证书key的唯一标识
-    */
-    private String certSn;
 
     /**
     * 用户排序号
     */
-    private Integer userSn;
-
-    /**
-    * 备用字段1
-    */
-    private String remark1;
-
-    /**
-    * 备用字段2
-    */
-    private String remark2;
-
-    /**
-    * 备用字段3
-    */
-    private String remark3;
-
-    /**
-    * 备用字段4
-    */
-    private String remark4;
-
-    /**
-    * 备用字段5
-    */
-    private String remark5;
-
-    /**
-    * 备用字段6
-    */
-    private String remark6;
-
-    /**
-    * 备用字段7
-    */
-    private String remark7;
-
-    /**
-    * 备用字段8
-    */
-    private String remark8;
-
-    /**
-    * 备用字段9
-    */
-    private String remark9;
-
-    /**
-    * 备用字段10
-    */
-    private String remark10;
+    @ApiModelProperty(value = "用户ID")
+    private Integer sn;
 
     /**
     * 扩展字段
     */
+    @ApiModelProperty(value = "扩展字段")
     private Map<String, Object> extFields;
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = (null == userId) ? null : userId.trim();
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = (null == userName) ? null : userName.trim();
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = (null == userPassword) ? null : userPassword.trim();
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUserRealname() {
-        return userRealname;
+    public String getRealname() {
+        return realname;
     }
 
-    public void setUserRealname(String userRealname) {
-        this.userRealname = (null == userRealname) ? null : userRealname.trim();
+    public void setRealname(String realname) {
+        this.realname = realname;
     }
 
-    public String getUserPinyin() {
-        return userPinyin;
+    public String getSex() {
+        return sex;
     }
 
-    public void setUserPinyin(String userPinyin) {
-        this.userPinyin = (null == userPinyin) ? null : userPinyin.trim();
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public String getUserSex() {
-        return userSex;
+    public String getHometel() {
+        return hometel;
     }
 
-    public void setUserSex(String userSex) {
-        this.userSex = (null == userSex) ? null : userSex.trim();
+    public void setHometel(String hometel) {
+        this.hometel = hometel;
     }
 
-    public String getUserHometel() {
-        return userHometel;
+    public String getWorktel() {
+        return worktel;
     }
 
-    public void setUserHometel(String userHometel) {
-        this.userHometel = (null == userHometel) ? null : userHometel.trim();
+    public void setWorktel(String worktel) {
+        this.worktel = worktel;
     }
 
-    public String getUserWorktel() {
-        return userWorktel;
+    public String getWorkaddress() {
+        return workaddress;
     }
 
-    public void setUserWorktel(String userWorktel) {
-        this.userWorktel = (null == userWorktel) ? null : userWorktel.trim();
+    public void setWorkaddress(String workaddress) {
+        this.workaddress = workaddress;
     }
 
-    public String getUserWorkaddress() {
-        return userWorkaddress;
+    public String getMobiletel1() {
+        return mobiletel1;
     }
 
-    public void setUserWorkaddress(String userWorkaddress) {
-        this.userWorkaddress = (null == userWorkaddress) ? null
-                                                         : userWorkaddress.trim();
+    public void setMobiletel1(String mobiletel1) {
+        this.mobiletel1 = mobiletel1;
     }
 
-    public String getUserMobiletel1() {
-        return userMobiletel1;
+    public String getMobiletel2() {
+        return mobiletel2;
     }
 
-    public void setUserMobiletel1(String userMobiletel1) {
-        this.userMobiletel1 = (null == userMobiletel1) ? null
-                                                       : userMobiletel1.trim();
+    public void setMobiletel2(String mobiletel2) {
+        this.mobiletel2 = mobiletel2;
     }
 
-    public String getUserMobiletel2() {
-        return userMobiletel2;
+    public String getFax() {
+        return fax;
     }
 
-    public void setUserMobiletel2(String userMobiletel2) {
-        this.userMobiletel2 = (null == userMobiletel2) ? null
-                                                       : userMobiletel2.trim();
+    public void setFax(String fax) {
+        this.fax = fax;
     }
 
-    public String getUserFax() {
-        return userFax;
+    public String getQq() {
+        return qq;
     }
 
-    public void setUserFax(String userFax) {
-        this.userFax = (null == userFax) ? null : userFax.trim();
+    public void setQq(String qq) {
+        this.qq = qq;
     }
 
-    public String getUserOicq() {
-        return userOicq;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setUserOicq(String userOicq) {
-        this.userOicq = (null == userOicq) ? null : userOicq.trim();
+    public void setBirthday(Timestamp birthday) {
+        this.birthday = birthday;
     }
 
-    public Date getUserBirthday() {
-        return (null == userBirthday) ? null : (Date) userBirthday.clone();
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserBirthday(Date userBirthday) {
-        this.userBirthday = (null == userBirthday) ? null
-                                                   : (Date) userBirthday.clone();
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getAddress() {
+        return address;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = (null == userEmail) ? null : userEmail.trim();
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getUserAddress() {
-        return userAddress;
+    public String getPostalcode() {
+        return postalcode;
     }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = (null == userAddress) ? null : userAddress.trim();
+    public void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
     }
 
-    public String getUserPostalcode() {
-        return userPostalcode;
+    public String getIdcard() {
+        return idcard;
     }
 
-    public void setUserPostalcode(String userPostalcode) {
-        this.userPostalcode = (null == userPostalcode) ? null
-                                                       : userPostalcode.trim();
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
     }
 
-    public String getUserIdcard() {
-        return userIdcard;
+    public Integer getIsvalid() {
+        return isvalid;
     }
 
-    public void setUserIdcard(String userIdcard) {
-        this.userIdcard = (null == userIdcard) ? null : userIdcard.trim();
+    public void setIsvalid(Integer isvalid) {
+        this.isvalid = isvalid;
     }
 
-    public Integer getUserIsvalid() {
-        return userIsvalid;
+    public Date getRegdate() {
+        return regdate;
     }
 
-    public void setUserIsvalid(Integer userIsvalid) {
-        this.userIsvalid = (null == userIsvalid) ? null : userIsvalid;
+    public void setRegdate(Timestamp regdate) {
+        this.regdate = regdate;
     }
 
-    public Date getUserRegdate() {
-        return (null == userRegdate) ? null : (Date) userRegdate.clone();
+    public Integer getLogincount() {
+        return logincount;
     }
 
-    public void setUserRegdate(Date userRegdate) {
-        this.userRegdate = (null == userRegdate) ? null
-                                                 : (Date) userRegdate.clone();
+    public void setLogincount(Integer logincount) {
+        this.logincount = logincount;
     }
 
-    public Integer getUserLogincount() {
-        return userLogincount;
+    public String getType() {
+        return type;
     }
 
-    public void setUserLogincount(Integer userLogincount) {
-        this.userLogincount = (null == userLogincount) ? null : userLogincount;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = (null == userType) ? null : userType.trim();
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Date getPastTime() {
-        return (null == pastTime) ? null : (Date) pastTime.clone();
+        return pastTime;
     }
 
-    public void setPastTime(Date pastTime) {
-        this.pastTime = (null == pastTime) ? null : (Date) pastTime.clone();
+    public void setPastTime(Timestamp pastTime) {
+        this.pastTime = pastTime;
     }
 
     public String getDredgeTime() {
@@ -412,16 +372,15 @@ public class User implements Serializable, OrgUserModel {
     }
 
     public void setDredgeTime(String dredgeTime) {
-        this.dredgeTime = (null == dredgeTime) ? null : dredgeTime.trim();
+        this.dredgeTime = dredgeTime;
     }
 
     public Date getLastloginDate() {
-        return (null == lastloginDate) ? null : (Date) lastloginDate.clone();
+        return lastloginDate;
     }
 
-    public void setLastloginDate(Date lastloginDate) {
-        this.lastloginDate = (null == lastloginDate) ? null
-                                                     : (Date) lastloginDate.clone();
+    public void setLastloginDate(Timestamp lastloginDate) {
+        this.lastloginDate = lastloginDate;
     }
 
     public String getWorklength() {
@@ -429,7 +388,7 @@ public class User implements Serializable, OrgUserModel {
     }
 
     public void setWorklength(String worklength) {
-        this.worklength = (null == worklength) ? null : worklength.trim();
+        this.worklength = worklength;
     }
 
     public String getPolitics() {
@@ -437,7 +396,7 @@ public class User implements Serializable, OrgUserModel {
     }
 
     public void setPolitics(String politics) {
-        this.politics = (null == politics) ? null : politics.trim();
+        this.politics = politics;
     }
 
     public String getLoginIp() {
@@ -445,103 +404,15 @@ public class User implements Serializable, OrgUserModel {
     }
 
     public void setLoginIp(String loginIp) {
-        this.loginIp = (null == loginIp) ? null : loginIp.trim();
+        this.loginIp = loginIp;
     }
 
-    public String getCertSn() {
-        return certSn;
+    public Integer getSn() {
+        return sn;
     }
 
-    public void setCertSn(String certSn) {
-        this.certSn = (null == certSn) ? null : certSn.trim();
-    }
-
-    public Integer getUserSn() {
-        return userSn;
-    }
-
-    public void setUserSn(Integer userSn) {
-        this.userSn = (null == userSn) ? null : userSn;
-    }
-
-    public String getRemark1() {
-        return remark1;
-    }
-
-    public void setRemark1(String remark1) {
-        this.remark1 = (null == remark1) ? null : remark1.trim();
-    }
-
-    public String getRemark2() {
-        return remark2;
-    }
-
-    public void setRemark2(String remark2) {
-        this.remark2 = (null == remark2) ? null : remark2.trim();
-    }
-
-    public String getRemark3() {
-        return remark3;
-    }
-
-    public void setRemark3(String remark3) {
-        this.remark3 = (null == remark3) ? null : remark3.trim();
-    }
-
-    public String getRemark4() {
-        return remark4;
-    }
-
-    public void setRemark4(String remark4) {
-        this.remark4 = (null == remark4) ? null : remark4.trim();
-    }
-
-    public String getRemark5() {
-        return remark5;
-    }
-
-    public void setRemark5(String remark5) {
-        this.remark5 = (null == remark5) ? null : remark5.trim();
-    }
-
-    public String getRemark6() {
-        return remark6;
-    }
-
-    public void setRemark6(String remark6) {
-        this.remark6 = (null == remark6) ? null : remark6.trim();
-    }
-
-    public String getRemark7() {
-        return remark7;
-    }
-
-    public void setRemark7(String remark7) {
-        this.remark7 = (null == remark7) ? null : remark7.trim();
-    }
-
-    public String getRemark8() {
-        return remark8;
-    }
-
-    public void setRemark8(String remark8) {
-        this.remark8 = (null == remark8) ? null : remark8.trim();
-    }
-
-    public String getRemark9() {
-        return remark9;
-    }
-
-    public void setRemark9(String remark9) {
-        this.remark9 = (null == remark9) ? null : remark9.trim();
-    }
-
-    public String getRemark10() {
-        return remark10;
-    }
-
-    public void setRemark10(String remark10) {
-        this.remark10 = (null == remark10) ? null : remark10.trim();
+    public void setSn(Integer sn) {
+        this.sn = sn;
     }
 
     public Map<String, Object> getExtFields() {

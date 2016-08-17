@@ -1,5 +1,8 @@
 package com.chinacreator.c2.sys.sdk.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 
@@ -7,149 +10,91 @@ import java.io.Serializable;
  * 角色数据传输对象类
  * @author 彭盛
  */
+@ApiModel(value = "角色数据传输对象")
 public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
     * 角色ID
     */
-    private String roleId;
+    @ApiModelProperty(value = "角色ID")
+    private String id;
 
     /**
     * 角色名
     */
-    private String roleName;
+    @ApiModelProperty(value = "角色名")
+    private String name;
 
     /**
     * 是否使用 true:使用,false:不使用
     */
-    private Boolean roleUsage;
+    @ApiModelProperty(value = "是否使用 true:使用,false:不使用")
+    private Boolean usage;
 
     /**
     * 角色类型
     */
-    private String roleType;
+    @ApiModelProperty(value = "角色类型")
+    private String type;
 
     /**
     * 角色描述
     */
-    private String roleDesc;
+    @ApiModelProperty(value = "角色描述")
+    private String desc;
 
     /**
     * 创建人id
     */
-    private String ownerId;
+    @ApiModelProperty(value = "创建人id")
+    private String creator;
 
-    /**
-    * 备用字段1
-    */
-    private String remark1;
-
-    /**
-    * 备用字段2
-    */
-    private String remark2;
-
-    /**
-    * 备用字段3
-    */
-    private String remark3;
-
-    /**
-    * 备用字段4
-    */
-    private String remark4;
-
-    /**
-    * 备用字段5
-    */
-    private String remark5;
-
-    public String getRoleId() {
-        return roleId;
+    public String getId() {
+        return id;
     }
 
-    public void setRoleId(String roleId) {
-        this.roleId = (null == roleId) ? null : roleId.trim();
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getName() {
+        return name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = (null == roleName) ? null : roleName.trim();
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Boolean getRoleUsage() {
-        return roleUsage;
+    public Boolean getUsage() {
+        return usage;
     }
 
-    public void setRoleUsage(Boolean roleUsage) {
-        this.roleUsage = (null == roleUsage) ? null : roleUsage;
+    public void setUsage(Boolean usage) {
+        this.usage = usage;
     }
 
-    public String getRoleType() {
-        return roleType;
+    public String getType() {
+        return type;
     }
 
-    public void setRoleType(String roleType) {
-        this.roleType = (null == roleType) ? null : roleType.trim();
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getRoleDesc() {
-        return roleDesc;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setRoleDesc(String roleDesc) {
-        this.roleDesc = (null == roleDesc) ? null : roleDesc.trim();
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public String getOwnerId() {
-        return ownerId;
+    public String getCreator() {
+        return creator;
     }
 
-    public void setOwnerId(String ownerId) {
-        this.ownerId = (null == ownerId) ? null : ownerId.trim();
-    }
-
-    public String getRemark1() {
-        return remark1;
-    }
-
-    public void setRemark1(String remark1) {
-        this.remark1 = (null == remark1) ? null : remark1.trim();
-    }
-
-    public String getRemark2() {
-        return remark2;
-    }
-
-    public void setRemark2(String remark2) {
-        this.remark2 = (null == remark2) ? null : remark2.trim();
-    }
-
-    public String getRemark3() {
-        return remark3;
-    }
-
-    public void setRemark3(String remark3) {
-        this.remark3 = (null == remark3) ? null : remark3.trim();
-    }
-
-    public String getRemark4() {
-        return remark4;
-    }
-
-    public void setRemark4(String remark4) {
-        this.remark4 = (null == remark4) ? null : remark4.trim();
-    }
-
-    public String getRemark5() {
-        return remark5;
-    }
-
-    public void setRemark5(String remark5) {
-        this.remark5 = (null == remark5) ? null : remark5.trim();
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 }
