@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
+import io.swagger.annotations.AuthorizationScope;
 import io.swagger.jaxrs.PATCH;
 
 import java.sql.Timestamp;
@@ -28,8 +30,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
+import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
-import com.chinacreator.c2.sys.sdk.service.OrgService;
+import com.chinacreator.c2.sys.sdk.service.OrgnizationService;
 import com.chinacreator.c2.web.exception.RequiredPropertyNotFoundException;
 import com.chinacreator.c2.web.exception.ResourceNotFoundException;
 import com.chinacreator.c2.web.exception.UniqueConstraintException;
@@ -38,14 +41,14 @@ import com.google.common.collect.Lists;
 
 
 @Service("sdkOrgService")
-@Path("/api/v1/organizations")
+@Path("/v1/organizations")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Api("系统管理 - 机构")
 @ApiResponses({
 	@ApiResponse(code = 401, message = "没有权限访问", response = Error.class),
 	})
-public class OrgServiceImpl implements OrgService {
+public class OrgServiceImpl implements OrgnizationService {
     @Autowired
     @Qualifier("com.chinacreator.asp.comp.sys.advanced.org.service.OrgServiceImpl")
     private com.chinacreator.asp.comp.sys.advanced.org.service.OrgService orgService;
@@ -83,7 +86,7 @@ public class OrgServiceImpl implements OrgService {
     }
 
     @POST
-    @ApiOperation(value = "新增机构")
+    @ApiOperation(value = "新增机构",authorizations={@Authorization(value="oauth",scopes = {@AuthorizationScope(scope = "org:add",description = "添加机构")})})
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "创建成功", response = Organization.class),
 		@ApiResponse(code = 400, message = "机构数据无效", response = Error.class) 
@@ -104,7 +107,7 @@ public class OrgServiceImpl implements OrgService {
     @Path("/{id}")
     @PATCH
     @ApiOperation(value = "更新机构信息", notes = "仅更新参数中的非空属性,参数中的非空属性的约束请参照创建{@link #create(Organization)}接口\n")
-    public Organization update(@ApiParam("要更新的机构ID") @PathParam("id") String orgId,@ApiParam("机构数据传输对象")  Organization org) {
+    public Organization update(@ApiParam("要更新的机构ID") @PathParam("id") String orgId,@ApiParam("机构数据传输对象")  Organization org) throws ResourceNotFoundException,UniqueConstraintException{
         OrgDTO orgDTO = toDto(org);
         orgDTO.setOrgId(orgId);
         orgService.update(orgDTO);
@@ -113,7 +116,7 @@ public class OrgServiceImpl implements OrgService {
 
     @Path("/{id}")
     @PUT
-    @ApiOperation(value = "替换机构信息，使用参数中的机构对象（包含空属性）整体替换库中现有的记录,如果机构id不存在则创建一条新纪录", notes = "参数中的机构对象的属性约束请参照创建{@link #create(Organization)}接口\n")
+    @ApiOperation(value = "替换机构信息，机构id不存在则创建")
     public Organization replace(@ApiParam("机构ID") @PathParam("id") String orgId,@ApiParam("机构数据传输对象") Organization org) throws UniqueConstraintException, RequiredPropertyNotFoundException {
         Organization oldOrg = null;
 		try {
@@ -216,18 +219,40 @@ public class OrgServiceImpl implements OrgService {
         return retList;
     }
 
+    @Path("/{id}/users")
+    @GET
+    @ApiOperation(value = "获取机构下所有用户")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "获取成功", response = Organization.class),
+		@ApiResponse(code = 404, message = "机构不存在", response = Error.class) 
+		})
+    public Organization getUsers(@ApiParam("机构ID") @PathParam("id") String orgId,@PathParam("page") int page, @QueryParam("limit") int limit,@QueryParam("sort") String sort) throws ResourceNotFoundException {
+        OrgDTO orgDTO = orgService.queryByPK(orgId);
+        Organization orgnization = toBean(orgDTO);
+        return orgnization;
+    }
     
-    @HEAD
-    @Path("/{id}/users/{uid}")
-    @ApiOperation(value = "判断机构下是否有指定用户")
+    
+    @Path("/{id}/users")
+    @GET
+    @ApiOperation(value = "获取机构下所有用户")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "获取成功", response = Organization.class),
+		@ApiResponse(code = 404, message = "机构不存在", response = Error.class) 
+		})
+    public Organization getRoles(@ApiParam("机构ID") @PathParam("id") String orgId,@QueryParam("page") int page, @QueryParam("limit") int limit) throws ResourceNotFoundException {
+        OrgDTO orgDTO = orgService.queryByPK(orgId);
+        Organization orgnization = toBean(orgDTO);
+        return orgnization;
+    }
+    
     public boolean containsUser(@ApiParam("机构ID") @PathParam("id") String orgId,@ApiParam("用户ID") @PathParam("uid") String userId) {
         return orgService.containsUser(orgId, userId);
     }
-
     
-    @HEAD
-    @Path("/{id}/roles/{rid}")
     public boolean hasRole(@ApiParam("机构ID") @PathParam("id") String id,@ApiParam("角色ID") @PathParam("rid") String rid) {
         return orgService.hasRole(id, rid);
     }
+    
+   
 }

@@ -8,6 +8,8 @@ import io.swagger.jaxrs.PATCH;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,6 +23,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.elasticsearch.node.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -32,20 +35,22 @@ import com.chinacreator.asp.comp.sys.common.BeanCopierUtil;
 import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.asp.comp.sys.std.user.facade.UserFacade;
+import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sys.sdk.bean.User;
 import com.chinacreator.c2.sys.sdk.exception.SysResourcesException;
 import com.chinacreator.c2.sys.sdk.service.UserService;
+import com.chinacreator.platform.mvc.perm.Resource;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 
 @Service("sdkUserService")
-@Path("/api/v1/users")
+@Path("/v1/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Api("用户接口")
+@Api("系统管理 - 用户")
 public class UserServiceImpl implements UserService {
     @Autowired
     @Qualifier("com.chinacreator.asp.comp.sys.advanced.user.service.UserServiceImpl")
@@ -159,7 +164,7 @@ public class UserServiceImpl implements UserService {
     }
     
     @POST
-    @Path("/{id}/orgnizations/{orgId}")
+    @Path("/{id}/organizations/{orgId}")
     @ApiOperation(value = "添加用户的所属机构", notes = "如需设置主机构请使用{@link #setMainOrg(String[],String,boolean)}")
     public void addOrg(@PathParam("id") @ApiParam("用户ID") String userId, @PathParam("orgId") @ApiParam("机构ID") String orgId)
         throws SysResourcesException {
@@ -175,15 +180,15 @@ public class UserServiceImpl implements UserService {
     }
     
     @DELETE
-    @Path("/{id}/orgnizations/{orgId}")
+    @Path("/{id}/organizations/{orgId}")
     @ApiOperation(value = "删除用户和机构的关联关系", notes = "主机构不能删")
     public void deleteUserOrgRelationship(@PathParam("id") @ApiParam("用户ID") String userId, @PathParam("orgId") @ApiParam("机构ID") String orgId)
         throws SysResourcesException {
         userService.removeFromOrg(userId, orgId);
     }
     
-    @Path("/{id}")
     @PATCH
+    @Path("/{id}")
     @ApiOperation(value = "修改用户")
     public User update(@ApiParam("用户id") @PathVariable("id") String id, @ApiParam("用户数据传输对象") User user) throws SysResourcesException {
         UserDTO userDto = toDTO(user);
@@ -193,8 +198,8 @@ public class UserServiceImpl implements UserService {
         return toBean(userDto);
     }
     
-    @Path("/{id}/orgnizations/main/{orgId}")
     @PATCH
+    @Path("/{id}/organizations/main/{orgId}")
     @ApiOperation(value = "用户设置主机构")
     public void setMainOrg(@ApiParam("用户ID逗号分隔串") @PathParam("id") String userIds,@PathParam("orgId") @ApiParam("主机构ID") String orgId,
         @QueryParam("isRetain") @ApiParam("用户是否保留在原机构下(true:是，false:否)") boolean isRetain)
@@ -264,9 +269,9 @@ public class UserServiceImpl implements UserService {
         return queryByOrg(user, roleId, cascade);
     }
     
-    @ApiOperation(value = "查询指定用户所属机构")
-    @Path("/{id}/organizations")
     @GET
+    @Path("/{id}/organizations")
+    @ApiOperation(value = "查询指定用户所属机构")
     public List<Organization> getOrgs(@ApiParam("用户id") @PathVariable("id") String userId) {
         List<OrgDTO> orgList = userService.queryOrgs(userId);
         List<Organization> retList = Lists.transform(orgList, new Function<OrgDTO, Organization>() {
@@ -278,24 +283,24 @@ public class UserServiceImpl implements UserService {
         return retList;
     }
     
-    @ApiOperation(value = "查询指定用户所属主机构")
-    @Path("/{id}/organizations/main")
     @GET
+    @Path("/{id}/organizations/main")
+    @ApiOperation(value = "查询指定用户所属主机构")
     public Organization getMainOrg(@ApiParam("用户id") @PathVariable("id") String userId) {
         OrgDTO orgDTO = userService.queryMainOrg(userId);
         return OrgServiceImpl.toBean(orgDTO);
     }
     
-    @ApiOperation(value = "判断用户是否属于指定机构")
-    @Path("/{id}/organizations/{orgId}")
     @HEAD
+    @Path("/{id}/organizations/{orgId}")
+    @ApiOperation(value = "判断用户是否属于指定机构")
     public boolean inOrg(@ApiParam("用户id") @PathVariable("id") String userId,@ApiParam("机构id") @PathVariable("orgId") String orgId) {
         return userService.belongsToOrg(userId, orgId);
     }
     
-    @ApiOperation(value = "判断指定机构是否用户的主机构")
-    @Path("/{id}/organizations/main/{orgId}")
     @HEAD
+    @Path("/{id}/organizations/main/{orgId}")
+    @ApiOperation(value = "判断指定机构是否用户的主机构")
     public boolean isMainOrg(@ApiParam("用户id") @PathVariable("id") String userId,@ApiParam("机构id") @PathVariable("orgId") String orgId) {
         return userService.isMainOrg(userId, orgId);
     }
@@ -313,7 +318,7 @@ public class UserServiceImpl implements UserService {
 
         return retList;
     }
-
+    
     public User get(User user) {
         List<User> retList = query(user);
 
@@ -332,9 +337,9 @@ public class UserServiceImpl implements UserService {
         return userList;
     }
     
-    @ApiOperation(value = "查询指定用户所拥有的角色")
-    @Path("/{id}/roles")
     @GET
+    @Path("/{id}/roles")
+    @ApiOperation(value = "查询指定用户所拥有的角色")
     public List<Role> getRoles(@ApiParam("用户ID") @PathVariable("id") String userId) {
         List<RoleDTO> roleList = userService.queryRoles(userId);
         List<Role> retList = Lists.transform(roleList, new Function<RoleDTO, Role>() {
@@ -346,16 +351,16 @@ public class UserServiceImpl implements UserService {
         return retList;
     }
     
-    @ApiOperation(value = "判断用户是否拥有指定角色", notes = "包括直接授予用户的角色和授予用户所属用户组的角色")
-    @Path("/{id}/roles/{roleId}")
     @HEAD
+    @Path("/{id}/roles/{roleId}")
+    @ApiOperation(value = "判断用户是否拥有指定角色", notes = "包括直接授予用户的角色和授予用户所属用户组的角色")
     public boolean hasRole(@ApiParam("用户ID") @PathVariable("id") String userId,@ApiParam("角色ID") @PathVariable("roleId") String roleId) {
         return userService.hasRole(userId, roleId);
     }
     
-    @ApiOperation(value = "替换用户信息",notes="使用参数中的用户对象（包含空属性）整体替换库中现有的记录,如果用户id不存在则创建一条新纪录")
-    @Path("/{id}")
     @PUT
+    @Path("/{id}")
+    @ApiOperation(value = "替换用户信息",notes="使用参数中的用户对象（包含空属性）整体替换库中现有的记录,如果用户id不存在则创建一条新纪录")
     public User replace(@ApiParam("用户ID") @PathVariable("id") String id,@ApiParam("用户数据传输对象") User user) throws SysResourcesException {
         user.setId(id);
         if (query(id) == null) {
@@ -367,4 +372,18 @@ public class UserServiceImpl implements UserService {
             return toBean(userDTO);
         }
     }
+
+    @Path("/{id}/resources")
+    @GET
+    @ApiOperation(value = "用户有权访问的资源")
+	public List<Resource> getAuthorizedResources(@PathVariable("id") String user) {
+		return null;
+	}
+
+    @Path("/{id}/resources")
+    @GET
+    @ApiOperation(value = "检查用户是否有资源的访问权限")
+	public Map<String, Boolean> isAuthorized(@PathVariable("id") String user, @QueryParam("resources") Set<String> resources) {
+		return null;
+	}
 }

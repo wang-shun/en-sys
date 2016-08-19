@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.chinacreator.c2.sys.sdk.bean.Orgnization;
 import com.chinacreator.c2.sys.sdk.exception.SysResourcesException;
-import com.chinacreator.c2.sys.sdk.service.OrgService;
+import com.chinacreator.c2.sys.sdk.service.OrgnizationService;
 
 public class OrgServiceTest extends C2JunitTests {
     @Autowired
-    private OrgService orgService;
+    private OrgnizationService orgService;
     
     // @Rule
     // public ParameterRule testRule = new ParameterRule();

@@ -1,6 +1,7 @@
 package com.chinacreator.c2.sys.sdk.service;
 
 import com.chinacreator.c2.sys.sdk.bean.Role;
+import com.chinacreator.platform.mvc.perm.Resource;
 
 import java.util.List;
 
@@ -16,4 +17,12 @@ public interface RoleService {
      * @return 角色列表
      */
     public List<Role> query(Role role);
+    
+	/**
+	 * 
+	 * @param role
+	 * @param resources
+	 * @return
+	 */
+	public List<Resource> getAuthorizedResources(String role);
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -20,15 +21,16 @@ import org.springframework.stereotype.Service;
 import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
 import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sys.sdk.service.RoleService;
+import com.chinacreator.platform.mvc.perm.Resource;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 
 @Service("sdkRoleService")
-@Path("/api/v1/roles")
+@Path("/v1/roles")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Api("角色接口")
+@Api("系统管理 - 角色")
 public class RoleServiceImpl implements RoleService {
     @Autowired
     @Qualifier("com.chinacreator.asp.comp.sys.advanced.role.service.RoleServiceImpl")
@@ -91,4 +93,11 @@ public class RoleServiceImpl implements RoleService {
 
         return roleList;
     }
+
+    @Path("/{id}/resources")
+    @GET
+    @ApiOperation(value = "角色有权访问的资源")
+	public List<Resource> getAuthorizedResources(@PathParam("id") String role) {
+		return null;
+	}
 }

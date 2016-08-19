@@ -9,6 +9,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
+
 /**
  * 用户数据传输对象类
  * @author 彭盛
@@ -21,11 +24,13 @@ public class User implements Serializable, OrgUserModel {
     * 用户ID
     */
     @ApiModelProperty(value = "用户ID")
+    @PathParam("id")
     private String id;
 
     /**
     * 用户账号
     */
+    @QueryParam("account")
     @ApiModelProperty(value = "用户账号")
     private String name;
 
@@ -39,12 +44,14 @@ public class User implements Serializable, OrgUserModel {
     * 用户实名
     */
     @ApiModelProperty(value = "用户实名")
+    @QueryParam("realname")
     private String realname;
 
     /**
     * 性别
     */
     @ApiModelProperty(value = "性别")
+    @QueryParam("sex")
     private String sex;
 
     /**
@@ -69,6 +76,7 @@ public class User implements Serializable, OrgUserModel {
     * 手机1
     */
     @ApiModelProperty(value = "手机1")
+    @QueryParam("mobile")
     private String mobiletel1;
 
     /**
@@ -99,6 +107,7 @@ public class User implements Serializable, OrgUserModel {
     * 邮箱
     */
     @ApiModelProperty(value = "邮箱")
+    @QueryParam("email")
     private String email;
 
     /**
@@ -117,12 +126,14 @@ public class User implements Serializable, OrgUserModel {
     * 身份证
     */
     @ApiModelProperty(value = "身份证")
+    @QueryParam("idcard")
     private String idcard;
 
     /**
     * 是否使用
     */
     @ApiModelProperty(value = "是否使用")
+    @QueryParam("enabled")
     private Integer isvalid;
 
     /**
@@ -141,6 +152,7 @@ public class User implements Serializable, OrgUserModel {
     * 用户类型
     */
     @ApiModelProperty(value = "用户类型")
+    @QueryParam("type")
     private String type;
 
     /**
@@ -171,6 +183,7 @@ public class User implements Serializable, OrgUserModel {
     * 政治面貌
     */
     @ApiModelProperty(value = "政治面貌")
+    @QueryParam("politics")
     private String politics;
 
     /**

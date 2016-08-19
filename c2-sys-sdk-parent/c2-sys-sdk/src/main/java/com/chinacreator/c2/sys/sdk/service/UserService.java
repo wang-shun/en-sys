@@ -1,15 +1,16 @@
 package com.chinacreator.c2.sys.sdk.service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.validation.constraints.NotNull;
+
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sys.sdk.bean.User;
 import com.chinacreator.c2.sys.sdk.exception.SysResourcesException;
-
-import io.swagger.annotations.ApiOperation;
-
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
+import com.chinacreator.platform.mvc.perm.Resource;
 
 
 /**
@@ -190,4 +191,20 @@ public interface UserService {
      * @return true:有，false:无
      */
     public boolean hasRole(@NotNull(message="user.id.NotNull.message") String userId, String roleId);
+    
+	/**
+	 * 获取用户有权限访问的所有资源
+	 * @param user 用户id
+	 * @param resources 资源id
+	 * @return
+	 */
+	public List<Resource> getAuthorizedResources(String user);
+	
+	/**
+	 * 校验权限
+	 * @param user 用户id
+	 * @param resources 资源id
+	 * @return 用户是否有资源的访问权限，Key为资源id，Value为是否有权限访问
+	 */
+	public Map<String,Boolean> isAuthorized(String user, Set<String> resources);
 }
