@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.chinacreator.asp.comp.sys.basic.menu.eo.MenuAllInfoEO;
 import com.chinacreator.asp.comp.sys.datautil.ide.manager.SynchroSysMgtUtil;
 
-@Component
+
 public class IdeSynSysMgt {
 
 	@Autowired

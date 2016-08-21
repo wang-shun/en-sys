@@ -16,10 +16,10 @@ import com.chinacreator.c2.res.SerialNumberRegister;
 import com.chinacreator.c2.res.exception.ResourceNotFoundException;
 import com.chinacreator.c2.web.ds.TreeNode;
 import com.chinacreator.c2.web.ds.impl.DefaultTreeNode;
-import com.chinacreator.platform.mvc.docket.Event;
-import com.chinacreator.platform.mvc.entity.Entity;
-import com.chinacreator.platform.mvc.form.model.Form;
-import com.chinacreator.platform.mvc.rule.Rule;
+//import com.chinacreator.platform.mvc.docket.Event;
+//import com.chinacreator.platform.mvc.entity.Entity;
+//import com.chinacreator.platform.mvc.form.model.Form;
+//import com.chinacreator.platform.mvc.rule.Rule;
 
 public class ResourceTreeNodeBuilder {
 	private List<PrivilegeDTO> resources;
@@ -117,7 +117,7 @@ public class ResourceTreeNodeBuilder {
 		// 虚拟节点一定是有固定的parent信息的
 		// TODO:虚拟节点的父节点也一定是虚拟节点?
 		// 树节点最顶层一定是几个虚拟节点：即表示资源类型的节点
-		if (null == path) {
+/*		if (null == path) {
 			return new ResourceTreeNode(null, "0", "资源树", "0", true);
 		}
 
@@ -130,8 +130,8 @@ public class ResourceTreeNodeBuilder {
 			// 不会出现这种情况
 			String serviceSn = fragments[1];
 			try {
-				Rule rule = ResourceManager.getInstance().getContent(
-						SerialNumberRegister.getRuleID(serviceSn), Rule.class);
+//				Rule rule = ResourceManager.getInstance().getContent(
+//						SerialNumberRegister.getRuleID(serviceSn), Rule.class);
 				ResourceTreeNode node = new ResourceTreeNode(rule.getRes(),
 						rule.getName(), "service", true);
 				node.setPid("service");
@@ -182,7 +182,7 @@ public class ResourceTreeNodeBuilder {
 			} catch (ResourceNotFoundException e) {
 				return null;
 			}
-		}
+		}*/
 		return null;
 	}
 

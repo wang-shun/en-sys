@@ -9,7 +9,7 @@ import org.apache.shiro.web.config.IniFilterChainResolverFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
 
-import com.chinacreator.c2.config.ConfigManager;
+//import com.chinacreator.c2.config.ConfigManager;
 
 /**
  * 自定义的动态访问控制类
@@ -53,27 +53,27 @@ public class ChainDefinitionSectionMetaSource implements
 		// 获取properties配置中，以"authcUrl."开头的需要权限的url
 		StringBuffer authcUrls = new StringBuffer();
 
-		Enumeration<String> enumerations = ConfigManager.getInstance()
-				.getConfigNames();
-		if (null != enumerations) {
-			while (enumerations.hasMoreElements()) {
-				String key = (String) enumerations.nextElement();
-				if (key.startsWith(sfs_ANON_START)) {
-					String anonUrl = ConfigManager.getInstance().getConfig(key);
-					if (null != anonUrl && !anonUrl.trim().equals("")) {
-						anonUrls.append(anonUrl)
-								.append(sfs_SEPARATOR_SEMICOLON);
-					}
-				} else if (key.startsWith(sfs_AUTHC_START)) {
-					String authcUrl = ConfigManager.getInstance()
-							.getConfig(key);
-					if (null != authcUrl && !authcUrl.trim().equals("")) {
-						authcUrls.append(authcUrl).append(
-								sfs_SEPARATOR_SEMICOLON);
-					}
-				}
-			}
-		}
+//		Enumeration<String> enumerations = ConfigManager.getInstance()
+//				.getConfigNames();
+//		if (null != enumerations) {
+//			while (enumerations.hasMoreElements()) {
+//				String key = (String) enumerations.nextElement();
+//				if (key.startsWith(sfs_ANON_START)) {
+//					String anonUrl = ConfigManager.getInstance().getConfig(key);
+//					if (null != anonUrl && !anonUrl.trim().equals("")) {
+//						anonUrls.append(anonUrl)
+//								.append(sfs_SEPARATOR_SEMICOLON);
+//					}
+//				} else if (key.startsWith(sfs_AUTHC_START)) {
+//					String authcUrl = ConfigManager.getInstance()
+//							.getConfig(key);
+//					if (null != authcUrl && !authcUrl.trim().equals("")) {
+//						authcUrls.append(authcUrl).append(
+//								sfs_SEPARATOR_SEMICOLON);
+//					}
+//				}
+//			}
+//		}
 
 		// 加载自定义的anonUrl
 		if (anonUrls.length() > 0) {

@@ -42,17 +42,19 @@ public class OrgTreeContentProviderImpl implements TreeContentProvider {
 				list.add(rootOrgTreeNode);
 
 				orgId = "0";
+			}else{
+				List<OrgDTO> orgDTOs = orgService.queryChildOrgs(orgId, false);
+				for (OrgDTO orgDTO : orgDTOs) {
+					CommonTreeNode orgTreeNode = new CommonTreeNode();
+					orgTreeNode.setId(orgDTO.getOrgId());
+					orgTreeNode.setName(orgDTO.getOrgShowName());
+					orgTreeNode.setPid(orgDTO.getParentId());
+					orgTreeNode.setParent(orgService.existsChildOrgs(orgDTO
+							.getOrgId()));
+					list.add(orgTreeNode);
+				}				
 			}
-			List<OrgDTO> orgDTOs = orgService.queryChildOrgs(orgId, false);
-			for (OrgDTO orgDTO : orgDTOs) {
-				CommonTreeNode orgTreeNode = new CommonTreeNode();
-				orgTreeNode.setId(orgDTO.getOrgId());
-				orgTreeNode.setName(orgDTO.getOrgShowName());
-				orgTreeNode.setPid(orgDTO.getParentId());
-				orgTreeNode.setParent(orgService.existsChildOrgs(orgDTO
-						.getOrgId()));
-				list.add(orgTreeNode);
-			}
+
 		}
 		return list.toArray(new CommonTreeNode[list.size()]);
 	}

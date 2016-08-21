@@ -15,10 +15,10 @@ import com.chinacreator.c2.res.ResourceManager;
 import com.chinacreator.c2.res.SerialNumberRegister;
 import com.chinacreator.c2.res.exception.ResourceNotFoundException;
 import com.chinacreator.c2.web.ds.TreeNode;
-import com.chinacreator.platform.mvc.docket.Event;
-import com.chinacreator.platform.mvc.entity.Entity;
-import com.chinacreator.platform.mvc.form.model.Form;
-import com.chinacreator.platform.mvc.rule.Rule;
+//import com.chinacreator.platform.mvc.docket.Event;
+//import com.chinacreator.platform.mvc.entity.Entity;
+//import com.chinacreator.platform.mvc.form.model.Form;
+//import com.chinacreator.platform.mvc.rule.Rule;
 
 public class ResourceTreeNodeBuilder {
 	private List<PrivilegeDTO> resources;
@@ -58,7 +58,7 @@ public class ResourceTreeNodeBuilder {
 	 */
 	private TreeNode addTreeNode(Collection<TreeNode> nodes,
 			PrivilegeDTO resource) {
-		if (realNodes.containsKey(resource.getPrivilegeCode())) {
+/*		if (realNodes.containsKey(resource.getPrivilegeCode())) {
 			TreeNode node = realNodes.get(resource.getPrivilegeCode());
 			nodes.add(node);
 			return node;
@@ -98,10 +98,11 @@ public class ResourceTreeNodeBuilder {
 		node.setPid(parentNode.getId());
 		node.setPrivilegeId(resource.getPrivilegeId());
 		node.setSource(resource.getSource());
-		nodes.add(node);
-		realNodes.put(resource.getPrivilegeCode(), node);
+		nodes.add(node);s
+		realNodes.put(resource.getPrivilegeCode(), node);*/
 		// 还有isParent属性没有设置
-		return node;
+//		return node;
+		return null;
 	}
 
 	/**
@@ -112,7 +113,7 @@ public class ResourceTreeNodeBuilder {
 	 * @return 虚拟节点，也有可能为null，因为在开发时，本地资源可能还不完整
 	 */
 	private TreeNode createVirtualNode(String path) {
-		// 通过path找到对应的模型，从中解析出树节点信息
+/*		// 通过path找到对应的模型，从中解析出树节点信息
 		// 虚拟节点一定是有固定的parent信息的
 		// TODO:虚拟节点的父节点也一定是虚拟节点?
 		// 树节点最顶层一定是几个虚拟节点：即表示资源类型的节点
@@ -194,12 +195,12 @@ public class ResourceTreeNodeBuilder {
 		return null;
 	}
 
-	/**
+	*//**
 	 * 通过当前节点的path去解析它父节点的path
 	 * 
 	 * @param path
 	 * @return
-	 */
+	 *//*
 	private String parseParentPath(String path) {
 		if (StringUtils.isEmpty(path)) {
 			return null;
@@ -228,7 +229,7 @@ public class ResourceTreeNodeBuilder {
 			}
 		} else if (StringUtils.equals(fragments[0], "other")) {
 			return fragments[0];
-		}
+		}*/
 		return null;
 	}
 

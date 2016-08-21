@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper
 	namespace="com.chinacreator.asp.comp.sys.basic.userpreferences.dao.UserPreferencesDao">
-<cache type="org.mybatis.caches.c2.impl.C2DefaultDaoCache"/>
+<cache />
 	<sql id="UserPreferences_Column_List">
 		USER_ID, INFO_NAME, INFO_CONTENT, INFO_DESC,
 		INFO_LASTUPDATE

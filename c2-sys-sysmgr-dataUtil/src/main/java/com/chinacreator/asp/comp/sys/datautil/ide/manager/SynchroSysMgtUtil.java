@@ -20,17 +20,17 @@ import com.chinacreator.asp.comp.sys.common.exception.SysException;
 import com.chinacreator.asp.comp.sys.core.privilege.dao.PrivilegeDao;
 import com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeEO;
 import com.chinacreator.asp.comp.sys.core.role.dao.RolePrivilegeDao;
-import com.chinacreator.platform.mvc.menu.Menu;
-import com.chinacreator.platform.mvc.menu.Module;
-import com.chinacreator.platform.mvc.perm.Resource;
+//import com.chinacreator.platform.mvc.menu.Menu;
+//import com.chinacreator.platform.mvc.menu.Module;
+//import com.chinacreator.platform.mvc.perm.Resource;
 
 /**
- * IDE同步到系统管理工具类
+ * IDE鍚屾鍒扮郴缁熺鐞嗗伐鍏风被
  * 
- * @author 彭盛
+ * @author 褰洓
  * 
  */
-@Component
+
 public class SynchroSysMgtUtil {
 
 	@Autowired
@@ -46,7 +46,7 @@ public class SynchroSysMgtUtil {
 	private RolePrivilegeDao rolePrivilegeDao;
 
 	/**
-	 * 同步IDE中的资源到系统管理
+	 * 鍚屾IDE涓殑璧勬簮鍒扮郴缁熺鐞�
 	 */
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void synchroRes() {
@@ -68,19 +68,19 @@ public class SynchroSysMgtUtil {
 	}
 
 	/**
-	 * 获取同步资源信息
+	 * 鑾峰彇鍚屾璧勬簮淇℃伅
 	 * 
 	 * @param addPrivilegeList
-	 *            需要新增的资源
+	 *            闇�瑕佹柊澧炵殑璧勬簮
 	 * @param updatePrivilegeList
-	 *            需要修改的资源
+	 *            闇�瑕佷慨鏀圭殑璧勬簮
 	 * @param delPrivilegeList
-	 *            需要删除的资源
+	 *            闇�瑕佸垹闄ょ殑璧勬簮
 	 */
 	public void getSynchroResInfo(List<PrivilegeEO> addPrivilegeList,
 			List<PrivilegeEO> updatePrivilegeList,
 			List<PrivilegeEO> delPrivilegeList) {
-		List<Resource> resList = ideOperUtil.getIDEResourceList();
+/*		List<Resource> resList = ideOperUtil.getIDEResourceList();
 		Set<String> set = new HashSet<String>();
 		if (null != resList) {
 			PrivilegeEO privilegeEO = null;
@@ -109,7 +109,7 @@ public class SynchroSysMgtUtil {
 							updatePrivilegeList.add(privilegeEO);
 						} else {
 							throw new SysException(String.format(
-									"资源【%s(%s)】在数据库中不存在！", resource.getName(),
+									"璧勬簮銆�%s(%s)銆戝湪鏁版嵁搴撲腑涓嶅瓨鍦紒", resource.getName(),
 									resource.getId()));
 						}
 					} else {
@@ -142,14 +142,14 @@ public class SynchroSysMgtUtil {
 					delPrivilegeList.add(pEO);
 				}
 			}
-		}
+		}*/
 	}
 
 	private String getPrivilegeNameByResName(String resId, String resName) {
 		if (null != resName && !resName.trim().equals("")) {
 			return resName;
 		} else {
-			throw new SysException(String.format("资源【%s】名称为空！", resId));
+			throw new SysException(String.format("璧勬簮銆�%s銆戝悕绉颁负绌猴紒", resId));
 		}
 	}
 
@@ -172,16 +172,16 @@ public class SynchroSysMgtUtil {
 			} else if("custom".equals(resType)){
 				return "9";
 			}else {
-				throw new SysException(String.format("资源【%s】类型【%s】无法识别！",
+				throw new SysException(String.format("璧勬簮銆�%s銆戠被鍨嬨��%s銆戞棤娉曡瘑鍒紒",
 						resId, resType));
 			}
 		} else {
-			throw new SysException(String.format("资源【%s】类型为空！", resId));
+			throw new SysException(String.format("璧勬簮銆�%s銆戠被鍨嬩负绌猴紒", resId));
 		}
 	}
 
 	/**
-	 * 同步IDE中的菜单到系统管理
+	 * 鍚屾IDE涓殑鑿滃崟鍒扮郴缁熺鐞�
 	 */
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void synchroMenu() {
@@ -220,18 +220,18 @@ public class SynchroSysMgtUtil {
 	}
 
 	/**
-	 * 获取同步菜单信息
+	 * 鑾峰彇鍚屾鑿滃崟淇℃伅
 	 * 
 	 * @param addMenuList
-	 *            需要新增的菜单
+	 *            闇�瑕佹柊澧炵殑鑿滃崟
 	 * @param updateMenuList
-	 *            需要修改的菜单
+	 *            闇�瑕佷慨鏀圭殑鑿滃崟
 	 * @param delMenuList
-	 *            需要删除的菜单
+	 *            闇�瑕佸垹闄ょ殑鑿滃崟
 	 */
 	public void getSynchroMenuInfo(List<MenuAllInfoEO> addMenuList,
 			List<MenuAllInfoEO> updateMenuList, List<MenuAllInfoEO> delMenuList) {
-		List<Module> menuList = ideOperUtil.getIDEModuleList();
+/*		List<Module> menuList = ideOperUtil.getIDEModuleList();
 		reModules(menuList, addMenuList, updateMenuList, "0");
 		Set<String> set = new HashSet<String>();
 		for (MenuAllInfoEO menuAllInfoEO : addMenuList) {
@@ -248,10 +248,10 @@ public class SynchroSysMgtUtil {
 					delMenuList.add(menuAllInfoEO);
 				}
 			}
-		}
+		}*/
 	}
 
-	private void reModules(List<Module> moduleList,
+/*	private void reModules(List<Module> moduleList,
 			List<MenuAllInfoEO> addMenuList,
 			List<MenuAllInfoEO> updateMenuList, String parentId) {
 		if (null != moduleList && !moduleList.isEmpty()) {
@@ -278,7 +278,7 @@ public class SynchroSysMgtUtil {
 							updateMenuList.add(menuAllInfoEO);
 						} else {
 							throw new SysException(String.format(
-									"菜单【%s(%s)】在数据库中不存在！", module.getName(),
+									"鑿滃崟銆�%s(%s)銆戝湪鏁版嵁搴撲腑涓嶅瓨鍦紒", module.getName(),
 									module.getRes()));
 						}
 
@@ -301,7 +301,7 @@ public class SynchroSysMgtUtil {
 						addMenuList.add(menuAllInfoEO);
 					}
 				} else {
-					throw new SysException("菜单ID为空！");
+					throw new SysException("鑿滃崟ID涓虹┖锛�");
 				}
 				reItems(module.getItem(), addMenuList, updateMenuList, parentId);
 				reModules(module.getModule(), addMenuList, updateMenuList,
@@ -334,7 +334,7 @@ public class SynchroSysMgtUtil {
 							updateMenuList.add(menuAllInfoEO);
 						} else {
 							throw new SysException(String.format(
-									"菜单【%s(%s)】在数据库中不存在！", menu.getName(),
+									"鑿滃崟銆�%s(%s)銆戝湪鏁版嵁搴撲腑涓嶅瓨鍦紒", menu.getName(),
 									menu.getRes()));
 						}
 					} else {
@@ -356,19 +356,19 @@ public class SynchroSysMgtUtil {
 						addMenuList.add(menuAllInfoEO);
 					}
 				} else {
-					throw new SysException("菜单ID为空！");
+					throw new SysException("鑿滃崟ID涓虹┖锛�");
 				}
 			}
 		}
-	}
+	}*/
 
 	/**
-	 * 将菜单数据对象转换成权限数据库访问对象
+	 * 灏嗚彍鍗曟暟鎹璞¤浆鎹㈡垚鏉冮檺鏁版嵁搴撹闂璞�
 	 * 
 	 * @param menuAllInfoEO
-	 *            菜单数据对象
+	 *            鑿滃崟鏁版嵁瀵硅薄
 	 * @param privilegeEO
-	 *            权限数据库访问对象
+	 *            鏉冮檺鏁版嵁搴撹闂璞�
 	 */
 	private void copyMenuToPrivilege(MenuAllInfoEO menuAllInfoEO,
 			PrivilegeEO privilegeEO) {
