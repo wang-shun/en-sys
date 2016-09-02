@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.chinacreator.asp.comp.sys.basic.privilege.service.PrivilegeService;
 import com.chinacreator.asp.comp.sys.common.BeanCopierUtil;
 import com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO;
@@ -13,20 +16,26 @@ import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.web.ds.TreeContentProvider;
 import com.chinacreator.c2.web.ds.TreeContext;
 import com.chinacreator.c2.web.ds.TreeNode;
-
+@Service("restreecontent")
 public class ResTreeContentProviderImpl implements TreeContentProvider {
 
-	private PrivilegeService privilegeService = ApplicationContextManager
-			.getContext().getBean(PrivilegeService.class);
-
-	private JobFacade jobFacade = ApplicationContextManager.getContext()
-			.getBean(JobFacade.class);
-
-	private AccessControlService accessControlService = ApplicationContextManager
-			.getContext().getBean(AccessControlService.class);
+//	private PrivilegeService privilegeService = ApplicationContextManager
+//			.getContext().getBean(PrivilegeService.class);
+//
+//	private JobFacade jobFacade = ApplicationContextManager.getContext()
+//			.getBean(JobFacade.class);
+//
+//	private AccessControlService accessControlService = ApplicationContextManager
+//			.getContext().getBean(AccessControlService.class);
 
 	private static TreeNode[] resourceTreeNode;
-
+	@Autowired
+	private PrivilegeService privilegeService;
+	@Autowired
+	private JobFacade jobFacade;
+	@Autowired
+	private AccessControlService accessControlService;
+	
 	@Override
 	public TreeNode[] getElements(TreeContext context) {
 		List<TreeNode> list = new ArrayList<TreeNode>();
@@ -91,7 +100,7 @@ public class ResTreeContentProviderImpl implements TreeContentProvider {
 									.getPrivilegeId());
 							menuTreeNode.setNoteTitle(getTitle(
 									privilegeDTO.getPrivilegeName(), "menu"));
-							menuTreeNode.setIcon("ext/resTreeIcons/menu.png");
+//							menuTreeNode.setIcon("ext/resTreeIcons/menu.png");
 							if (null != jobId && !jobId.trim().equals("")) {
 								if (jobId.equals(jobFacade
 										.getAdministratorJobId())) {

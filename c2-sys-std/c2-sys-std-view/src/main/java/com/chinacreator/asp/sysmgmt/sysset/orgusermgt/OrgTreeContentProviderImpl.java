@@ -4,19 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.chinacreator.asp.comp.sys.advanced.org.service.OrgService;
 import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
 import com.chinacreator.asp.sysmgmt.common.CommonTreeNode;
 import com.chinacreator.asp.sysmgmt.sysset.jobmenumgt.JobMenuMgtMessages;
-import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.web.ds.TreeContentProvider;
 import com.chinacreator.c2.web.ds.TreeContext;
 import com.chinacreator.c2.web.ds.TreeNode;
-
+@Service("orgtreenojob")
 public class OrgTreeContentProviderImpl implements TreeContentProvider {
-
-	private OrgService orgService = ApplicationContextManager.getContext()
-			.getBean(OrgService.class);
+	@Autowired
+	private OrgService orgService;
 
 	@Override
 	public TreeNode[] getElements(TreeContext context) {
