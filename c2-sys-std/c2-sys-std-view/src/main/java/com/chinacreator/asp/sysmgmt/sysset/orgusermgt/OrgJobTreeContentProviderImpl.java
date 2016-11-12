@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.chinacreator.asp.comp.sys.advanced.job.dto.JobDTO;
 import com.chinacreator.asp.comp.sys.advanced.job.service.JobService;
 import com.chinacreator.asp.comp.sys.advanced.org.service.OrgService;
@@ -14,25 +17,32 @@ import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
 import com.chinacreator.asp.comp.sys.std.job.facade.JobFacade;
 import com.chinacreator.asp.sysmgmt.common.CommonTreeNode;
 import com.chinacreator.asp.sysmgmt.sysset.jobmenumgt.JobMenuMgtMessages;
-import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.web.ds.TreeContentProvider;
 import com.chinacreator.c2.web.ds.TreeContext;
 import com.chinacreator.c2.web.ds.TreeNode;
-
+@Service("orgjobtree")
 public class OrgJobTreeContentProviderImpl implements TreeContentProvider {
 
-	private OrgService orgService = ApplicationContextManager.getContext()
-			.getBean(OrgService.class);
-
-	private JobService jobService = ApplicationContextManager.getContext()
-			.getBean(JobService.class);
-
-	private UserService userService = ApplicationContextManager.getContext()
-			.getBean(UserService.class);
-
-	private JobFacade jobFacade = ApplicationContextManager.getContext()
-			.getBean(JobFacade.class);
-
+//	private OrgService orgService = ApplicationContextManager.getContext()
+//			.getBean(OrgService.class);
+//
+//	private JobService jobService = ApplicationContextManager.getContext()
+//			.getBean(JobService.class);
+//
+//	private UserService userService = ApplicationContextManager.getContext()
+//			.getBean(UserService.class);
+//
+//	private JobFacade jobFacade = ApplicationContextManager.getContext()
+//			.getBean(JobFacade.class);
+	@Autowired
+	private OrgService orgService;
+	@Autowired
+	private JobService jobService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private JobFacade jobFacade;
+	
 	@Override
 	public TreeNode[] getElements(TreeContext context) {
 		List<CommonTreeNode> list = new ArrayList<CommonTreeNode>();

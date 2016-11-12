@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.chinacreator.asp.comp.sys.advanced.user.service.UserService;
 import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
@@ -14,14 +16,15 @@ import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.asp.sysmgmt.mypanel.MyPanelMessages;
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
-import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
-
+@Service("orgusercontent")
 public class UserDataArrayContentProviderImpl implements ArrayContentProvider {
 
-	private UserService userService = ApplicationContextManager.getContext()
-			.getBean(UserService.class);
+//	private UserService userService = ApplicationContextManager.getContext()
+//			.getBean(UserService.class);
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public Page<UserDTO> getElements(ArrayContext context) {

@@ -4,19 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.chinacreator.asp.comp.sys.basic.dict.dto.DictTypeDTO;
 import com.chinacreator.asp.comp.sys.basic.dict.service.DictTypeService;
 import com.chinacreator.asp.sysmgmt.common.CommonTreeNode;
-import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.web.ds.TreeContentProvider;
 import com.chinacreator.c2.web.ds.TreeContext;
 import com.chinacreator.c2.web.ds.TreeNode;
 
+@Service("dictdatatypes")
 public class DictTypeTreeContentProviderImpl implements TreeContentProvider {
 
-	private DictTypeService dictTypeService = ApplicationContextManager
-			.getContext().getBean(DictTypeService.class);
-
+//	private DictTypeService dictTypeService = ApplicationContextManager
+//			.getContext().getBean(DictTypeService.class);
+	@Autowired
+	private DictTypeService dictTypeService;
 	@Override
 	public TreeNode[] getElements(TreeContext context) {
 		List<CommonTreeNode> list = new ArrayList<CommonTreeNode>();

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.chinacreator.asp.comp.sys.advanced.job.dto.JobDTO;
 import com.chinacreator.asp.comp.sys.advanced.job.service.JobService;
@@ -13,11 +15,11 @@ import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
-
+@Service("jobdatacontent")
 public class JobDataArrayContentProviderImpl implements ArrayContentProvider {
-
-	private JobService jobService = ApplicationContextManager.getContext()
-			.getBean(JobService.class);
+	
+	@Autowired
+	private JobService jobService;
 
 	@Override
 	public Page<JobDTO> getElements(ArrayContext context) {

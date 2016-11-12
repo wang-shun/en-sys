@@ -5,19 +5,22 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.chinacreator.asp.comp.sys.basic.dict.dto.DictDataDTO;
 import com.chinacreator.asp.comp.sys.basic.dict.service.DictDataService;
 import com.chinacreator.c2.dao.mybatis.enhance.Page;
 import com.chinacreator.c2.dao.mybatis.enhance.Pageable;
-import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
-
+@Service("dictdatacontents")
 public class DictDataArrayContentProviderImpl implements ArrayContentProvider {
 
-	private DictDataService dictDataService = ApplicationContextManager
-			.getContext().getBean(DictDataService.class);
+//	private DictDataService dictDataService = ApplicationContextManager
+//			.getContext().getBean(DictDataService.class);
+	@Autowired
+	private DictDataService dictDataService;
 	
 	@Override
 	public Page<DictDataDTO> getElements(ArrayContext context) {

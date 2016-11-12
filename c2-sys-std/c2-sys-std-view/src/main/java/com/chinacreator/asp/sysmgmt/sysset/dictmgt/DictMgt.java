@@ -4,8 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.chinacreator.asp.comp.sys.basic.DictMessages;
 import com.chinacreator.asp.comp.sys.basic.dict.dto.DictDataDTO;
@@ -14,7 +19,7 @@ import com.chinacreator.asp.comp.sys.basic.dict.service.DictDataService;
 import com.chinacreator.asp.comp.sys.basic.dict.service.DictTypeService;
 import com.chinacreator.asp.comp.sys.common.CommonConstants;
 
-@Component
+@RestController
 public class DictMgt {
 
 	@Autowired
@@ -31,14 +36,87 @@ public class DictMgt {
 	 *            字典类型ID
 	 * @return 字典类型对象
 	 */
-	public DictTypeDTO getDictTypeByPK(String dictTypeId) {
+	@RequestMapping(value = "dicttype/{dictTypeId}",method=RequestMethod.GET)
+	public DictTypeDTO getDictTypeByPK(@PathVariable() String dictTypeId) {
 		DictTypeDTO dictTypeDTO = new DictTypeDTO();
 		if (null != dictTypeId && !dictTypeId.trim().equals("")) {
 			dictTypeDTO = dictTypeService.queryByPK(dictTypeId);
 		}
 		return dictTypeDTO;
 	}
-
+	
+	@RequestMapping(value = "dicttype",method=RequestMethod.POST)
+	public boolean createDictType(@RequestBody() DictTypeDTO dictTypeDTO){
+		boolean suceess = true;
+		try{
+			dictTypeService.create(dictTypeDTO);			
+		}catch(Exception e){
+			e.printStackTrace();
+			suceess = false;
+		}
+		return suceess;
+	}
+	
+	@RequestMapping(value = "dicttype",method=RequestMethod.PUT)
+	public boolean updateDictType(@RequestBody() DictTypeDTO dictTypeDTO){
+		boolean suceess = true;
+		try{
+			dictTypeService.update(dictTypeDTO);			
+		}catch(Exception e){
+			e.printStackTrace();
+			suceess = false;
+		}
+		return suceess;
+	}	
+	
+	@RequestMapping(value = "dicttype/delete",method=RequestMethod.POST)
+	public boolean deleteDictTypeByIds(@RequestBody() String[] ids){
+		boolean suceess = true;
+		try{
+			dictTypeService.deleteByPKs(ids);	
+		}catch(Exception e){
+			e.printStackTrace();
+			suceess = false;
+		}
+		return suceess;
+	}	
+	
+	@RequestMapping(value = "dictdata",method=RequestMethod.POST)
+	public boolean createDictdata(@RequestBody() DictDataDTO dictDataDTO){
+		boolean suceess = true;
+		try{
+			dictDataService.create(dictDataDTO);	
+		}catch(Exception e){
+			e.printStackTrace();
+			suceess = false;
+		}
+		return suceess;		
+	}
+	
+	@RequestMapping(value = "dictdata",method=RequestMethod.PUT)
+	public boolean updateDictdata(@RequestBody() DictDataDTO dictDataDTO){
+		boolean suceess = true;
+		try{
+			dictDataService.update(dictDataDTO);	
+		}catch(Exception e){
+			e.printStackTrace();
+			suceess = false;
+		}
+		return suceess;		
+	}	
+	
+	@RequestMapping(value = "dictdata/delete",method=RequestMethod.POST)
+	public boolean deleteDictdataByPks(@RequestBody() String[] ids){
+		boolean suceess = true;
+		try{
+			dictDataService.deleteByPKs(ids);	
+		}catch(Exception e){
+			e.printStackTrace();
+			suceess = false;
+		}
+		return suceess;		
+	}	
+	
 	/**
 	 * 查询字典数据
 	 * 
@@ -48,7 +126,8 @@ public class DictMgt {
 	 *            字典数据ID
 	 * @return 字典数据对象
 	 */
-	public DictDataDTO getDictDataByPK(String dictTypeId, String dictDataId) {
+	@RequestMapping(value = "dictdata/{dictDataId}",method=RequestMethod.GET)
+	public DictDataDTO getDictDataByPK(@RequestParam() String dictTypeId, @PathVariable() String dictDataId) {
 		DictDataDTO dictDataDTO = new DictDataDTO();
 		if (null != dictDataId && !dictDataId.trim().equals("")) {
 			dictDataDTO = dictDataService.queryByPK(dictDataId);
@@ -71,6 +150,7 @@ public class DictMgt {
 	 *            排序后的字典数据ID数组
 	 */
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
+	@RequestMapping(value = "dictdata/sort",method=RequestMethod.POST)
 	public void sortDict(int rowNum, int page, String... ids) {
 		if (null != ids && ids.length > 0) {
 			for (int i = 0; i < ids.length; i++) {
@@ -81,9 +161,10 @@ public class DictMgt {
 			}
 		}
 	}
-
-	public Map<String, String> validateFormByDictType(String elementId,
-			String elementValue, String formType, String dictTypeId) {
+	
+	@RequestMapping(value = "dicttype/validate",method=RequestMethod.GET)
+	public Map<String, String> validateFormByDictType(@RequestParam() String elementId,
+			@RequestParam() String elementValue, @RequestParam() String formType, @RequestParam() String dictTypeId) {
 		Map<String, String> map = new HashMap<String, String>();
 		String validate = "success";
 		String errmess = "";
@@ -115,9 +196,10 @@ public class DictMgt {
 		map.put("errmess", errmess);
 		return map;
 	}
-
-	public Map<String, String> validateFormByDictData(String elementId,
-			String elementValue, String formType, DictDataDTO dictDataDTO) {
+	
+	@RequestMapping(value = "dictdata/validate",method=RequestMethod.POST)
+	public Map<String, String> validateFormByDictData(@RequestParam() String elementId,
+			@RequestParam() String elementValue, @RequestParam() String formType, @RequestBody() DictDataDTO dictDataDTO) {
 		Map<String, String> map = new HashMap<String, String>();
 		String validate = "success";
 		String errmess = "";
