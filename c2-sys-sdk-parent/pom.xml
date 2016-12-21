@@ -7,6 +7,8 @@
 	<modules>
 		<module>c2-sys-sdk</module>
 		<module>c2-sys-sdk-impl</module>
+		<module>c2-sys-sdk-server</module>
+		<module>c2-sys-sdk-client</module>
 		<module>c2-sys-sdk-test</module>
 	</modules>
 	<parent>
