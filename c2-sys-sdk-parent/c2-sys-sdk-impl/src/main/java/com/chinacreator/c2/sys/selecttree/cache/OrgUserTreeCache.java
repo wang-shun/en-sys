@@ -117,7 +117,7 @@ public class OrgUserTreeCache {
 	 * 
 	 * @return 机构树型数据缓存
 	 */
-	public static GenericTree<OrgUserTreeNode> getOrgTree() {
+	public GenericTree<OrgUserTreeNode> getOrgTree() {
 		return orgTree;
 	}
 
@@ -126,7 +126,7 @@ public class OrgUserTreeCache {
 	 * 
 	 * @return 机构用户树型数据缓存
 	 */
-	public static GenericTree<OrgUserTreeNode> getOrgUserTree() {
+	public GenericTree<OrgUserTreeNode> getOrgUserTree() {
 		return orgUserTree;
 	}
 

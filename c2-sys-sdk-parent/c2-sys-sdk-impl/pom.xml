@@ -1,13 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.chinacreator.c2</groupId>
-    <artifactId>c2-sys-sdk-parent</artifactId>
-    <version>4.3.0-SNAPSHOT</version>
-  </parent>
-  <artifactId>c2-sys-sdk-impl</artifactId>
-  <dependencies>
-  <dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.chinacreator.c2</groupId>
+		<artifactId>c2-sys-sdk-parent</artifactId>
+		<version>5.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>c2-sys-sdk-impl</artifactId>
+	<dependencies>
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-runtime</artifactId>
+			<version>5.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-module-generic-tree</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
@@ -19,47 +25,27 @@
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-advanced-serviceapi</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-advanced-spi</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-full-facadeapi</artifactId>
-			<version>${project.version}</version>
+			<artifactId>c2-sys-advanced-service</artifactId>
+			<version>4.3.0-BETA2</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sys-full-spi</artifactId>
-			<version>${project.version}</version>
+			<version>4.3.0-BETA2</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-common</artifactId>
-			<version>${project.version}</version>
+			<artifactId>c2-sys-full-facadeapi</artifactId>
+			<version>4.3.0-BETA2</version>
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-module-rest-docs</artifactId>
 			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		  <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch</artifactId>
-            <version>2.3.5</version>
-        </dependency>
-		
-  </dependencies>
+	</dependencies>
 </project>
