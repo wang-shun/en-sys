@@ -20,7 +20,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sso-client</artifactId>
+			<artifactId>c2-sso-common</artifactId>
 			<version>1.1.1</version>
 		</dependency>
 		<dependency>
