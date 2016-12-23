@@ -19,11 +19,6 @@ public class UserSeviceImpl implements UserService {
 	private RemoteServerConfig config;
 	
 	@Override
-	public User current() {
-		return null;
-	}
-
-	@Override
 	public User get(String id) {
 		RestTemplate restTemplate = RestUtils.createRestTemplate();
 		try{

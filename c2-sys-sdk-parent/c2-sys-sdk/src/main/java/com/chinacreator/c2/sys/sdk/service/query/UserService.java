@@ -14,13 +14,6 @@ import com.chinacreator.c2.sysmgr.User;
  * @author 彭盛
  */
 public interface UserService {
-	
-	/**
-     * 获取当前用户
-     *
-     * @return 用户
-     */
-    public User current();
 	/**
      * 获取用户详情
      *

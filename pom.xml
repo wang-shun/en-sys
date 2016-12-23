@@ -30,7 +30,6 @@
 		<module>c2-sys-sdk-parent</module>
 		<module>c2-sys-service-parent</module>
 		<module>c2-sys-spi</module>
-		<module>c2-sysmgr-api-impl</module>
 		<module>c2-sysmgr-data-util</module>
 		<module>c2-sys-ui</module>
 		<module>c2-sys-test</module>

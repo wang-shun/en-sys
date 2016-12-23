@@ -10,6 +10,7 @@ import com.chinacreator.asp.comp.sys.advanced.org.service.OrgService;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sys.sdk.service.query.UserService;
+import com.chinacreator.c2.sys.sdk.util.UserPropertyInjector;
 import com.chinacreator.c2.sysmgr.User;
 
 @Service("sdkUserService")
@@ -22,18 +23,12 @@ public class UserServiceImpl implements UserService {
     private OrgService orgService;
     
 	@Override
-	public User current() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
 	public User get(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return UserPropertyInjector.inject(userService.queryByPK(id));
 	}
+	
 	@Override
 	public List<User> queryMulti(String... ids) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override

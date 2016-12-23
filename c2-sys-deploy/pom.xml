@@ -26,7 +26,7 @@
 	</dependency>
   	<dependency>
   		<groupId>com.chinacreator.c2</groupId>
-  		<artifactId>c2-sysmgr-api-impl</artifactId>
+  		<artifactId>c2-sys-sdk-impl</artifactId>
   		<version>${project.version}</version>
   	</dependency>
   	<dependency>
