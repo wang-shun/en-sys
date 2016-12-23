@@ -148,8 +148,8 @@ public class SysMgrAuthenticationProviderImpl implements AuthenticationProvider 
 	 * @return
 	 */
 	private boolean isValidProperty(String propertyKey) {
-		if (StringUtils.equals(propertyKey, User.KEYS.ID)
-				|| StringUtils.equals(propertyKey, User.KEYS.USER_NAME)) {
+		if (StringUtils.equals(propertyKey, User.KEY_ID)
+				|| StringUtils.equals(propertyKey, User.KEY_USER_NAME)) {
 			return false;
 		}
 		return true;
