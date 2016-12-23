@@ -78,7 +78,10 @@ public class OrgRoleTreeContentProviderImpl implements TreeContentProvider {
 					node.setPid(roleTypeId);
 					node.setHiddenName("role");
 					node.setParent(false);
-					if (null != orgId) {
+					if (!role.getRoleUsage()) {
+						node.setChecked(false);
+						node.setChkDisabled(true);
+					} else if (null != orgId) {
 						node.setChecked(roleService.isAssignedToOrg(role.getRoleId(), orgId));
 					}
 

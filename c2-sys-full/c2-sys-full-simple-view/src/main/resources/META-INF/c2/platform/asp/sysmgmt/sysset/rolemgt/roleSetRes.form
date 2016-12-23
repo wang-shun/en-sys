@@ -158,20 +158,20 @@
               <dync:render/>
               <dync:children/>
             </dync:attribute>
-            <dync:attribute default="{ &quot;Y&quot;: &quot;ps&quot;, &quot;N&quot;: &quot;ps&quot; }" group="勾选设置" id="chkboxType" name="父子节点关联" value="{ &quot;Y&quot;: &quot;p&quot;, &quot;N&quot;: &quot;s&quot; }">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
             <dync:attribute default="false" group="勾选设置" id="autoCheckTrigger" name="关联触发" value="true">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
-            <dync:attribute default="" group="数据设置" id="otherParam" name="初始化参数" value="{roleIds:$params.roleIds}">
+            <dync:attribute default="" group="数据设置" id="otherParam" name="初始化参数" value="{roleIds:$params.roleIds,isLoad:true}">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="事件设置" id="nodeCheck" name="勾选" value="resTree_nodeCheck(event,treeId,treeNode)">
               <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="name" group="显示设置" id="nodeTitle" name="悬停提示属性" value="noteTitle">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -183,6 +183,23 @@
     <form:control type="container/toolbar_modal_footer">
       <form:attributes source="container/toolbar_modal_footer"/>
     </form:control>
+    <form:child xsi:type="form:Field" id="button" name="{{$model.isAdvanced?&quot;普通设置&quot;:&quot;高级设置&quot;}}" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-eye">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="button_click($event)">
+            <dync:render colSpan="1" height="0" multi="false" name="event">
+              <dync:item name="params" value="$event"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
     <form:child xsi:type="form:Field" id="newField3" name="保存" res="z66LSnAgRXSvKdD7awsUCg" customize="true">
       <form:control type="widget/button">
         <form:attributes source="widget/button">
@@ -259,7 +276,8 @@
   </form:datasources>
   <form:scripts>// 页面加载完成事件&#xD;
 page_onload:function(){&#xD;
-	$model.hr = &quot;&lt;hr/>&quot;;	&#xD;
+	$model.hr = &quot;&lt;hr/>&quot;;&#xD;
+	$model.isAdvanced = false;	&#xD;
 },&#xD;
 // 保存&#xD;
 save:function(){&#xD;
@@ -311,6 +329,7 @@ save:function(){&#xD;
 		});&#xD;
 		return;&#xD;
     }&#xD;
+    &#xD;
     var _this = this;&#xD;
 	$http.post(&quot;ws/roleSetRes&quot;,{&quot;roleIds&quot;:roleIds,&quot;presetId&quot;:presetId,&quot;addResIds&quot;:addResIds,&quot;delResIds&quot;:delResIds})&#xD;
 			.success(function(data, status, headers, config){&#xD;
@@ -352,10 +371,11 @@ reset:function(){	&#xD;
 	$model.resTreeNodeChecded = {};&#xD;
 	var presetId = $model.presetId;&#xD;
 	if(angular.isUndefined(presetId) || presetId==&quot;&quot;){&#xD;
-		$view.resTree.refresh2({&quot;roleIds&quot;:$params.roleIds},true,false,false);&#xD;
+		presetId = &quot;&quot;;	&#xD;
 	}else{&#xD;
 		$model.presetId = &quot;&quot;;&#xD;
 	}&#xD;
+	$view.resTree.refresh2({&quot;roleIds&quot;:$params.roleIds,&quot;presetId&quot;:presetId,&quot;isAdvanced&quot;:$model.isAdvanced,&quot;isLoad&quot;:&quot;true&quot;},true,false,false);&#xD;
 },&#xD;
 // 关闭&#xD;
 closeModal:function(){	&#xD;
@@ -368,14 +388,16 @@ resTree_nodeCheck:function(event,treeId,treeNode){&#xD;
 	if(angular.isUndefined(resTreeNodeChecded)){&#xD;
 		resTreeNodeChecded = {};&#xD;
 	}&#xD;
-	var resId = treeNode.privilegeId;&#xD;
-	var resName = treeNode.name;&#xD;
-	var resChecked = treeNode.checked;&#xD;
-	&#xD;
-	if(treeNode.checkedOld==treeNode.checked){&#xD;
-		delete resTreeNodeChecded[resId];&#xD;
-	}else{		&#xD;
-		resTreeNodeChecded[resId] = {&quot;id&quot;:resId,&quot;name&quot;:resName,&quot;resChecked&quot;:resChecked};&#xD;
+	if(!treeNode.virtual){&#xD;
+		var resId = treeNode.privilegeId;&#xD;
+		var resName = treeNode.name;&#xD;
+		var resChecked = treeNode.checked;&#xD;
+		&#xD;
+		if(treeNode.checkedOld==treeNode.checked){&#xD;
+			delete resTreeNodeChecded[resId];&#xD;
+		}else{		&#xD;
+			resTreeNodeChecded[resId] = {&quot;id&quot;:resId,&quot;name&quot;:resName,&quot;resChecked&quot;:resChecked};&#xD;
+		}&#xD;
 	}&#xD;
 	$model.resTreeNodeChecded = resTreeNodeChecded;&#xD;
 },&#xD;
@@ -383,5 +405,15 @@ resTree_nodeCheck:function(event,treeId,treeNode){&#xD;
 preset_Field_change:function(newValue,oldValue){&#xD;
 	$model.resTreeNodeChecded = {};&#xD;
 	$view.resTree.refresh2({&quot;roleIds&quot;:$params.roleIds,&quot;presetId&quot;:newValue},true,false,false);&#xD;
+},
+// 高级设置
+button_click:function($event){
+	$model.isAdvanced = !$model.isAdvanced;&#xD;
+	$model.resTreeNodeChecded = {};&#xD;
+	var presetId = $model.presetId;&#xD;
+	if(angular.isUndefined(presetId)){&#xD;
+		presetId = &quot;&quot;;&#xD;
+	}&#xD;
+	$view.resTree.refresh2({&quot;roleIds&quot;:$params.roleIds,&quot;presetId&quot;:presetId,&quot;isAdvanced&quot;:$model.isAdvanced,&quot;isLoad&quot;:&quot;true&quot;},true,false,false);
 }</form:scripts>
 </form:Form>

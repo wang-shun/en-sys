@@ -1,4 +1,4 @@
--- 系统管理V4.2.3完整精简版建库及初始化脚本_postgresql
+-- 系统管理V4.3.0完整精简版建库及初始化脚本_postgresql
 -- 建库脚本_postgresql -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 drop table tb_application_info;
 
@@ -292,6 +292,7 @@ create table tb_sm_privilege (
    creator_time         timestamp            null default current_timestamp,
    sn                   numeric              null,
    source               char(1)              not null default '0',
+   virtual              char(1)              not null default '0',
    constraint pk_tb_resource_type primary key (id)
 );
 
@@ -328,9 +329,13 @@ comment on column tb_sm_privilege.sn is
 comment on column tb_sm_privilege.source is
 '权限来源（0：自定义，1：IDE）';
 
-create table tb_sm_privilege_insiderelate (
-   id                   varchar(50)          not null,
-   relate_id            varchar(50)          not null
+comment on column tb_sm_privilege.virtual is
+'是否虚拟节点（0：否，1：是）';
+
+create table tb_sm_privilege_insiderelate  (
+   id			varchar(50)		not null,
+   relate_id	varchar(50)		not null,
+   sn			numeric			null
 );
 
 comment on table tb_sm_privilege_insiderelate is
@@ -340,7 +345,10 @@ comment on column tb_sm_privilege_insiderelate.id is
 '权限ID';
 
 comment on column tb_sm_privilege_insiderelate.relate_id is
-'关联ID';
+'关联ID(父ID)';
+
+comment on column tb_sm_privilege_insiderelate.sn is
+'排序号';
 
 create table tb_sm_query (
    id                   varchar(50)          not null,
@@ -908,6 +916,7 @@ create table td_sm_log (
    log_content          text                 null,
    oper_type            numeric(1)           null,
    log_status           numeric(1)           null,
+   target_pk            varchar(200)         null,
    remark1              varchar(100)         null,
    remark2              varchar(100)         null,
    remark3              varchar(100)         null,
@@ -942,6 +951,9 @@ comment on column td_sm_log.oper_type is
 
 comment on column td_sm_log.log_status is
 '日志状态（1：成功，0：失败）';
+
+comment on column td_sm_log.target_pk is 
+'目标主键';
 
 comment on column td_sm_log.remark1 is
 '备注1';
@@ -994,6 +1006,7 @@ create table td_sm_log_his (
    log_content          text                 null,
    oper_type            numeric(1)           null,
    log_status           numeric(1)           null,
+   target_pk            varchar(200)         null,
    remark1              varchar(100)         null,
    remark2              varchar(100)         null,
    remark3              varchar(100)         null,
@@ -1028,6 +1041,9 @@ comment on column td_sm_log_his.oper_type is
 
 comment on column td_sm_log_his.log_status is
 '日志状态（1：成功，0：失败）';
+
+comment on column td_sm_log_his.target_pk is 
+'目标主键';
 
 comment on column td_sm_log_his.remark1 is
 '备注1';

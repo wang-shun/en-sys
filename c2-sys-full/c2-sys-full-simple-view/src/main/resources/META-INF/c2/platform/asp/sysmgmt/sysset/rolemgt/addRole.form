@@ -228,16 +228,20 @@
               <dync:render/>
               <dync:children/>
             </dync:attribute>
-            <dync:attribute default="{ &quot;Y&quot;: &quot;ps&quot;, &quot;N&quot;: &quot;ps&quot; }" group="勾选设置" id="chkboxType" name="父子节点关联" value="{ &quot;Y&quot;: &quot;p&quot;, &quot;N&quot;: &quot;s&quot; }">
-              <dync:render/>
-              <dync:children/>
-            </dync:attribute>
             <dync:attribute default="false" group="勾选设置" id="autoCheckTrigger" name="关联触发" value="true">
               <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="事件设置" id="nodeCheck" name="勾选" value="resTree_nodeCheck(event,treeId,treeNode)">
               <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="name" group="显示设置" id="nodeTitle" name="悬停提示属性" value="noteTitle">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="数据设置" id="otherParam" name="初始化参数" value="{isLoad:true}">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -249,6 +253,23 @@
     <form:control type="container/toolbar_modal_footer">
       <form:attributes source="container/toolbar_modal_footer"/>
     </form:control>
+    <form:child xsi:type="form:Field" id="button" name="{{$model.isAdvanced?&quot;普通设置&quot;:&quot;高级设置&quot;}}" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-eye">
+            <dync:render colSpan="1" height="0" multi="false" name="selectIcon"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="button_click($event)">
+            <dync:render colSpan="1" height="0" multi="false" name="event">
+              <dync:item name="params" value="$event"/>
+            </dync:render>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
     <form:child xsi:type="form:Field" id="newField3" name="保存" res="piBiZ3S6SASfWg9v9gYKCA" customize="true">
       <form:control type="widget/button">
         <form:attributes source="widget/button">
@@ -301,7 +322,7 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="role" name="角色" logic="rule:asp.sysmgmt.sysset.rolemgt.getRoleByPK" sn="getRoleByPK">
+    <form:datasource xsi:type="form:LogicDataSource" id="role" name="角色" sn="getRoleByPK" logic="rule:asp.sysmgmt.sysset.rolemgt.getRoleByPK">
       <form:param id="roleId" name="新输入参数"/>
     </form:datasource>
     <form:datasource xsi:type="form:TreeDataSource" id="roleTypeTree" name="角色类型树型数据源" impl="com.chinacreator.asp.sysmgmt.sysset.rolemgt.RoleTypeTreeContentProviderImpl" type="custom"/>
@@ -363,11 +384,11 @@ reset:function(){
 	$model.resTreeNodeChecded = {};
 	var presetId = $model.presetId;
 	if(angular.isUndefined(presetId) || presetId==&quot;&quot;){
-		$view.resTree.refresh2({&quot;roleIds&quot;:$params.roleIds},true,false,false);
+		presetId = &quot;&quot;;	
 	}else{
 		$model.presetId = &quot;&quot;;
 	}
-	
+	//$view.resTree.refresh2({&quot;presetId&quot;:presetId,&quot;isAdvanced&quot;:$model.isAdvanced,&quot;isLoad&quot;:&quot;true&quot;},true,false,false);
 },
 // 关闭
 closeModal:function(){
@@ -414,6 +435,7 @@ validateForm:function(){
 
 page_onload:function(){
 	$model.hr = &quot;&lt;hr/>&quot;;
+	$model.isAdvanced = false;	
 },
 
 newField_beforeClick:function(treeId,treeNode,clickFlag){
@@ -434,14 +456,16 @@ resTree_nodeCheck:function(event,treeId,treeNode){
 	if(angular.isUndefined(resTreeNodeChecded)){
 		resTreeNodeChecded = {};
 	}
-	var resId = treeNode.privilegeId;
-	var resName = treeNode.name;
-	var resChecked = treeNode.checked;
-	
-	if(treeNode.checkedOld==treeNode.checked){
-		delete resTreeNodeChecded[resId];
-	}else{		
-		resTreeNodeChecded[resId] = {&quot;id&quot;:resId,&quot;name&quot;:resName,&quot;resChecked&quot;:resChecked};
+	if(!treeNode.virtual){
+		var resId = treeNode.privilegeId;
+		var resName = treeNode.name;
+		var resChecked = treeNode.checked;
+		
+		if(treeNode.checkedOld==treeNode.checked){
+			delete resTreeNodeChecded[resId];
+		}else{		
+			resTreeNodeChecded[resId] = {&quot;id&quot;:resId,&quot;name&quot;:resName,&quot;resChecked&quot;:resChecked};
+		}
 	}
 	$model.resTreeNodeChecded = resTreeNodeChecded;
 },
@@ -458,5 +482,15 @@ page_beforeDataSourceLoad:function(){
 	if(!angular.isUndefined(roleType) &amp;&amp; roleType!=&quot;&quot;  &amp;&amp; roleType!=&quot;0&quot;){
 		$model.roleType = roleType;
 	}
+},
+
+button_click:function($event){
+	$model.isAdvanced = !$model.isAdvanced;
+	$model.resTreeNodeChecded = {};
+	var presetId = $model.presetId;
+	if(angular.isUndefined(presetId)){
+		presetId = &quot;&quot;;
+	}
+	$view.resTree.refresh2({&quot;presetId&quot;:presetId,&quot;isAdvanced&quot;:$model.isAdvanced,&quot;isLoad&quot;:&quot;true&quot;},true,false,false);
 }</form:scripts>
 </form:Form>

@@ -1,4 +1,4 @@
--- 系统管理V4.2.1完整精简版建库及初始化脚本_sqlsqlserver
+-- 系统管理V4.3.0完整精简版建库及初始化脚本_sqlsqlserver
 -- 建库脚本_sqlsqlserver -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
@@ -229,6 +229,13 @@ if exists (select 1
            where  id = object_id('tb_sm_privilege')
             and   type = 'U')
    drop table tb_sm_privilege
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('tb_sm_privilege_insiderelate')
+            and   type = 'U')
+   drop table tb_sm_privilege_insiderelate
 go
 
 if exists (select 1
@@ -896,6 +903,7 @@ create table tb_sm_privilege (
    creator_time         datetime             null default current_timestamp,
    sn                   numeric              null,
    source               char(1)              not null default '0',
+   virtual              char(1)              not null default '0',
    constraint pk_tb_resource_type primary key nonclustered (id)
 )
 go
@@ -975,6 +983,48 @@ select @currentuser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '权限来源（0：自定义，1：IDE）',
    'user', @currentuser, 'table', 'tb_sm_privilege', 'column', 'source'
+go
+
+declare @currentuser sysname
+select @currentuser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '是否虚拟节点（0：否，1：是）',
+   'user', @currentuser, 'table', 'tb_sm_privilege', 'column', 'virtual'
+go
+
+create table tb_sm_privilege_insiderelate  (
+   id			varchar(50)		not null,
+   relate_id	varchar(50)		not null,
+   sn			numeric			null
+)
+go
+
+declare @currentuser sysname
+select @currentuser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '权限内部关联表',
+   'user', @currentuser, 'table', 'tb_sm_privilege_insiderelate'
+go
+
+declare @currentuser sysname
+select @currentuser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '权限ID',
+   'user', @currentuser, 'table', 'tb_sm_privilege_insiderelate', 'column', 'id'
+go
+
+declare @currentuser sysname
+select @currentuser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '关联ID(父ID)',
+   'user', @currentuser, 'table', 'tb_sm_privilege_insiderelate', 'column', 'relate_id'
+go
+
+declare @currentuser sysname
+select @currentuser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '排序号',
+   'user', @currentuser, 'table', 'tb_sm_privilege_insiderelate', 'column', 'sn'
 go
 
 create table tb_sm_query (
@@ -2065,6 +2115,7 @@ create table td_sm_log (
    log_content          text                 null,
    oper_type            numeric(1)           null,
    log_status           numeric(1)           null,
+   target_pk            varchar(200)         null,
    remark1              varchar(100)         null,
    remark2              varchar(100)         null,
    remark3              varchar(100)         null,
@@ -2135,6 +2186,13 @@ select @currentuser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '日志状态（1：成功，0：失败）',
    'user', @currentuser, 'table', 'td_sm_log', 'column', 'log_status'
+go
+
+declare @currentuser sysname
+select @currentuser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '目标主键',
+   'user', @currentuser, 'table', 'td_sm_log', 'column', 'target_pk'
 go
 
 declare @currentuser sysname
@@ -2233,6 +2291,7 @@ create table td_sm_log_his (
    log_content          text                 null,
    oper_type            numeric(1)           null,
    log_status           numeric(1)           null,
+   target_pk            varchar(200)         null,
    remark1              varchar(100)         null,
    remark2              varchar(100)         null,
    remark3              varchar(100)         null,
@@ -2303,6 +2362,13 @@ select @currentuser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '日志状态（1：成功，0：失败）',
    'user', @currentuser, 'table', 'td_sm_log_his', 'column', 'log_status'
+go
+
+declare @currentuser sysname
+select @currentuser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '目标主键',
+   'user', @currentuser, 'table', 'td_sm_log_his', 'column', 'target_pk'
 go
 
 declare @currentuser sysname

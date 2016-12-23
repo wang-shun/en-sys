@@ -10,19 +10,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-runtime</artifactId>
-			<version>5.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-module-generic-tree</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sysmgr-api</artifactId>
-			<version>1.0.8</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
@@ -33,7 +22,6 @@
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sys-advanced-service</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>

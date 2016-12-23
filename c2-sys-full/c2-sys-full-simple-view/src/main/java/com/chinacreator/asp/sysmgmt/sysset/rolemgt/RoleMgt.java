@@ -2,7 +2,6 @@ package com.chinacreator.asp.sysmgmt.sysset.rolemgt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -25,9 +24,6 @@ import com.chinacreator.asp.comp.sys.common.CommonConstants;
 import com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO;
 import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
 import com.chinacreator.asp.comp.sys.core.security.service.AccessControlService;
-import com.chinacreator.asp.sysmgmt.sysset.resmgt.ResourceTreeNode;
-import com.chinacreator.asp.sysmgmt.sysset.resmgt.ResourceTreeNodeBuilder;
-import com.chinacreator.c2.web.ds.TreeNode;
 
 @Component
 public class RoleMgt {
@@ -170,30 +166,16 @@ public class RoleMgt {
 		}
 
 		for (PrivilegeDTO privilegeDTO : privilegeDTOs) {
-			addResIdSet.add(privilegeDTO.getPrivilegeId());
+			if (!privilegeDTO.getVirtual()) {
+				addResIdSet.add(privilegeDTO.getPrivilegeId());
+			}
 		}
 		if (null != addResIds && addResIds.length > 0) {
 			addResIdSet.addAll(Arrays.asList(addResIds));
 		}
 
-		if (delResIds.length > 0) {
-			List<PrivilegeDTO> resList = new ArrayList<PrivilegeDTO>();
-			List<PrivilegeDTO> menuList = new ArrayList<PrivilegeDTO>();
-			Map<String, PrivilegeDTO> privilegeMap = new HashMap<String, PrivilegeDTO>();
-			buildPrivilegeList(resList, menuList, privilegeMap);
-
-			ResourceTreeNodeBuilder builder = new ResourceTreeNodeBuilder(resList);
-			Collection<TreeNode> resourceTreeNode = builder.buileToCollection();
-
-			for (String delId : delResIds) {
-				delResIdSet.add(delId);
-				PrivilegeDTO privilegeDTO = privilegeMap.get(delId);
-				if ("4".equals(privilegeDTO.getType())) {
-					getChildByMenu(delId, menuList, delResIdSet);
-				} else {
-					getChildByTreeNode(privilegeDTO.getPrivilegeCode(), resourceTreeNode, delResIdSet);
-				}
-			}
+		if (null != delResIds && delResIds.length > 0) {
+			delResIdSet.addAll(Arrays.asList(delResIds));
 			if (!delResIdSet.isEmpty()) {
 				addResIdSet.removeAll(delResIdSet);
 			}
@@ -217,8 +199,8 @@ public class RoleMgt {
 		Map<String, String> map = new HashMap<String, String>();
 		String validate = "success";
 		String errmess = "";
-		if (null != elementId && !elementId.trim().equals("") && null != elementValue && !elementValue.trim().equals("")
-				&& null != formType && !formType.trim().equals("")) {
+		if (null != elementId && !elementId.trim().equals("") && null != elementValue
+				&& !elementValue.trim().equals("") && null != formType && !formType.trim().equals("")) {
 			elementId = elementId.trim();
 			elementValue = elementValue.trim();
 			if ("add".equals(formType)) {
@@ -242,47 +224,12 @@ public class RoleMgt {
 		return map;
 	}
 
-	private void buildPrivilegeList(List<PrivilegeDTO> resList, List<PrivilegeDTO> menuList,
-			Map<String, PrivilegeDTO> map) {
-		List<PrivilegeDTO> privilegeDTOList = privilegeService.queryAll();
-		if (null != privilegeDTOList && !privilegeDTOList.isEmpty()) {
-			for (PrivilegeDTO privilegeDTO : privilegeDTOList) {
-				map.put(privilegeDTO.getPrivilegeId(), privilegeDTO);
-				if (!"4".equals(privilegeDTO.getType())) {
-					resList.add(privilegeDTO);
-				} else {
-					menuList.add(privilegeDTO);
-				}
-			}
-		}
-	}
-
-	private void getChildByMenu(String menuId, List<PrivilegeDTO> menuList, Set<String> set) {
-		for (PrivilegeDTO privilegeDTO : menuList) {
-			if (menuId.equals(privilegeDTO.getParentId())) {
-				set.add(privilegeDTO.getPrivilegeId());
-				getChildByMenu(privilegeDTO.getPrivilegeId(), menuList, set);
-			}
-		}
-	}
-
-	private void getChildByTreeNode(String code, Collection<TreeNode> resourceTreeNode, Set<String> set) {
-		for (TreeNode treeNode : resourceTreeNode) {
-			ResourceTreeNode node = (ResourceTreeNode) treeNode;
-			if (code.equals(node.getPid())) {
-				set.add(node.getPrivilegeId());
-				getChildByTreeNode(node.getId(), resourceTreeNode, set);
-			}
-		}
-	}
-
-	public Map<String, String> validateFormByRole(String elementId, String elementValue, String formType,
-			String roleId) {
+	public Map<String, String> validateFormByRole(String elementId, String elementValue, String formType, String roleId) {
 		Map<String, String> map = new HashMap<String, String>();
 		String validate = "success";
 		String errmess = "";
-		if (null != elementId && !elementId.trim().equals("") && null != elementValue && !elementValue.trim().equals("")
-				&& null != formType && !formType.trim().equals("")) {
+		if (null != elementId && !elementId.trim().equals("") && null != elementValue
+				&& !elementValue.trim().equals("") && null != formType && !formType.trim().equals("")) {
 			elementId = elementId.trim();
 			elementValue = elementValue.trim();
 			if ("add".equals(formType)) {

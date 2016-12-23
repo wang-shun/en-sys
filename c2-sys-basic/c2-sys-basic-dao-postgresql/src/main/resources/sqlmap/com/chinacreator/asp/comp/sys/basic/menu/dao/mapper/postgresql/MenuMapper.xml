@@ -9,7 +9,7 @@
 
 	<sql id="Privilege_Column_List">
 		id, code, name, parent_id, type,
-		perm_expr,creator,creator_time,sn,source
+		perm_expr,creator,creator_time,sn,source,virtual
 	</sql>
 
 	<resultMap id="MenuResultMap"
@@ -42,7 +42,8 @@
 		<result column="CREATOR" property="creator" jdbcType="VARCHAR" />
 		<result column="CREATOR_TIME" property="creatorTime" jdbcType="TIMESTAMP" />
 		<result column="SN" property="sn" jdbcType="NUMERIC" />
-		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>	
+		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>
+		<result column="VIRTUAL" property="virtual" jdbcType="CHAR" typeHandler="com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler"/>	
 	</resultMap>
 
 	<insert id="create" parameterType="com.chinacreator.asp.comp.sys.basic.menu.eo.MenuEO"

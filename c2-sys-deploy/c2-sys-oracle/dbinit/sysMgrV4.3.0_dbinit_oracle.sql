@@ -1,4 +1,4 @@
--- 系统管理V4.2.1完整精简版建库及初始化脚本_oracle
+-- 系统管理V4.3.0完整精简版建库及初始化脚本_oracle
 -- 建库脚本_oracle -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 alter table tb_sm_custres
    drop constraint fk_tb_sm_staticoper1;
@@ -92,6 +92,8 @@ drop table tb_sm_decision_entitlement cascade constraints;
 drop table tb_sm_menu cascade constraints;
 
 drop table tb_sm_privilege cascade constraints;
+
+drop table tb_sm_privilege_insiderelate cascade constraints;
 
 drop table tb_sm_query cascade constraints;
 
@@ -371,6 +373,7 @@ create table tb_sm_privilege  (
    creator_time         date                           default sysdate,
    sn                   number,
    source               char(1)                        default '0' not null,
+   virtual              char(1)                        default '0' not null,
    constraint pk_tb_resource_type primary key (id)
 );
 
@@ -406,6 +409,28 @@ comment on column tb_sm_privilege.sn is
 
 comment on column tb_sm_privilege.source is
 '权限来源（0：自定义，1：IDE）';
+
+comment on column tb_sm_privilege.virtual is
+'是否虚拟节点（0：否，1：是）';
+
+create table tb_sm_privilege_insiderelate  (
+   id                   varchar2(50)                    not null,
+   relate_id            varchar2(50)                    not null,
+   sn                   number
+);
+
+comment on table tb_sm_privilege_insiderelate is
+'权限内部关联表';
+
+comment on column tb_sm_privilege_insiderelate.id is
+'权限ID';
+
+comment on column tb_sm_privilege_insiderelate.relate_id is
+'关联ID(父ID)';
+
+comment on column tb_sm_privilege_insiderelate.sn is
+'排序号';
+
 
 create table tb_sm_query  (
    id                   varchar2(50)                    not null,
@@ -973,6 +998,7 @@ create table td_sm_log  (
    log_content          clob,
    oper_type            number(1),
    log_status           number(1),
+   target_pk            varchar2(200),
    remark1              varchar2(100),
    remark2              varchar2(100),
    remark3              varchar2(100),
@@ -1007,6 +1033,9 @@ comment on column td_sm_log.oper_type is
 
 comment on column td_sm_log.log_status is
 '日志状态（1：成功，0：失败）';
+
+comment on column td_sm_log.target_pk is
+'目标主键';
 
 comment on column td_sm_log.remark1 is
 '备注1';
@@ -1059,6 +1088,7 @@ create table td_sm_log_his  (
    log_content          clob,
    oper_type            number(1),
    log_status           number(1),
+   target_pk            varchar2(200),
    remark1              varchar2(100),
    remark2              varchar2(100),
    remark3              varchar2(100),
@@ -1093,6 +1123,9 @@ comment on column td_sm_log_his.oper_type is
 
 comment on column td_sm_log_his.log_status is
 '日志状态（1：成功，0：失败）';
+
+comment on column td_sm_log_his.target_pk is
+'目标主键';
 
 comment on column td_sm_log_his.remark1 is
 '备注1';

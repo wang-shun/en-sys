@@ -63,7 +63,7 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="{&quot;e&quot;:&quot;实体操作&quot;,&quot;ws&quot;:&quot;服务&quot;,&quot;dao&quot;:&quot;持久层操作&quot;,&quot;custom&quot;:&quot;自定义&quot;}">
+          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="{&quot;e&quot;:&quot;实体操作&quot;,&quot;ws&quot;:&quot;服务&quot;,&quot;dao&quot;:&quot;持久层操作&quot;,&quot;custom&quot;:&quot;自定义&quot;,&quot;rest&quot;:&quot;rest接口&quot;}">
             <dync:render/>
             <dync:children/>
           </dync:attribute>
@@ -185,8 +185,8 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="logConfig" name="日志配置" logic="rule:asp.sysmgmt.logmgt.getLogConfigByPK" sn="getLogConfigByPK">
-      <form:param id="menuCode" name="新输入参数"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="logConfig" name="日志配置" sn="getLogConfigByPK" logic="rule:asp.sysmgmt.logmgt.getLogConfigByPK">
+      <form:param id="operModule" name="新输入参数"/>
     </form:datasource>
   </form:datasources>
   <form:scripts>// 保存&#xD;

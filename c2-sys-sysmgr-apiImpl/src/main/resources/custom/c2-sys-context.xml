@@ -17,6 +17,8 @@
 	<bean id="AuthorizationProvider"
 		class="com.chinacreator.c2.sysmgr.SysMgrAuthorizationProviderImpl" />
 
+	<bean id="Subject" class="com.chinacreator.c2.sysmgr.SysMgrSubject" />
+
 	<bean id="MenuService" class="com.chinacreator.c2.sysmgr.menu.SysMgrMenuServiceImpl" />
 
 	<bean id="DictData" class="com.chinacreator.c2.sysmgr.dict.SysMgrDictData" />

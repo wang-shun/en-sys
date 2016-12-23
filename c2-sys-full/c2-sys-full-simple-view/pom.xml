@@ -57,8 +57,8 @@
     </dependency>
   	<dependency>
   		<groupId>com.chinacreator.c2</groupId>
-  		<artifactId>c2-sys-sdk-impl</artifactId>
-  		<version>5.0.0-SNAPSHOT</version>
+  		<artifactId>c2-sys-ui-components</artifactId>
+  		<version>1.0.2-SNAPSHOT</version>
   	</dependency>
   </dependencies>
 </project>

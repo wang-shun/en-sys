@@ -3,7 +3,7 @@
 <!-- 权限EO实体类映射关系 -->
 <mapper namespace="com.chinacreator.asp.comp.sys.basic.privilege.dao.PrivilegeDao">
 <cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
-	<sql id="Privilege_Column_List">id,code,name,parent_id,type,perm_expr,creator,creator_time,sn,source
+	<sql id="Privilege_Column_List">id,code,name,parent_id,type,perm_expr,creator,creator_time,sn,source,virtual
 	</sql>
 
 	<resultMap id="PrivilegeResultMap"
@@ -18,6 +18,7 @@
 		<result column="CREATOR_TIME" property="creatorTime" jdbcType="TIMESTAMP" />
 		<result column="SN" property="sn" jdbcType="DECIMAL" />
 		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>	
+		<result column="VIRTUAL" property="virtual" jdbcType="CHAR"/>
 	</resultMap>
 
 	<select id="queryChildPrivileges" parameterType="java.lang.String"

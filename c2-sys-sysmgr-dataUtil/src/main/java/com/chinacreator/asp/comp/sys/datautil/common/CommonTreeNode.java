@@ -1,6 +1,7 @@
 package com.chinacreator.asp.comp.sys.datautil.common;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.chinacreator.c2.web.ds.TreeNode;
 
@@ -17,6 +18,8 @@ public class CommonTreeNode implements TreeNode, Serializable {
 	private boolean isParent;
 	/** 节点自定义图标的 className */
 	private String iconSkin;
+	/** 节点自定义图标的路径 */
+	private String icon;
 	/** 设置节点的 checkbox / radio 是否禁用 */
 	private boolean chkDisabled;
 	/** 节点的 checkBox / radio 的 勾选状态 */
@@ -27,6 +30,10 @@ public class CommonTreeNode implements TreeNode, Serializable {
 	private String hiddenName;
 	/** (自定义属性)悬停节点名称 */
 	private String showName;
+	/** 排序号 */
+	private Integer sn;
+	/** 子节点 */
+	private List<CommonTreeNode> children;
 
 	public String getPid() {
 		return pid;
@@ -106,5 +113,29 @@ public class CommonTreeNode implements TreeNode, Serializable {
 
 	public void setShowName(String showName) {
 		this.showName = showName;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public Integer getSn() {
+		return sn;
+	}
+
+	public void setSn(Integer sn) {
+		this.sn = sn;
+	}
+
+	public List<CommonTreeNode> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<CommonTreeNode> children) {
+		this.children = children;
 	}
 }

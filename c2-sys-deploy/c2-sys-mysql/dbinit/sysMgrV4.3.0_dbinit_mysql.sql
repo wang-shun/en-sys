@@ -1,4 +1,4 @@
--- 系统管理V4.2.1完整精简版建库及初始化脚本_mysql
+-- 系统管理V4.3.0完整精简版建库及初始化脚本_mysql
 -- 建库脚本_mysql -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 drop table if exists tb_application_info;
 
@@ -11,6 +11,8 @@ drop table if exists tb_sm_decision_entitlement;
 drop table if exists tb_sm_menu;
 
 drop table if exists tb_sm_privilege;
+
+drop table if exists tb_sm_privilege_insiderelate;
 
 drop table if exists tb_sm_query;
 
@@ -166,10 +168,19 @@ create table tb_sm_privilege
    creator_time         timestamp default current_timestamp comment '创建时间',
    sn                   decimal(10) comment '排序号',
    source               char(1) not null default '0' comment '权限来源（0：自定义，1：IDE）',
+   virtual              char(1) not null default '0' comment '是否虚拟节点（0：否，1：是）',
    primary key (id)
 );
 
 alter table tb_sm_privilege comment '权限信息表';
+
+create table tb_sm_privilege_insiderelate  (
+   id			varchar(50)	not null	comment '权限ID',
+   relate_id	varchar(50)	not null	comment '关联ID(父ID)',
+   sn			decimal(10)				comment '排序号'
+);
+
+alter table tb_sm_privilege_insiderelate comment '权限内部关联表';
 
 create table tb_sm_query
 (
@@ -400,6 +411,7 @@ create table td_sm_log
    log_content          text comment '操作内容',
    oper_type            decimal(1) comment '操作类型（ 1:新增 2:删除 3:修改 4:查询 5:其他）',
    log_status           decimal(1) comment '日志状态（1：成功，0：失败）',
+   target_pk			varchar(200) comment '目标主键',
    remark1              varchar(100) comment '备注1',
    remark2              varchar(100) comment '备注2',
    remark3              varchar(100) comment '备注3',
@@ -432,6 +444,7 @@ create table td_sm_log_his
    log_content          text comment '操作内容',
    oper_type            decimal(1) comment '操作类型（ 1:新增 2:删除 3:修改 4:查询 5:其他）',
    log_status           decimal(1) comment '日志状态（1：成功，0：失败）',
+   target_pk			varchar(200) comment '目标主键',
    remark1              varchar(100) comment '备注1',
    remark2              varchar(100) comment '备注2',
    remark3              varchar(100) comment '备注3',
