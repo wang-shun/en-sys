@@ -11,7 +11,7 @@
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sysmgr-api</artifactId>
-			<version>1.0.8</version>
+			<version>${version-c2-sysmgr-api}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
@@ -22,12 +22,6 @@
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sso-common</artifactId>
 			<version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-runtime</artifactId>
-			<version>5.0.0-SNAPSHOT</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>

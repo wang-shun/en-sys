@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.chinacreator.asp.comp.sys.core.role.dao.RoleDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+    <sql id="Role_Column_List">
+        role_id, role_name, role_type, role_desc, role_usage,
+        owner_id, remark1, remark2, remark3, remark4, remark5
+    </sql>
+
+    <sql id="Group_Column_List">
+        t.group_id, t.group_name, t.group_desc, t.parent_id, t.owner_id,
+        t.remark1, t.remark2, t.remark3, t.remark4, t.remark5, t.type
+    </sql>
+
+    <sql id="Privilege_Column_List"> 
+        t.id, t.code, t.name, t.parent_id, t.type, t.perm_expr, t.creator, t.creator_time, t.sn, t.source, t.virtual 
+    </sql>
+
+    <resultMap id="RoleResultMap" type="com.chinacreator.asp.comp.sys.core.role.eo.RoleEO">
+        <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+        <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+        <result column="ROLE_TYPE" property="roleType" jdbcType="VARCHAR" />
+        <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+        <result column="ROLE_USAGE" property="roleUsage" jdbcType="VARCHAR" />
+        <result column="OWNER_ID" property="ownerId" jdbcType="VARCHAR" />
+        <result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+        <result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+        <result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+        <result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+        <result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="UserEOResultMap" type="com.chinacreator.asp.comp.sys.core.user.eo.UserEO">
+        <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+        <result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR" />
+        <result column="USER_REALNAME" property="userRealname" jdbcType="VARCHAR" />
+        <result column="USER_PINYIN" property="userPinyin" jdbcType="VARCHAR" />
+        <result column="USER_SEX" property="userSex" jdbcType="VARCHAR" />
+        <result column="USER_HOMETEL" property="userHometel" jdbcType="VARCHAR" />
+        <result column="USER_WORKTEL" property="userWorktel" jdbcType="VARCHAR" />
+        <result column="USER_WORKADDRESS" property="userWorkaddress" jdbcType="VARCHAR" />
+        <result column="USER_MOBILETEL1" property="userMobiletel1" jdbcType="VARCHAR" />
+        <result column="USER_MOBILETEL2" property="userMobiletel2" jdbcType="VARCHAR" />
+        <result column="USER_FAX" property="userFax" jdbcType="VARCHAR" />
+        <result column="USER_OICQ" property="userOicq" jdbcType="VARCHAR" />
+        <result column="USER_BIRTHDAY" property="userBirthday" jdbcType="TIMESTAMP" />
+        <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+        <result column="USER_ADDRESS" property="userAddress" jdbcType="VARCHAR" />
+        <result column="USER_POSTALCODE" property="userPostalcode" jdbcType="VARCHAR" />
+        <result column="USER_IDCARD" property="userIdcard" jdbcType="VARCHAR" />
+        <result column="USER_ISVALID" property="userIsvalid" jdbcType="NUMERIC" />
+        <result column="USER_REGDATE" property="userRegdate" jdbcType="TIMESTAMP" />
+        <result column="USER_LOGINCOUNT" property="userLogincount" jdbcType="NUMERIC" />
+        <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+        <result column="PAST_TIME" property="pastTime" jdbcType="TIMESTAMP" />
+        <result column="DREDGE_TIME" property="dredgeTime" jdbcType="VARCHAR" />
+        <result column="LASTLOGIN_DATE" property="lastloginDate" jdbcType="TIMESTAMP" />
+        <result column="WORKLENGTH" property="worklength" jdbcType="VARCHAR" />
+        <result column="POLITICS" property="politics" jdbcType="VARCHAR" />
+        <result column="LOGIN_IP" property="loginIp" jdbcType="VARCHAR" />
+        <result column="CERT_SN" property="certSn" jdbcType="VARCHAR" />
+        <result column="USER_SN" property="userSn" jdbcType="NUMERIC" />
+        <result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+        <result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+        <result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+        <result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+        <result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+        <result column="REMARK6" property="remark6" jdbcType="VARCHAR" />
+        <result column="REMARK7" property="remark7" jdbcType="VARCHAR" />
+        <result column="REMARK8" property="remark8" jdbcType="VARCHAR" />
+        <result column="REMARK9" property="remark9" jdbcType="VARCHAR" />
+        <result column="REMARK10" property="remark10" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="GroupEOResultMap" type="com.chinacreator.asp.comp.sys.core.group.eo.GroupEO">
+        <result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+        <result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR" />
+        <result column="GROUP_DESC" property="groupDesc" jdbcType="VARCHAR" />
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+        <result column="OWNER_ID" property="ownerId" jdbcType="VARCHAR" />
+        <result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+        <result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+        <result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+        <result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+        <result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="CHAR" />
+    </resultMap>
+
+    <resultMap id="PrivilegeEOResultMap" type="com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeEO">
+        <result column="ID" property="privilegeId" jdbcType="VARCHAR" />
+        <result column="CODE" property="privilegeCode" jdbcType="VARCHAR" />
+        <result column="NAME" property="privilegeName" jdbcType="VARCHAR" />
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="CHAR" />
+        <result column="PERM_EXPR" property="permExpr" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+		<result column="CREATOR_TIME" property="creatorTime" jdbcType="DATE" />
+		<result column="SN" property="sn" jdbcType="DECIMAL" />
+		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>
+		<result column="VIRTUAL" property="virtual" jdbcType="CHAR"/>	
+    </resultMap>
+  
+    <insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.role.eo.RoleEO" databaseId="sqlserver">
+        INSERT INTO td_sm_role 
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="roleId != null">
+                    ROLE_ID,
+                </if>
+                <if test="roleName != null">
+                    ROLE_NAME,
+                </if>
+                <if test="roleType != null">
+                    ROLE_TYPE,
+                </if>
+                <if test="roleDesc != null">
+                    ROLE_DESC,
+                </if>
+                <if test="roleUsage != null">
+                    ROLE_USAGE,
+                </if>
+                <if test="ownerId != null">
+                    OWNER_ID,
+                </if>
+                <if test="remark1 != null">
+                    remark1,
+                </if>
+                <if test="remark2 != null">
+                    remark2,
+                </if>
+                <if test="remark3 != null">
+                    remark3,
+                </if>
+                <if test="remark4 != null">
+                    remark4,
+                </if>
+                <if test="remark5 != null">
+                    remark5,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="roleId != null">
+                    <![CDATA[#{roleId,jdbcType=VARCHAR}]]>,
+                </if>
+                <if test="roleName != null">
+                    <![CDATA[#{roleName,jdbcType=VARCHAR}]]>,
+                </if>
+                <if test="roleType != null">
+                    <![CDATA[#{roleType,jdbcType=VARCHAR}]]>,
+                </if>
+                <if test="roleDesc != null">
+                    <![CDATA[#{roleDesc,jdbcType=VARCHAR}]]>,
+                </if>
+                <if test="roleUsage != null">
+                    <![CDATA[#{roleUsage,jdbcType=VARCHAR}]]>,
+                </if>
+                <if test="ownerId != null">
+                    <![CDATA[#{ownerId,jdbcType=VARCHAR}]]>,
+                </if>
+                <if test="remark1 != null">
+                    <![CDATA[#{remark1,jdbcType=VARCHAR}]]>,
+                </if>
+                <if test="remark2 != null">
+                    <![CDATA[#{remark2,jdbcType=VARCHAR}]]>,
+                </if>
+                <if test="remark3 != null">
+                    <![CDATA[#{remark3,jdbcType=VARCHAR}]]>,
+                </if>
+                <if test="remark4 != null">
+                    <![CDATA[#{remark4,jdbcType=VARCHAR}]]>,
+                </if>
+                <if test="remark5 != null">
+                    <![CDATA[#{remark5,jdbcType=VARCHAR}]]>,
+                </if>
+            </trim>
+    </insert>
+
+    <update id="update" parameterType="com.chinacreator.asp.comp.sys.core.role.eo.RoleEO" databaseId="sqlserver">
+        UPDATE td_sm_role
+        <set>            
+        	<if test="roleName != null">
+        		<![CDATA[role_name = #{roleName,jdbcType=VARCHAR},]]>
+        	</if> 
+            <if test="roleType != null">
+                <![CDATA[role_type = #{roleType,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="roleDesc != null">
+                <![CDATA[role_desc = #{roleDesc,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="roleUsage != null">
+                <![CDATA[role_usage = #{roleUsage,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="ownerId != null">
+                <![CDATA[owner_id = #{ownerId,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark1 != null">
+                <![CDATA[remark1 = #{remark1,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark2 != null">
+                <![CDATA[remark2 = #{remark2,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark3 != null">
+                <![CDATA[remark3 = #{remark3,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark4 != null">
+                <![CDATA[remark4 = #{remark4,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark5 != null">
+                <![CDATA[remark5 = #{remark5,jdbcType=VARCHAR}]]>
+            </if>
+        </set>
+        WHERE <![CDATA[role_id = #{roleId,jdbcType=VARCHAR}]]>
+    </update>
+  
+    <delete id="deleteByPKs" parameterType="java.lang.String" databaseId="sqlserver">
+        DELETE FROM td_sm_role WHERE role_id IN 
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            <![CDATA[#{idItem}]]>
+        </foreach>
+    </delete>
+
+    <delete id="deleteByRoleNames" parameterType="java.lang.String" databaseId="sqlserver">
+        DELETE FROM td_sm_role
+        WHERE role_name IN
+        <foreach item="idItem" collection="array" open="(" separator=","
+            close=")">
+            <![CDATA[#{idItem}]]>
+        </foreach>
+    </delete>
+
+    <select id="queryAll" resultMap="RoleResultMap" databaseId="sqlserver">
+        SELECT
+        <include refid="Role_Column_List" />
+        FROM td_sm_role
+    </select>
+
+    <select id="queryByRole" resultMap="RoleResultMap" databaseId="sqlserver">
+        SELECT
+        <include refid="Role_Column_List" />
+        FROM td_sm_role
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="roleEO.roleId != null">
+                <![CDATA[role_id = #{roleEO.roleId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleEO.roleName != null">
+                <![CDATA[AND role_name like concat('%' , #{roleEO.roleName,jdbcType=VARCHAR} , '%')]]>
+            </if>
+            <if test="roleEO.roleType != null">
+                <![CDATA[AND role_type = #{roleEO.roleType,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleEO.roleDesc != null">
+                <![CDATA[AND role_desc like concat('%' , #{roleEO.roleDesc,jdbcType=VARCHAR} , '%')]]>
+            </if>
+            <if test="roleEO.roleUsage != null">
+                <![CDATA[AND role_usage = #{roleEO.roleUsage,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleEO.ownerId != null">
+                <![CDATA[AND owner_id = #{roleEO.ownerId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleEO.remark1 != null">
+                <![CDATA[AND remark1 = #{roleEO.remark1,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleEO.remark2 != null">
+                <![CDATA[AND remark2 = #{roleEO.remark2,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleEO.remark3 != null">
+                <![CDATA[AND remark3 = #{roleEO.remark3,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleEO.remark4 != null">
+                <![CDATA[AND remark4 = #{roleEO.remark4,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleEO.remark5 != null">
+                <![CDATA[AND remark5 = #{roleEO.remark5,jdbcType=VARCHAR}]]>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryByPK" parameterType="java.lang.String" resultMap="RoleResultMap" databaseId="sqlserver">
+        SELECT <include refid="Role_Column_List" /> FROM td_sm_role WHERE role_id = <![CDATA[#{roleId,jdbcType=VARCHAR}]]>
+    </select>
+
+    <select id="queryByRoleName" parameterType="java.lang.String" resultMap="RoleResultMap" databaseId="sqlserver">
+        SELECT <include refid="Role_Column_List" /> FROM td_sm_role WHERE role_name = <![CDATA[#{roleName,jdbcType=VARCHAR}]]>
+    </select>
+
+    <select id="queryUsers" resultMap="UserEOResultMap" databaseId="sqlserver">
+        (
+        SELECT t.* FROM td_sm_user t
+            INNER JOIN td_sm_userinstance t1 ON t.user_id = t1.user_id AND t1.is_enabled = '1'
+            INNER JOIN td_sm_userinstancerole t2 ON t1.id = t2.userinstance_id
+            INNER JOIN td_sm_role t3 ON t2.role_id = t3.role_id AND t3.role_usage = '1' 
+                WHERE t3.role_id = <![CDATA[#{roleId,jdbcType=VARCHAR}]]>
+        )
+        UNION
+        (
+        SELECT tt.* FROM td_sm_user tt
+             INNER JOIN td_sm_userinstance tt1 ON tt.user_id = tt1.user_id AND tt1.is_enabled = '1'
+             INNER JOIN td_sm_userinstancegroup tt2 ON tt1.id = tt2.userinstance_id
+             INNER JOIN td_sm_group tt3 ON tt2.group_id = tt3.group_id
+             INNER JOIN td_sm_grouprole tt4 ON tt3.group_id = tt4.group_id
+             INNER JOIN td_sm_role tt5 ON tt4.role_id = tt5.role_id AND tt5.role_usage = '1'
+                 WHERE tt5.role_id = <![CDATA[#{roleId,jdbcType=VARCHAR}]]>
+        )
+    </select>
+
+    <select id="queryUsersByScope" resultMap="UserEOResultMap" databaseId="sqlserver">
+        (
+        SELECT tt.* FROM td_sm_user tt
+            INNER JOIN td_sm_userinstance tt1 ON tt.user_id = tt1.user_id AND tt1.is_enabled = '1'
+            INNER JOIN td_sm_userinstancerole tt2 ON tt1.id = tt2.userinstance_id
+            INNER JOIN td_sm_role tt3 ON tt2.role_id = tt3.role_id AND tt3.role_usage = '1'
+            <trim prefix="WHERE" prefixOverrides="AND |OR ">
+                <if test="roleId != null">
+                    <![CDATA[tt3.role_id = #{roleId,jdbcType=VARCHAR}]]>
+                </if>
+                <if test="scopeType != null">
+                    <![CDATA[AND tt1.scope_type = #{scopeType,jdbcType=VARCHAR}]]>
+                </if>
+                <if test="scopeId != null">
+                    <![CDATA[AND tt1.scope_id = #{scopeId,jdbcType=VARCHAR}]]>
+                </if>
+            </trim>
+        )
+        UNION
+        (
+        SELECT t.* FROM td_sm_user t
+            INNER JOIN td_sm_userinstance t1 ON t.user_id = t1.user_id AND t1.is_enabled = '1'
+            INNER JOIN td_sm_userinstancegroup t2 ON t1.id = t2.userinstance_id
+            INNER JOIN td_sm_group t3 ON t2.group_id = t3.group_id
+            INNER JOIN td_sm_grouprole t4 ON t3.group_id = t4.group_id
+            INNER JOIN td_sm_role t5 ON t4.role_id = t5.role_id AND t5.role_usage = '1'
+            <trim prefix="WHERE" prefixOverrides="AND |OR ">
+                <if test="roleId != null">
+                    <![CDATA[t5.role_id = #{roleId,jdbcType=VARCHAR}]]>
+                </if>
+                <if test="scopeType != null">
+                    <![CDATA[AND t1.scope_type = #{scopeType,jdbcType=VARCHAR}]]>
+                </if>
+                <if test="scopeId != null">
+                    <![CDATA[AND t1.scope_id = #{scopeId,jdbcType=VARCHAR}]]>
+                </if>
+            </trim>
+        )
+    </select>
+
+    <select id="queryGroups" parameterType="java.lang.String" resultMap="GroupEOResultMap" databaseId="sqlserver">
+        SELECT <include refid="Group_Column_List" /> FROM td_sm_group t 
+            INNER JOIN td_sm_grouprole t1 ON t.group_id = t1.group_id
+            INNER JOIN td_sm_role t2 ON t1.role_id = t2.role_id AND t2.role_usage = '1'
+            WHERE <![CDATA[t2.role_id = #{roleId,jdbcType=VARCHAR}]]>
+    </select>
+
+    <select id="queryPrivileges" resultMap="PrivilegeEOResultMap" databaseId="sqlserver">
+        SELECT <include refid="Privilege_Column_List" /> FROM tb_sm_privilege t 
+            INNER JOIN td_sm_roleresop t1 ON t.id = t1.op_id 
+            INNER JOIN td_sm_role t2 ON t2.role_id = t1.role_id AND t2.role_usage = '1' 
+            WHERE <![CDATA[t2.role_id = #{roleId,jdbcType=VARCHAR}]]>
+    </select>
+
+    <select id="isEnabledByPK" parameterType="java.lang.String" resultType="Integer" databaseId="sqlserver">
+        SELECT cast(role_usage as int) AS role_usage FROM td_sm_role WHERE <![CDATA[role_id = #{roleId,jdbcType=VARCHAR}]]>
+    </select>
+
+    <select id="isEnabledByRoleName" parameterType="java.lang.String" resultType="Integer" databaseId="sqlserver">
+        SELECT cast(role_usage as int) AS role_usage FROM td_sm_role WHERE <![CDATA[role_name = #{roleName,jdbcType=VARCHAR}]]>
+    </select>
+
+    <select id="isAssignedToGroup" resultType="Integer" databaseId="sqlserver">
+        SELECT COUNT(*) FROM td_sm_grouprole t
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="groupId != null">
+                <![CDATA[t.group_id = #{groupId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleId != null">
+                <![CDATA[AND t.role_id = #{roleId,jdbcType=VARCHAR}]]>
+            </if>
+        </trim>
+    </select>
+
+    <select id="hasPrivilege" resultType="Integer" databaseId="sqlserver">
+        SELECT COUNT(*) FROM td_sm_roleresop t
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="privilegeId != null">
+                <![CDATA[t.op_id = #{privilegeId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleId != null">
+                <![CDATA[AND t.role_id = #{roleId,jdbcType=VARCHAR}]]>
+            </if>
+        </trim>
+    </select>
+    
+    <select id="isAssingedToUserInstance" resultType="Integer" databaseId="sqlserver">
+        SELECT COUNT(*) FROM td_sm_userinstancerole t
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="userInstanceId != null">
+                <![CDATA[t.userinstance_id = #{userInstanceId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleId != null">
+                <![CDATA[ AND t.role_id = #{roleId,jdbcType=VARCHAR}]]>
+            </if>
+        </trim>
+    </select>
+  
+    <select id="queryByRoleIdAndRoleName" parameterType="java.lang.String" resultMap="RoleResultMap" databaseId="sqlserver">
+        SELECT
+        <include refid="Role_Column_List" />
+        FROM td_sm_role
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="roleName != null">
+                <![CDATA[role_name = #{roleName,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="roleId != null">
+                <![CDATA[AND role_id != #{roleId,jdbcType=VARCHAR}]]>
+            </if>
+        </trim>
+    </select>
+    
+    <select id="queryRoleIdsByRoleTypeIds" resultType="java.lang.String" databaseId="sqlserver">
+        SELECT
+        role_id
+        FROM td_sm_role WHERE role_type IN
+        <foreach item="item" index="index" collection="array"  open="(" separator="," close=")">
+            #{item}  
+        </foreach>
+    </select>
+    
+    <select id="existsByRoleName" resultType="Integer" databaseId="sqlserver">
+    	<![CDATA[
+	        SELECT COUNT(*) FROM td_sm_role
+	        WHERE role_name = #{roleName,jdbcType=VARCHAR}
+        ]]>
+    </select>
+    
+    <select id="existsByRoleNameIgnoreRoleID" resultType="Integer" databaseId="sqlserver">
+    	<![CDATA[
+	        SELECT COUNT(*) FROM td_sm_role
+	        WHERE role_name = #{roleName,jdbcType=VARCHAR}
+	        AND role_id != #{roleId,jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+</mapper>

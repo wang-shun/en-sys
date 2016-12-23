@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="用户管理" res="SzagXgKsQQWDSv3cHkKzzg" sn="userMain" type="form">
+  <form:control type="page/normal">
+    <form:attributes source="page/normal">
+      <dync:attribute default="" group="HTML" id="showHead" name="显示标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="desc" name="描述" value="">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="compact" name="紧凑页面" value="false">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="onload" name="载入事件" value="page_onload()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="false" group="HTML" id="fixedHeight" name="自动高度" value="true">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="事件" id="beforeDataSourceLoad" name="数据源加载前" value="page_beforeDataSourceLoad()">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroup3" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-top:5px;">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup5" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div"/>
+    </form:control>
+    <form:child xsi:type="form:Group" id="searchDiv" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="padding-top:10px;margin-bottom:10px;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Field" binding="$model.search.orgId" id="org_Field" name="所属机构：" customize="true">
+        <form:control type="widget/select_tree">
+          <form:attributes source="widget/select_tree">
+            <dync:attribute default="6" group="控件外观" id="span" name="占位数" value="4">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="未选中数据 ..." group="控件外观" id="placeholder" name="占位字符串" value="''">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="树数据设置" id="treeBinding" name="树数据源" value="$model.orgSelectTree">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="树事件设置" id="beforeClick" name="单击前" value="org_Field_beforeClick(treeId,treeNode,clickFlag)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="树显示设置" id="expendLevel" name="默认展开级数" value="2">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="树数据设置" id="otherParam" name="初始化参数" value="{searchOrgId:$params.sOid}">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="auto" group="树显示设置" id="height" name="高度" value="350px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.search.userName" id="userName_Field" name="帐号：">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.search.userRealname" id="userRealname_Field" name="姓名：">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.search.roleId" id="role_Field" name="角色：" customize="true">
+        <form:control type="widget/select_tree">
+          <form:attributes source="widget/select_tree">
+            <dync:attribute default="6" group="控件外观" id="span" name="占位数" value="4">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="未选中数据 ..." group="控件外观" id="placeholder" name="占位字符串" value="''">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="树数据设置" id="treeBinding" name="树数据源" value="$model.roleSelectTree">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="树显示设置" id="expendLevel" name="默认展开级数" value="2">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="树事件设置" id="beforeClick" name="单击前" value="role_Field_beforeClick(treeId,treeNode,clickFlag)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="auto" group="树显示设置" id="height" name="高度" value="350px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="树数据设置" id="otherParam" name="初始化参数" value="{searchRoleId:$params.sRid}">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.search.userSex" id="userSex_Field" name="性别：">
+        <form:control type="widget/select_simple">
+          <form:attributes source="widget/select_simple">
+            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.dictData.result[&quot;性别&quot;]">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="dictdataName">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="dictdataValue">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="下拉框设置" id="nullValue" name="空值选项" value=" ">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="$model.search.userIsvalid" id="userIsvalid_Field" name="状态：">
+        <form:control type="widget/select_simple">
+          <form:attributes source="widget/select_simple">
+            <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.dictData.result[&quot;当前状态&quot;]">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="id" group="下拉框设置" id="optionId" name="值属性名" value="dictdataName">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="dictdataValue">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="下拉框设置" id="nullValue" name="空值选项" value=" ">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="4">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+    </form:child>
+    <form:child xsi:type="form:Group" binding="model.userlist" id="userGroup" name="jqgrid表格">
+      <form:control type="container/table_jqgrid">
+        <form:attributes source="container/table_jqgrid">
+          <dync:attribute default="true" group="功能按钮" id="buttonAdd" name="新增按钮" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="功能按钮" id="buttonEdit" name="编辑按钮" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="功能按钮" id="buttonView" name="查看按钮" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="功能按钮" id="buttonDel" name="删除按钮" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="功能按钮" id="buttonSearch" name="查询按钮" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="表格设置" id="filterToolbar" name="工具栏查询" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="排序" id="multiSort" name="多列排序" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级功能" id="sortServer" name="排序服务" value="sortOrgUser">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="表格设置" id="toolbarShow" name="工具栏显示" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="功能按钮" id="buttonRefresh" name="刷新按钮" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="表格设置" id="searchDIV" name="搜索DIV" value="searchDiv">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="基本配置" id="caption" name="表头" value="用户管理">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="true" group="表格设置" id="firstRequest" name="自动加载数据" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="表格设置" id="searchDivShow" name="搜索DIV展开" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Group" id="toolbar_table" name="toolbar_table">
+        <form:control type="container/toolbar_table">
+          <form:attributes source="container/toolbar_table"/>
+        </form:control>
+        <form:child xsi:type="form:Field" id="newField13" name="新增" res="sufAYWixQwuDVSkxRzDxdg" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="purple">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="addUser()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-plus">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField14" name="编辑" res="tS5HipvQQ4i_YFoq6gXU9A" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-pencil">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="blue">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="editUser()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField15" name="删除" res="Qopgz-vuQxS55dutt38oHA" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-trash-o">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="red">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="delUser()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField16" name="排序" res="BZe-lC71T7usb_zaJTnH-A" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="sortOrgUser()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-sort">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="blue">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField18" name="设置主机构" res="Of_7AiC6RbuSYq-XU4Qmmw" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="setMainOrg()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-star">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="brown">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField2" name="设置角色" res="LC_UXJ0TRjKSzU_hoVWlYQ" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-coffee">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="pink2">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="userSetRoles()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField17" name="重置密码" res="5OFdJLbvRB2e7caUnWrxyA" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="resetPasswords()">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-key">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="orange2">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+        <form:child xsi:type="form:Field" id="newField20" name="刷新" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="custom" group="事件设置" id="clickType" name="事件类型" value="refrash">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="userName" id="newField8" name="账号" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="userRealname" id="newField7" name="姓名" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="userSex" id="newField12" name="性别" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="userGroup_customFormatter(cellvalue,options,rowObject)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="text" group="查询设置" id="searchType" name="查询框" value="select">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="id" group="查询设置" id="searchSelectId" name="下拉框值属性名" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="text" group="查询设置" id="searchSelectText" name="下拉框显示属性名" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="selected" group="查询设置" id="searchSelectSelected" name="下拉框选中属性名" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="userIsvalid" id="newField9" name="状态" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="userGroup_customFormatter(cellvalue,options,rowObject)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="text" group="查询设置" id="searchType" name="查询框" value="select">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="id" group="查询设置" id="searchSelectId" name="下拉框值属性名" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="text" group="查询设置" id="searchSelectText" name="下拉框显示属性名" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="selected" group="查询设置" id="searchSelectSelected" name="下拉框选中属性名" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="extFields.orgShowName" id="newField6" name="所属机构" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="extFields.mainOrgShowName" id="newField11" name="主机构" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="extFields.roleNames" id="newField1" name="角色" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="userType" id="newField10" name="用户类型" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="userGroup_customFormatter(cellvalue,options,rowObject)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="text" group="查询设置" id="searchType" name="查询框" value="select">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="selected" group="查询设置" id="searchSelectSelected" name="下拉框选中属性名" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="id" group="查询设置" id="searchSelectId" name="下拉框值属性名" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="text" group="查询设置" id="searchSelectText" name="下拉框显示属性名" value="">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="userId" id="newField" name="用户ID" customize="true">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="false" group="表格设置" id="hidden" name="隐藏列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="key" name="主列" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="title" name="鼠标悬浮显示" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:PagingDataSource" id="userlist" name="用户列表" logic="com.chinacreator.asp.sysmgmt.sysset.usermgt.UserDataArrayContentProviderImpl" pageSize="10" type="custom"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="dictData" name="字典数据" logic="rule:com.chinacreator.c2.sysmgr.dict.getDictDataMap" sn="getDictDataMap">
+      <form:param id="dictTypeNames" name="新输入参数" value="[&quot;性别&quot;,&quot;用户类型&quot;,&quot;当前状态&quot;,&quot;政治面貌&quot;]"/>
+    </form:datasource>
+    <form:datasource xsi:type="form:TreeDataSource" id="orgSelectTree" name="机构下拉框树型数据源" impl="com.chinacreator.asp.sysmgmt.sysset.usermgt.OrgSelectTreeContentProviderImpl" type="custom"/>
+    <form:datasource xsi:type="form:TreeDataSource" id="roleSelectTree" name="角色树型数据源" impl="com.chinacreator.asp.sysmgmt.sysset.usermgt.RoleSelectTreeContentProviderImpl" type="custom"/>
+  </form:datasources>
+  <form:scripts>// 获取机构下拉树&#xD;
+getOrgSelectTree:function(){&#xD;
+	return $view.org_Field.getTree();&#xD;
+},&#xD;
+// 获取用户列表&#xD;
+getUserGroup:function(){&#xD;
+	return $view.userGroup;&#xD;
+},&#xD;
+// 新增用户&#xD;
+addUser:function(){&#xD;
+	var _this = this;&#xD;
+	var orgId = $model.search.orgId;&#xD;
+	if(angular.isUndefined(orgId) || null==orgId){&#xD;
+		orgId = &quot;&quot;;&#xD;
+	}&#xD;
+	Modal.open('f/editUser',{type:&quot;add&quot;,&quot;orgId&quot;:orgId,userId:&quot;&quot;},function(result){&#xD;
+		if('success'==result){&#xD;
+	    	_this.refreshUserGroup();&#xD;
+	    }&#xD;
+	});&#xD;
+},&#xD;
+// 编辑用户&#xD;
+editUser:function(){&#xD;
+	var selectNodes = this.getUserGroup().getSelectDatas();&#xD;
+	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){&#xD;
+		if(selectNodes.length>1){&#xD;
+			Messenger.post({&#xD;
+			    'message': &quot;请仅选择一个需要编辑的用户！&quot;,&#xD;
+			    'type': 'error',&#xD;
+			});&#xD;
+			return;&#xD;
+		}&#xD;
+		var selectNode = selectNodes[0]; &#xD;
+		if(angular.isUndefined(selectNode) || angular.isUndefined(selectNode.userId)){&#xD;
+			Messenger.post({&#xD;
+			    'message': &quot;请选择需要编辑的用户！&quot;,&#xD;
+			    'type': 'error',&#xD;
+			});&#xD;
+		}else{&#xD;
+			var _this = this;&#xD;
+			Modal.open('f/editUser',{type:&quot;edit&quot;,orgId:&quot;&quot;,userId:selectNode.userId},function(result){&#xD;
+				if('success'==result){&#xD;
+			    	_this.refreshUserGroup();&#xD;
+			    }&#xD;
+			});	&#xD;
+		}	&#xD;
+	}else{&#xD;
+		Messenger.post({&#xD;
+		    'message': &quot;请选择需要编辑的用户！&quot;,&#xD;
+		    'type': 'error',&#xD;
+		});&#xD;
+	}&#xD;
+},&#xD;
+// 删除用户&#xD;
+delUser:function(){		&#xD;
+	var selectNodes = this.getUserGroup().getSelectDatas();&#xD;
+	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){&#xD;
+		var userIds = [];&#xD;
+		var userNames = &quot;&quot;;&#xD;
+		var _this = this;&#xD;
+		angular.forEach(selectNodes, function (value, key) {&#xD;
+				userIds.push(value.userId);&#xD;
+				userNames += value.userRealname+&quot;,&quot;;&#xD;
+        	});&#xD;
+        &#xD;
+    	Modal.openDelConfirm({message:&quot;是否确认删除用户?&lt;br>待删除用户：&quot;+userNames.substring(0, userNames.length-1)},function(){&#xD;
+    		$http.post(&quot;ws/delUser&quot;,{&quot;userIds&quot;:userIds})&#xD;
+    				.success(function(data, status, headers, config){&#xD;
+						Messenger.post({&#xD;
+			                'message': &quot;删除用户成功！&quot;,&#xD;
+			                'type': 'success',&#xD;
+			            });&#xD;
+			            _this.refreshUserGroup();&#xD;
+					});&#xD;
+        });	&#xD;
+        	&#xD;
+	}else{&#xD;
+		Messenger.post({&#xD;
+		    'message': &quot;请选择需要删除的用户！&quot;,&#xD;
+		    'type': 'error',&#xD;
+		});&#xD;
+	}&#xD;
+},&#xD;
+// 用户排序&#xD;
+sortOrgUser:function(){&#xD;
+	var sortable = $model.sortOrgUser;	&#xD;
+	if(angular.isUndefined(sortable)){&#xD;
+		sortable = false;&#xD;
+	}	&#xD;
+	$model.sortOrgUser = !sortable;&#xD;
+	Messenger.post({&#xD;
+		    'message': (sortable?&quot;关闭&quot;:&quot;开启&quot;)+&quot;用户排序功能！&quot;,&#xD;
+		    'type': 'info',&#xD;
+		});&#xD;
+	var _this = this;	&#xD;
+	_this.getUserGroup().setSortRow(!sortable,function(){&#xD;
+		var rowNum = _this.getUserGroup().getGridParam(&quot;rowNum&quot;);&#xD;
+		var page = _this.getUserGroup().getGridParam(&quot;page&quot;);&#xD;
+		var ids = _this.getUserGroup().getDataIDs();&#xD;
+		var orgId = $model.search.orgId;&#xD;
+		if(angular.isUndefined(orgId)){&#xD;
+			orgId = &quot;&quot;;&#xD;
+		}&#xD;
+		$http.post(&quot;ws/sortOrgUser&quot;,{&quot;rowNum&quot;:rowNum,&quot;page&quot;:page,&quot;orgId&quot;:orgId,&quot;userIds&quot;:ids})&#xD;
+				.success(function(data, status, headers, config){&#xD;
+					Messenger.post({&#xD;
+		                'message': &quot;用户排序保存成功！&quot;,&#xD;
+		                'type': 'success',&#xD;
+		            });	            &#xD;
+				});&#xD;
+	});&#xD;
+},&#xD;
+// 设置主机构&#xD;
+setMainOrg:function(){&#xD;
+	var selectNodes = this.getUserGroup().getSelectDatas();&#xD;
+	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){&#xD;
+		var userIds = [];&#xD;
+		var userNames = &quot;&quot;;&#xD;
+		var _this = this;&#xD;
+		angular.forEach(selectNodes, function (value, key) {&#xD;
+				userIds.push(value.userId);&#xD;
+				userNames += value.userRealname+&quot;,&quot;;&#xD;
+        	});        &#xD;
+        Modal.open('f/userSetMainOrg',{&quot;userIds&quot;:userIds,&quot;userNames&quot;:userNames.substring(0, userNames.length-1)},function(result){&#xD;
+			if('success'==result){&#xD;
+				_this.refreshUserGroup();&#xD;
+		    }&#xD;
+		});     &#xD;
+	}else{&#xD;
+		Messenger.post({&#xD;
+		    'message': &quot;请选择需要设置主机构的用户！&quot;,&#xD;
+		    'type': 'error',&#xD;
+		});&#xD;
+	}&#xD;
+},&#xD;
+// 用户设置角色&#xD;
+userSetRoles:function(){&#xD;
+	var orgId = $model.search.orgId;&#xD;
+	if(angular.isUndefined(orgId) || null==orgId){&#xD;
+		orgId = &quot;&quot;;&#xD;
+	}&#xD;
+	&#xD;
+	var selectNodes = this.getUserGroup().getSelectDatas();&#xD;
+	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){&#xD;
+		var userIds = [];&#xD;
+		var userNames = &quot;&quot;;&#xD;
+		var _this = this;&#xD;
+		angular.forEach(selectNodes, function (value, key) {&#xD;
+				userIds.push(value.userId);&#xD;
+				userNames += value.userRealname+&quot;,&quot;;&#xD;
+        	});        &#xD;
+        Modal.open('f/userSetRole',{&quot;orgId&quot;:orgId,&quot;userIds&quot;:userIds,&quot;userNames&quot;:userNames.substring(0, userNames.length-1)},function(result){&#xD;
+			if('success'==result){&#xD;
+				_this.refreshUserGroup();&#xD;
+		    }&#xD;
+		});     &#xD;
+	}else{&#xD;
+		Messenger.post({&#xD;
+		    'message': &quot;请选择需要设置角色的用户！&quot;,&#xD;
+		    'type': 'error',&#xD;
+		});&#xD;
+	}&#xD;
+},&#xD;
+// 重置密码&#xD;
+resetPasswords:function(){&#xD;
+	var selectNodes = this.getUserGroup().getSelectDatas();&#xD;
+	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){&#xD;
+		var userIds = [];&#xD;
+		var userNames = &quot;&quot;;&#xD;
+		var _this = this;&#xD;
+		angular.forEach(selectNodes, function (value, key) {&#xD;
+				userIds.push(value.userId);&#xD;
+				userNames += value.userRealname+&quot;,&quot;;&#xD;
+        	});        &#xD;
+    	Modal.openConfirm({message:&quot;是否确认重置用户密码?&lt;br>待重置密码的用户：&quot;+userNames.substring(0, userNames.length-1)},function(){&#xD;
+    		$http.post(&quot;ws/resetPasswords&quot;,{&quot;userIds&quot;:userIds})&#xD;
+    				.success(function(data, status, headers, config){&#xD;
+						Messenger.post({&#xD;
+			                'message': &quot;重置密码成功！&quot;,&#xD;
+			                'type': 'success',&#xD;
+			            });&#xD;
+			            _this.refreshUserGroup();&#xD;
+					});&#xD;
+        });        	&#xD;
+	}else{&#xD;
+		Messenger.post({&#xD;
+		    'message': &quot;请选择需要重置密码的用户！&quot;,&#xD;
+		    'type': 'error',&#xD;
+		});&#xD;
+	}&#xD;
+},&#xD;
+// 刷新用户列表&#xD;
+refreshUserGroup:function(){&#xD;
+	this.getUserGroup().refresh();&#xD;
+},&#xD;
+// 查询用户&#xD;
+searchUser:function(){&#xD;
+	this.getUserGroup().refresh($model.search);&#xD;
+},&#xD;
+// 查询用户重置&#xD;
+resetSearchUser:function(){	&#xD;
+	$view.userName_Field.clean();&#xD;
+	$view.userRealname_Field.clean();&#xD;
+	$view.userSex_Field.clean();&#xD;
+	$view.userIsvalid_Field.clean();&#xD;
+	$model.searchRoleId = &quot;&quot;;&#xD;
+	$model.search.roleId = &quot;&quot;;&#xD;
+	$model.search.orgId = &quot;&quot;;&#xD;
+},&#xD;
+userGroup_customFormatter:function(cellvalue,options,rowObject){&#xD;
+	if(!angular.isUndefined(cellvalue)){&#xD;
+		var dictList = null;&#xD;
+		var dictDataMap = $model.dictData.result;&#xD;
+		if(!angular.isUndefined(dictDataMap)){		&#xD;
+			if(&quot;userIsvalid&quot;==options.colModel.name){&#xD;
+				dictList = dictDataMap[&quot;当前状态&quot;];&#xD;
+			}else if(&quot;userType&quot;==options.colModel.name){&#xD;
+				dictList = dictDataMap[&quot;用户类型&quot;];&#xD;
+			}else if(&quot;userSex&quot;==options.colModel.name){&#xD;
+				dictList = dictDataMap[&quot;性别&quot;];&#xD;
+			}&#xD;
+		}&#xD;
+		if(!angular.isUndefined(dictList) &amp;&amp; angular.isArray(dictList)){&#xD;
+			angular.forEach(dictList, function (value, key) {&#xD;
+				if(cellvalue==value.dictdataName){&#xD;
+					cellvalue = value.dictdataValue;&#xD;
+				}&#xD;
+        	});&#xD;
+		}&#xD;
+	}&#xD;
+	return cellvalue;&#xD;
+},
+org_Field_beforeClick:function(treeId,treeNode,clickFlag){&#xD;
+	if(treeNode.id=='0'){&#xD;
+		return false;&#xD;
+	}&#xD;
+	return true;&#xD;
+},
+role_Field_beforeClick:function(treeId,treeNode,clickFlag){
+	if(treeNode.hiddenName==&quot;role&quot;){&#xD;
+		return true;&#xD;
+	}&#xD;
+	return false;
+},
+// 数据源加载前
+page_beforeDataSourceLoad:function(){
+	var _this = this;&#xD;
+	&#xD;
+	if(angular.isUndefined($model.search)){&#xD;
+		$model.search = {};&#xD;
+	}&#xD;
+		&#xD;
+	var sOid = $params.sOid;&#xD;
+	var sRid = $params.sRid;&#xD;
+	var sUn = $params.sUn;&#xD;
+	var sUrn = $params.sUrn;&#xD;
+	if(!angular.isUndefined(sOid) &amp;&amp; sOid!=&quot;&quot;  &amp;&amp; sOid!=&quot;0&quot;){&#xD;
+		$model.search.orgId = sOid;&#xD;
+	}&#xD;
+	if(!angular.isUndefined(sRid) &amp;&amp; sRid!=&quot;&quot;){&#xD;
+		$model.search.roleId = sRid;&#xD;
+		$model.searchRoleId = sRid;&#xD;
+	}&#xD;
+	if(!angular.isUndefined(sUn) &amp;&amp; sUn!=&quot;&quot; ){&#xD;
+		$model.search.userName = sUn;&#xD;
+	}&#xD;
+	if(!angular.isUndefined(sUrn) &amp;&amp; sUrn!=&quot;&quot; ){&#xD;
+		$model.search.userRealname = sUrn;&#xD;
+	}	&#xD;
+	$model.dictData.$filter = function(data){&#xD;
+		//_this.getUserGroup().refresh($model.search);&#xD;
+	}	&#xD;
+},
+page_onload:function(){
+	var _this = this;&#xD;
+	var doit = debounce(function(search){&#xD;
+			if(_this.getUserGroup()){&#xD;
+				_this.getUserGroup().refresh(search);&#xD;
+			}&#xD;
+		},300,false);	&#xD;
+		&#xD;
+	$scope.$watch(&quot;$model.search&quot;,function(v,o){&#xD;
+		if(angular.isUndefined(v)){&#xD;
+			return ;&#xD;
+		}&#xD;
+		doit(v);&#xD;
+	},true);&#xD;
+}</form:scripts>
+  <form:htmls></form:htmls>
+</form:Form>

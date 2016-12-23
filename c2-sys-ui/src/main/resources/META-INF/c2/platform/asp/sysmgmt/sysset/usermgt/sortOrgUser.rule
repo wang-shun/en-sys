@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="sortOrgUser" className="com.chinacreator.asp.sysmgmt.sysset.usermgt.UserMgt" method="sortOrgUser">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>机构下用户排序</name>
+  <desc>机构下用户排序</desc>
+  <inputs>
+    <input collection="false" desc="每页记录条数" id="rowNum" required="true" type="int"/>
+    <input collection="false" desc="当前第几页" id="page" required="true" type="int"/>
+    <input collection="false" desc="机构ID" id="orgId" required="true"/>
+    <input collection="false" desc="" id="userIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>pFvb8ol7Qxud6EyyD5D2yA</res>
+  <params>
+    <param autoValue="Input.rowNum" name="rowNum" signature="I" type="int"/>
+    <param autoValue="Input.page" name="page" signature="I" type="int"/>
+    <param autoValue="Input.orgId" name="orgId" signature="QString;" type="java.lang.String"/>
+    <param autoValue="Input.userIds" name="userIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

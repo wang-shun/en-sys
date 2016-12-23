@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 字典数据实体类映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.dict.dao.DictDataDao">
+<cache type="org.mybatis.caches.c2.impl.C2DefaultDaoCache"/>
+  <sql id="DictData_Column_List"> dictdata_id,dicttype_id,dictdata_name,dictdata_value,dictdata_order,dictdata_isdefault </sql>
+  <resultMap id="DictDataResultMap" type="com.chinacreator.asp.comp.sys.basic.dict.eo.DictDataEO">
+    <result column="DICTDATA_ID" property="dictdataId" jdbcType="VARCHAR" />
+    <result column="DICTTYPE_ID" property="dicttypeId" jdbcType="VARCHAR" />
+    <result column="DICTDATA_NAME" property="dictdataName" jdbcType="VARCHAR" />
+    <result column="DICTDATA_VALUE" property="dictdataValue" jdbcType="VARCHAR" />
+    <result column="DICTDATA_ORDER" property="dictdataOrder" jdbcType="NUMERIC" />
+    <result column="DICTDATA_ISDEFAULT" property="dictdataIsdefault" jdbcType="CHAR" />
+  </resultMap>
+  
+  <insert id="create" parameterType="com.chinacreator.asp.comp.sys.basic.dict.eo.DictDataEO" databaseId="sqlserver">
+     INSERT INTO td_sm_dictdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="dictdataId != null">
+            dictdata_id,
+        </if>
+        <if test="dicttypeId != null">
+            dicttype_id,
+        </if>
+        <if test="dictdataName != null">
+            dictdata_name,
+        </if>
+        <if test="dictdataValue != null">
+            dictdata_value,
+        </if>
+        <if test="dictdataOrder != null">
+            dictdata_order,
+        </if>
+        <if test="dictdataIsdefault != null">
+            dictdata_isdefault,
+        </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+        <if test="dictdataId != null">
+             <![CDATA[#{dictdataId,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="dicttypeId != null">
+            <![CDATA[#{dicttypeId,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="dictdataName != null">
+            <![CDATA[#{dictdataName,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="dictdataValue != null">
+            <![CDATA[#{dictdataValue,jdbcType=VARCHAR},]]>
+        </if>
+        <if test="dictdataOrder != null">
+            <![CDATA[#{dictdataOrder,jdbcType=NUMERIC},]]>
+        </if>
+        <if test="dictdataIsdefault != null">
+            <![CDATA[#{dictdataIsdefault,jdbcType=CHAR},]]>
+        </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.chinacreator.asp.comp.sys.basic.dict.eo.DictDataEO" databaseId="sqlserver">
+        UPDATE td_sm_dictdata
+        <set>
+            <if test="dicttypeId != null">
+                <![CDATA[dicttype_id = #{dicttypeId,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="dictdataName != null">
+                <![CDATA[dictdata_name = #{dictdataName,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="dictdataValue != null">
+                <![CDATA[dictdata_value = #{dictdataValue,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="dictdataOrder != null">
+                <![CDATA[dictdata_order = #{dictdataOrder,jdbcType=NUMERIC},]]>
+            </if>
+            <if test="dictdataIsdefault != null">
+                <![CDATA[dictdata_isdefault = #{dictdataIsdefault,jdbcType=CHAR}]]>
+            </if>
+        </set>
+        WHERE <![CDATA[dictdata_id = #{dictdataId,jdbcType=VARCHAR}]]>
+  </update>
+  
+  <delete id="deleteByPKs" parameterType="java.lang.String" databaseId="sqlserver">
+      DELETE FROM td_sm_dictdata
+      WHERE dictdata_id IN
+      <foreach item="idItem" collection="array" open="(" separator=","
+          close=")">
+          <![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+      </foreach>
+  </delete>
+  
+  <delete id="deleteByDictTypeIds" parameterType="java.lang.String" databaseId="sqlserver">
+     DELETE FROM td_sm_dictdata
+      WHERE dicttype_id IN
+      <foreach item="idItem" collection="array" open="(" separator=","
+          close=")">
+          <![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+      </foreach>
+  </delete>
+  
+  <select id="queryByDictData" resultMap="DictDataResultMap" databaseId="sqlserver">
+        SELECT <include refid="DictData_Column_List"/>
+        FROM td_sm_dictdata
+         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+          <if test="dictDataEO.dictdataId != null">
+              <![CDATA[dictdata_id = #{dictDataEO.dictdataId,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="dictDataEO.dicttypeId != null">
+              <![CDATA[AND dicttype_id = #{dictDataEO.dicttypeId,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="dictDataEO.dictdataName != null">
+              <![CDATA[AND dictdata_name like concat('%' , #{dictDataEO.dictdataName,jdbcType=VARCHAR} , '%')]]>
+          </if>
+           <if test="dictDataEO.dictdataValue != null">
+              <![CDATA[AND dictdata_value like concat('%' ,  #{dictDataEO.dictdataValue,jdbcType=VARCHAR} , '%')]]>
+          </if>
+           <if test="dictDataEO.dictdataOrder != null">
+              <![CDATA[AND dictdata_order = #{dictDataEO.dictdataOrder,jdbcType=NUMERIC}]]>
+          </if>
+           <if test="dictDataEO.dictdataIsdefault != null">
+              <![CDATA[AND dictdata_isdefault = #{dictDataEO.dictdataIsdefault,jdbcType=CHAR}]]>
+          </if>
+      </trim>
+      ORDER BY dictdata_order
+  </select>
+  
+  <select id="queryByDictTypeName" resultMap="DictDataResultMap" databaseId="sqlserver">
+  		SELECT <include refid="DictData_Column_List"/>
+  		<![CDATA[
+	        FROM td_sm_dictdata
+	        WHERE dicttype_id = 
+	        (SELECT dicttype_id 
+	        	FROM td_sm_dicttype 
+	        	WHERE dicttype_name = #{dictTypeName,jdbcType=VARCHAR})
+	        ORDER BY dictdata_order
+        ]]>
+  </select>
+  
+  <select id="queryByPK" parameterType="java.lang.String" resultMap="DictDataResultMap" databaseId="sqlserver">
+        SELECT <include refid="DictData_Column_List"/>
+        FROM td_sm_dictdata
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+          <if test="dictDataId != null">
+              <![CDATA[dictdata_id = #{dictDataId,jdbcType=VARCHAR}]]>
+          </if>
+        </trim>
+  </select>
+  
+  <select id="existsByDictDataName" resultType="int" databaseId="sqlserver">
+        SELECT COUNT(*)
+        FROM td_sm_dictdata
+         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+          <if test="dictTypeId != null">
+              <![CDATA[dicttype_id = #{dictTypeId,jdbcType=VARCHAR}]]>
+          </if>
+          <if test="dictDataName != null">
+              <![CDATA[AND dictdata_name = #{dictDataName,jdbcType=VARCHAR}]]>
+          </if>
+        </trim>
+  </select>
+  
+  <select id="existsByDictDataNameIgnoreDictDataID" resultType="int" databaseId="sqlserver">
+	<![CDATA[
+	  	SELECT COUNT(*)
+		  FROM td_sm_dictdata
+		 WHERE dicttype_id = #{dictTypeId,jdbcType=VARCHAR}
+		   AND dictdata_name = #{dictDataName,jdbcType=VARCHAR}
+		   AND dictdata_id != #{dictDataId,jdbcType=VARCHAR}
+	]]>
+  </select>
+  
+</mapper>

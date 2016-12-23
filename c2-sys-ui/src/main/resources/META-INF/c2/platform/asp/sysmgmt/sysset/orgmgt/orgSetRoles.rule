@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="orgSetRoles" className="com.chinacreator.asp.sysmgmt.sysset.orgmgt.OrgMgt" method="orgSetRoles">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>机构设置角色</name>
+  <inputs>
+    <input collection="false" desc="" id="orgIds" required="true" type="[Ljava.lang.String;"/>
+    <input collection="false" desc="" id="addRoleIds" required="true" type="[Ljava.lang.String;"/>
+    <input collection="false" desc="" id="delRoleIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>xqxEgmq2Sc-PCCAyb14Rbw</res>
+  <params>
+    <param autoValue="Input.orgIds" name="orgIds" signature="[QString;" type="[Ljava.lang.String;"/>
+    <param autoValue="Input.addRoleIds" name="addRoleIds" signature="[QString;" type="[Ljava.lang.String;"/>
+    <param autoValue="Input.delRoleIds" name="delRoleIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

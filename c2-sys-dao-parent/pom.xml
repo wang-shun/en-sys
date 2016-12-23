@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>c2-sys-dao-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>系统管理Dao层</name>
+
+	<parent>
+		<groupId>com.chinacreator.c2</groupId>
+		<artifactId>c2-sys-parent</artifactId>
+		<version>5.0.0-SNAPSHOT</version>
+	</parent>
+
+	<modules>
+		<module>c2-sys-dao-api</module>
+		<module>c2-sys-dao-dm</module>
+		<module>c2-sys-dao-mysql</module>
+		<module>c2-sys-dao-oracle</module>
+		<module>c2-sys-dao-postgresql</module>
+		<module>c2-sys-dao-sqlserver</module>
+	</modules>
+</project>

@@ -4,6 +4,12 @@
 	<artifactId>c2-sys-sdk-parent</artifactId>
 	<packaging>pom</packaging>
 
+	<parent>
+		<groupId>com.chinacreator.c2</groupId>
+		<artifactId>c2-sys-parent</artifactId>
+		<version>5.0.0-SNAPSHOT</version>
+	</parent>
+
 	<modules>
 		<module>c2-sys-sdk</module>
 		<module>c2-sys-sdk-impl</module>
@@ -11,9 +17,4 @@
 		<module>c2-sys-sdk-client</module>
 		<!-- <module>c2-sys-sdk-test</module> -->
 	</modules>
-	<parent>
-		<groupId>com.chinacreator.c2</groupId>
-		<artifactId>c2-sys-parent</artifactId>
-		<version>5.0.0-SNAPSHOT</version>
-	</parent>
 </project>

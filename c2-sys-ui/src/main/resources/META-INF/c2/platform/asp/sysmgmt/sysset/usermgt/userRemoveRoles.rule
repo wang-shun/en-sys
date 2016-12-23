@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="userRemoveRoles" className="com.chinacreator.asp.sysmgmt.sysset.usermgt.UserMgt" method="userRemoveRoles">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>用户回收角色</name>
+  <inputs>
+    <input collection="false" desc="" id="orgId" required="true"/>
+    <input collection="false" desc="" id="userIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>-1UXTejgTtO-tpbb5c8l-g</res>
+  <params>
+    <param autoValue="Input.orgId" name="orgId" signature="QString;" type="java.lang.String"/>
+    <param autoValue="Input.userIds" name="userIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

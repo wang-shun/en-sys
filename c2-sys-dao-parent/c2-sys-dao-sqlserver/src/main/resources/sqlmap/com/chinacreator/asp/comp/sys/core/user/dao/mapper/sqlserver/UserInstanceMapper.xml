@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserInstanceDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+	<resultMap id="UserInstanceResultMap" type="com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceEO">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="SCOPE_ID" property="scopeId" jdbcType="VARCHAR" />
+		<result column="SCOPE_TYPE" property="scopeType" jdbcType="CHAR" />
+		<result column="IS_ENABLED" property="isEnabled" jdbcType="CHAR" />
+	</resultMap>
+	<sql id="UserInstance_Column_List">
+		id, user_id, scope_id, scope_type, is_enabled
+	</sql>
+
+	<resultMap id="UserResultMap" type="com.chinacreator.asp.comp.sys.core.user.eo.UserEO">
+		<id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR" />
+		<result column="USER_REALNAME" property="userRealname" jdbcType="VARCHAR" />
+		<result column="USER_PINYIN" property="userPinyin" jdbcType="VARCHAR" />
+		<result column="USER_SEX" property="userSex" jdbcType="VARCHAR" />
+		<result column="USER_HOMETEL" property="userHometel" jdbcType="VARCHAR" />
+		<result column="USER_WORKTEL" property="userWorktel" jdbcType="VARCHAR" />
+		<result column="USER_WORKADDRESS" property="userWorkaddress" jdbcType="VARCHAR" />
+		<result column="USER_MOBILETEL1" property="userMobiletel1" jdbcType="VARCHAR" />
+		<result column="USER_MOBILETEL2" property="userMobiletel2" jdbcType="VARCHAR" />
+		<result column="USER_FAX" property="userFax" jdbcType="VARCHAR" />
+		<result column="USER_OICQ" property="userOicq" jdbcType="VARCHAR" />
+		<result column="USER_BIRTHDAY" property="userBirthday" jdbcType="TIMESTAMP" />
+		<result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+		<result column="USER_ADDRESS" property="userAddress" jdbcType="VARCHAR" />
+		<result column="USER_POSTALCODE" property="userPostalcode" jdbcType="VARCHAR" />
+		<result column="USER_IDCARD" property="userIdcard" jdbcType="VARCHAR" />
+		<result column="USER_ISVALID" property="userIsvalid" jdbcType="DECIMAL" />
+		<result column="USER_REGDATE" property="userRegdate" jdbcType="TIMESTAMP" />
+		<result column="USER_LOGINCOUNT" property="userLogincount" jdbcType="DECIMAL" />
+		<result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+		<result column="PAST_TIME" property="pastTime" jdbcType="TIMESTAMP" />
+		<result column="DREDGE_TIME" property="dredgeTime" jdbcType="VARCHAR" />
+		<result column="LASTLOGIN_DATE" property="lastloginDate" jdbcType="TIMESTAMP" />
+		<result column="WORKLENGTH" property="worklength" jdbcType="VARCHAR" />
+		<result column="POLITICS" property="politics" jdbcType="VARCHAR" />
+		<result column="LOGIN_IP" property="loginIp" jdbcType="VARCHAR" />
+		<result column="CERT_SN" property="certSn" jdbcType="VARCHAR" />
+		<result column="USER_SN" property="userSn" jdbcType="DECIMAL" />
+		<result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+		<result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+		<result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+		<result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+		<result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+		<result column="REMARK6" property="remark6" jdbcType="VARCHAR" />
+		<result column="REMARK7" property="remark7" jdbcType="VARCHAR" />
+		<result column="REMARK8" property="remark8" jdbcType="VARCHAR" />
+		<result column="REMARK9" property="remark9" jdbcType="VARCHAR" />
+		<result column="REMARK10" property="remark10" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="User_Column_List">
+		user_id, user_name, user_password, user_realname,user_pinyin, user_sex,user_hometel,
+		user_worktel, user_workaddress,user_mobiletel1, user_mobiletel2, user_fax,user_oicq,
+		user_birthday,user_email, user_address, user_postalcode, user_idcard, user_isvalid,
+		user_regdate, user_logincount, user_type, past_time, dredge_time,lastlogin_date,
+		worklength, politics, login_ip, cert_sn, user_sn,remark1, remark2, remark3,remark4,
+		remark5, remark6, remark7, remark8,remark9, remark10
+	</sql>
+
+	<resultMap id="RoleResultMap" type="com.chinacreator.asp.comp.sys.core.role.eo.RoleEO">
+		<id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+		<result column="ROLE_TYPE" property="roleType" jdbcType="VARCHAR" />
+		<result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+		<result column="ROLE_USAGE" property="roleUsage" jdbcType="VARCHAR" />
+		<result column="OWNER_ID" property="ownerId" jdbcType="VARCHAR" />
+		<result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+		<result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+		<result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+		<result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+		<result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Role_Column_List">
+		role_id, role_name, role_type, role_desc, role_usage,owner_id,
+		remark1,remark2,remark3, remark4, remark5
+	</sql>
+
+	<resultMap id="GroupResultMap" type="com.chinacreator.asp.comp.sys.core.group.eo.GroupEO">
+		<id column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+		<result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR" />
+		<result column="GROUP_DESC" property="groupDesc" jdbcType="VARCHAR" />
+		<result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+		<result column="OWNER_ID" property="ownerId" jdbcType="VARCHAR" />
+		<result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+		<result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+		<result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+		<result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+		<result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="CHAR" />
+	</resultMap>
+	<sql id="Group_Column_List">
+		group_id, group_name, group_desc, parent_id, owner_id,
+		remark1, remark2, remark3, remark4, remark5, type
+	</sql>
+
+    <resultMap id="PrivilegeResultMap" type="com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeEO">
+        <result column="ID" property="privilegeId" jdbcType="VARCHAR" />
+        <result column="CODE" property="privilegeCode" jdbcType="VARCHAR" />
+        <result column="NAME" property="privilegeName" jdbcType="VARCHAR" />
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="CHAR" />
+        <result column="PERM_EXPR" property="permExpr" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+		<result column="CREATOR_TIME" property="creatorTime" jdbcType="TIMESTAMP" />
+		<result column="SN" property="sn" jdbcType="DECIMAL" />
+		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>
+		<result column="VIRTUAL" property="virtual" jdbcType="CHAR"/>	
+    </resultMap>
+	<sql id="Privilege_Column_List">
+		id, code, name, parent_id, type, perm_expr,creator,creator_time,sn,source,virtual
+	</sql>
+
+	<insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceEO" databaseId="sqlserver">
+		INSERT INTO td_sm_userinstance
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="scopeId != null">
+				scope_id,
+			</if>
+			<if test="scopeType != null">
+				scope_type,
+			</if>
+			<if test="isEnabled != null">
+				is_enabled,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="scopeId != null">
+				#{scopeId,jdbcType=VARCHAR},
+			</if>
+			<if test="scopeType != null">
+				#{scopeType,jdbcType=CHAR},
+			</if>
+			<if test="isEnabled != null">
+				#{isEnabled,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceEO" databaseId="sqlserver">
+		UPDATE td_sm_userinstance
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="scopeId != null">
+				scope_id = #{scopeId,jdbcType=VARCHAR},
+			</if>
+			<if test="scopeType != null">
+				scope_type = #{scopeType,jdbcType=CHAR},
+			</if>
+			<if test="isEnabled != null">
+				is_enabled = #{isEnabled,jdbcType=CHAR},
+			</if>
+		</set>
+		WHERE id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByPKs" parameterType="java.lang.String" databaseId="sqlserver">
+		DELETE FROM td_sm_userinstance
+		WHERE id IN
+		<foreach item="idItem" collection="array" open="(" separator="," close=")">
+			#{idItem}
+		</foreach>
+	</delete>
+
+	<delete id="deleteByUserIds" parameterType="java.lang.String" databaseId="sqlserver">
+		DELETE FROM td_sm_userinstance
+		WHERE user_id IN
+		<foreach item="idItem" collection="array" open="(" separator="," close=")">
+			#{idItem}
+		</foreach>
+	</delete>
+  
+    <delete id="deleteByUserIdAndScope" parameterType="java.lang.String" databaseId="sqlserver">
+        <![CDATA[
+        DELETE FROM td_sm_userinstance
+        WHERE user_id = #{userId,jdbcType=VARCHAR}        
+        AND scope_type = #{scopeType,jdbcType=CHAR}
+        ]]>
+        <if test="scopeId != null">
+            <![CDATA[
+                AND scope_id = #{scopeId,jdbcType=VARCHAR}
+            ]]>
+        </if>    
+    </delete>
+
+	<select id="queryAll" resultMap="UserInstanceResultMap"	databaseId="sqlserver">
+		SELECT
+		<include refid="UserInstance_Column_List" />
+		FROM td_sm_userinstance
+	</select>
+
+	<select id="queryByUserInstance" resultMap="UserInstanceResultMap" databaseId="sqlserver">
+		SELECT
+		<include refid="UserInstance_Column_List" />
+		FROM td_sm_userinstance
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				id = #{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				AND user_id = #{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="scopeId != null">
+				AND scope_id = #{scopeId,jdbcType=VARCHAR}
+			</if>
+			<if test="scopeType != null">
+				AND scope_type = #{scopeType,jdbcType=CHAR}
+			</if>
+			<if test="isEnabled != null">
+				AND is_enabled = #{isEnabled,jdbcType=CHAR}
+			</if>
+		</trim>
+	</select>
+
+	<select id="queryByPK" resultMap="UserInstanceResultMap" parameterType="java.lang.String" databaseId="sqlserver">
+		SELECT
+		<include refid="UserInstance_Column_List" />
+		<![CDATA[
+		FROM td_sm_userinstance
+		WHERE id = #{id,jdbcType=VARCHAR}
+		]]>
+	</select>
+
+	<select id="queryByScope" resultMap="UserInstanceResultMap"	parameterType="java.lang.String" databaseId="sqlserver">
+		SELECT
+		<include refid="UserInstance_Column_List" />
+		<![CDATA[
+		FROM td_sm_userinstance
+		WHERE scope_type = #{scopeType,jdbcType=CHAR}
+		]]>
+        <if test="scopeId != null">
+            <![CDATA[
+                AND scope_id = #{scopeId,jdbcType=VARCHAR}
+            ]]>
+        </if>
+	</select>
+  
+    <select id="queryByUserAndScope" resultMap="UserInstanceResultMap"   parameterType="java.lang.String" databaseId="sqlserver">
+        SELECT
+        <include refid="UserInstance_Column_List" />
+        <![CDATA[
+        FROM td_sm_userinstance
+        WHERE user_id = #{userId,jdbcType=VARCHAR} 
+        AND scope_type = #{scopeType,jdbcType=CHAR}
+        ]]>
+        <if test="scopeId != null">
+            <![CDATA[
+                AND scope_id = #{scopeId,jdbcType=VARCHAR}
+            ]]>
+        </if>
+    </select>
+
+	<select id="queryUsersByScope" resultMap="UserResultMap" parameterType="java.lang.String" databaseId="sqlserver">
+		SELECT
+	    <include refid="User_Column_List" />
+	    <![CDATA[
+	    FROM TD_SM_USER
+	    WHERE user_id IN(SELECT user_id 
+	    					FROM td_sm_userinstance
+	    					WHERE id = #{id,jdbcType=VARCHAR})
+        ]]>
+	</select>
+
+	<select id="queryUserByScope" resultMap="UserResultMap"	parameterType="java.lang.String" databaseId="sqlserver">
+		SELECT 
+		<include refid="User_Column_List" />
+		<![CDATA[
+		FROM td_sm_user
+		WHERE user_id IN (SELECT user_id
+		                    FROM td_sm_userinstance
+		                   	WHERE scope_type = #{scopeType,jdbcType=CHAR}
+        ]]> 
+                            <if test="scopeId != null">
+                                <![CDATA[
+                                    AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                ]]>
+                            </if>
+		                  )
+	</select>
+
+    <select id="queryDirectRolesByUserId" resultMap="RoleResultMap" parameterType="java.lang.String" databaseId="sqlserver">
+        SELECT 
+        <include refid="Role_Column_List" />
+        <![CDATA[
+        FROM td_sm_role
+        WHERE role_usage = '1'
+        AND role_id IN (SELECT role_id
+                          FROM td_sm_userinstancerole
+                          WHERE userinstance_id IN (SELECT id
+                                                      FROM td_sm_userinstance
+                                                      WHERE is_enabled = '1'
+                                                      AND user_id = #{userId,jdbcType=VARCHAR}))
+        ]]>
+    </select>
+    
+    <select id="queryDirectRolesByScope" resultMap="RoleResultMap" parameterType="java.lang.String" databaseId="sqlserver">
+        SELECT 
+        <include refid="Role_Column_List" />
+        <![CDATA[
+        FROM td_sm_role
+        WHERE role_usage = '1'
+        AND role_id IN (SELECT role_id
+                            FROM td_sm_userinstancerole
+                            WHERE userinstance_id IN (SELECT id
+                                                        FROM td_sm_userinstance
+                                                        WHERE is_enabled = '1'
+                                                        AND user_id = #{userId,jdbcType=VARCHAR}
+        ]]>
+                                                        <if test="scopeId != null">
+                                                            <![CDATA[
+                                                                AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                                            ]]>
+                                                        </if>
+                                                        <![CDATA[
+                                                               AND scope_type = #{scopeType,jdbcType=CHAR}))
+                                                        ]]>
+    </select>
+    
+	<select id="queryRolesByUserId" resultMap="RoleResultMap" parameterType="java.lang.String" databaseId="sqlserver">
+		SELECT 
+        <include refid="Role_Column_List" />
+        <![CDATA[
+        FROM td_sm_role
+        WHERE role_usage = '1'
+        AND role_id IN (SELECT role_id
+                            FROM td_sm_userinstancerole
+                            WHERE userinstance_id IN (SELECT id
+                                                        FROM td_sm_userinstance
+                                                        WHERE is_enabled = '1'
+                                                       AND user_id = #{userId,jdbcType=VARCHAR})
+                         UNION
+                         SELECT role_id
+                            FROM td_sm_grouprole
+                            WHERE group_id IN (SELECT group_id
+                                                FROM td_sm_userinstancegroup
+                                                WHERE userinstance_id IN (SELECT id
+                                                                            FROM td_sm_userinstance
+                                                                            WHERE is_enabled = '1'
+                                                                            AND user_id = #{userId,jdbcType=VARCHAR})))
+        ]]>
+	</select>
+
+	<select id="queryRolesByScope" resultMap="RoleResultMap" parameterType="java.lang.String" databaseId="sqlserver">
+        SELECT 
+        <include refid="Role_Column_List" />
+        <![CDATA[
+        FROM td_sm_role
+        WHERE role_usage = '1'
+        AND role_id IN (SELECT role_id
+                            FROM td_sm_userinstancerole
+                            WHERE userinstance_id IN (SELECT id
+                                                        FROM td_sm_userinstance
+                                                        WHERE is_enabled = '1'
+                                                       AND user_id = #{userId,jdbcType=VARCHAR}
+        ]]>
+                                                       <if test="scopeId != null">
+                                                            <![CDATA[
+                                                                AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                                            ]]>
+                                                        </if>
+                                                        <![CDATA[
+                                                               AND scope_type = #{scopeType,jdbcType=CHAR})
+                                                        ]]>
+                         <![CDATA[
+                         UNION
+                         SELECT role_id
+                            FROM td_sm_grouprole
+                            WHERE group_id IN (SELECT group_id
+                                                FROM td_sm_userinstancegroup
+                                                WHERE userinstance_id IN (SELECT id
+                                                                            FROM td_sm_userinstance
+                                                                            WHERE is_enabled = '1'
+                                                                            AND user_id = #{userId,jdbcType=VARCHAR}
+                         ]]>
+                                                                            <if test="scopeId != null">
+                                                                                <![CDATA[
+                                                                                    AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                                                                ]]>
+                                                                            </if>
+                                                                            <![CDATA[
+                                                                                   AND scope_type = #{scopeType,jdbcType=CHAR})))
+                                                                            ]]>
+	</select>
+
+	<select id="queryGroupsByUserId" resultMap="GroupResultMap"	parameterType="java.lang.String" databaseId="sqlserver">
+		SELECT 
+		<include refid="Group_Column_List" />
+		<![CDATA[
+		FROM td_sm_group
+        WHERE group_id IN (SELECT group_id
+                            FROM td_sm_userinstancegroup 
+                            WHERE userinstance_id IN (SELECT id
+                                                        FROM td_sm_userinstance
+                                                        WHERE is_enabled = '1'
+                                                        AND user_id = #{userId,jdbcType=VARCHAR}))
+        ]]>	
+	</select>
+
+	<select id="queryGroupsByScope" resultMap="GroupResultMap" parameterType="java.lang.String" databaseId="sqlserver">
+		SELECT 
+		<include refid="Group_Column_List" />
+		<![CDATA[
+		FROM td_sm_group
+        WHERE group_id IN (SELECT group_id
+                            FROM td_sm_userinstancegroup 
+                            WHERE userinstance_id IN (SELECT id
+                                                        FROM td_sm_userinstance
+                                                        WHERE is_enabled = '1'
+                                                        AND user_id = #{userId,jdbcType=VARCHAR}
+        ]]>
+		                                              <if test="scopeId != null">
+                                                            <![CDATA[
+                                                                AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                                            ]]>
+                                                      </if>
+                                                      <![CDATA[
+		                                                        AND scope_type = #{scopeType,jdbcType=CHAR}))
+                                                      ]]>	
+	</select>
+
+	<select id="queryPrivilegesByUserId" resultMap="PrivilegeResultMap" parameterType="java.lang.String" databaseId="sqlserver">
+		SELECT 
+		<include refid="Privilege_Column_List" />
+		<![CDATA[
+		FROM tb_sm_privilege
+		WHERE id IN (SELECT op_id
+		                FROM td_sm_roleresop
+		               	WHERE role_id IN (SELECT role_id
+		                                   	FROM td_sm_role t
+		                                  	WHERE t.role_usage = '1'
+		                                    AND role_id IN (SELECT role_id
+		                                                      	FROM td_sm_userinstancerole
+		                                                     	WHERE userinstance_id IN (SELECT id
+		                                                                                 	FROM td_sm_userinstance
+		                                                                                	WHERE is_enabled = '1'
+		                                                                                  	AND user_id = #{userId,jdbcType=VARCHAR})
+		                                                    UNION
+		                                                    SELECT role_id
+		                                                      	FROM td_sm_grouprole
+		                                                     	WHERE group_id IN (SELECT group_id
+		                                                                          		FROM td_sm_userinstancegroup
+		                                                                         		WHERE userinstance_id IN (SELECT id
+		                                                                                                     		FROM td_sm_userinstance
+		                                                                                                    		WHERE is_enabled = '1'
+		                                                                                                      		AND user_id = #{userId,jdbcType=VARCHAR})))))
+        ]]>	
+	</select>
+
+	<select id="queryPrivilegesByScope" resultMap="PrivilegeResultMap" parameterType="java.lang.String" databaseId="sqlserver">		
+		SELECT 
+		<include refid="Privilege_Column_List" />
+		<![CDATA[
+  		FROM tb_sm_privilege
+ 		WHERE id IN (SELECT op_id
+                		FROM td_sm_roleresop
+               			WHERE role_id IN (SELECT role_id
+                        			        FROM td_sm_role
+                                  			WHERE role_usage = '1'
+                                    		AND role_id IN (SELECT role_id
+                                            		          	FROM td_sm_userinstancerole
+                                                     			WHERE userinstance_id IN (SELECT id
+                                                                			                FROM td_sm_userinstance
+                                                                            				WHERE is_enabled = '1'
+                                                                                  			AND user_id = #{userId,jdbcType=VARCHAR}
+        ]]>
+                                                       										<if test="scopeId != null">
+                                                                                                  <![CDATA[
+                                                                                                      AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                                                                                  ]]>
+                                                                                            </if>
+        <![CDATA[
+                                                       										AND scope_type = #{scopeType,jdbcType=CHAR})
+                                                    		UNION
+                                                    		SELECT role_id
+                                                      			FROM td_sm_grouprole
+                                                     			WHERE group_id IN (SELECT group_id
+                                                                			          	FROM td_sm_userinstancegroup
+                                                                         				WHERE userinstance_id IN (SELECT id
+                                                                                        				            FROM td_sm_userinstance
+                                                                                                    				WHERE is_enabled = '1'
+                                                                                                      				AND user_id = #{userId,jdbcType=VARCHAR}
+        ]]>
+                                                                                                      				<if test="scopeId != null">
+                                                                                                                          <![CDATA[
+                                                                                                                              AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                                                                                                          ]]>
+                                                                                                                    </if>
+                                                                                                                    <![CDATA[
+                                                                                                      				          AND scope_type = #{scopeType,jdbcType=CHAR})))))
+                                                                                                                    ]]>	
+	</select>
+
+	<update id="setEnabledByScope" parameterType="java.lang.String" databaseId="sqlserver">
+		<![CDATA[
+		UPDATE td_sm_userinstance
+			SET is_enabled = #{enabled,jdbcType=CHAR}
+			WHERE user_id = #{userId,jdbcType=VARCHAR}			
+			AND scope_type = #{scopeType,jdbcType=CHAR}
+        ]]>
+        <if test="scopeId != null">
+              <![CDATA[
+                  AND scope_id = #{scopeId,jdbcType=VARCHAR}
+              ]]>
+        </if>				
+	</update>
+
+    <select id="hasRole" resultType="int" parameterType="java.lang.String" databaseId="sqlserver">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM td_sm_userinstancerole
+        WHERE role_id = #{roleId,jdbcType=VARCHAR}
+        AND userinstance_id IN (SELECT id
+                                   FROM td_sm_userinstance u
+                                   WHERE user_id = #{userId,jdbcType=VARCHAR})
+        ]]> 
+    </select>
+    
+    <select id="hasRoleByScope" resultType="int" parameterType="java.lang.String" databaseId="sqlserver">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM td_sm_userinstancerole
+        WHERE role_id = #{roleId,jdbcType=VARCHAR}
+        AND userinstance_id IN (SELECT id
+                                   FROM td_sm_userinstance
+                                   WHERE user_id = #{userId,jdbcType=VARCHAR}
+        ]]>
+                                   <if test="scopeId != null">
+                                        <![CDATA[
+                                            AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                        ]]>
+                                  </if>
+                                  <![CDATA[
+                                            AND scope_type = #{scopeType,jdbcType=CHAR})
+                                  ]]> 
+    </select>
+    
+	<select id="hasAllRole" resultType="int" parameterType="java.lang.String" databaseId="sqlserver">
+		<![CDATA[
+		SELECT COUNT(*)
+  		FROM td_sm_role t
+ 		WHERE t.role_usage = '1'
+   		AND role_id IN (SELECT role_id
+        	        	    FROM td_sm_userinstancerole
+            		        WHERE role_id = #{roleId,jdbcType=VARCHAR}
+                      		AND userinstance_id IN (SELECT id
+                            		                   FROM td_sm_userinstance
+                                    		           WHERE is_enabled = '1'
+                                            		   AND user_id = #{userId,jdbcType=VARCHAR})
+                   		UNION
+                   		SELECT role_id
+                     		FROM td_sm_grouprole
+                    		WHERE group_id IN (SELECT group_id
+                            		            FROM td_sm_userinstancegroup
+                                    		    WHERE role_id = #{roleId,jdbcType=VARCHAR}
+                                          		AND userinstance_id IN (SELECT id
+                                                		                   FROM td_sm_userinstance
+                                                        		           WHERE is_enabled = '1'
+                                                                		   AND user_id = #{userId,jdbcType=VARCHAR})))
+        ]]>	
+	</select>
+
+	<select id="hasAllRoleByScope" resultType="int" parameterType="java.lang.String" databaseId="sqlserver">
+		<![CDATA[
+		SELECT COUNT(*)
+  		FROM td_sm_role
+ 		WHERE role_usage = '1'
+   		AND role_id IN (SELECT role_id
+        	        		FROM td_sm_userinstancerole
+            		        WHERE role_id = #{roleId,jdbcType=VARCHAR}
+                      		AND userinstance_id IN (SELECT id
+                            		                   	FROM td_sm_userinstance
+                                    		           	WHERE is_enabled = '1'
+                                            		   	AND user_id = #{userId,jdbcType=VARCHAR}
+        ]]>
+														<if test="scopeId != null">
+                                                              <![CDATA[
+                                                                  AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                                              ]]>
+                                                        </if>
+        <![CDATA[
+                                                 		         AND scope_type = #{scopeType,jdbcType=CHAR})
+                   		UNION
+                   		SELECT role_id
+                     		FROM td_sm_grouprole
+                    		WHERE group_id IN (SELECT group_id
+                            		            	FROM td_sm_userinstancegroup
+                                    			    WHERE role_id = #{roleId,jdbcType=VARCHAR}
+                                          			AND userinstance_id IN (SELECT id
+                                                    			               	FROM td_sm_userinstance
+                                                                			   	WHERE is_enabled = '1'
+                                                                     			AND user_id = #{userId,jdbcType=VARCHAR}
+        ]]>
+                                                                     			<if test="scopeId != null">
+                                                                                      <![CDATA[
+                                                                                          AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                                                                      ]]>
+                                                                                </if>
+                                                                                <![CDATA[
+                                                                     			          AND scope_type = #{scopeType,jdbcType=CHAR})))
+                                                                                ]]>	
+	</select>
+
+	<select id="hasPrivilege" resultType="int" parameterType="java.lang.String"	databaseId="sqlserver">
+		<![CDATA[
+		SELECT COUNT(*)
+  		FROM tb_sm_privilege
+ 		WHERE id IN (SELECT op_id
+        		        FROM td_sm_roleresop
+               			WHERE op_id = #{privilegeId,jdbcType=VARCHAR}
+                 		AND role_id IN (SELECT role_id
+                                   			FROM td_sm_role 
+                                  			WHERE role_usage = '1'
+                                    		AND role_id IN (SELECT role_id
+                                            		          	FROM td_sm_userinstancerole
+                                                    			WHERE userinstance_id IN (SELECT id
+                                                                			                FROM td_sm_userinstance
+                                                                            			    WHERE is_enabled = '1'
+                                                                                  			AND user_id = #{userId,jdbcType=VARCHAR})
+                                                    		UNION
+                                                    		SELECT role_id
+                                                      		FROM td_sm_grouprole
+                                                     		WHERE group_id IN (SELECT group_id
+                                                            		             FROM td_sm_userinstancegroup
+                                                                    		     WHERE userinstance_id IN (SELECT id
+                                                                            		            	            FROM td_sm_userinstance
+                                                                                    			                WHERE is_enabled = '1'
+                                                                                                    			AND user_id = #{userId,jdbcType=VARCHAR})))))
+         ]]>                                                                                                    			
+	</select>
+
+	<select id="hasPrivilegeByScope" resultType="int" parameterType="java.lang.String"	databaseId="sqlserver">
+		<![CDATA[
+		SELECT COUNT(*)
+  		FROM tb_sm_privilege
+ 		WHERE id IN (SELECT op_id
+        		        FROM td_sm_roleresop
+               			WHERE op_id = #{privilegeId,jdbcType = VARCHAR}
+                 		AND role_id IN (SELECT role_id
+                        		           	FROM td_sm_role t
+                                  			WHERE t.role_usage = '1'
+                                    		AND role_id IN (SELECT role_id
+                                            		          	FROM td_sm_userinstancerole
+                                                    			WHERE userinstance_id IN (SELECT id
+                                                                			                	FROM td_sm_userinstance
+                                                                            				    WHERE is_enabled = '1'
+                                                                                  				AND user_id = #{userId,jdbcType = VARCHAR}
+        ]]>                   
+                                                                                  				<if test="scopeId != null">
+                                                                                                      <![CDATA[
+                                                                                                          AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                                                                                      ]]>
+                                                                                                </if>
+        <![CDATA[                                                                                                
+                                                                                  				          AND scope_type = #{scopeType,jdbcType = CHAR})
+                                                    		UNION
+                                                    		SELECT role_id
+                                                      		FROM td_sm_grouprole
+                                                     		WHERE group_id IN (SELECT group_id
+                                                            		             FROM td_sm_userinstancegroup
+                                                                    		     WHERE userinstance_id IN (SELECT id
+                                                                            		        	                FROM td_sm_userinstance
+                                                                                    		    	            WHERE is_enabled = '1'
+                                                                                                     			AND user_id = #{userId,jdbcType = VARCHAR}
+        ]]>                                                                                                          
+                                                                                                      			<if test="scopeId != null">
+                                                                                                                      <![CDATA[
+                                                                                                                          AND scope_id = #{scopeId,jdbcType=VARCHAR}
+                                                                                                                      ]]>
+                                                                                                                </if>
+                                                                                                                <![CDATA[
+                                                                                                      			          AND scope_type = #{scopeType,jdbcType = CHAR})))))
+                                                                                                                ]]>
+	</select>
+
+	<select id="isEnabledByScope" resultType="int" parameterType="java.lang.String"	databaseId="sqlserver">
+		<![CDATA[
+		SELECT is_enabled
+		FROM td_sm_userinstance
+		WHERE user_id = #{userId,jdbcType=VARCHAR}		
+		AND scope_type = #{scopeType,jdbcType=CHAR}
+		]]>
+        <if test="scopeId != null">
+              <![CDATA[
+                  AND scope_id = #{scopeId,jdbcType=VARCHAR}
+              ]]>
+        </if>
+	</select>
+  
+    <select id="belongsToGroup" resultType="int" parameterType="java.lang.String"   databaseId="sqlserver">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM td_sm_userinstancegroup
+        WHERE userinstance_id = #{userInstanceId,jdbcType=VARCHAR}
+        AND group_id = #{groupId,jdbcType=VARCHAR}
+        ]]>
+    </select>
+    
+    <select id="existsByUserIdAndScope" resultType="int" parameterType="java.lang.String" databaseId="sqlserver">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM td_sm_userinstance
+        WHERE user_id = #{userId,jdbcType=VARCHAR}      
+        AND scope_type = #{scopeType,jdbcType=CHAR}
+        ]]>
+        <if test="scopeId != null">
+              <![CDATA[
+                  AND scope_id = #{scopeId,jdbcType=VARCHAR}
+              ]]>
+        </if>
+    </select>
+    
+    <select id="queryByScopeTypeScopeIds" resultMap="UserInstanceResultMap" databaseId="sqlserver">
+        SELECT <include refid="UserInstance_Column_List" />
+        FROM td_sm_userinstance WHERE 
+        scope_type = #{scopeType,jdbcType=CHAR}
+        AND scope_id IN
+        <foreach item="idItem" collection="scopeIds" open="(" separator="," close=")">
+            #{idItem}
+        </foreach> 
+    </select>
+    
+    <select id="queryByScopeTypeScopeIdUserIds" resultMap="UserInstanceResultMap" databaseId="sqlserver">
+        SELECT <include refid="UserInstance_Column_List" />
+        FROM td_sm_userinstance WHERE 
+        scope_type = #{scopeType,jdbcType=CHAR}
+        AND scope_id = #{scopeId,jdbcType=VARCHAR}
+        AND user_id IN
+        <foreach item="idItem" collection="userIds" open="(" separator="," close=")">
+            #{idItem}
+        </foreach> 
+    </select>
+    
+    <select id="queryByScopeTypeUserIds" resultMap="UserInstanceResultMap" databaseId="sqlserver">
+        SELECT <include refid="UserInstance_Column_List" />
+        FROM td_sm_userinstance WHERE 
+        scope_type = #{scopeType,jdbcType=CHAR}
+        AND user_id IN
+        <foreach item="idItem" collection="userIds" open="(" separator="," close=")">
+            #{idItem}
+        </foreach> 
+    </select>
+    
+    <select id="queryAllUserInsIdsByUserInsIds" resultType="java.lang.String" databaseId="sqlserver">
+    	SELECT id
+        FROM td_sm_userinstance WHERE 
+        user_id IN(
+	        SELECT user_id FROM td_sm_userinstance WHERE id IN
+	        <foreach item="idItem" collection="userInsIds" open="(" separator="," close=")">
+	            #{idItem}
+	        </foreach>
+        
+        )
+    </select>
+</mapper>

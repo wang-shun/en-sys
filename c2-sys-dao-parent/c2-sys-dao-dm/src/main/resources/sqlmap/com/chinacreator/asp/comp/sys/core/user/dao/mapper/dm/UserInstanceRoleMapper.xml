@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserInstanceRoleDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+    <insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceRoleEO" databaseId="dm">
+        INSERT INTO td_sm_userinstancerole
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userInstanceId != null">
+                userinstance_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="userInstanceId != null">
+                <![CDATA[#{userInstanceId,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="roleId != null">
+                <![CDATA[#{roleId,jdbcType=VARCHAR},]]>
+            </if>
+        </trim>
+    </insert>
+    
+    <insert id="createBatch" parameterType="java.util.List" databaseId="dm">
+        INSERT INTO td_sm_userinstancerole (userinstance_id, role_id)
+        <foreach collection="list" item="userInstanceRoleEO" separator="union all">
+            SELECT
+                <![CDATA[#{userInstanceRoleEO.userInstanceId,jdbcType=VARCHAR}]]>,
+                <![CDATA[#{userInstanceRoleEO.roleId,jdbcType=VARCHAR}]]>
+            FROM dual
+        </foreach>
+    </insert>
+    
+    <delete id="deleteByUserInstanceIds" parameterType="java.lang.String" databaseId="dm">
+        DELETE FROM td_sm_userinstancerole
+        WHERE userinstance_id IN
+        <foreach item="idItem" index="index" collection="userInstanceIds" open="(" close=")">
+        	<if test="index&gt;999 and index%1000==0">) or userinstance_id in(</if>
+            	<![CDATA[#{idItem}]]>
+            <if test="index%1000!=999 and index&lt;userInstanceIds.length-1">,</if>
+        </foreach>
+        and (
+	        role_id!=#{adminRoleId,jdbcType=VARCHAR}
+	        or 
+	        userinstance_id not in( 
+	        	select id from td_sm_userinstance 
+	        		where 
+	        		scope_type='0' 
+	        		and 
+	        		user_id = #{adminUserId,jdbcType=VARCHAR})
+        )
+    </delete>
+    
+    <delete id="deleteByRoleIds" parameterType="java.lang.String" databaseId="dm">
+        DELETE FROM td_sm_userinstancerole
+        WHERE role_id IN
+        <foreach item="idItem" index="index" collection="roleIds" open="(" close=")">
+        	<if test="index&gt;999 and index%1000==0">) or role_id in(</if>
+            	<![CDATA[#{idItem}]]>
+            <if test="index%1000!=999 and index&lt;roleIds.length-1">,</if>
+        </foreach>
+        and (
+	        role_id!=#{adminRoleId,jdbcType=VARCHAR}
+	        or 
+	        userinstance_id not in( 
+	        	select id from td_sm_userinstance 
+	        		where 
+	        		scope_type='0' 
+	        		and 
+	        		user_id = #{adminUserId,jdbcType=VARCHAR})
+        )
+    </delete>
+    
+    <delete id="deleteByUserInstanceIdAndRoleId" databaseId="dm">
+        <![CDATA[
+        DELETE FROM td_sm_userinstancerole
+        WHERE userinstance_id = #{userInstanceId,jdbcType=VARCHAR} AND role_id = #{roleId,jdbcType=VARCHAR}
+        and (
+	        role_id!=#{adminRoleId,jdbcType=VARCHAR}
+	        or 
+	        userinstance_id not in( 
+	        	select id from td_sm_userinstance 
+	        		where 
+	        		scope_type='0' 
+	        		and 
+	        		user_id = #{adminUserId,jdbcType=VARCHAR})
+        )
+        ]]>
+    </delete>
+    
+</mapper>

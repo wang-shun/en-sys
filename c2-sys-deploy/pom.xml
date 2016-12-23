@@ -8,17 +8,31 @@
   </parent>
   <artifactId>c2-sys-deploy</artifactId>
   <name>c2-sys-deploy</name>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
   <description>系统管理-部署</description>
   <packaging>pom</packaging>
   
   <modules>
+  	<module>c2-sys-dm</module>
   	<module>c2-sys-oracle</module>
   	<module>c2-sys-mysql</module>
   	<module>c2-sys-sqlserver</module>
-  	<module>c2-sys-dm</module>
   	<module>c2-sys-postgresql</module>	
   </modules>
+  <dependencies>
+  	<dependency>
+	  <groupId>com.chinacreator.c2</groupId>
+	  <artifactId>c2-sys-ui</artifactId>
+	  <version>${project.version}</version>
+	</dependency>
+  	<dependency>
+  		<groupId>com.chinacreator.c2</groupId>
+  		<artifactId>c2-sysmgr-api-impl</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.chinacreator.c2</groupId>
+  		<artifactId>c2-sysmgr-data-util</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  </dependencies>
 </project>

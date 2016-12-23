@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getSysInfoByPK" log="false" className="com.chinacreator.asp.sysmgmt.aspmgt.sysinfo.SysInfoMgt" method="getSysInfoByPK">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取参数</name>
+  <desc>查询参数</desc>
+  <inputs>
+    <input collection="false" desc="参数类型ID" id="sysInfoTypeId" required="true" type="String"/>
+    <input collection="false" desc="参数ID" id="sysInfoId" required="true" type="String"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="参数" id="result_out" name="方法返回值" type="com.chinacreator.asp.comp.sys.basic.sysinfo.dto.SystemInfoDTO"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.sysInfoTypeId" name="sysInfoTypeId" signature="QString;" type="String"/>
+    <param autoValue="Input.sysInfoId" name="sysInfoId" signature="QString;" type="String"/>
+  </params>
+  <return signature="QSystemInfoDTO;" type="com.chinacreator.asp.comp.sys.basic.sysinfo.dto.SystemInfoDTO"/>
+</CustomRule>

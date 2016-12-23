@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addUser" className="com.chinacreator.asp.comp.sys.advanced.user.service.UserService" method="create">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>新增用户</name>
+  <desc>在指定机构下新增用户</desc>
+  <inputs>
+    <input collection="false" desc="用户数据传输对象" id="userDto" required="true" type="com.chinacreator.asp.comp.sys.core.user.dto.UserDTO"/>
+    <input collection="false" desc="机构ID" id="orgId" required="true" type="String"/>
+    <input collection="false" desc="" id="sn" required="true" type="int"/>
+  </inputs>
+  <outputs/>
+  <res>W3C_DLSmTou-TaLWzB2rww</res>
+  <params>
+    <param autoValue="Input.userDto" name="userDto" signature="QUserDTO;" type="com.chinacreator.asp.comp.sys.core.user.dto.UserDTO"/>
+    <param autoValue="Input.orgId" name="orgId" signature="QString;" type="String"/>
+    <param autoValue="Input.sn" name="sn" signature="I" type="int"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>
