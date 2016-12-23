@@ -9,9 +9,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
-import com.chinacreator.c2.sys.sdk.bean.User;
 import com.chinacreator.c2.sys.sdk.client.exception.SysSDKInvokeException;
 import com.chinacreator.c2.sys.sdk.service.query.UserService;
+import com.chinacreator.c2.sysmgr.User;
 import com.chinacreator.c2.web.util.RestUtils;
 
 public class UserSeviceImpl implements UserService {

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.chinacreator.asp.comp.sys.advanced.org.service.OrgService;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
-import com.chinacreator.c2.sys.sdk.bean.User;
 import com.chinacreator.c2.sys.sdk.service.query.UserService;
+import com.chinacreator.c2.sysmgr.User;
 
 @Service("sdkUserService")
 public class UserServiceImpl implements UserService {

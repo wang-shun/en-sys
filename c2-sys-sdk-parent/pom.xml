@@ -9,7 +9,7 @@
 		<module>c2-sys-sdk-impl</module>
 		<module>c2-sys-sdk-rest-server</module>
 		<module>c2-sys-sdk-client</module>
-		<module>c2-sys-sdk-test</module>
+		<!-- <module>c2-sys-sdk-test</module> -->
 	</modules>
 	<parent>
 		<groupId>com.chinacreator.c2</groupId>

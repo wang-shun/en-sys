@@ -8,7 +8,7 @@ import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
-import com.chinacreator.c2.sys.sdk.bean.User;
+import com.chinacreator.c2.sysmgr.User;
 
 public class BeanUtils {
 	  public static OrgDTO toDto(Organization org) {
@@ -71,50 +71,7 @@ public class BeanUtils {
 	        User user = new User();
 	        user.setId(userDTO.getUserId());
 	        user.setName(userDTO.getUserName());
-	        user.setPassword(userDTO.getUserPassword());
 	        user.setRealname(userDTO.getUserRealname());
-	        user.setSex(userDTO.getUserSex());
-	        user.setHometel(userDTO.getUserHometel());
-	        user.setWorktel(userDTO.getUserWorktel());
-	        user.setWorkaddress(userDTO.getUserWorkaddress());
-	        user.setMobiletel1(userDTO.getUserMobiletel1());
-	        user.setMobiletel2(userDTO.getUserMobiletel2());
-	        user.setFax(userDTO.getUserFax());
-	        user.setQq(userDTO.getUserOicq());
-
-	        if (userDTO.getUserBirthday() != null) {
-	            user.setBirthday(new Timestamp(userDTO.getUserBirthday().getTime()));
-	        }
-
-	        user.setEmail(userDTO.getUserEmail());
-	        user.setAddress(userDTO.getUserAddress());
-	        user.setPostalcode(userDTO.getUserPostalcode());
-	        user.setIdcard(userDTO.getUserIdcard());
-	        user.setIsvalid(userDTO.getUserIsvalid());
-
-	        if (userDTO.getUserRegdate() != null) {
-	            user.setRegdate(new Timestamp(userDTO.getUserRegdate().getTime()));
-	        }
-
-	        user.setLogincount(userDTO.getUserLogincount());
-	        user.setType(userDTO.getUserType());
-
-	        if (userDTO.getPastTime() != null) {
-	            user.setPastTime(new Timestamp(userDTO.getPastTime().getTime()));
-	        }
-
-	        user.setDredgeTime(userDTO.getDredgeTime());
-
-	        if (userDTO.getLastloginDate() != null) {
-	            user.setLastloginDate(new Timestamp(userDTO.getLastloginDate()
-	                                                       .getTime()));
-	        }
-
-	        user.setWorklength(userDTO.getWorklength());
-	        user.setPolitics(userDTO.getPolitics());
-	        user.setLoginIp(userDTO.getLoginIp());
-	        user.setSn(userDTO.getUserSn());
-	        user.setExtFields(userDTO.getExtFields());
 
 	        return user;
 	    }

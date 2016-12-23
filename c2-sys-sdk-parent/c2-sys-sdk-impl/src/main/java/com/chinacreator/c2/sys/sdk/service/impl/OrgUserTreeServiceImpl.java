@@ -8,12 +8,11 @@ import org.springframework.stereotype.Service;
 import com.chinacreator.asp.comp.sys.common.BeanCopierUtil;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.c2.sys.sdk.bean.OrgUserModel;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
-import com.chinacreator.c2.sys.sdk.bean.User;
 import com.chinacreator.c2.sys.sdk.service.query.OrgUserTreeService;
 import com.chinacreator.c2.sys.selecttree.cache.OrgUserTreeCache;
 import com.chinacreator.c2.sys.selecttree.treenode.OrgUserTreeNode;
+import com.chinacreator.c2.sysmgr.User;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
@@ -23,8 +22,8 @@ import com.google.common.collect.Lists;
 public class OrgUserTreeServiceImpl implements OrgUserTreeService {
 
 	@Override
-    public List<? extends OrgUserModel> getOrgAndUser(String orgId) {
-        List<OrgUserModel> list = new ArrayList<OrgUserModel>();
+    public List<Object> getOrgAndUser(String orgId) {
+        List<Object> list = new ArrayList<Object>();
         OrgUserTreeCache cache = ApplicationContextManager.getContext().getBean(OrgUserTreeCache.class);
         List<OrgUserTreeNode> nodes = null;
         if (null == orgId || orgId.trim().equals("") || orgId.trim().equals("0")) {
@@ -46,9 +45,9 @@ public class OrgUserTreeServiceImpl implements OrgUserTreeService {
                     }
                     return false;
                 }
-            }).transform(new Function<OrgUserTreeNode, OrgUserModel>() {
-                public OrgUserModel apply(OrgUserTreeNode input) {
-                    OrgUserModel orgUserModel=null;
+            }).transform(new Function<OrgUserTreeNode, Object>() {
+                public Object apply(OrgUserTreeNode input) {
+                	Object orgUserModel=null;
                     Object dto=input.getDTO();
                     if ("org".equals(input.getType())) {
                         orgUserModel = new Organization();

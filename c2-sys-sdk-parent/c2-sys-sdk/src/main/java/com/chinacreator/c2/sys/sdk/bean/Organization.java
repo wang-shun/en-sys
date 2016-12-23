@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  * @author 彭盛
  */
 @ApiModel(value = "机构")
-public class Organization implements Serializable, OrgUserModel {
+public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
     
     /**

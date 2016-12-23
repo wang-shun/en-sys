@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
-import com.chinacreator.c2.sys.sdk.bean.User;
+import com.chinacreator.c2.sysmgr.User;
 
 
 /**
