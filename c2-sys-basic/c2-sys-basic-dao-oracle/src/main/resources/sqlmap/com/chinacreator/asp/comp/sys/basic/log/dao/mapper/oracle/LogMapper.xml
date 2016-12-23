@@ -5,7 +5,7 @@
 <mapper namespace="com.chinacreator.asp.comp.sys.basic.log.dao.LogDao">
 
 	<sql id="Log_Column_List">
-	log_id,log_operuser,log_operuserrealname,oper_module,log_type,log_oper,log_operdesc,log_visitorial,log_opertime,log_content,oper_type,log_status,remark1,remark2,remark3,remark4,remark5
+	log_id,log_operuser,log_operuserrealname,oper_module,log_type,log_oper,log_operdesc,log_visitorial,log_opertime,log_content,oper_type,log_status,target_pk,remark1,remark2,remark3,remark4,remark5
 	</sql>
 
 	<resultMap id="LogResultMap"
@@ -24,6 +24,7 @@
 		<result column="LOG_CONTENT" property="logContent" jdbcType="CLOB" />
 		<result column="OPER_TYPE" property="operType" jdbcType="CHAR" />
 		<result column="LOG_STATUS" property="logStatus" jdbcType="CHAR" />
+		<result column="TARGET_PK" property="targetPk" jdbcType="VARCHAR"/>
 		<result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
 		<result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
 		<result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
@@ -58,6 +59,9 @@
 			</if>
 			<if test="logStatus != null">
 				log_status,
+			</if>
+			<if test="targetPk != null">
+				target_pk,
 			</if>
 			<if test="remark1 != null">
 				remark1,
@@ -99,6 +103,9 @@
 			</if>
 			<if test="logStatus != null">
                 <![CDATA[#{logStatus,jdbcType=CHAR},]]>
+			</if>
+			<if test="targetPk != null">
+				<![CDATA[#{targetPk,jdbcType=VARCHAR},]]>
 			</if>
 			<if test="remark1 != null">
                 <![CDATA[#{remark1,jdbcType=VARCHAR},]]>
@@ -157,6 +164,7 @@
 		log.log_content,
 		log.oper_type,
 		log.log_status,
+		log.target_pk,
 		log.remark1,
 		log.remark2,
 		log.remark3,
@@ -196,6 +204,7 @@
 		log.log_content,
 		log.oper_type,
 		log.log_status,
+		log.target_pk,
 		log.remark1,
 		log.remark2,
 		log.remark3,
@@ -239,6 +248,7 @@
 		log.log_content,
 		log.oper_type,
 		log.log_status,
+		log.target_pk,
 		log.remark1,
 		log.remark2,
 		log.remark3,
@@ -258,7 +268,7 @@
 			</if>
 			<if test="logEo.logOperUser != null">
                 <![CDATA[
-                	AND log_operUser = #{logEo.logOperUser,jdbcType=VARCHAR}
+                	AND log_operUser like '%' || #{logEo.logOperUser,jdbcType=VARCHAR} || '%'
                 ]]>
 			</if>
 			<if test="logEo.logOperUserRealName != null">
@@ -268,7 +278,7 @@
 			</if>
 			<if test="logEo.operModule != null">
                 <![CDATA[
-                	AND oper_module = #{logEo.operModule,jdbcType=VARCHAR}
+                	AND oper_module =like '%' || #{logEo.operModule,jdbcType=VARCHAR} || '%'
                 ]]>
 			</if>
 			<if test="logEo.logType != null">
@@ -297,6 +307,9 @@
 			</if>
 			<if test="logEo.logStatus != null">
                 <![CDATA[AND log_status = #{logEo.logStatus,jdbcType=CHAR} ]]>
+			</if>
+			<if test="logEo.targetPk != null">
+			    <![CDATA[AND targetPk = #{logEo.targetPk,jdbcType=VARCHAR} ]]>
 			</if>
 			<if test="logEo.remark1 != null">
                 <![CDATA[AND remark1 like '%' || #{logEo.remark1,jdbcType=VARCHAR} || '%']]>

@@ -70,6 +70,7 @@
 	    <result column="CREATOR_TIME" property="creatorTime" jdbcType="TIMESTAMP" />
 	    <result column="SN" property="sn" jdbcType="NUMERIC" />
 	    <result column="SOURCE" property="source" jdbcType="VARCHAR"/>	
+	    <result column="VIRTUAL" property="virtual" jdbcType="CHAR" typeHandler="com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler"/>
 	</resultMap> 
 	
 	<resultMap id="MenuResultMap" type="com.chinacreator.asp.comp.sys.basic.menu.eo.MenuAllInfoEO">

@@ -18,8 +18,11 @@ import com.chinacreator.asp.comp.sys.core.common.ValidatorUtil;
 import com.chinacreator.asp.comp.sys.core.group.dto.GroupDTO;
 import com.chinacreator.asp.comp.sys.core.group.eo.GroupEO;
 import com.chinacreator.asp.comp.sys.core.privilege.dao.PrivilegeDao;
+import com.chinacreator.asp.comp.sys.core.privilege.dao.PrivilegeInsiderelateDao;
 import com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO;
+import com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeInsiderelateDTO;
 import com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeEO;
+import com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeInsiderelateEO;
 import com.chinacreator.asp.comp.sys.core.role.dao.RoleDao;
 import com.chinacreator.asp.comp.sys.core.role.dao.RolePrivilegeDao;
 import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
@@ -45,6 +48,9 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 
 	@Autowired
 	private RolePrivilegeDao rolePrivilegeDao;
+
+	@Autowired
+	private PrivilegeInsiderelateDao privilegeInsiderelateDao;
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void create(PrivilegeDTO privilegeDTO) {
@@ -93,32 +99,28 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 				set.toArray(ids);
 				// 删除权限与角色的关系
 				rolePrivilegeDao.deleteByPrivileges(ids);
+				// 删除权限内部关联
+				privilegeInsiderelateDao.deleteByPKs(ids);
 				// 删除权限
 				privilegeDao.deleteByPKs(ids);
 			} else {
-				throw new NullPointerException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+				throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 			}
 		} else {
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 		}
 	}
 
 	public List<PrivilegeDTO> queryAll() {
 
 		// 查询全部的权限,new一个空对象传dao即可
-		List<PrivilegeEO> privilegeEoList = privilegeDao
-				.query(new PrivilegeEO());
+		List<PrivilegeEO> privilegeEoList = privilegeDao.query(new PrivilegeEO());
 
 		List<PrivilegeDTO> privilegeDtoList = new ArrayList<PrivilegeDTO>();
 		// 权限列表非空，进行Eo到Dto的转换
 		if (!listIsNullOrEmpty(privilegeEoList)) {
 			privilegeDtoList = new ArrayList<PrivilegeDTO>();
-			BeanCopierUtil.copy(privilegeEoList, privilegeDtoList,
-					PrivilegeEO.class, PrivilegeDTO.class);
+			BeanCopierUtil.copy(privilegeEoList, privilegeDtoList, PrivilegeEO.class, PrivilegeDTO.class);
 		}
 		return privilegeDtoList;
 	}
@@ -133,14 +135,11 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 			// 权限列表非空，进行Eo到Dto的转换
 			if (!listIsNullOrEmpty(privilegeEoList)) {
 				privilegeDtoList = new ArrayList<PrivilegeDTO>();
-				BeanCopierUtil.copy(privilegeEoList, privilegeDtoList,
-						PrivilegeEO.class, PrivilegeDTO.class);
+				BeanCopierUtil.copy(privilegeEoList, privilegeDtoList, PrivilegeEO.class, PrivilegeDTO.class);
 			}
 			return privilegeDtoList;
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEDTO_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEDTO_IS_NULL"));
 		}
 	}
 
@@ -154,15 +153,12 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 			// 权限列表非空，进行Eo到Dto的转换
 			if (!listIsNullOrEmpty(privilegeEoList)) {
 				privilegeDtoList = new ArrayList<PrivilegeDTO>();
-				BeanCopierUtil.copy(privilegeEoList, privilegeDtoList,
-						PrivilegeEO.class, PrivilegeDTO.class);
+				BeanCopierUtil.copy(privilegeEoList, privilegeDtoList, PrivilegeEO.class, PrivilegeDTO.class);
 				return privilegeDtoList.get(0);
 			}
 			return null;
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 		}
 	}
 
@@ -174,38 +170,30 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 			// 用户列表非空，进行Eo到Dto的转换
 			if (!listIsNullOrEmpty(userEoList)) {
 				userDtoList = new ArrayList<UserDTO>();
-				BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class,
-						UserDTO.class);
+				BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class, UserDTO.class);
 			}
 			return userDtoList;
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 		}
 	}
 
-	public List<UserDTO> queryUsers(String privilegeId, int scopeType,
-			String scopeId) {
+	public List<UserDTO> queryUsers(String privilegeId, int scopeType, String scopeId) {
 		if (!isBlank(privilegeId)) {
 			// 用户活动范围和用户范围ID的传参校验
 			ValidatorUtil.validateScope(scopeType, scopeId);
 
 			// 查询拥有权限并满足用户范围类型和用户范围ID下的所有用户
-			List<UserEO> userEoList = privilegeDao.queryUsersByScope(
-					privilegeId, scopeType + "", scopeId);
+			List<UserEO> userEoList = privilegeDao.queryUsersByScope(privilegeId, scopeType + "", scopeId);
 			List<UserDTO> userDtoList = new ArrayList<UserDTO>();
 			// 用户列表非空，进行Eo到Dto的转换
 			if (!listIsNullOrEmpty(userEoList)) {
 				userDtoList = new ArrayList<UserDTO>();
-				BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class,
-						UserDTO.class);
+				BeanCopierUtil.copy(userEoList, userDtoList, UserEO.class, UserDTO.class);
 			}
 			return userDtoList;
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 		}
 	}
 
@@ -219,14 +207,11 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 			// 角色列表非空，进行Eo到Dto的转换
 			if (!listIsNullOrEmpty(roleEoList)) {
 				roleDtoList = new ArrayList<RoleDTO>();
-				BeanCopierUtil.copy(roleEoList, roleDtoList, RoleEO.class,
-						RoleDTO.class);
+				BeanCopierUtil.copy(roleEoList, roleDtoList, RoleEO.class, RoleDTO.class);
 			}
 			return roleDtoList;
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 		}
 	}
 
@@ -240,14 +225,11 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 			// 用户组列表非空，进行Eo到Dto的转换
 			if (!listIsNullOrEmpty(groupEoList)) {
 				groupDtoList = new ArrayList<GroupDTO>();
-				BeanCopierUtil.copy(groupEoList, groupDtoList, GroupEO.class,
-						GroupDTO.class);
+				BeanCopierUtil.copy(groupEoList, groupDtoList, GroupEO.class, GroupDTO.class);
 			}
 			return groupDtoList;
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 		}
 	}
 
@@ -295,13 +277,10 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 			} else {// 传值非法
 					// 修改错误信息
 				throw new IllegalArgumentException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.PRIVILEGEIDNUMBER_OR_ROLEIDNUMBER_IS_ZERO"));
+						PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEIDNUMBER_OR_ROLEIDNUMBER_IS_ZERO"));
 			}
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
 		}
 	}
 
@@ -325,14 +304,10 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 				// 批量建立角色与权限的关系
 				rolePrivilegeDao.createBatch(rolePrivilegeEOs);
 			} else {// 参数非法
-				throw new IllegalArgumentException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.NO_VALUE_IN_ROLEID_ARRAY"));
+				throw new IllegalArgumentException(PrivilegeMessages.getString("PRIVILEGE.NO_VALUE_IN_ROLEID_ARRAY"));
 			}
 		} else {// 参数非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
 		}
 	}
 
@@ -362,13 +337,10 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 				rolePrivilegeDao.createBatch(rolePrivilegeEOs);
 			} else {// 传值非法
 				throw new IllegalArgumentException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.PRIVILEGEIDNUMBER_OR_ROLEIDNUMBER_IS_ZERO"));
+						PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEIDNUMBER_OR_ROLEIDNUMBER_IS_ZERO"));
 			}
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
 		}
 	}
 
@@ -377,16 +349,12 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 		if (null != privilegeIds && privilegeIds.length > 0) {
 			for (int i = 0; i < privilegeIds.length; i++) {
 				if (isBlank(privilegeIds[i])) {
-					throw new NullPointerException(
-							PrivilegeMessages
-									.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+					throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 				}
 			}
 			rolePrivilegeDao.deleteByPrivileges(privilegeIds);
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 		}
 	}
 
@@ -395,9 +363,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 		if (!isBlank(privilegeId) && !isBlank(roleId)) {
 			rolePrivilegeDao.deleteByPrivilegeIdAndRoleId(privilegeId, roleId);
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
 		}
 	}
 
@@ -412,20 +378,16 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 					for (int j = 0; j < rCount; j++) {
 						assignToRoleValidata(privilegeIds[i], roleIds[j]);
 						// 删除角色权限对应关系
-						rolePrivilegeDao.deleteByPrivilegeIdAndRoleId(
-								privilegeIds[i], roleIds[j]);
+						rolePrivilegeDao.deleteByPrivilegeIdAndRoleId(privilegeIds[i], roleIds[j]);
 					}
 				}
 
 			} else {// 传值非法
 				throw new IllegalArgumentException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.PRIVILEGEIDNUMBER_OR_ROLEIDNUMBER_IS_ZERO"));
+						PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEIDNUMBER_OR_ROLEIDNUMBER_IS_ZERO"));
 			}
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
 		}
 	}
 
@@ -433,34 +395,107 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 		if (!isBlank(privilegeId) && !isBlank(roleId)) {
 			return roleDao.hasPrivilege(roleId, privilegeId) > 0;
 		} else {// 传值非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
 		}
 	}
 
 	public boolean existsByPrivilegeCode(String privilegeCode) {
 		if (isBlank(privilegeCode)) {
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGECODE_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGECODE_IS_NULL"));
 		}
 		return privilegeDao.existsByCode(privilegeCode) > 0;
 	}
 
-	public boolean existsByPrivilegeCodeIgnorePrivilegeId(String privilegeCode,
-			String privilegeId) {
+	public boolean existsByPrivilegeCodeIgnorePrivilegeId(String privilegeCode, String privilegeId) {
 		if (isBlank(privilegeCode)) {
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGECODE_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGECODE_IS_NULL"));
 		}
 		if (isBlank(privilegeId)) {
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 		}
 		return privilegeDao.existsByCodeIgnoreId(privilegeCode, privilegeId) > 0;
+	}
+
+	@Override
+	public void addRelate(List<PrivilegeInsiderelateDTO> privilegeInsiderelateDTOs) {
+		if (null != privilegeInsiderelateDTOs && !privilegeInsiderelateDTOs.isEmpty()) {
+			for (PrivilegeInsiderelateDTO privilegeInsiderelateDTO : privilegeInsiderelateDTOs) {
+				if (null == privilegeInsiderelateDTO) {
+					throw new NullPointerException(
+							PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEINSIDERELATEDTO_IS_NULL"));
+				}
+				if (null == privilegeInsiderelateDTO.getId() && privilegeInsiderelateDTO.getId().trim().equals("")) {
+					throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+				}
+				if (null == privilegeInsiderelateDTO.getRelateId()
+						&& privilegeInsiderelateDTO.getRelateId().trim().equals("")) {
+					throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.RELATEID_IS_NULL"));
+				}
+				if (!existsRelate(privilegeInsiderelateDTO.getId(), privilegeInsiderelateDTO.getRelateId())) {
+					PrivilegeInsiderelateEO privilegeInsiderelateEO = new PrivilegeInsiderelateEO();
+					BeanCopierUtil.copy(privilegeInsiderelateDTO, privilegeInsiderelateEO);
+					privilegeInsiderelateDao.create(privilegeInsiderelateEO);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void removeRelate(String... privilegeIds) {// 验证参数
+		if (null != privilegeIds && privilegeIds.length > 0) {
+			// 去除重复与空值
+			Set<String> set = new HashSet<String>();
+			for (String privilegeId : privilegeIds) {
+				if (null != privilegeId && !privilegeId.trim().equals("")) {
+					set.add(privilegeId);
+				}
+			}
+			if (!set.isEmpty()) {
+				String[] ids = new String[set.size()];
+				set.toArray(ids);
+				// 删除权限关联
+				privilegeInsiderelateDao.deleteByPKs(ids);
+			} else {
+				throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+			}
+		} else {
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+		}
+	}
+
+	@Override
+	public List<PrivilegeInsiderelateDTO> queryAllRelate() {
+		List<PrivilegeInsiderelateEO> eoList = privilegeInsiderelateDao.queryAll();
+
+		List<PrivilegeInsiderelateDTO> dtoList = new ArrayList<PrivilegeInsiderelateDTO>();
+		if (!listIsNullOrEmpty(eoList)) {
+			BeanCopierUtil.copy(eoList, dtoList, PrivilegeInsiderelateEO.class, PrivilegeInsiderelateDTO.class);
+		}
+		return dtoList;
+	}
+
+	@Override
+	public List<PrivilegeInsiderelateDTO> queryRelate(String privilegeId) {
+		List<PrivilegeInsiderelateDTO> dtoList = new ArrayList<PrivilegeInsiderelateDTO>();
+		if (null != privilegeId && !privilegeId.trim().equals("")) {
+			List<PrivilegeInsiderelateEO> eoList = privilegeInsiderelateDao.queryByPK(privilegeId);
+
+			if (!listIsNullOrEmpty(eoList)) {
+				BeanCopierUtil.copy(eoList, dtoList, PrivilegeInsiderelateEO.class, PrivilegeInsiderelateDTO.class);
+			}
+		}
+		return dtoList;
+	}
+
+	@Override
+	public boolean existsRelate(String privilegeId, String relateId) {
+		if (isBlank(privilegeId)) {
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+		}
+		if (isBlank(relateId)) {
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+		}
+		return privilegeInsiderelateDao.exists(privilegeId, relateId) > 0;
 	}
 
 	/**
@@ -473,44 +508,28 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 		if (null != privilegeDto) {
 			// 权限编码不能为空
 			if (isBlank(privilegeDto.getPrivilegeCode())) {
-				throw new NullPointerException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.PRIVILEGECODE_IS_NULL"));
+				throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGECODE_IS_NULL"));
 			}
 			if (privilegeDao.existsByCode(privilegeDto.getPrivilegeCode()) > 0) {
 				// 权限编码已经存在
-				throw new IllegalArgumentException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.PRIVILEGECODE_IS_EXISTS"));
+				throw new IllegalArgumentException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGECODE_IS_EXISTS"));
 			}
 			if (isBlank(privilegeDto.getPrivilegeName())) {
-				throw new NullPointerException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.PRIVILEGENAME_IS_NULL"));
+				throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGENAME_IS_NULL"));
 			}
 			if (isBlank(privilegeDto.getParentId())) {
-				throw new NullPointerException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.PARENTID_IS_NULL"));
+				throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PARENTID_IS_NULL"));
 			}
 			if (isBlank(privilegeDto.getType())) {
-				throw new NullPointerException(
-						PrivilegeMessages.getString("PRIVILEGE.TYPE_IS_NULL"));
-			} else if (!"1".equals(privilegeDto.getType())
-					&& !"2".equals(privilegeDto.getType())
-					&& !"3".equals(privilegeDto.getType())
-					&& !"4".equals(privilegeDto.getType())
-					&& !"5".equals(privilegeDto.getType())
-					&& !"6".equals(privilegeDto.getType())
+				throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.TYPE_IS_NULL"));
+			} else if (!"1".equals(privilegeDto.getType()) && !"2".equals(privilegeDto.getType())
+					&& !"3".equals(privilegeDto.getType()) && !"4".equals(privilegeDto.getType())
+					&& !"5".equals(privilegeDto.getType()) && !"6".equals(privilegeDto.getType())
 					&& !"9".equals(privilegeDto.getType())) {
-				throw new IllegalArgumentException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.TYPE_IS_NOT_EXISTS"));
+				throw new IllegalArgumentException(PrivilegeMessages.getString("PRIVILEGE.TYPE_IS_NOT_EXISTS"));
 			}
 		} else {// 参数非法
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEDTO_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEDTO_IS_NULL"));
 		}
 	}
 
@@ -524,17 +543,13 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 		if (null != privilegeDto) {
 			// 权限ID不能为空
 			if (isBlank(privilegeDto.getPrivilegeId())) {
-				throw new NullPointerException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
+				throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NULL"));
 			}
 			if (isBlank(privilegeDto.getPrivilegeName())) {
 				privilegeDto.setPrivilegeName(null);
 			}
 		} else {// 权限编码不能为空
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEDTO_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEDTO_IS_NULL"));
 		}
 	}
 
@@ -553,21 +568,16 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 			eo.setPrivilegeId(privilegeId);
 			List<PrivilegeEO> privilegeList = privilegeDao.query(eo);
 			if (listIsNullOrEmpty(privilegeList)) {
-				throw new IllegalArgumentException(
-						PrivilegeMessages
-								.getString("PRIVILEGE.PRIVILEGEID_IS_NOT_EXISTS"));
+				throw new IllegalArgumentException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_IS_NOT_EXISTS"));
 			}
 
 			// 判断角色ID是否存在，存在才算验证通过，让建立关联关系
 			RoleEO roleEo = roleDao.queryByPK(roleId);
 			if (null == roleEo) {
-				throw new IllegalArgumentException(
-						RoleMessages.getString("ROLE.ROLEID_IS_NOT_EXISTS"));
+				throw new IllegalArgumentException(RoleMessages.getString("ROLE.ROLEID_IS_NOT_EXISTS"));
 			}
 		} else {
-			throw new NullPointerException(
-					PrivilegeMessages
-							.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
+			throw new NullPointerException(PrivilegeMessages.getString("PRIVILEGE.PRIVILEGEID_OR_ROLEID_IS_NULL"));
 		}
 
 	}

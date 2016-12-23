@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 权限内部关联EO实体类映射关系 -->
+<mapper
+	namespace="com.chinacreator.asp.comp.sys.core.privilege.dao.PrivilegeInsiderelateDao">
+	<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao" />
+
+	<resultMap id="PrivilegeInsiderelateResultMap"
+		type="com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeInsiderelateEO">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="relate_id" property="relateId" jdbcType="VARCHAR" />
+		<result column="sn" property="sn" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<sql id="PrivilegeInsiderelate_Column_List">id,relate_id,sn</sql>
+	
+	<insert id="create"
+		parameterType="com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeInsiderelateEO"
+		databaseId="mysql">
+		insert into tb_sm_privilege_insiderelate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="relateId != null">
+				relate_id,
+			</if>
+			<if test="sn != null">
+				sn,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="relateId != null">
+				#{relateId,jdbcType=VARCHAR},
+			</if>
+			<if test="sn != null">
+				#{sn,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update"
+		parameterType="com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeInsiderelateEO"
+		databaseId="mysql">
+		update tb_sm_privilege_insiderelate
+		<set>			
+			<if test="relateId != null">
+				<![CDATA[relate_id = #{relateId,jdbcType=VARCHAR},]]>
+			</if>			
+			<if test="sn != null">
+				<![CDATA[sn = #{sn,jdbcType=DECIMAL},]]>
+			</if>				
+		</set>
+		WHERE <![CDATA[id = #{id,jdbcType=VARCHAR}]]>
+	</update>
+
+	<delete id="deleteByPKs" parameterType="java.lang.String" databaseId="mysql">
+		DELETE FROM tb_sm_privilege_insiderelate
+		WHERE id IN
+		<foreach item="idItem" collection="array" open="(" separator=","
+			close=")">
+			<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+		</foreach>
+	</delete>
+	
+	<select id="queryAll" resultMap="PrivilegeInsiderelateResultMap" databaseId="mysql">
+        select <include refid="PrivilegeInsiderelate_Column_List" />
+         FROM tb_sm_privilege_insiderelate order by relate_id,sn
+    </select>
+    
+    <select id="queryByPK" parameterType="java.lang.String" resultMap="PrivilegeInsiderelateResultMap" databaseId="mysql">
+        select <include refid="PrivilegeInsiderelate_Column_List" />
+         FROM tb_sm_privilege_insiderelate
+         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+             <![CDATA[id = #{id,jdbcType=VARCHAR}]]>
+         </trim>
+         order by relate_id,sn
+    </select>
+    
+    <select id="queryByRelate" parameterType="java.lang.String" resultMap="PrivilegeInsiderelateResultMap" databaseId="mysql">
+        select <include refid="PrivilegeInsiderelate_Column_List" />
+         FROM tb_sm_privilege_insiderelate
+         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+             <![CDATA[relate_id = #{relateId,jdbcType=VARCHAR}]]>
+         </trim>
+         order by sn
+    </select>
+    
+    <select id="exists" resultType="int" parameterType="java.lang.String" databaseId="mysql">	
+		<![CDATA[ 
+		SELECT count(*)
+		FROM tb_sm_privilege_insiderelate 
+		WHERE id = #{id,jdbcType=VARCHAR}
+		AND relate_id = #{relateId,jdbcType=VARCHAR}
+		]]>	
+	</select>
+</mapper>

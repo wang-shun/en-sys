@@ -13,7 +13,7 @@
     </sql>
 
     <sql id="Privilege_Column_List"> 
-        t.id, t.code, t.name, t.parent_id, t.type, t.perm_expr, t.creator, t.creator_time, t.sn, t.source
+        t.id, t.code, t.name, t.parent_id, t.type, t.perm_expr, t.creator, t.creator_time, t.sn, t.source, t.virtual
     </sql>
 
     <resultMap id="RoleResultMap" type="com.chinacreator.asp.comp.sys.core.role.eo.RoleEO">
@@ -97,7 +97,8 @@
         <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
 		<result column="CREATOR_TIME" property="creatorTime" jdbcType="TIMESTAMP" />
 		<result column="SN" property="sn" jdbcType="DECIMAL" />
-		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>	
+		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>
+		<result column="VIRTUAL" property="virtual" jdbcType="CHAR" typeHandler="com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler"/>	
     </resultMap>
   
     <insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.role.eo.RoleEO" databaseId="postgresql">

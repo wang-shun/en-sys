@@ -73,7 +73,7 @@ public class AccessControlServiceImpl implements AccessControlService {
 		if (null != userName && null != password && !"".equals(userName.trim())
 				&& !"".equals(password.trim())) {
 			AuthenticationToken token = new SysMgrUsernamePasswordToken();
-			((SysMgrUsernamePasswordToken) token).setUsername(userName);
+			((SysMgrUsernamePasswordToken) token).setUsername(userName.toLowerCase());
 			((SysMgrUsernamePasswordToken) token).setPassword(password
 					.toCharArray());
 			return login(token);

@@ -32,6 +32,8 @@ public class PrivilegeDTO implements Serializable {
 	private Integer sn;
 	/** 权限来源（0：自定义，1：IDE） */
 	private String source;
+	/** 是否虚拟节点（0：否，1：是） */
+	private Boolean virtual;
 
 	public String getPrivilegeId() {
 		return privilegeId;
@@ -46,8 +48,7 @@ public class PrivilegeDTO implements Serializable {
 	}
 
 	public void setPrivilegeCode(String privilegeCode) {
-		this.privilegeCode = null == privilegeCode ? null : privilegeCode
-				.trim();
+		this.privilegeCode = null == privilegeCode ? null : privilegeCode.trim();
 	}
 
 	public String getPrivilegeName() {
@@ -55,8 +56,7 @@ public class PrivilegeDTO implements Serializable {
 	}
 
 	public void setPrivilegeName(String privilegeName) {
-		this.privilegeName = null == privilegeName ? null : privilegeName
-				.trim();
+		this.privilegeName = null == privilegeName ? null : privilegeName.trim();
 	}
 
 	public String getParentId() {
@@ -113,5 +113,13 @@ public class PrivilegeDTO implements Serializable {
 
 	public void setSource(String source) {
 		this.source = null == source ? null : source;
+	}
+
+	public Boolean getVirtual() {
+		return virtual;
+	}
+
+	public void setVirtual(Boolean virtual) {
+		this.virtual = virtual;
 	}
 }

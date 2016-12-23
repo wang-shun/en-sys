@@ -110,10 +110,11 @@
         <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
 		<result column="CREATOR_TIME" property="creatorTime" jdbcType="DATE" />
 		<result column="SN" property="sn" jdbcType="DECIMAL" />
-		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>	
+		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>
+		<result column="VIRTUAL" property="virtual" jdbcType="CHAR"/>	
     </resultMap>
 	<sql id="Privilege_Column_List">
-		id, code, name, parent_id, type, perm_expr,creator,creator_time,sn,source
+		id, code, name, parent_id, type, perm_expr,creator,creator_time,sn,source,virtual
 	</sql>
 
 	<insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceEO" databaseId="oracle">

@@ -3,7 +3,7 @@
 <!-- 权限EO实体类映射关系 -->
 <mapper namespace="com.chinacreator.asp.comp.sys.core.privilege.dao.PrivilegeDao">
 <cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
-	<sql id="Privilege_Column_List">id,code,name,parent_id,type,perm_expr,creator,creator_time,sn,source</sql>									
+	<sql id="Privilege_Column_List">id,code,name,parent_id,type,perm_expr,creator,creator_time,sn,source,virtual</sql>									
 	<sql id="Group_Column_List">
 		DISTINCT t.group_id, t.group_name, t.group_desc, t.parent_id, t.owner_id, t.remark1,
 		t.remark2, t.remark3, t.remark4, t.remark5, t.type
@@ -25,6 +25,7 @@
 		<result column="CREATOR_TIME" property="creatorTime" jdbcType="TIMESTAMP" />
 		<result column="SN" property="sn" jdbcType="DECIMAL" />
 		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>	
+		<result column="VIRTUAL" property="virtual" jdbcType="CHAR" typeHandler="com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler"/>	
 	</resultMap> 
 
 	<resultMap id="GroupEOResultMap" type="com.chinacreator.asp.comp.sys.core.group.eo.GroupEO">
@@ -131,6 +132,9 @@
             <if test="source != null">
             	source,
             </if>
+            <if test="virtual != null">
+            	virtual,
+            </if> 
         </trim>
 		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
             <if test="privilegeId != null">
@@ -163,6 +167,9 @@
             <if test="source != null">
             	<![CDATA[#{source,jdbcType=VARCHAR},]]>
             </if>
+            <if test="virtual != null">
+            	<![CDATA[#{virtual,jdbcType=CHAR,typeHandler=com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler}]]>
+            </if>
 		</trim>
 	</insert>
 
@@ -184,6 +191,9 @@
             <if test="sn != null">
             	<![CDATA[sn = #{sn,jdbcType=DECIMAL},]]>
             </if>
+            <if test="virtual != null">
+            	<![CDATA[virtual = #{virtual,jdbcType=CHAR,typeHandler=com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler}]]>
+            </if> 
 		</set>
 		WHERE <![CDATA[id = #{privilegeId,jdbcType=VARCHAR}]]>
 	</update>
@@ -260,7 +270,10 @@
             </if>         
             <if test="source != null">
             	<![CDATA[AND source = #{source,jdbcType=VARCHAR}]]>
-            </if>   
+            </if>  
+            <if test="virtual != null">
+            	<![CDATA[AND virtual = #{virtual,jdbcType=CHAR,typeHandler=com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler}]]>
+            </if> 
 		</trim>
 		ORDER BY sn,name
 	</select>

@@ -239,10 +239,12 @@ public class JobResMgt {
 				Map<String, PrivilegeDTO> privilegeMap = new HashMap<String, PrivilegeDTO>();
 				buildPrivilegeList(resList, menuList, privilegeMap);
 
-				ResourceTreeNodeBuilder builder = new ResourceTreeNodeBuilder(
-						resList);
-				Collection<TreeNode> resourceTreeNode = builder
-						.buileToCollection();
+//				ResourceTreeNodeBuilder builder = new ResourceTreeNodeBuilder(
+//						resList);
+//				Collection<TreeNode> resourceTreeNode = builder
+//						.buileToCollection();
+				
+				Collection<TreeNode> resourceTreeNode = null;
 
 				for (String delId : delPrivileges) {
 					delIdSet.add(delId);

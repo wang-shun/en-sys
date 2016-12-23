@@ -275,6 +275,7 @@
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-plus">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>

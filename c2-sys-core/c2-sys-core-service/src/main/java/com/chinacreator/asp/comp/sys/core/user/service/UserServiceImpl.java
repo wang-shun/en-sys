@@ -878,8 +878,8 @@ public class UserServiceImpl implements UserService {
 
 	public boolean isEnabledByScope(String userId, int scopeType, String scopeId) {
 		if (null != userId && !userId.trim().equals("")) {
-			int result = userInstanceDao.isEnabledByScope(userId, scopeType + "", scopeId) != null
-					? userInstanceDao.isEnabledByScope(userId, scopeType + "", scopeId) : 0;
+			int result = userInstanceDao.isEnabledByScope(userId, scopeType + "", scopeId) != null ? userInstanceDao
+					.isEnabledByScope(userId, scopeType + "", scopeId) : 0;
 			return result > 0;
 		}
 		return false;
@@ -912,6 +912,7 @@ public class UserServiceImpl implements UserService {
 			if (null == userDto.getUserName() || userDto.getUserName().trim().equals("")) {
 				throw new NullPointerException(UserMessages.getString("USER.USERNAME_IS_NULL"));
 			} else {
+				userDto.setUserName(userDto.getUserName().toLowerCase());
 				// 判断用户是否存在
 				if (userDao.existsByUserName(userDto.getUserName()) > 0) {
 					throw new IllegalArgumentException(UserMessages.getString("USER.USERNAME_IS_EXISTS"));
@@ -1114,7 +1115,7 @@ public class UserServiceImpl implements UserService {
 			throw new SysException(e.getMessage(), e);
 		}
 	}
-	
+
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	private void beforeUpdatePassword(String userName, String oldPassword, String newPassword) {
 		Map<String, BeforeUpdatePasswordSpi> maps = null;

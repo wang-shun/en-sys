@@ -55,12 +55,12 @@ public class SysMgrLoginInterceptor {
 
 				if (null != userName && !userName.trim().equals("")) {
 					Map<String, String> map = new HashMap<String, String>();
-					map.put("username", userName);
+					map.put("username", userName.toLowerCase());
 					map.put("errMessage", errMessage);
 					
 					LogDTO logDTO = new LogDTO();
 					/** 用户帐号 */
-					logDTO.setLogOperUser(userName);
+					logDTO.setLogOperUser(userName.toLowerCase());
 					/** 日志类型（e：实体操作，ws：服务，dao：持久层操作，custom：自定义） */
 					logDTO.setLogType("ws");
 					/** 日志操作ID */

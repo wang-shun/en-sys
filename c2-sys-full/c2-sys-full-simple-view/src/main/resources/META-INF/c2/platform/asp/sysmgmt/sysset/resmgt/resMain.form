@@ -538,6 +538,29 @@
         </form:control>
         <form:validation/>
       </form:child>
+      <form:child xsi:type="form:Field" binding="$model.res.parentId" id="text" name="路径：" customize="true">
+        <form:control type="widget/text">
+          <form:attributes source="widget/text">
+            <dync:attribute default="6" group="基本设置" id="span" name="占位数" value="12">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="true" group="文本框设置" id="show" name="可见" value="!$model.isShowMenuField">
+              <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="75" group="基本设置" id="lableWidth" name="左外边距" value="120">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="文本框设置" id="disabled" name="禁用" value="true">
+              <dync:render colSpan="1" height="0" multi="false" name="checkboxAndExpr"/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
       <form:child xsi:type="form:Field" binding="$model.res.menuExt" id="menuExt_Field" name="扩展属性：" customize="true">
         <form:control type="widget/textarea">
           <form:attributes source="widget/textarea">
@@ -693,7 +716,7 @@ addRes:function(){
 		    'message': &quot;请选择需要新增资源的父资源！&quot;,
 		    'type': 'error',
 		});
-	}else if(&quot;menu&quot;==selectNode.type || &quot;custom&quot;==selectNode.type){
+	}else if(&quot;menu&quot;==selectNode.type || &quot;custom&quot;==selectNode.type){	
 		$model.resInfo = {
 				infoType : &quot;add&quot;,
 				node : {
@@ -781,7 +804,7 @@ resTree_beforeDrag:function(treeId,treeNodes){
 	}	
 	var resTreeDrag = $model.resTreeDrag;
 	if(resTreeDrag){
-		if(treeNodes[0].virtual){
+		if(treeNodes[0].virtual || &quot;menu&quot;!=treeNodes[0].type){
 			resTreeDrag = false;
 		}
 	}
@@ -961,6 +984,9 @@ resInfoController:function(){
 			$model.res.type = &quot;menu&quot;;
 			if(&quot;add&quot;==info.infoType){
 				$model.res.isEnabled = true;
+				if(angular.isUndefined($model.res.parentId)){
+					$model.res.parentId = &quot;0&quot;;
+				}
 			}		
 			$model.isShowMenuField = true;
 		}else{
@@ -978,6 +1004,7 @@ resSave:function(){
 				if(&quot;menu&quot;==info.node.type){
 					$model.res.menuCode = $model.res.privilegeCode;
 					$model.res.menuName = $model.res.privilegeName;
+					
 					$http.post(&quot;ws/addMenu&quot;,{menuDTO:$model.res})
 						.success(function(data, status, headers, config){
 							Messenger.post({

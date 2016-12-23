@@ -40,7 +40,7 @@ public class AuthorizeService extends AuthorizingRealm {
 
 		SimpleUser user = null; 
 		try {
-			user = getIdentitifyInfomationFetcher().findBy(username);
+			user = getIdentitifyInfomationFetcher().findBy(username.toLowerCase());
 		} catch (Exception e) {
 			logger.error(AccessControlMessages
 					.getString("ACCESSCONTROL.FAIL_TO_GET_USER_LOGININGO"), e);

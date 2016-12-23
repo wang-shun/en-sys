@@ -68,6 +68,10 @@ public class RoleSelectTreeContentProviderImpl implements TreeContentProvider {
 					node.setPid(roleTypeId);
 					node.setHiddenName("role");
 					node.setParent(false);
+					if(!role.getRoleUsage()){
+						node.setChkDisabled(true);
+						node.setChecked(false);
+					}
 
 					list.add(node);
 				}

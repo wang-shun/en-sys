@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.chinacreator.asp.comp.sys.core.group.dto.GroupDTO;
 import com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO;
+import com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeInsiderelateDTO;
 import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 
@@ -212,4 +213,49 @@ public interface PrivilegeService {
 	 */
 	public boolean existsByPrivilegeCodeIgnorePrivilegeId(String privilegeCode,
 			String privilegeId);
+	
+	/**
+	 * 添加权限内部关联关系
+	 * 
+	 * @param privilegeInsiderelateDTOs
+	 *            权限关联数据传输对象
+	 */
+	public void addRelate(List<PrivilegeInsiderelateDTO> privilegeInsiderelateDTOs);
+
+	/**
+	 * 删除权限内部关联关系
+	 * 
+	 * @param privilegeIds
+	 *            权限ID数组
+	 */
+	public void removeRelate(String... privilegeIds);
+
+	/**
+	 * 查询所有权限内部关联关系
+	 * 
+	 * @return 权限关联数据传输对象列表<br>
+	 *         一条记录也没查询到的情况下返回无内容的List
+	 */
+	public List<PrivilegeInsiderelateDTO> queryAllRelate();
+
+	/**
+	 * 查询指定权限内部关联关系
+	 * 
+	 * @param privilegeId
+	 *            权限ID
+	 * @return 权限关联数据传输对象列表<br>
+	 *         一条记录也没查询到的情况下返回无内容的List
+	 */
+	public List<PrivilegeInsiderelateDTO> queryRelate(String privilegeId);
+
+	/**
+	 * 判断权限关联是否存在
+	 * 
+	 * @param privilegeId
+	 *            权限ID
+	 * @param relateId
+	 *            关联ID(父ID)
+	 * @return true：存在，false：不存在
+	 */
+	public boolean existsRelate(String privilegeId, String relateId);
 }

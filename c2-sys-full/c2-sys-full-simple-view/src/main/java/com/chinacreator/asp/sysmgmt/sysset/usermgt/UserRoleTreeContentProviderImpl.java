@@ -70,16 +70,19 @@ public class UserRoleTreeContentProviderImpl implements TreeContentProvider {
 
 				List<RoleDTO> roleList = getRole(roleTypeId);
 				for (RoleDTO role : roleList) {
-					if (role.getRoleId().equals(roleService.getRoleofeveryoneRoleId())) {
-						continue;
-					}
 					CommonTreeNode node = new CommonTreeNode();
 					node.setId(role.getRoleId());
 					node.setName(role.getRoleName());
 					node.setPid(roleTypeId);
 					node.setHiddenName("role");
 					node.setParent(false);
-					if (null != userId) {
+					if (role.getRoleId().equals(roleService.getRoleofeveryoneRoleId())) {
+						node.setChecked(true);
+						node.setChkDisabled(true);
+					} else if (!role.getRoleUsage()) {
+						node.setChecked(false);
+						node.setChkDisabled(true);
+					} else if (null != userId) {
 						if (null != orgId && !orgId.trim().equals("") && !orgId.trim().equals("0")) {
 							node.setChecked(roleService.isAssignedToUser(role.getRoleId(), userId, orgId));
 						} else {

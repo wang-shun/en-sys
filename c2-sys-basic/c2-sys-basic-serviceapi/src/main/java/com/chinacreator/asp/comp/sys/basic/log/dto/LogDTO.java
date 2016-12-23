@@ -36,6 +36,8 @@ public class LogDTO implements Serializable {
 	private Integer operType;
 	/** 日志状态（1：成功，0：失败） */
 	private Integer logStatus;
+	/** 目标主键 */
+	private String targetPk;
 	/** 备注1 */
 	private String remark1;
 	/** 备注2 */
@@ -64,8 +66,7 @@ public class LogDTO implements Serializable {
 	}
 
 	public String getLogOperUserRealName() {
-		return logOperUserRealName = null == logOperUserRealName ? null
-				: logOperUserRealName.trim();
+		return logOperUserRealName = null == logOperUserRealName ? null : logOperUserRealName.trim();
 	}
 
 	public void setLogOperUserRealName(String logOperUserRealName) {
@@ -105,8 +106,7 @@ public class LogDTO implements Serializable {
 	}
 
 	public String getLogVisitorial() {
-		return logVisitorial = null == logVisitorial ? null : logVisitorial
-				.trim();
+		return logVisitorial = null == logVisitorial ? null : logVisitorial.trim();
 	}
 
 	public void setLogVisitorial(String logVisitorial) {
@@ -143,6 +143,14 @@ public class LogDTO implements Serializable {
 
 	public void setLogStatus(Integer logStatus) {
 		this.logStatus = logStatus;
+	}
+
+	public String getTargetPk() {
+		return targetPk = null == targetPk ? null : targetPk;
+	}
+
+	public void setTargetPk(String targetPk) {
+		this.targetPk = targetPk;
 	}
 
 	public String getRemark1() {

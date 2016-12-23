@@ -20,6 +20,7 @@ public class SysMgrLogServiceImpl implements LogService {
 			logDTO.setLogOperTime(log.getTime());
 			logDTO.setOperType(log.getOpType());
 			logDTO.setLogStatus(log.getStatus());
+			logDTO.setTargetPk(log.getTargetPk());
 			logDTO.setRemark1(log.getRemark1());
 			logDTO.setRemark2(log.getRemark2());
 			logDTO.setRemark3(log.getRemark3());
@@ -31,9 +32,7 @@ public class SysMgrLogServiceImpl implements LogService {
 	}
 
 	private com.chinacreator.asp.comp.sys.basic.log.service.LogService getLogService() {
-		return ApplicationContextManager
-				.getContext()
-				.getBean(
-						com.chinacreator.asp.comp.sys.basic.log.service.LogService.class);
+		return ApplicationContextManager.getContext().getBean(
+				com.chinacreator.asp.comp.sys.basic.log.service.LogService.class);
 	}
 }

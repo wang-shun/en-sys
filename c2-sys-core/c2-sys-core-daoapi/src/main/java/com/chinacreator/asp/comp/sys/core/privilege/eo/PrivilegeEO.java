@@ -33,6 +33,8 @@ public class PrivilegeEO implements Serializable {
 	private Integer sn;
 	/** 权限来源（0：自定义，1：IDE） */
 	private String source;
+	/** 是否虚拟节点（0：否，1：是） */
+	private Boolean virtual;
 
 	public String getPrivilegeId() {
 		return privilegeId;
@@ -114,5 +116,13 @@ public class PrivilegeEO implements Serializable {
 
 	public void setSource(String source) {
 		this.source = null == source ? null : source;
+	}
+
+	public Boolean getVirtual() {
+		return virtual;
+	}
+
+	public void setVirtual(Boolean virtual) {
+		this.virtual = virtual;
 	}
 }

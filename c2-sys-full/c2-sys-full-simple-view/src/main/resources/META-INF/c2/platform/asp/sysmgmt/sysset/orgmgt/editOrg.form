@@ -326,7 +326,7 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="org" name="机构" logic="rule:asp.sysmgmt.sysset.jobmenumgt.getOrgByPK" sn="getOrgByPK">
+    <form:datasource xsi:type="form:LogicDataSource" id="org" name="机构" logic="rule:asp.sysmgmt.sysset.orgmgt.getOrgByPK" sn="getOrgByPK">
       <form:param id="orgId" name="新输入参数"/>
       <form:param id="parentId" name="新输入参数"/>
     </form:datasource>

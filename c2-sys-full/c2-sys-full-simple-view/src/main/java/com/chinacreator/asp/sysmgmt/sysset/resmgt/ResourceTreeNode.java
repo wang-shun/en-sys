@@ -19,6 +19,9 @@ public class ResourceTreeNode extends DefaultTreeNode implements Serializable {
 
 	private Object obj;
 
+	private Integer sn;
+	
+
 	public ResourceTreeNode(String id, String name) {
 		super(id, name);
 	}
@@ -29,8 +32,7 @@ public class ResourceTreeNode extends DefaultTreeNode implements Serializable {
 		this.virtual = virtual;
 	}
 
-	public ResourceTreeNode(String pid, String id, String name, String type,
-			boolean virtual) {
+	public ResourceTreeNode(String pid, String id, String name, String type, boolean virtual) {
 		super(id, name);
 		setPid(pid);
 		this.type = type;
@@ -83,5 +85,13 @@ public class ResourceTreeNode extends DefaultTreeNode implements Serializable {
 
 	public void setObj(Object obj) {
 		this.obj = obj;
+	}
+
+	public Integer getSn() {
+		return sn;
+	}
+
+	public void setSn(Integer sn) {
+		this.sn = sn;
 	}
 }
