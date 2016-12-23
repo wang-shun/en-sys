@@ -16,8 +16,6 @@
   <modules>
     <module>c2-sys-advanced-serviceapi</module>
     <module>c2-sys-advanced-service</module>
-    <module>c2-sys-advanced-domainapi</module>
-    <module>c2-sys-advanced-domain</module>
     <module>c2-sys-advanced-daoapi</module>
     <module>c2-sys-advanced-dao-oracle</module>
     <module>c2-sys-advanced-dao-mysql</module>

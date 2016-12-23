@@ -15,8 +15,6 @@
   <modules>
     <module>c2-sys-basic-serviceapi</module>
     <module>c2-sys-basic-service</module>
-    <module>c2-sys-basic-domainapi</module>
-    <module>c2-sys-basic-domain</module>
     <module>c2-sys-basic-daoapi</module>
     <module>c2-sys-basic-dao-oracle</module>
     <module>c2-sys-basic-dao-mysql</module>
