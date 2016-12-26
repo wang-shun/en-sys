@@ -5,6 +5,26 @@ import java.util.List;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sysmgr.User;
 
+/**
+ * 机构用户树型数据查询服务
+ * <p>集成版和分布式版本系统管理的统一接口，其中查询类接口包括：
+ * <ul>
+ * 	<li>{@link UserService}</li>
+ *  <li>{@link OrgnizationService}</li>
+ *  <li>{@link RoleService}</li>
+ *  <li>{@link OrgUserTreeService}</li>
+ * </ul>
+ * 管理类接口包括：
+ * <ul>
+ * 	<li>{@link UserManageService}(暂未实现)</li>
+ * </ul>
+ *
+ * @see UserService
+ * @see OrgnizationService
+ * @see RoleService
+ * @author Vurt
+ * @since 5.0
+ */
 public interface OrgUserTreeService {
     /**
      * 查询指定机构下所有的机构和用户数据，用户所属的机构的信息在 {@link User#get("orgId")}的属性中,

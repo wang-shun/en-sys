@@ -5,9 +5,24 @@ import java.util.List;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 
 /**
- * 机构查询接口
- * 
- * @author 彭盛
+ * 机构信息查询服务
+ * <p>集成版和分布式版本系统管理的统一接口，其中查询类接口包括：
+ * <ul>
+ * 	<li>{@link UserService}</li>
+ *  <li>{@link OrgnizationService}</li>
+ *  <li>{@link RoleService}</li>
+ *  <li>{@link OrgUserTreeService}</li>
+ * </ul>
+ * 管理类接口包括：
+ * <ul>
+ * 	<li>{@link UserManageService}(暂未实现)</li>
+ * </ul>
+ *
+ * @see UserService
+ * @see OrgUserTreeService
+ * @see RoleService
+ * @author Vurt
+ * @since 5.0
  */
 public interface OrgnizationService {
 	/**

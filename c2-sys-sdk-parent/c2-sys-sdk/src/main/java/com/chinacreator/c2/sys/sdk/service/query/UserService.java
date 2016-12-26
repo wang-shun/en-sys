@@ -6,12 +6,25 @@ import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sysmgr.User;
 
-
 /**
- * 用户信息查询服务，要对用户信息进行操作请使用{@link UserManageService}
+ * 用户信息查询服务
+ * <p>集成版和分布式版本系统管理的统一接口，其中查询类接口包括：
+ * <ul>
+ * 	<li>{@link UserService}</li>
+ *  <li>{@link OrgnizationService}</li>
+ *  <li>{@link RoleService}</li>
+ *  <li>{@link OrgUserTreeService}</li>
+ * </ul>
+ * 管理类接口包括：
+ * <ul>
+ * 	<li>{@link UserManageService}(暂未实现)</li>
+ * </ul>
  *
- * @see UserManageService
- * @author 彭盛
+ * @see OrgnizationService
+ * @see OrgUserTreeService
+ * @see RoleService
+ * @author Vurt
+ * @since 5.0
  */
 public interface UserService {
 	/**
@@ -54,13 +67,23 @@ public interface UserService {
     public List<User> queryByOrg(String orgId, boolean cascade);
 
     /**
-     * 查询指定机构及角色下用户
+     * 查询有指定角色的用户
      *
      * @param roleId 角色ID
-     * @return 用戶列表<br>
+     * @return 用户列表<br>
      *         一条记录也没查询到的情况下返回无内容的List
      */
     public List<User> queryByRole(String roleId);
+    
+    /**
+     * 查询指定机构及角色下用户
+     *
+     * @param orgId 机构id
+     * @param roleId 角色ID
+     * @return 用户列表<br>
+     *         一条记录也没查询到的情况下返回无内容的List
+     */
+    public List<User> queryByRoleInOrg(String orgId, String roleId);
 
     /**
      * 查询指定用户所属机构

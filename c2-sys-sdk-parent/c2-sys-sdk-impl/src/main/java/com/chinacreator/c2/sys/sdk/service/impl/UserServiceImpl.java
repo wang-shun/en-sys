@@ -82,4 +82,10 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	@Override
+	public List<User> queryByRoleInOrg(String orgId, String roleId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

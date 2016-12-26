@@ -14,25 +14,10 @@
   <description>系统管理-部署-dm(达梦)</description>
   
   <dependencies>
-  	<dependency>
-	  <groupId>com.chinacreator.c2</groupId>
-	  <artifactId>c2-sys-ui</artifactId>
-	  <version>${project.version}</version>
-	</dependency>
 	<dependency>
 	  <groupId>com.chinacreator.c2</groupId>
 	  <artifactId>c2-sys-dao-dm</artifactId>
 	  <version>${project.version}</version>
 	</dependency>	
-  	<dependency>
-  		<groupId>com.chinacreator.c2</groupId>
-  		<artifactId>c2-sysmgr-api-impl</artifactId>
-  		<version>${project.version}</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.chinacreator.c2</groupId>
-  		<artifactId>c2-sysmgr-data-util</artifactId>
-  		<version>${project.version}</version>
-  	</dependency>
   </dependencies>
 </project>
