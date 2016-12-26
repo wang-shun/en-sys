@@ -7,51 +7,158 @@ import junit.C2JunitTests;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.alibaba.fastjson.JSON;
-import com.chinacreator.c2.sys.sdk.bean.Orgnization;
+import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
-import com.chinacreator.c2.sys.sdk.bean.User;
-import com.chinacreator.c2.sys.sdk.exception.SysResourcesException;
-import com.chinacreator.c2.sys.sdk.service.UserService;
+import com.chinacreator.c2.sys.sdk.service.query.UserService;
+import com.chinacreator.c2.sysmgr.User;
 
 public class UserServiceTest extends C2JunitTests {
     @Autowired
+    @Qualifier("sdkUserService")
     private UserService userService;
     
-    public void create()
-        throws SysResourcesException {
-        String orgId = "0227928B2E7D46E0A5A19A0A831617FF";
+    /*@Test
+    public void current() {
+        User query = userService.current();
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertNotNull(query);
+    }*/
+    
+    @Test
+    public void get() {
         User user = new User();
-        user.setUserId("7424");
-        user.setUserRealname("test");
-        user.setUserName("test");
-        user.setUserPassword("1");
-        String id = userService.create(user, orgId);
-        Assert.assertNotNull(id);
+        String userId = "00149E82F603428BA15C0433E29E3CC7";
+        User query = userService.get(userId);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertNotNull(query);
     }
     
-    public void addOrg()
-        throws SysResourcesException {
-        String userId = "007D332057E44A2DB0ADEB33CE15D408";
-        String orgId = "025026B2A1864DD1A1256DA55A7739E7";
-        userService.addOrg(userId, orgId);
+    @Test
+    public void queryMulti() {
+        User user = new User();
+        String userId1 = "00149E82F603428BA15C0433E29E3CC7";
+        String userId2 = "0075BDF253C6473EABB7019461E22DA4";
+        List<User> query = userService.queryMulti(userId1,userId2);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertNotNull(query);
     }
     
-    public void delete()
-        throws SysResourcesException {
-        String userId = "007D332057E44A2DB0ADEB33CE15D408";
-        userService.delete(userId);
+    @Test
+    public void getByUsername() {
+        User user = new User();
+        String userName = "apple";
+        User query = userService.getByUsername(userName);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertNotNull(query);
     }
     
-    public void deleteUserOrgRelationship()
-        throws SysResourcesException {
-        String userId = "007D332057E44A2DB0ADEB33CE15D408";
-        String orgId = "025026B2A1864DD1A1256DA55A7739E7";
-        userService.deleteUserOrgRelationship(userId, orgId);
+    @Test
+    public void queryMultiByUsername() {
+        User user = new User();
+        String[] userName = {"apple"};
+        List<User> query = userService.queryMultiByUsername(userName);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertNotNull(query);
     }
     
-    public void update()
+    @Test
+    public void queryByOrg() {
+        User user = new User();
+        String orgId = "0227928B2E7D46E0A5A19A0A831617FF";
+        List<User> query = userService.queryByOrg(orgId, true);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertNotNull(query);
+    }
+    
+    @Test
+    public void queryByRole() {
+        User user = new User();
+        String roleId = "1";
+        List<User> query = userService.queryByRole(roleId);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertNotNull(query);
+    }
+    
+    @Test
+    public void getOrgs() {
+        User user = new User();
+        String userId = "00149E82F603428BA15C0433E29E3CC7";
+        List<Organization> query = userService.getOrgs(userId);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertNotNull(query);
+    }
+    
+    @Test
+    public void getMainOrg() {
+        User user = new User();
+        String orgId = "0227928B2E7D46E0A5A19A0A831617FF";
+        Organization query = userService.getMainOrg(orgId);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertNotNull(query);
+    }
+    
+    @Test
+    public void inOrg() {
+        User user = new User();
+        String userId = "00149E82F603428BA15C0433E29E3CC7";
+        String orgId = "0227928B2E7D46E0A5A19A0A831617FF";
+        boolean query = userService.inOrg(userId, orgId);
+        System.err.println(JSON.toJSONString(query));
+    }
+    
+    @Test
+    public void isMainOrg() {
+        User user = new User();
+        String userId = "00149E82F603428BA15C0433E29E3CC7";
+        String orgId = "0227928B2E7D46E0A5A19A0A831617FF";
+        boolean query = userService.isMainOrg(userId, orgId);
+        System.err.println(JSON.toJSONString(query));
+    }
+    
+    @Test
+    public void getRoles() {
+        User user = new User();
+        String userId = "0163BB2AAF8E410DACF52CA2944F8E08";
+        List<Role> query = userService.getRoles(userId);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertTrue(query.size() > 0);
+    }
+    
+   @Test
+    public void hasRole() {
+        User user = new User();
+        String userId = "0163BB2AAF8E410DACF52CA2944F8E08";
+        String roleId = "2";
+        boolean query = userService.hasRole(userId, roleId);
+        System.err.println(JSON.toJSONString(query));
+    }
+    
+   /* public void queryByIds() {
+        String[] userIds = {"01DC06C4C71E410B84F9C0437703EB7C"};
+        List<User> query = userService.query(userIds);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertTrue(query.size() > 0);
+    }*/
+    
+   /* public void getRoles() {
+        String userId = "01DC06C4C71E410B84F9C0437703EB7C";
+        List<Role> query = userService.getRoles(userId);
+        System.err.println(JSON.toJSONString(query));
+        Assert.assertTrue(query.size() > 0);
+    }
+    
+    
+    public void hasRole() {
+        String userId = "01DC06C4C71E410B84F9C0437703EB7C";
+        String roleId = "2";
+        boolean query = userService.hasRole(userId, roleId);
+        System.err.println(JSON.toJSONString(query));
+    }*/
+    
+    /*public void update()
         throws SysResourcesException {
         User user = new User();
         user.setUserId("01DC06C4C71E410B84F9C0437703EB7C");
@@ -117,35 +224,7 @@ public class UserServiceTest extends C2JunitTests {
         List<User> query = userService.query(user);
         System.err.println(JSON.toJSONString(query));
         Assert.assertTrue(query.size() > 0);
-    }
+    }*/
     
-    public void get() {
-        User user = new User();
-        user.setUserName("mei.liu1");
-        User query = userService.get(user);
-        System.err.println(JSON.toJSONString(query));
-        Assert.assertNotNull(query);
-    }
-    
-    public void queryByIds() {
-        String[] userIds = {"01DC06C4C71E410B84F9C0437703EB7C"};
-        List<User> query = userService.query(userIds);
-        System.err.println(JSON.toJSONString(query));
-        Assert.assertTrue(query.size() > 0);
-    }
-    
-    public void getRoles() {
-        String userId = "01DC06C4C71E410B84F9C0437703EB7C";
-        List<Role> query = userService.getRoles(userId);
-        System.err.println(JSON.toJSONString(query));
-        Assert.assertTrue(query.size() > 0);
-    }
-    
-    
-    public void hasRole() {
-        String userId = "01DC06C4C71E410B84F9C0437703EB7C";
-        String roleId = "2";
-        boolean query = userService.hasRole(userId, roleId);
-        System.err.println(JSON.toJSONString(query));
-    }
+   
 }

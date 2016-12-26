@@ -16,6 +16,7 @@ import com.google.common.collect.Lists;
 
 @Service("sdkOrgService")
 public class OrgServiceImpl implements OrgnizationService {
+	
     @Autowired
     @Qualifier("com.chinacreator.asp.comp.sys.advanced.org.service.OrgServiceImpl")
     private com.chinacreator.asp.comp.sys.advanced.org.service.OrgService orgService;

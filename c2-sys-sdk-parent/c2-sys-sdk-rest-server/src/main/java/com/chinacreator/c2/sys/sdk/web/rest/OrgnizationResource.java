@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -42,6 +43,23 @@ public class OrgnizationResource {
 			@QueryParam("name") String name, @QueryParam("pid") String pid,
 			@QueryParam("creator") String creator,
 			@QueryParam("level") String level) {
+		if(code!=null){
+			
+		}else if(pid!=null){
+			int cascadeLevel = level==null?-1:Integer.parseInt(level) ;
+			List<Organization> allDept = orgService.getChildren(pid, true) ;
+			Iterator<Organization> iterator = allDept.iterator();
+			while(iterator.hasNext()){
+				Organization next = iterator.next();
+				//TODO 
+				iterator.remove() ;
+			}
+			return 
+		}else if(name!=null){
+			
+		}else if(creator!=null){
+			
+		}
 		throw new UnsupportedOperationException();
 	}
 
@@ -67,6 +85,7 @@ public class OrgnizationResource {
 	public List<Organization> getChildren(
 			@ApiParam("机构ID") @PathParam("id") String id,
 			@ApiParam("是否递归查询所有子机构") @PathParam("cascade") boolean cascade) {
+		
 		throw new UnsupportedOperationException();
 	}
 
@@ -80,6 +99,7 @@ public class OrgnizationResource {
 			@ApiParam("机构ID") @PathParam("id") String orgId,
 			@PathParam("page") int page, @QueryParam("limit") int limit,
 			@QueryParam("sort") String sort) throws ResourceNotFoundException {
+		
 		throw new UnsupportedOperationException();
 	}
 
@@ -93,6 +113,7 @@ public class OrgnizationResource {
 			@ApiParam("机构ID") @PathParam("id") String orgId,
 			@QueryParam("page") int page, @QueryParam("limit") int limit)
 			throws ResourceNotFoundException {
+		
 		throw new UnsupportedOperationException();
 	}
 }
