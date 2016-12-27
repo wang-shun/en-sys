@@ -6,26 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestTemplate;
 
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sys.sdk.client.exception.SysSDKInvokeException;
 import com.chinacreator.c2.sys.sdk.service.query.UserService;
 import com.chinacreator.c2.sysmgr.User;
-import com.chinacreator.c2.web.util.RestUtils;
 
 @Service
 public class UserSeviceImpl implements UserService {
 	@Autowired
-	private SDKConfig config;
+	private SDKUtils utils;
 	
 	@Override
 	public User get(String id) {
-		RestTemplate restTemplate = RestUtils.createRestTemplate();
 		try{
 			//调用REST接口
-			User user = restTemplate.getForObject(config.getUrl("/v1/users/{id}"), User.class, id);
+			User user = utils.geRestTemplate().getForObject(utils.getUrl("/v1/users/{id}"), User.class, id);
 			return user;
 		}catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){

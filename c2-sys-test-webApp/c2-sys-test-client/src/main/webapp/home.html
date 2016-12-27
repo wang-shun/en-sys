@@ -1,11 +1,11 @@
 <div ng-controller="HomeController">
-	<div class="col-sm-6" id="default-buttons">
+	<div class="col-sm-6 col-sm-offset-3" id="default-buttons">
 		<h3 class="header smaller lighter purple">
 		功能 
 		</h3>
 		<p>
 			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/test/me')">获取当前用户</button>
-			<button type="button" class="btn btn-white btn-yellow btn-sm" ng-click="">查询id为"1"的用户</button>
+			<button type="button" class="btn btn-white btn-yellow btn-sm" ng-click="dorequest('GET','/test/user/1')">查询id为"1"的用户</button>
 			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="">获取机构</button>
 		</p>
 
