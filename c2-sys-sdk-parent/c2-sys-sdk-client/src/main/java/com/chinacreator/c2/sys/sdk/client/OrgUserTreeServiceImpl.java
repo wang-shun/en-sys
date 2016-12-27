@@ -2,8 +2,11 @@ package com.chinacreator.c2.sys.sdk.client;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.chinacreator.c2.sys.sdk.service.query.OrgUserTreeService;
 
+@Service
 public class OrgUserTreeServiceImpl implements OrgUserTreeService {
 
 	@Override

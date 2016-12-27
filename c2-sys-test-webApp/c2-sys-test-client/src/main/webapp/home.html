@@ -1,0 +1,56 @@
+<div ng-controller="HomeController">
+	<div class="col-sm-6" id="default-buttons">
+		<h3 class="header smaller lighter purple">
+		功能 
+		</h3>
+		<p>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/test/me')">获取当前用户</button>
+			<button type="button" class="btn btn-white btn-yellow btn-sm" ng-click="">查询id为"1"的用户</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="">获取机构</button>
+		</p>
+
+		<h3 class="header smaller lighter green">结果</h3>
+
+		<p ng-bind-html="data"></p>
+	</div>
+</div>
+
+<script type="text/javascript">
+	app.registerCtrl('HomeController', [ '$scope', '$http', function($scope, $http) {
+		
+	$scope.dorequest = function(method, url) {
+					$http({
+						method : method,
+						url : url
+					}).then(function(response) {
+						$scope.data=syntaxHighlight(response.data);
+					}, function(response) {
+						$scope.data="错误";
+						console.log(response);
+					});
+				}
+	
+	function syntaxHighlight(json) {
+	    if (typeof json != 'string') {
+	         json = JSON.stringify(json, undefined, 2);
+	    }
+	    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+	        var cls = 'number';
+	        if (/^"/.test(match)) {
+	            if (/:$/.test(match)) {
+	                cls = 'key';
+	            } else {
+	                cls = 'string';
+	            }
+	        } else if (/true|false/.test(match)) {
+	            cls = 'boolean';
+	        } else if (/null/.test(match)) {
+	            cls = 'null';
+	        }
+	        return '<span class="' + cls + '">' + match + '</span>';
+	    });
+	}
+	
+	}]);
+</script>

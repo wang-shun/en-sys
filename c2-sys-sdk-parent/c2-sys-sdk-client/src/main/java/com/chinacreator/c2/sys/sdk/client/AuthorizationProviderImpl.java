@@ -2,9 +2,12 @@ package com.chinacreator.c2.sys.sdk.client;
 
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.chinacreator.c2.sysmgr.AuthorizationProvider;
 import com.chinacreator.c2.sysmgr.exception.AuthenticationException;
 
+@Service
 public class AuthorizationProviderImpl implements AuthorizationProvider {
 
 	@Override

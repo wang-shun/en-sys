@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,9 +15,10 @@ import com.chinacreator.c2.sys.sdk.service.query.UserService;
 import com.chinacreator.c2.sysmgr.User;
 import com.chinacreator.c2.web.util.RestUtils;
 
+@Service
 public class UserSeviceImpl implements UserService {
 	@Autowired
-	private RemoteServerConfig config;
+	private SDKConfig config;
 	
 	@Override
 	public User get(String id) {
