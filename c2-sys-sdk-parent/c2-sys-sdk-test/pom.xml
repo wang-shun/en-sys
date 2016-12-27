@@ -28,9 +28,20 @@
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
+		    <artifactId>c2-sys-sdk-impl</artifactId>
+		    <version>${project.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
+		    <artifactId>c2-sys-sdk-rest-server</artifactId>
+		    <version>${project.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-runtime</artifactId>
-			<version>5.0.0-BETA1</version>
-			<scope>provided</scope>
+			<version>5.0.0-BETA2</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -38,4 +49,5 @@
 			<version>3.1.0</version>
 		</dependency>
 	</dependencies>
+	<packaging>war</packaging>
 </project>

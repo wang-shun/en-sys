@@ -19,5 +19,10 @@
 			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.chinacreator.c2</groupId>
+			<artifactId>c2-sys-advanced-service</artifactId>
+			<version>4.3.0-BETA2</version>
+		</dependency>
 	</dependencies>
 </project>

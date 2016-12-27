@@ -18,7 +18,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 
-@Service("sdkOrgUserTreeService")
 public class OrgUserTreeServiceImpl implements OrgUserTreeService {
 
 	@Override

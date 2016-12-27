@@ -32,6 +32,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User get(String id) {
 		UserDTO userDTO = userService.queryByPK(id);
+		if( userDTO == null ){
+			return null;
+		}
 		User user = BeanUtils.toBean(userDTO);
 		return user;
 	}
@@ -42,6 +45,9 @@ public class UserServiceImpl implements UserService {
 		List<User> list = new ArrayList<User>();
 		for(String id : ids){
 			UserDTO userDTO = userService.queryByPK(id);
+			if( userDTO == null ){
+				return null;
+			}
 			user = BeanUtils.toBean(userDTO);
 			list.add(user);
 		}
@@ -50,6 +56,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getByUsername(String username) {
 		UserDTO userDTO = userService.queryByUserName(username);
+		if( userDTO == null ){
+			return null;
+		}
 		User user = BeanUtils.toBean(userDTO);
 		return user;
 	}
@@ -59,6 +68,9 @@ public class UserServiceImpl implements UserService {
 		List<User> userList = new ArrayList<User>();
 		for(String name : username){
 			UserDTO userDTO = userService.queryByUserName(name);
+			if( userDTO == null ){
+				return null;
+			}
 			user = BeanUtils.toBean(userDTO);
 			userList.add(user);
 		}
@@ -67,7 +79,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> queryByOrg(String orgId, boolean cascade) {
 		UserDTO userDTO = userService.queryByPK(orgId);
+		if( userDTO == null ){
+			return null;
+		}
 		List<UserDTO> userList = userService.queryByOrg(userDTO, orgId);
+		if(userList.size()==0 || userList==null){
+			return new ArrayList<User>();
+		}
 		List<User> reList = Lists.transform(userList,
 	               new Function<UserDTO, User>() {
             public User apply(UserDTO input) {
@@ -80,6 +98,9 @@ public class UserServiceImpl implements UserService {
 	public List<User> queryByRole(String roleId) {
 		List<User> userList = new ArrayList<User>();
 		UserDTO userDTO = userService.queryByPK(roleId);
+		if( userDTO == null ){
+			return null;
+		}
 		User user = BeanUtils.toBean(userDTO);
 		userList.add(user);
 		return userList;
@@ -88,6 +109,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Organization> getOrgs(String userId) {
 		List<OrgDTO> orgList = userService.queryOrgs(userId);
+		if( orgList == null || orgList.size()==0 ){
+			return new ArrayList<Organization>();
+		}
 		List<Organization> retList = Lists.transform(orgList,
                new Function<OrgDTO, Organization>() {
                    public Organization apply(OrgDTO input) {
@@ -100,20 +124,29 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Organization getMainOrg(String userId) {
 		OrgDTO orgDTO = orgService.queryByPK(userId);
+		if( orgDTO == null ){
+			return null;
+		}
 		Organization organization = BeanUtils.toBean(orgDTO);
 		return organization;
 	}
+	
 	@Override
 	public boolean inOrg(String userId, String orgId) {
 		return orgService.containsUser(userId, orgId);
 	}
+	
 	@Override
 	public boolean isMainOrg(String userId, String orgId) {
 		return userService.isMainOrg(userId, orgId);
 	}
+	
 	@Override
 	public List<Role> getRoles(String userId) {
 		List<RoleDTO> roleList = userService.queryRoles(userId);
+		if( roleList == null || roleList.size()==0){
+			return new ArrayList<Role>();
+		}
 		List<Role> retList = Lists.transform(roleList,
 	               new Function<RoleDTO, Role>() {
 	                   public Role apply(RoleDTO input) {
@@ -130,7 +163,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> queryByRoleInOrg(String orgId, String roleId) {
-		// TODO Auto-generated method stub
-		return null;
+		UserDTO userDTO = userService.queryByPK(orgId);
+		if( userDTO == null ){
+			return null;
+		}
+		List<UserDTO> userList = userService.queryByOrg(userDTO, roleId);
+		if( userList == null || userList.size()==0){
+			return new ArrayList<User>();
+		}
+		List<User> reList = Lists.transform(userList,
+	               new Function<UserDTO, User>() {
+         public User apply(UserDTO input) {
+             return BeanUtils.toBean(input);
+         }
+     });
+		return reList;
 	}
 }
