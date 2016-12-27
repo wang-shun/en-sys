@@ -66,7 +66,9 @@ public class OrgnizationResource {
 
 		if (code != null) {
 			List<Organization> orgList = organizationService.getParents(code);
-			return orgList;
+			if(orgList!=null && orgList.size()>0){
+				return orgList;
+			}
 
 		} else if (pid != null) {
 			// int cascadeLevel = level==null?-1:Integer.parseInt(level) ;

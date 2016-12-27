@@ -7,6 +7,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinacreator.c2.ioc.ApplicationContextManager;
@@ -20,6 +21,9 @@ import com.chinacreator.c2.sysmgr.User;
 @Consumes(MediaType.APPLICATION_JSON)
 public class SSOClientTestController {
 
+  @Autowired
+  private UserService userService;
+	
   @GET
   @Path("/me")
   public User whoAmI(){
