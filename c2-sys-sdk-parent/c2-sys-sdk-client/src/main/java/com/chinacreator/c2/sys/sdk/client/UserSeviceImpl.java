@@ -1,5 +1,7 @@
 package com.chinacreator.c2.sys.sdk.client;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sys.sdk.client.exception.SysSDKInvokeException;
 import com.chinacreator.c2.sys.sdk.service.query.UserService;
 import com.chinacreator.c2.sysmgr.User;
+import com.chinacreator.c2.web.exception.ResourceNotFoundException;
 
 @Service
 public class UserSeviceImpl implements UserService {
@@ -21,12 +24,11 @@ public class UserSeviceImpl implements UserService {
 	@Override
 	public User get(String id) {
 		try{
-			//调用REST接口
 			User user = utils.geRestTemplate().getForObject(utils.getUrl("/v1/users/{id}"), User.class, id);
 			return user;
 		}catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
-				return null;
+				throw new ResourceNotFoundException("用户 【"+id+"】 不存在");
 			}else{
 				throw new SysSDKInvokeException("获取用户信息失败", e);
 			}
@@ -35,8 +37,24 @@ public class UserSeviceImpl implements UserService {
 
 	@Override
 	public List<User> queryMulti(String... ids) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			if(ids==null || ids.length==0) return Collections.emptyList();
+			
+			StringBuilder builder = new StringBuilder("/v1/users?");
+			for(String id: ids){
+				builder.append("id=").append(id);
+				builder.append("&");
+			}
+			String url=builder.substring(0, builder.length()-1);
+			ArrayList users = utils.geRestTemplate().getForObject(utils.getUrl(url), ArrayList.class);
+			return users;
+		} catch (HttpStatusCodeException e) {
+			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
+				throw new ResourceNotFoundException("用户 【"+ids+"】 不存在");
+			}else{
+				throw new SysSDKInvokeException("获取用户信息失败", e);
+			}
+		}
 	}
 
 	@Override

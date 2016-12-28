@@ -41,7 +41,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 @Service
-@Path("/v1/remote/organizations")
+@Path("/v1/organizations")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Api("系统管理SDK - 机构")
@@ -56,61 +56,6 @@ public class OrgnizationResource {
     @Qualifier("com.chinacreator.asp.comp.sys.advanced.org.service.OrgServiceImpl")
     private OrgService orgService;
 
-	@GET
-	@ApiOperation(value = "查询机构")
-	public List<Organization> query(
-			@ApiParam("机构ID") @QueryParam("code") String code,
-			@QueryParam("name") String name, @QueryParam("pid") String pid,
-			@QueryParam("creator") String creator,
-			@QueryParam("level") String level) {
-
-		if (code != null) {
-			List<Organization> orgList = organizationService.getParents(code);
-			if(orgList!=null && orgList.size()>0){
-				return orgList;
-			}
-
-		} else if (pid != null) {
-			// int cascadeLevel = level==null?-1:Integer.parseInt(level) ;
-			List<Organization> orgList = organizationService.getChildren(pid,
-					true);
-			Iterator<Organization> iterator = orgList.iterator();
-			while (iterator.hasNext()) {
-				Organization next = iterator.next();
-				if (!next.getPid().equals(pid)) {
-					iterator.remove();
-				}
-			}
-			return orgList;
-
-		} else if (name != null) {
-			List<Organization> orgList = organizationService.getChildren(null,
-					true);
-			Iterator<Organization> iterator = orgList.iterator();
-			while (iterator.hasNext()) {
-				Organization next = iterator.next();
-				if (!next.getName().equals(name)) {
-					iterator.remove();
-				}
-			}
-			return orgList;
-
-		} else if (creator != null) {
-			List<Organization> orgList = organizationService.getChildren(null,
-					true);
-			Iterator<Organization> iterator = orgList.iterator();
-			while (iterator.hasNext()) {
-				Organization next = iterator.next();
-				if (!next.getCreator().equals(creator)) {
-					iterator.remove();
-				}
-			}
-			return orgList;
-		}
-		
-		throw new UnsupportedOperationException();
-	}
-
 	@Path("/{id}")
 	@GET
 	@ApiOperation(value = "获取机构数据")
@@ -121,7 +66,7 @@ public class OrgnizationResource {
 		if (orgId != null) {
 			Organization orgnization = organizationService.get(orgId);
 			if(orgnization == null){
-				throw new ResourceNotFoundException("机构["+orgId+"]不存在");
+				throw new ResourceNotFoundException("机构【"+orgId+"】不存在");
 			}
 			return orgnization;
 		}
@@ -134,13 +79,16 @@ public class OrgnizationResource {
 	public List<Organization> getParents(@PathParam("id") String id) {
 		if (id != null) {
 			List<Organization> orgList = organizationService.getParents(id);
+			if(orgList==null){
+				throw new ResourceNotFoundException("该机构 【"+id+"】 的父类不存在");
+			}
 			return orgList;
 		}
 		
 		throw new UnsupportedOperationException();
 	}
 
-	@Path("/{id}/children")
+	@Path("/{id}/children/{cascade}")
 	@GET
 	@ApiOperation(value = "查询子机构，不包含自身")
 	public List<Organization> getChildren(
@@ -149,72 +97,26 @@ public class OrgnizationResource {
 		if (id != null) {
 			List<Organization> orgList = organizationService.getChildren(id,
 					cascade);
+			if(orgList == null){
+				throw new ResourceNotFoundException("机构 【"+id+"】 的父类不存在");
+			}
 			return orgList;
 		}
 		
 		throw new UnsupportedOperationException();
 	}
 
-	@Path("/{id}/users")
+	@Path("/{oid}/user/{uid}")
 	@GET
-	@ApiOperation(value = "获取机构下所有用户")
-	@ApiResponses({
-			@ApiResponse(code = 200, message = "获取成功", response = Organization.class),
-			@ApiResponse(code = 404, message = "机构不存在", response = Error.class) })
-	public List<User> getUsers(
-			@ApiParam("机构ID") @PathParam("id") String orgId,
-			@PathParam("page") int page, @QueryParam("limit") int limit,
-			@QueryParam("sort") String sort) throws ResourceNotFoundException {
-		
-			Pageable pageable = PageableUtils.getPageable(page, limit) ;
-			Sortable sortable = SortableUtil.getSortable(sort, null);
-			List<UserDTO> userDtos = (List<UserDTO>) orgService.queryUsers(orgId, pageable, sortable) ;
-			if(userDtos == null){
-				return new ArrayList<User>() ;
-			}
-			List<User> users =  Lists.transform(userDtos, new Function<UserDTO, User>() {
-				@Override
-				public User apply(UserDTO input) {
-					return BeanUtils.toBean(input);
-				}
-				
-			});
-			if(users!=null && users.size()>0){
-				return users;
-			}
-			throw new UnsupportedOperationException();
-		
-	}
-
-	@Path("/{id}/users")
-	@GET
-	@ApiOperation(value = "获取机构下所有角色")
-	@ApiResponses({
-			@ApiResponse(code = 200, message = "获取成功", response = Organization.class),
-			@ApiResponse(code = 404, message = "机构不存在", response = Error.class) })
-	public List<Role> getRoles(
-			@ApiParam("机构ID") @PathParam("id") String orgId,
-			@QueryParam("page") int page, @QueryParam("limit") int limit)
-			throws ResourceNotFoundException {
-		
-		Pageable pageable = PageableUtils.getPageable(page, limit);
-		List<RoleDTO> roleDtos = (List<RoleDTO>) orgService.queryRoles(orgId, pageable, null);
-		if(roleDtos==null){
-			return new ArrayList<Role>();
+	@ApiOperation(value="判断机构下是否有指定用户")
+	public boolean containUser(
+			@ApiParam("机构ID")@PathParam("oid")String oid, 
+			@ApiParam("用户ID")@PathParam("uid")String uid){
+		if(oid != null){
+			boolean hasUser = organizationService.containsUser(oid, uid);
+			return hasUser;
 		}
-		List<Role> roles = Lists.transform(roleDtos, new Function<RoleDTO, Role>() {
-
-			@Override
-			public Role apply(RoleDTO input) {
-				return BeanUtils.toBean(input);
-			}
-			
-		});
-		if(roles!=null && roles.size()>0){
-			return roles;
-		}
-		
-		throw new UnsupportedOperationException();
+		throw new ResourceNotFoundException("机构 【"+oid+"】下的用户 【"+uid+"】 不存在");	
 	}
 			
 }

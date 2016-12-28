@@ -1,5 +1,7 @@
 package com.chinacreator.c2.test.web.rest;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,26 +18,31 @@ import com.chinacreator.c2.sysmgr.AuthenticationProvider;
 import com.chinacreator.c2.sysmgr.User;
 
 @Service
-@Path("/test")
+@Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class SSOClientTestController {
+public class SSOClientUserTestController {
 
   @Autowired
   private UserService userService;
 	
-  @GET
   @Path("/me")
+  @GET
   public User whoAmI(){
     AuthenticationProvider provider = ApplicationContextManager.getContext().getBean(AuthenticationProvider.class);
     return provider.getSubject();
   }
-  
-  @GET
   @Path("/user/{id}")
+  @GET
   public User getUser(@PathParam("id")String id){
-    UserService service = ApplicationContextManager.getContext().getBean(UserService.class);
-    return service.get(id);
+    return userService.get(id);
+  }
+  
+  @Path("/multi")
+  @GET
+  public List<User> queryMulti(){
+	  String[] ids = new String[]{"C4C3B59D303947C3B4D093A31A40A969","98180E1A188646829E16DD6C844412CE"};
+	  return userService.queryMulti(ids);
   }
   
 }

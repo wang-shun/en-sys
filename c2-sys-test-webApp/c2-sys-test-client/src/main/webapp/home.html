@@ -4,11 +4,17 @@
 		功能 
 		</h3>
 		<p>
-			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/test/me')">获取当前用户</button>
-			<button type="button" class="btn btn-white btn-yellow btn-sm" ng-click="dorequest('GET','/test/user/06398E3C6F7A4BC58B5E5D5132FDA2C6')">查询某用户</button>
-			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="">获取机构</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/me')">获取当前用户</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/user/C4C3B59D303947C3B4D093A31A40A969')">获取单个用户</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/multi/')">获取多个用户</button>
 		</p>
-
+		<p>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/org/organization/661BCC915A6A4531B512F28535A27D66')">获取机构</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/org/organization/661BCC915A6A4531B512F28535A27D66/parents')">获取父机构</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/org/organization/C0B8B5F298C34195A10A005E8293C57F/children/true')">获取子机构</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/org/organization/661BCC915A6A4531B512F28535A27D66/user/C4C3B59D303947C3B4D093A31A40A969')">判断机构下的某用户是否存在</button>
+			
+		</p>
 		<h3 class="header smaller lighter green">结果</h3>
 
 		<p ng-bind-html="data"></p>

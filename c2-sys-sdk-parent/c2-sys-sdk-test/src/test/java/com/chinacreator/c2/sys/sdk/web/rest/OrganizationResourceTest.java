@@ -18,7 +18,7 @@ public class OrganizationResourceTest extends C2JunitTests {
     @Autowired
     private OrgnizationResource orgResourceService;
    
-    @Test
+    /*@Test
     public void query() {
     	String orgId = "198271A15321497B8A6B4488EB360ED9";
     	String name = "dzqdxxm_dq_";
@@ -35,5 +35,5 @@ public class OrganizationResourceTest extends C2JunitTests {
     	int limit = 10;
     	List<User> query = orgResourceService.getUsers(orgId, page, limit, null);
     	System.err.println(JSON.toJSONString(query));
-    }
+    }*/
 }
