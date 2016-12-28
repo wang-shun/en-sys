@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Path("/v1/remote/permissions")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Api("系统管理SDK - 统一鉴权接口")
+@Api(tags={"authorizations"})
 @ApiResponses({
 		@ApiResponse(code = 401, message = "用户没有登录", response = Error.class),
 		@ApiResponse(code = 403, message = "没有权限访问", response = Error.class), })

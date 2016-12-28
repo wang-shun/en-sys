@@ -24,12 +24,6 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-module-rest-docs</artifactId>
-			<version>1.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
