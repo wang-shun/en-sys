@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
-import com.chinacreator.c2.sys.sdk.web.rest.OrgnizationResource;
+import com.chinacreator.c2.sys.sdk.web.rest.OrganizationResource;
 import com.chinacreator.c2.sysmgr.User;
 
 import junit.C2JunitTests;
 
 public class OrganizationResourceTest extends C2JunitTests {
     @Autowired
-    private OrgnizationResource orgResourceService;
+    private OrganizationResource orgResourceService;
    
     /*@Test
     public void query() {

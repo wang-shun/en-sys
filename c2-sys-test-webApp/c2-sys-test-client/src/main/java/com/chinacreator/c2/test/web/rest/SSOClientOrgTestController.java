@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,10 @@ public class SSOClientOrgTestController {
 		return orgService.getParents(id);
 	}
 	
-	@Path("/organization/{id}/children/{cascade}")
+	@Path("/organization/{id}/children")
 	@GET
-	public List<Organization> getChildren(@PathParam("id")String id, @PathParam("cascade") boolean cascade){
+	public List<Organization> getChildren(@PathParam("id")String id){
+		boolean cascade = true;
 		return orgService.getChildren(id, cascade);
 	}
 	

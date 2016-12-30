@@ -128,7 +128,7 @@ public class UserServiceTest extends C2JunitTests {
    public void queryByRoleInOrg() {
        String orgId = "055B53C79F1C4A0981C149C3669F311C";
        String roleId = "2";
-       List<User> query = userService.queryByRoleInOrg(orgId, roleId);
+       List<User> query = userService.queryByRoleInOrg(orgId, roleId, true);
        System.err.println(JSON.toJSONString(query));
    //    Assert.assertTrue(query.size() > 0);
    }

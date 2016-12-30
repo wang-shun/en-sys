@@ -76,14 +76,15 @@ public interface UserService {
     public List<User> queryByRole(String roleId);
     
     /**
-     * 查询指定机构及角色下用户
+     * 查询指定机构下有特定角色的所有用户
      *
      * @param orgId 机构id
      * @param roleId 角色ID
+     * @param cascade 是否递归查询所有的子机构
      * @return 用户列表<br>
      *         一条记录也没查询到的情况下返回无内容的List
      */
-    public List<User> queryByRoleInOrg(String orgId, String roleId);
+    public List<User> queryByRoleInOrg(String orgId, String roleId, boolean cascade);
 
     /**
      * 查询指定用户所属机构

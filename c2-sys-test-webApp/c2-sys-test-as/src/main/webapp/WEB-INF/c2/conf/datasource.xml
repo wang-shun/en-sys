@@ -2,7 +2,7 @@
 <DataSources xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.chinacreator.com/platform/core/datasource" default="">
   <datasource xsi:type="DBCPDataSource" default="true" id="mysql" name="mysql" sys="true" type="MySQL">
     <poolAttribute key="defaultAutoCommit" value="true" desc="自动提交"/>
-    <poolAttribute key="maxActive" value="25" desc="最大连接数"/>
+    <poolAttribute key="maxActive" value="50" desc="最大连接数"/>
     <poolAttribute key="initialSize" value="5" desc="初始连接数"/>
     <poolAttribute key="poolPreparedStatements" value="false" desc="启用预编译"/>
     <poolAttribute key="maxOpenPreparedStatements" value="50" desc="预编译缓存数"/>

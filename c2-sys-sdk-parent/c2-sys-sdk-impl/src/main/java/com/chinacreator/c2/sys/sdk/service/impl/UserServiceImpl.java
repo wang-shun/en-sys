@@ -1,6 +1,7 @@
 package com.chinacreator.c2.sys.sdk.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sys.sdk.service.query.UserService;
 import com.chinacreator.c2.sysmgr.User;
+import com.chinacreator.c2.web.exception.ResourceNotFoundException;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
@@ -38,7 +40,6 @@ public class UserServiceImpl implements UserService {
 		User user = BeanUtils.toBean(userDTO);
 		return user;
 	}
-	
 	@Override
 	public List<User> queryMulti(String... ids) {
 		User user = null;
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService {
 			user = BeanUtils.toBean(userDTO);
 			list.add(user);
 		}
+		if(list==null || list.size()==0) return Collections.emptyList();
 		return list;
 	}
 	@Override
@@ -103,6 +105,7 @@ public class UserServiceImpl implements UserService {
 		}
 		User user = BeanUtils.toBean(userDTO);
 		userList.add(user);
+		
 		return userList;
 		
 	}
@@ -123,7 +126,7 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public Organization getMainOrg(String userId) {
-		OrgDTO orgDTO = orgService.queryByPK(userId);
+		OrgDTO orgDTO = userService.queryMainOrg(userId);
 		if( orgDTO == null ){
 			return null;
 		}
@@ -131,9 +134,13 @@ public class UserServiceImpl implements UserService {
 		return organization;
 	}
 	
+	//判断用户是否属于指定机构
 	@Override
 	public boolean inOrg(String userId, String orgId) {
-		return orgService.containsUser(userId, orgId);
+		UserDTO userDTO = userService.queryByPK(userId);
+		List<UserDTO> users = userService.queryByOrg(userDTO, orgId);
+		if(users==null || users.size()==0) throw new ResourceNotFoundException("用户id不存在...");
+		return true;
 	}
 	
 	@Override
@@ -145,7 +152,7 @@ public class UserServiceImpl implements UserService {
 	public List<Role> getRoles(String userId) {
 		List<RoleDTO> roleList = userService.queryRoles(userId);
 		if( roleList == null || roleList.size()==0){
-			return new ArrayList<Role>();
+			return Collections.emptyList();
 		}
 		List<Role> retList = Lists.transform(roleList,
 	               new Function<RoleDTO, Role>() {
@@ -156,27 +163,36 @@ public class UserServiceImpl implements UserService {
 			
 			return retList;	
 	}
+	
 	@Override
 	public boolean hasRole(String userId, String roleId) {
 		return userService.hasRole(userId, roleId);
 	}
 
 	@Override
-	public List<User> queryByRoleInOrg(String orgId, String roleId) {
-		UserDTO userDTO = userService.queryByPK(orgId);
-		if( userDTO == null ){
-			return null;
-		}
-		List<UserDTO> userList = userService.queryByOrg(userDTO, roleId);
-		if( userList == null || userList.size()==0){
+	public List<User> queryByRoleInOrg(String orgId, String roleId, boolean cascade) {
+		List<OrgDTO> orgList = orgService.queryChildOrgs(orgId, cascade);
+		if( orgList == null || orgList.size()==0){
 			return new ArrayList<User>();
 		}
-		List<User> reList = Lists.transform(userList,
-	               new Function<UserDTO, User>() {
-         public User apply(UserDTO input) {
-             return BeanUtils.toBean(input);
-         }
-     });
-		return reList;
+		for (OrgDTO orgDTO : orgList) {
+			String orgId1 = orgDTO.getOrgId();
+			UserDTO userDTO = userService.queryByPK(orgId1 );
+			if( userDTO == null ){
+				return null;
+			}
+			List<UserDTO> userList = userService.queryByOrgRole(userDTO, orgId1, roleId);
+			if( userList == null || userList.size()==0){
+				return new ArrayList<User>();
+			}
+			List<User> reList = Lists.transform(userList, 
+					new Function<UserDTO, User>() {
+				public User apply(UserDTO input) {
+					return BeanUtils.toBean(input);
+				}
+			});
+			return reList;
+		}
+		return null;
 	}
 }
