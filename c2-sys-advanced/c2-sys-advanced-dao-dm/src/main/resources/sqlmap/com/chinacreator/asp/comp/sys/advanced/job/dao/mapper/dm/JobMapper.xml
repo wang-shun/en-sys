@@ -316,7 +316,7 @@
 	<select id="queryUserJob" resultMap="JobResultMap" databaseId="dm">
 		SELECT
 		<include refid="Job_Column_List" />
-		FROM td_sm_job
+		FROM td_sm_job t
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 	 	<![CDATA[
        		job_id IN (SELECT ui.scope_id

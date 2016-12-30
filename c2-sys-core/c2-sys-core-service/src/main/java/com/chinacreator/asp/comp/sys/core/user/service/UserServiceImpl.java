@@ -37,10 +37,8 @@ import com.chinacreator.asp.comp.sys.core.user.eo.UserEO;
 import com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceEO;
 import com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceGroupEO;
 import com.chinacreator.asp.comp.sys.core.user.eo.UserInstanceRoleEO;
-import com.chinacreator.asp.comp.sys.core.user.spi.AfterDeleteUserSpi;
 import com.chinacreator.asp.comp.sys.core.user.spi.AfterUpdatePasswordSpi;
 import com.chinacreator.asp.comp.sys.core.user.spi.AfterUpdateUserSpi;
-import com.chinacreator.asp.comp.sys.core.user.spi.BeforeDeleteUserSpi;
 import com.chinacreator.asp.comp.sys.core.user.spi.BeforeUpdatePasswordSpi;
 import com.chinacreator.asp.comp.sys.core.user.spi.BeforeUpdateUserSpi;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
@@ -306,146 +304,12 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
 	public void deleteByPKs(String... userIds) {
-		try {
-			// 删除用户前操作
-			beforeDeleteByPKs(userIds);
-
-			// 系统管理删除用户
-			sysMgrDeleteByPKs(userIds);
-		} catch (Exception e) {
-			// 删除用户前失败异常回调
-			beforeDeleteByPKsExceptionCallback(userIds);
-			throw new SysException(e.getMessage(), e);
-		}
-
-		try {
-			// 删除用户后操作
-			afterDeleteByPKs(userIds);
-		} catch (Exception e) {
-			// 删除用户前失败异常回调
-			beforeDeleteByPKsExceptionCallback(userIds);
-			// 删除用户后失败异常回调
-			afterDeleteByPKsExceptionCallback(userIds);
-			throw new SysException(e.getMessage(), e);
-		}
-	}
-
-	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	private void beforeDeleteByPKs(String... userIds) {
-		Map<String, BeforeDeleteUserSpi> maps = null;
-		try {
-			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeDeleteUserSpi.class);
-		} catch (Exception e) {
-			logger.debug("无删除用户前操作！");
-		}
-		if (null != maps && !maps.isEmpty()) {
-			try {
-				maps = CommonSortSpiUtil.sortSpi(maps);
-			} catch (Exception e) {
-				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
-			}
-			try {
-				for (String key : maps.keySet()) {
-					logger.debug("调用删除用户前操作：" + key);
-					maps.get(key).beforeDeleteByPKs(userIds);
-				}
-			} catch (Exception e) {
-				throw new SysException(e.getMessage(), e);
-			}
-		} else {
-			logger.debug("无删除用户前操作！");
-		}
-	}
-
-	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	private void sysMgrDeleteByPKs(String... userIds) {
 		// 获取用户实例
 		String[] userInstanceIds = userInstanceUtil.getUserInstanceIdByUserId(userIds);
 		// 删除用户实例
 		deleteUserInstancesByUserInstanceIds(userInstanceIds);
 		// 删除用户
 		userDao.deleteByPKs(userIds);
-	}
-
-	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	private void afterDeleteByPKs(String... userIds) {
-		Map<String, AfterDeleteUserSpi> maps = null;
-		try {
-			maps = ApplicationContextManager.getContext().getBeansOfType(AfterDeleteUserSpi.class);
-		} catch (Exception e) {
-			logger.debug("无删除用户后操作！");
-		}
-		if (null != maps && !maps.isEmpty()) {
-			try {
-				maps = CommonSortSpiUtil.sortSpi(maps);
-			} catch (Exception e) {
-				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
-			}
-			try {
-				for (String key : maps.keySet()) {
-					logger.debug("调用删除用户后操作：" + key);
-					maps.get(key).afterDeleteByPKs(userIds);
-				}
-			} catch (Exception e) {
-				throw new SysException(e.getMessage(), e);
-			}
-		} else {
-			logger.debug("无删除用户后操作！");
-		}
-	}
-
-	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	private void beforeDeleteByPKsExceptionCallback(String... userIds) {
-		Map<String, BeforeDeleteUserSpi> maps = null;
-		try {
-			maps = ApplicationContextManager.getContext().getBeansOfType(BeforeDeleteUserSpi.class);
-		} catch (Exception e) {
-			logger.debug("无删除用户前失败异常回调！");
-		}
-		if (null != maps && !maps.isEmpty()) {
-			try {
-				maps = CommonSortSpiUtil.sortSpi(maps);
-			} catch (Exception e) {
-				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
-			}
-			for (String key : maps.keySet()) {
-				try {
-					logger.debug("调用删除用户前失败异常回调：" + key);
-					maps.get(key).deleteByPKsExceptionCallback(userIds);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		} else {
-			logger.debug("无删除用户前失败异常回调！");
-		}
-	}
-
-	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	private void afterDeleteByPKsExceptionCallback(String... userIds) {
-		Map<String, AfterDeleteUserSpi> maps = null;
-		try {
-			maps = ApplicationContextManager.getContext().getBeansOfType(AfterDeleteUserSpi.class);
-		} catch (Exception e) {
-			logger.debug("无删除用户后失败异常回调！");
-		}
-		if (null != maps && !maps.isEmpty()) {
-			try {
-				maps = CommonSortSpiUtil.sortSpi(maps);
-			} catch (Exception e) {
-				throw new SysException(UserMessages.getString("USER.SORTSPI_IS_ERROR"), e);
-			}
-			for (String key : maps.keySet()) {
-				try {
-					logger.debug("调用删除用户后失败异常回调：" + key);
-					maps.get(key).deleteByPKsExceptionCallback(userIds);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		} else {
-			logger.debug("无删除用户后失败异常回调！");
-		}
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)

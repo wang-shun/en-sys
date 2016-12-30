@@ -498,7 +498,7 @@
 	<select id="queryByRole" resultMap="UserResultMap" databaseId="mysql">
 		SELECT
 		<include refid="User_Column_List" />
-		FROM td_sm_user
+		FROM td_sm_user u
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 			user_id != '1'
 			AND user_id in(

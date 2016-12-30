@@ -27,15 +27,33 @@ public class ResTreeContentProviderImpl implements TreeContentProvider {
 		if (null != context) {
 			Map<String, Object> map = context.getConditions();
 			String resId = (String) map.get("id");
-			String type = (String) map.get("type");
 			String jobId = (String) map.get("jobId");
-			String checked = (String) map.get("checked");
-			String virtual = (String) map.get("virtual");
 			String isLoad = (String) map.get("isLoad");
 
-			ResourceTreeNode rootTreeNode = new ResourceTreeNode(null, "0", "资源树", "root", true);
-			rootTreeNode.setNoteTitle("资源树");
-			list.add(rootTreeNode);
+			boolean isAdmin = false;
+			Set<String> privilegeIdSet = new HashSet<String>();
+			if (null != jobId && !jobId.trim().equals("")) {
+				if (jobId.equals(jobFacade.getAdministratorJobId())) {
+					isAdmin = true;
+				} else {
+					List<PrivilegeDTO> privilegeDTOs = jobFacade.queryPrivilegeByJobs(jobId);
+					if (null != privilegeDTOs && !privilegeDTOs.isEmpty()) {
+						for (PrivilegeDTO privilegeDTO : privilegeDTOs) {
+							privilegeIdSet.add(privilegeDTO.getPrivilegeId());
+						}
+					}
+				}
+			}
+
+			if (null == resId) {
+				ResourceTreeNode rootTreeNode = new ResourceTreeNode(null, "0", "资源树", "root", true);
+				rootTreeNode.setNoteTitle("资源树");
+				if (isAdmin) {
+					rootTreeNode.setChecked(true);
+					rootTreeNode.setChkDisabled(true);
+				}
+				list.add(rootTreeNode);
+			}
 
 			if (null == resList || resList.isEmpty() || "true".equals(isLoad)) {
 				JobResTreeNodeBuilder jobResTreeNodeBuilder = new JobResTreeNodeBuilder(true);
@@ -43,35 +61,61 @@ public class ResTreeContentProviderImpl implements TreeContentProvider {
 			}
 
 			if (null != resList && !resList.isEmpty()) {
-				boolean isAdmin = false;
-				Set<String> privilegeIdSet = new HashSet<String>();
-				if (null != jobId && !jobId.trim().equals("")) {
-					if (jobId.equals(jobFacade.getAdministratorJobId())) {
-						isAdmin = true;
-					} else {
-						List<PrivilegeDTO> privilegeDTOs = jobFacade.queryPrivilegeByJobs(jobId);
-						if (null != privilegeDTOs && !privilegeDTOs.isEmpty()) {
-							for (PrivilegeDTO privilegeDTO : privilegeDTOs) {
-								privilegeIdSet.add(privilegeDTO.getPrivilegeId());
-							}
-						}
-					}
-				}
-				for (ResourceTreeNode resTreeNode : list) {
+
+				List<ResourceTreeNode> selResList = getResList(resId);
+
+				if(null!=selResList){
+				for (ResourceTreeNode resTreeNode : selResList) {
 					if (isAdmin) {
 						resTreeNode.setChecked(true);
 						resTreeNode.setChkDisabled(true);
 					} else if (privilegeIdSet.contains(resTreeNode.getId())) {
 						resTreeNode.setChecked(true);
+						resTreeNode.setChkDisabled(false);
+					} else {
+						resTreeNode.setChecked(false);
+						resTreeNode.setChkDisabled(false);
 					}
 					setChedked(resTreeNode.getChildren(), isAdmin, privilegeIdSet);
 				}
-				
-				list.addAll(resList);
+
+				list.addAll(selResList);
+				}
 			}
 
 		}
 		return list.toArray(new TreeNode[list.size()]);
+	}
+
+	private List getResList(String resId) {
+		if (null == resId || "0".equals(resId)) {
+			return resList;
+		} else {
+			for (ResourceTreeNode resTreeNode : resList) {
+				if (resId.equals(resTreeNode.getId())) {
+					return resTreeNode.getChildren();
+				} else {
+					List list = reResList(resTreeNode.getChildren(), resId);
+					if(null!=list){
+						return  list;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private List reResList(List<DefaultTreeNode> children, String resId) {
+		if (null != children && !children.isEmpty()) {
+			for (DefaultTreeNode defaultTreeNode : children) {
+				if (resId.equals(defaultTreeNode.getId())) {
+					return defaultTreeNode.getChildren();
+				} else {
+					return reResList(defaultTreeNode.getChildren(), resId);
+				}
+			}
+		}
+		return null;
 	}
 
 	private void setChedked(List<DefaultTreeNode> nodeList, boolean isAdmin, Set<String> privilegeIdSet) {
@@ -82,6 +126,10 @@ public class ResTreeContentProviderImpl implements TreeContentProvider {
 					defaultTreeNode.setChkDisabled(true);
 				} else if (privilegeIdSet.contains(defaultTreeNode.getId())) {
 					defaultTreeNode.setChecked(true);
+					defaultTreeNode.setChkDisabled(false);
+				} else {
+					defaultTreeNode.setChecked(false);
+					defaultTreeNode.setChkDisabled(false);
 				}
 				setChedked(defaultTreeNode.getChildren(), isAdmin, privilegeIdSet);
 			}

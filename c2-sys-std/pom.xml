@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.chinacreator.c2</groupId>
     <artifactId>c2-sys-parent</artifactId>
-    <version>4.2.3</version>
+    <version>4.2.4-BATE</version>
   </parent>
   <artifactId>c2-sys-std</artifactId>
   <name>c2-sys-std</name>
@@ -18,7 +18,7 @@
     <module>c2-sys-std-facade</module>
     <module>c2-sys-std-resource</module>
     <module>c2-sys-std-view</module>
-    <module>c2-sys-std-simple-view</module>
+    <!-- <module>c2-sys-std-simple-view</module> -->
     <module>c2-sys-std-spi</module>
   </modules>
 </project>

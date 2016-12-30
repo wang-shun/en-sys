@@ -186,8 +186,9 @@
   </form:child>
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="dictData" name="字典数据" logic="rule:asp.sysmgmt.sysset.dictmgt.getDictDataByPK" sn="getDictDataByPK">
-      <form:param id="dictDataId" name="新输入参数"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="dictData" name="字典数据" sn="getDictDataByPK" logic="rule:asp.sysmgmt.sysset.dictmgt.getDictDataByPK">
+      <form:param id="dictTypeId" name="新输入参数" value=""/>
+      <form:param id="dictDataId" name="新输入参数" value=""/>
     </form:datasource>
   </form:datasources>
   <form:scripts>// 保存&#xD;

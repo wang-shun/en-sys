@@ -784,15 +784,19 @@
           <form:control type="widget/button">
             <form:attributes source="widget/button">
               <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white no-border">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-download">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="purple">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="expRes()">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -878,10 +882,6 @@
             <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="{ &quot;Y&quot;: &quot;ps&quot;, &quot;N&quot;: &quot;ps&quot; }" group="显示设置" id="chkboxType" name="父子节点关联" value="{ &quot;Y&quot;: &quot;p&quot;, &quot;N&quot;: &quot;s&quot; }">
-            <dync:render/>
-            <dync:children/>
-          </dync:attribute>
           <dync:attribute default="false" group="功能设置" id="editorEnable" name="编辑" value="true">
             <dync:render/>
             <dync:children/>
@@ -943,8 +943,8 @@
     <form:datasource xsi:type="form:Inputs"/>
     <form:datasource xsi:type="form:TreeDataSource" id="orgTree" name="机构树" impl="com.chinacreator.asp.sysmgmt.sysset.jobresmgt.OrgTreeContentProviderImpl" type="custom"/>
     <form:datasource xsi:type="form:PagingDataSource" id="jobList" name="岗位列表" logic="com.chinacreator.asp.sysmgmt.sysset.jobresmgt.JobDataArrayContentProviderImpl" pageSize="10" type="custom"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="adminJobId" name="管理员岗位ID" logic="rule:asp.sysmgmt.sysset.jobresmgt.getAdministratorJobId" sn="getAdministratorJobId"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="everyoneJobId" name="普通用户岗位ID" logic="rule:asp.sysmgmt.sysset.jobresmgt.getRoleofeveryoneJobId" sn="getRoleofeveryoneJobId"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="adminJobId" name="管理员岗位ID" sn="getAdministratorJobId" logic="rule:asp.sysmgmt.sysset.jobresmgt.getAdministratorJobId"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="everyoneJobId" name="普通用户岗位ID" sn="getRoleofeveryoneJobId" logic="rule:asp.sysmgmt.sysset.jobresmgt.getRoleofeveryoneJobId"/>
     <form:datasource xsi:type="form:TreeDataSource" id="resTree" name="资源树型数据源" impl="com.chinacreator.asp.sysmgmt.sysset.jobresmgt.ResTreeContentProviderImpl" type="custom"/>
   </form:datasources>
   <form:scripts>// 获取机构树&#xD;
@@ -1314,7 +1314,11 @@ addRes:function(){&#xD;
 		});&#xD;
 	}else if(&quot;menu&quot;==selectNode.type){&#xD;
 		var _this = this;&#xD;
-		Modal.open('f/editMenu',{type:&quot;add&quot;,parentId:selectNode.privilegeId,parentType:selectNode.type,menuId:&quot;&quot;},function(result){&#xD;
+		var privilegeId = selectNode.privilegeId;&#xD;
+		if(angular.isUndefined(privilegeId)){&#xD;
+			privilegeId = &quot;0&quot;;&#xD;
+		}&#xD;
+		Modal.open('f/editMenu',{type:&quot;add&quot;,parentId:privilegeId,parentType:selectNode.type,menuId:&quot;&quot;},function(result){&#xD;
 			if('success'==result){&#xD;
 		    	_this.refreshAsyncResTree();&#xD;
 		    	_this.cleanPermittedCache();&#xD;
@@ -1346,7 +1350,7 @@ editRes:function(){&#xD;
 			});&#xD;
 			return;&#xD;
 		}&#xD;
-		var selectNode = selectNodes[0];&#xD;
+		var selectNode = selectNodes[0];		&#xD;
 		var _this = this;&#xD;
 		if(angular.isUndefined(selectNode) || angular.isUndefined(selectNode.id)){&#xD;
 			Messenger.post({&#xD;
@@ -1537,6 +1541,7 @@ jobRevokeRes:function(){&#xD;
 		                'message': &quot;回收资源成功！&quot;,&#xD;
 		                'type': 'success',&#xD;
 		            });	           &#xD;
+		            _this.refreshAsyncResTree();&#xD;
 				});&#xD;
         });	&#xD;
 },&#xD;
@@ -1558,7 +1563,7 @@ resTree_beforeDrag:function(treeId,treeNodes){&#xD;
 	}	&#xD;
 	var resTreeDrag = $model.resTreeDrag;&#xD;
 	if(resTreeDrag){&#xD;
-		if(treeNodes[0].virtual){&#xD;
+		if(treeNodes[0].type!=&quot;menu&quot; || treeNodes[0].virtual){&#xD;
 			resTreeDrag = false;&#xD;
 		}&#xD;
 	}&#xD;
@@ -1600,24 +1605,25 @@ resTree_nodeDrop:function(event,treeId,treeNodes,targetNode,moveType,isCopy){&#x
 refreshAsyncResTree:function(){&#xD;
 	$model.resTreeNodeChecded = {};&#xD;
 	var _this = this;&#xD;
-	var selectNodes = _this.getResTree().getSelectedNodes();&#xD;
-	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){		&#xD;
-		angular.forEach(selectNodes, function (value, key) {		&#xD;
-			_this.getResTree().reAsyncChildNodes(value.getParentNode(),&quot;refresh&quot;,false);&#xD;
-        	});&#xD;
-	}else{&#xD;
-		var params = _this.getResTree().getParams();&#xD;
+	var params = _this.getResTree().getParams();&#xD;
 		if(angular.isUndefined(params)){&#xD;
 			params = {};&#xD;
 		}&#xD;
 		params.isLoad = &quot;true&quot;;&#xD;
-		_this.getResTree().refresh(false,null,params);&#xD;
+	&#xD;
+	var selectNodes = _this.getResTree().getSelectedNodes();&#xD;
+	if(angular.isArray(selectNodes) &amp;&amp; selectNodes.length>0){		&#xD;
+		angular.forEach(selectNodes, function (value, key) {		&#xD;
+			_this.getResTree().refresh2(params,true,false,true,value.getParentNode());&#xD;
+        	});&#xD;
+	}else{		&#xD;
+		_this.getResTree().refresh2(params,true,false,true);&#xD;
 	}	&#xD;
 },&#xD;
 // 带参数刷新资源树&#xD;
 refreshResTree:function(obj){&#xD;
 	$model.resTreeNodeChecded = {};	&#xD;
-	this.getResTree().refresh2(obj,true,false,false);&#xD;
+	this.getResTree().refresh2(obj,true,false,true);&#xD;
 },
 // 资源树勾选事件
 resTree_nodeCheck:function(event,treeId,treeNode){&#xD;
@@ -1627,14 +1633,16 @@ resTree_nodeCheck:function(event,treeId,treeNode){&#xD;
 		resTreeNodeChecded = {};&#xD;
 	}&#xD;
 	&#xD;
-	var privilegeId = treeNode.privilegeId;&#xD;
-	var resName = treeNode.noteTitle;&#xD;
-	var resChecked = treeNode.checked;&#xD;
-	&#xD;
-	if(treeNode.checkedOld==treeNode.checked){&#xD;
-		delete resTreeNodeChecded[privilegeId];&#xD;
-	}else{		&#xD;
-		resTreeNodeChecded[privilegeId] = {&quot;id&quot;:privilegeId,&quot;name&quot;:resName,&quot;resChecked&quot;:resChecked};&#xD;
+	if(!treeNode.virtual){&#xD;
+		var privilegeId = treeNode.privilegeId;&#xD;
+		var resName = treeNode.noteTitle;&#xD;
+		var resChecked = treeNode.checked;&#xD;
+		&#xD;
+		if(treeNode.checkedOld==treeNode.checked){&#xD;
+			delete resTreeNodeChecded[privilegeId];&#xD;
+		}else{		&#xD;
+			resTreeNodeChecded[privilegeId] = {&quot;id&quot;:privilegeId,&quot;name&quot;:resName,&quot;resChecked&quot;:resChecked};&#xD;
+		}&#xD;
 	}&#xD;
 	$model.resTreeNodeChecded = resTreeNodeChecded;&#xD;
 },&#xD;

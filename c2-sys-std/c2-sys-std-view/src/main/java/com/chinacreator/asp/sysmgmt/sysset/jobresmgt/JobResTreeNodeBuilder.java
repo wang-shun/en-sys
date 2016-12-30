@@ -160,6 +160,12 @@ public class JobResTreeNodeBuilder {
 
 		reRes(list, "0", null);
 		
+		if (firstNodeSet.add("custom")) {
+			ResourceTreeNode firstNode = firstNodeMap.get("custom");
+			firstNode.setIsParent(false);
+			list.add(firstNode);
+		}
+		
 		sort(list);
 
 		return list;
@@ -178,6 +184,7 @@ public class JobResTreeNodeBuilder {
 					treeNode.setNoteTitle(getTypeName(resType) + ":" + privilegeDTO.getPrivilegeName());
 					treeNode.setIcon("ext/resTreeIcons/" + resType + ".png");
 					privilegeDTO.setType(resType);
+					treeNode.setType(resType);
 					treeNode.setObj(privilegeDTO);
 					treeNode.setSn(privilegeDTO.getSn());
 					treeNode.setSource(privilegeDTO.getSource());
