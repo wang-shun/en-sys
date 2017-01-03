@@ -13,7 +13,10 @@
   </properties>
   <packaging>pom</packaging>
   <description>系统管理-测试-webApp</description>
+  
   <modules>
-  	<module>c2-sys-mysql-as</module>
+  	<module>c2-sys-test-as</module>
+  	<module>c2-sys-test-client</module>
+  	<module>c2-sys-test-rs</module>
   </modules>
 </project>
