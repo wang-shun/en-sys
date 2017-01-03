@@ -13,6 +13,8 @@
 
 	<bean class="com.chinacreator.c2.sys.sdk.service.impl.UserServiceImpl" />
 
+	<bean class="com.chinacreator.c2.sys.sdk.service.impl.RoleServiceImpl" />
+
 	<bean class="com.chinacreator.c2.sys.selecttree.cache.OrgUserTreeCache"
 		scope="singleton" init-method="init" />
 

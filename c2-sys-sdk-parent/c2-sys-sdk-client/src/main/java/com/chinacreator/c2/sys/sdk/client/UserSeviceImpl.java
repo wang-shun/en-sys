@@ -89,7 +89,7 @@ public class UserSeviceImpl implements UserService {
 				stringBuilder.append("&");
 			}
 			String nameParams = stringBuilder.substring(0, stringBuilder.length()-1); 
-			ArrayList users = utils.geRestTemplate().getForObject(utils.getUrl(nameParams), ArrayList.class);
+			ArrayList<User> users = utils.geRestTemplate().getForObject(utils.getUrl(nameParams), ArrayList.class);
 			return users;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){

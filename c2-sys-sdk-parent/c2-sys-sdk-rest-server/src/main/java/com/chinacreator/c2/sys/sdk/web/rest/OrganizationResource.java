@@ -20,10 +20,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.chinacreator.asp.comp.sys.advanced.org.service.OrgService;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.service.query.OrgnizationService;
 import com.chinacreator.c2.sys.sdk.service.query.UserService;
@@ -44,10 +42,6 @@ public class OrganizationResource {
 	
 	@Autowired
 	UserService userService;
-
-	@Autowired
-    @Qualifier("com.chinacreator.asp.comp.sys.advanced.org.service.OrgServiceImpl")
-    private OrgService orgService;
 
 	@Path("/{id}")
 	@GET

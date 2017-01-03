@@ -133,8 +133,6 @@ public class UserServiceImpl implements UserService {
 		Organization organization = BeanUtils.toBean(orgDTO);
 		return organization;
 	}
-	
-	//判断用户是否属于指定机构
 	@Override
 	public boolean inOrg(String userId, String orgId) {
 		UserDTO userDTO = userService.queryByPK(userId);
@@ -142,12 +140,10 @@ public class UserServiceImpl implements UserService {
 		if(users==null || users.size()==0) throw new ResourceNotFoundException("用户id不存在...");
 		return true;
 	}
-	
 	@Override
 	public boolean isMainOrg(String userId, String orgId) {
 		return userService.isMainOrg(userId, orgId);
 	}
-	
 	@Override
 	public List<Role> getRoles(String userId) {
 		List<RoleDTO> roleList = userService.queryRoles(userId);
@@ -163,12 +159,10 @@ public class UserServiceImpl implements UserService {
 			
 			return retList;	
 	}
-	
 	@Override
 	public boolean hasRole(String userId, String roleId) {
 		return userService.hasRole(userId, roleId);
 	}
-
 	@Override
 	public List<User> queryByRoleInOrg(String orgId, String roleId, boolean cascade) {
 		List<OrgDTO> orgList = orgService.queryChildOrgs(orgId, cascade);
