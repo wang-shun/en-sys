@@ -31,7 +31,7 @@ public class UserPropertyInjector {
 		if(providers != null && !providers.isEmpty()){
 			for(UserPropertyProvider provider : providers.values()){
 				try {
-					populateProperties(user,provider.getUserProperties(user));
+					populateProperties(user,provider.getUserProperties(user, userDTO));
 				} catch (Exception e) {
 					LOGGER.warn("注入用户属性时发生错误，忽略提供器["+provider.getClass().getName()+"]，错误原因：",e);
 				}

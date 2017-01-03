@@ -8,6 +8,7 @@ import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
+import com.chinacreator.c2.sys.sdk.util.UserPropertyInjector;
 import com.chinacreator.c2.sysmgr.User;
 
 public class BeanUtils {
@@ -67,12 +68,12 @@ public class BeanUtils {
 	        return role;
 	    }
 	    
+	    /**
+	     * 将UserDTO转成User对象，支持业务系统注入User的属性
+	     * @param userDTO
+	     * @return
+	     */
 	    public static User toBean(UserDTO userDTO) {
-	        User user = new User();
-	        user.setId(userDTO.getUserId());
-	        user.setName(userDTO.getUserName());
-	        user.setRealname(userDTO.getUserRealname());
-
-	        return user;
+	        return UserPropertyInjector.inject(userDTO);
 	    }
 }
