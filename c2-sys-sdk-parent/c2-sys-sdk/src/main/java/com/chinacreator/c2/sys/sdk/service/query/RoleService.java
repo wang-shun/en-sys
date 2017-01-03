@@ -25,16 +25,16 @@ import com.chinacreator.c2.sys.sdk.bean.Role;
  */
 public interface RoleService {
     /**
-     * 查询角色列表
-     * @param role 查询条件对象，null表示查所有的
-     * @return 角色列表
+     * 查询角色详情
+     * @param id 角色id
+     * @return 角色详情
      */
     public Role get(String id);
     
     /**
-     * 查询角色列表
-     * @param role 查询条件对象，null表示查所有的
-     * @return 角色列表
+     * 通过角色名称查询角色详情
+     * @param roleName 角色显示名称
+     * @return 角色详情
      */
     public Role getByName(String roleName);
 }

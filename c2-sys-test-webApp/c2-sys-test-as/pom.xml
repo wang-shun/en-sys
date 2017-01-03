@@ -20,12 +20,12 @@
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-runtime</artifactId>
-			<version>5.0.0-BETA3</version>
+			<version>${version-c2-runtime}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-ui-components</artifactId>
-			<version>5.0.0-SNAPSHOT</version>
+			<version>${version-c2-ui-components}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
