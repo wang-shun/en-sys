@@ -8,7 +8,7 @@ import com.chinacreator.c2.sys.sdk.bean.Role;
  * <p>集成版和分布式版本系统管理的统一接口，其中查询类接口包括：
  * <ul>
  * 	<li>{@link UserService}</li>
- *  <li>{@link OrgnizationService}</li>
+ *  <li>{@link OrganizationService}</li>
  *  <li>{@link RoleService}</li>
  *  <li>{@link OrgUserTreeService}</li>
  * </ul>
@@ -17,7 +17,7 @@ import com.chinacreator.c2.sys.sdk.bean.Role;
  * 	<li>{@link UserManageService}(暂未实现)</li>
  * </ul>
  *
- * @see OrgnizationService
+ * @see OrganizationService
  * @see OrgUserTreeService
  * @see UserService
  * @author Vurt

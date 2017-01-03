@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
 import com.chinacreator.c2.sys.sdk.BeanUtils;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
-import com.chinacreator.c2.sys.sdk.service.query.OrgnizationService;
+import com.chinacreator.c2.sys.sdk.service.query.OrganizationService;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 @Service
-public class OrgServiceImpl implements OrgnizationService {
+public class OrgServiceImpl implements OrganizationService {
 	
     @Autowired
     @Qualifier("com.chinacreator.asp.comp.sys.advanced.org.service.OrgServiceImpl")

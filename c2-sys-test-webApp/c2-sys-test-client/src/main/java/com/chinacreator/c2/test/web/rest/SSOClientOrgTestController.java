@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinacreator.c2.sys.sdk.bean.Organization;
-import com.chinacreator.c2.sys.sdk.service.query.OrgnizationService;
+import com.chinacreator.c2.sys.sdk.service.query.OrganizationService;
 import com.chinacreator.c2.sys.sdk.service.query.UserService;
 
 @Service
@@ -23,7 +23,7 @@ import com.chinacreator.c2.sys.sdk.service.query.UserService;
 public class SSOClientOrgTestController {
 	
 	@Autowired
-	private OrgnizationService orgService;
+	private OrganizationService orgService;
 	
 	@Autowired
 	private UserService userService;

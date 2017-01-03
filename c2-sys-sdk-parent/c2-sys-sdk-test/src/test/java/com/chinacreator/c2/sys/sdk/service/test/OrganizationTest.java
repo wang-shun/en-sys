@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.chinacreator.asp.comp.sys.advanced.org.service.OrgService;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
-import com.chinacreator.c2.sys.sdk.service.query.OrgnizationService;
+import com.chinacreator.c2.sys.sdk.service.query.OrganizationService;
 import com.chinacreator.c2.sys.sdk.web.rest.OrganizationResource;
 import com.chinacreator.c2.sysmgr.User;
 
@@ -17,7 +17,7 @@ import junit.C2JunitTests;
 
 public class OrganizationTest extends C2JunitTests {
     @Autowired
-    private OrgnizationService orgnizationService;
+    private OrganizationService orgnizationService;
    
     @Test
     public void get() throws Exception{

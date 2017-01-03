@@ -9,7 +9,7 @@ import com.chinacreator.c2.sys.sdk.bean.Organization;
  * <p>集成版和分布式版本系统管理的统一接口，其中查询类接口包括：
  * <ul>
  * 	<li>{@link UserService}</li>
- *  <li>{@link OrgnizationService}</li>
+ *  <li>{@link OrganizationService}</li>
  *  <li>{@link RoleService}</li>
  *  <li>{@link OrgUserTreeService}</li>
  * </ul>
@@ -24,7 +24,7 @@ import com.chinacreator.c2.sys.sdk.bean.Organization;
  * @author Vurt
  * @since 5.0
  */
-public interface OrgnizationService {
+public interface OrganizationService {
 	/**
 	 * 查询机构
 	 * 

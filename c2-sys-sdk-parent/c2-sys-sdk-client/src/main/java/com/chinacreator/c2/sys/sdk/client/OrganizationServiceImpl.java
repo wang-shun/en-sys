@@ -11,11 +11,11 @@ import org.springframework.web.client.HttpStatusCodeException;
 
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.client.exception.SysSDKInvokeException;
-import com.chinacreator.c2.sys.sdk.service.query.OrgnizationService;
+import com.chinacreator.c2.sys.sdk.service.query.OrganizationService;
 import com.chinacreator.c2.web.exception.ResourceNotFoundException;
 
 @Service
-public class OrgnizationServiceImpl implements OrgnizationService {
+public class OrganizationServiceImpl implements OrganizationService {
 	@Autowired
 	private SDKUtils utils;
 

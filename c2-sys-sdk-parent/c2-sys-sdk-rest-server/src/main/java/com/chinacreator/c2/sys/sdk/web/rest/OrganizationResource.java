@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinacreator.c2.sys.sdk.bean.Organization;
-import com.chinacreator.c2.sys.sdk.service.query.OrgnizationService;
+import com.chinacreator.c2.sys.sdk.service.query.OrganizationService;
 import com.chinacreator.c2.sys.sdk.service.query.UserService;
 import com.chinacreator.c2.sysmgr.User;
 import com.chinacreator.c2.web.exception.ResourceNotFoundException;
@@ -38,7 +38,7 @@ import com.chinacreator.c2.web.exception.ResourceNotFoundException;
 		@ApiResponse(code = 403, message = "没有权限访问", response = Error.class), })
 public class OrganizationResource {
 	@Autowired
-	OrgnizationService organizationService;
+	OrganizationService organizationService;
 	
 	@Autowired
 	UserService userService;
