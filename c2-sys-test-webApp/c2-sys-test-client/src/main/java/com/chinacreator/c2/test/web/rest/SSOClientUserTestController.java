@@ -85,7 +85,6 @@ public class SSOClientUserTestController {
   @Path("/{id}/ismainorg")
   @GET
   public boolean isMainOrg(@PathParam("id")String id){
-	  //id = C4C3B59D303947C3B4D093A31A40A969
 	  String orgId = "661BCC915A6A4531B512F28535A27D66";
 	  return userService.isMainOrg(id, orgId);
   }
@@ -99,7 +98,6 @@ public class SSOClientUserTestController {
   @Path("/{id}/inorg")
   @GET
   public boolean inOrg(@PathParam("id")String id){
-	  //F4008EEAC18F41AEB18EE6F05156EC64
 	  String orgId = "661BCC915A6A4531B512F28535A27D66";
 	  return userService.inOrg(id, orgId);
   }
@@ -113,7 +111,6 @@ public class SSOClientUserTestController {
   @Path("/{id}/hasrole")
   @GET
   public boolean hasRole(@PathParam("id")String id){
-	  //C4C3B59D303947C3B4D093A31A40A969
 	  String roleId = "1";
 	  return userService.hasRole(id, roleId);
   }

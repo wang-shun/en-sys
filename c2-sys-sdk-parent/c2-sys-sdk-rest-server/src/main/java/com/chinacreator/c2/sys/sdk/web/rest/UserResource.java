@@ -8,8 +8,6 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -109,33 +107,6 @@ public class UserResource {
 		}
 		
 		return organization;
-	}
-	
-	@Path("/{id}/inorg/{oid}")
-	@HEAD
-	@ApiOperation(value = "判断用户是否属于某机构")
-	public boolean inOrg(
-			@ApiParam("用户ID")@PathParam("id")String id, 
-			@ApiParam("机构ID")@PathParam("oid")String oid){
-		boolean flag = userService.inOrg(id, oid);
-		if(!flag){
-			throw new ResourceNotFoundException("机构 id或用户id 【"+id+"】 不存在");
-		}
-		return flag;
-		
-	}
-	
-	@Path("/{id}/ismainorg/{oid}")
-	@HEAD
-	@ApiOperation(value = "判断指定机构是否用户的主机构")
-	public boolean isMainOrg(
-			@ApiParam("用户ID")@PathParam("id")String id, 
-			@ApiParam("机构ID")@PathParam("oid")String oid){
-		boolean flag = userService.isMainOrg(id, oid);
-		if(!flag){
-			throw new ResourceNotFoundException("机构 id或用户id 【"+id+"】 不存在");
-		}
-		return flag;
 	}
 	
 	@Path("/{id}/roles")

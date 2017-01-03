@@ -105,11 +105,12 @@ public class OrganizationResource {
 	public boolean containUser(
 			@ApiParam("机构ID")@PathParam("oid")String oid, 
 			@ApiParam("用户ID")@PathParam("uid")String uid){
-		if(oid != null){
-			return organizationService.containsUser(oid, uid);
-		}else{
-			throw new ResourceNotFoundException("机构 【"+oid+"】下的用户 【"+uid+"】 不存在");
-		}
+		boolean flag = organizationService.containsUser(oid, uid);
+		
+		if(!flag) throw new ResourceNotFoundException("机构 【"+oid+"】下的用户 【"+uid+"】 不存在");
+		
+		return flag;
+		
 	}
 	
 	@Path("/{oid}/users")

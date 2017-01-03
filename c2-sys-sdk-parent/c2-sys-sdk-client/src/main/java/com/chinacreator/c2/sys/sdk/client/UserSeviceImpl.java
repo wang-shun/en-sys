@@ -169,7 +169,7 @@ public class UserSeviceImpl implements UserService {
 	public boolean inOrg(String userId, String orgId) {
 		try {
 			if(userId==null || userId.length()==0) return false;
-			utils.geRestTemplate().headForHeaders(utils.getUrl("/v1/users/{id}/inorg/{oid}"), userId, orgId);
+			utils.geRestTemplate().headForHeaders(utils.getUrl("/v1/organizations/{oid}/users/{uid}"), orgId, userId);
 			return true;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -186,8 +186,8 @@ public class UserSeviceImpl implements UserService {
 			if(userId==null || userId.length()==0) return false;
 			if(orgId==null || orgId.length()==0) return false;
 			
-			utils.geRestTemplate().headForHeaders(utils.getUrl("/v1/users/{id}/ismainorg/{oid}"), userId, orgId);
-			return true;
+			Organization mainOrg = utils.geRestTemplate().getForObject(utils.getUrl("/v1/users/{id}/mainorg"), Organization.class, userId);
+			return orgId.equals(mainOrg.getId());
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
 				return false;
