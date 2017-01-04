@@ -34,6 +34,16 @@ public interface OrganizationService {
 	 *         没查询到的情况下返回null
 	 */
 	public Organization get(String orgId);
+	
+	/**
+	 * 查询机构
+	 * 
+	 * @param orgName
+	 *            机构名称
+	 * @return 机构数据传输对象<br>
+	 *         没查询到的情况下返回null
+	 */
+	public Organization getByName(String orgName);
 
 	/**
 	 * 查询子机构，不包含自身

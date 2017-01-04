@@ -60,6 +60,23 @@ public class OrganizationResource {
 		
 		throw new UnsupportedOperationException();
 	}
+	
+	@GET
+	@ApiOperation(value = "获取机构数据")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "获取成功", response = Organization.class),
+			@ApiResponse(code = 404, message = "机构不存在", response = Error.class) })
+	public Organization getByName(@ApiParam("机构名称")@QueryParam("orgname")String orgName) {
+		if (orgName != null) {
+			Organization orgnization = organizationService.getByName(orgName);
+			if(orgnization == null){
+				throw new ResourceNotFoundException("机构【"+orgName+"】不存在");
+			}
+			return orgnization;
+		}
+		
+		throw new UnsupportedOperationException();
+	}
 
 	@Path("/{id}/parents")
 	@GET
@@ -124,6 +141,7 @@ public class OrganizationResource {
 		if(users==null || users.size()==0){
 			return Collections.emptyList();
 		}
+		
 		return users;
 	}
 			

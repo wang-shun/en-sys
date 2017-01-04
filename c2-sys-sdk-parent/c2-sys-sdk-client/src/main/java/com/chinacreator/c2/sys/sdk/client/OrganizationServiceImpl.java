@@ -35,6 +35,25 @@ public class OrganizationServiceImpl implements OrganizationService {
 	}
 
 	@Override
+	public Organization getByName(String orgName) {
+		try{
+			if(orgName==null || orgName.length()==0) return null;
+			
+			StringBuilder builder = new StringBuilder("/v1/organizations?");
+			builder.append("orgname=").append(orgName);
+			String url = builder.substring(0, builder.length());
+			Organization org = utils.geRestTemplate().getForObject(utils.getUrl(url), Organization.class, orgName);
+			return org;
+		}catch (HttpStatusCodeException e) {
+			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
+				throw new ResourceNotFoundException("机构 【"+orgName+"】 不存在");
+			}else{
+				throw new SysSDKInvokeException("获取机构信息失败", e);
+			}
+		}
+	}
+	
+	@Override
 	public List<Organization> getChildren(String orgId, boolean cascade) {
 		try {
 			if(orgId==null || orgId.length()==0)   return Collections.emptyList();
@@ -42,7 +61,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 			builder.append("cascade=").append(cascade);
 			String url = builder.substring(0, builder.length());
 
-			ArrayList organizations = utils.geRestTemplate().getForObject(utils.getUrl(url), ArrayList.class, orgId ,cascade);
+			ArrayList<Organization> organizations = utils.geRestTemplate().getForObject(utils.getUrl(url), ArrayList.class, orgId ,cascade);
 			return organizations;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -58,7 +77,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 	public List<Organization> getParents(String orgId) {
 		try {
 			if(orgId==null || orgId.length()==0)   return Collections.emptyList();
-			ArrayList organizations = utils.geRestTemplate().getForObject(utils.getUrl("/v1/organizations/{id}/parents"), ArrayList.class, orgId);
+			ArrayList<Organization> organizations = utils.geRestTemplate().getForObject(utils.getUrl("/v1/organizations/{id}/parents"), ArrayList.class, orgId);
 			return organizations;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){

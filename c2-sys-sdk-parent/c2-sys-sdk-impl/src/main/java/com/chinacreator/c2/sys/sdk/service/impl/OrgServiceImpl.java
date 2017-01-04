@@ -22,26 +22,40 @@ public class OrgServiceImpl implements OrganizationService {
     private com.chinacreator.asp.comp.sys.advanced.org.service.OrgService orgService;
 
     public Organization get(String orgId) {
-        OrgDTO orgDTO = orgService.queryByPK(orgId);
-        if(orgDTO == null){
-        	return null;
-        }
-        return BeanUtils.toBean(orgDTO);
+		OrgDTO orgDTO = orgService.queryByPK(orgId);
+		if(orgDTO == null){
+			return null;
+		}
+		
+		return BeanUtils.toBean(orgDTO);
     }
 
+    @Override
+	public Organization getByName(String orgName) {
+		  OrgDTO orgDTO = new OrgDTO();
+		  orgDTO.setOrgName(orgName);
+		  List<OrgDTO> orgList = orgService.queryByOrg(orgDTO);
+		  if(orgList != null && !orgList.isEmpty()){
+			  orgDTO = orgList.get(0);
+	        }
+		  
+	       return BeanUtils.toBean(orgDTO);
+		  
+	}
+    
     public List<Organization> getParents(String id) {
-        List<OrgDTO> orgList = orgService.queryFatherOrgs(id, true);
-        if(orgList == null || orgList.size()==0){
-        	return new ArrayList<Organization>();
-        }
-        List<Organization> retList = Lists.transform(orgList,
-                new Function<OrgDTO, Organization>() {
-                    public Organization apply(OrgDTO input) {
-                        return BeanUtils.toBean(input);
-                    }
-                });
-
-        return retList;
+		List<OrgDTO> orgList = orgService.queryFatherOrgs(id, true);
+		if(orgList == null || orgList.size()==0){
+			return new ArrayList<Organization>();
+		}
+		List<Organization> retList = Lists.transform(orgList,
+		        new Function<OrgDTO, Organization>() {
+		            public Organization apply(OrgDTO input) {
+		                return BeanUtils.toBean(input);
+		            }
+		        });
+		
+		return retList;
     }
 
     public List<Organization> getChildren(String id, boolean cascade) {
@@ -62,4 +76,5 @@ public class OrgServiceImpl implements OrganizationService {
     public boolean containsUser(String orgId, String userId) {
         return orgService.containsUser(orgId, userId);
     }
+
 }
