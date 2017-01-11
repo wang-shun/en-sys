@@ -17,7 +17,7 @@ import com.chinacreator.c2.sys.sdk.service.query.RoleService;
 @Path("/role")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class SSOClientRoleTestController2 {
+public class SSOClientRoleTestController {
 	
 	@Autowired
 	private RoleService roleService;

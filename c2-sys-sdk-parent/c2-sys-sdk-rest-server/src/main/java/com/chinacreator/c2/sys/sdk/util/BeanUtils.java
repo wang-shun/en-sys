@@ -3,11 +3,13 @@ package com.chinacreator.c2.sys.sdk.util;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.chinacreator.asp.comp.sys.basic.dict.dto.DictDataDTO;
 import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
 import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
+import com.chinacreator.c2.sys.sdk.beans.DictDataImpl;
 import com.chinacreator.c2.sysmgr.User;
 
 public class BeanUtils {
@@ -75,4 +77,5 @@ public class BeanUtils {
 
 	        return user;
 	    }
+	    
 }

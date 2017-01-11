@@ -64,8 +64,9 @@ public class UserResource {
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "用户信息获取成功", response = User.class),
 		@ApiResponse(code = 404, message = "用户不存在", response = Error.class) })
-	public Object queryMulti(@ApiParam("用户ID") @QueryParam("id") String[] ids,
-			@ApiParam("用户名")@QueryParam("username")String[] usernames,
+	public Object queryMulti(
+			@ApiParam("用户ID") @QueryParam("id") String[] ids,
+			@ApiParam("用户名") @QueryParam("username") String[] usernames,
 			@ApiParam("角色id") @QueryParam("role") String role){
 		List<User> users =null;
 		boolean getOne=false;
@@ -78,11 +79,15 @@ public class UserResource {
 		}else if(role !=null && StringUtils.isNotEmpty(role)){
 			users = userService.queryByRole(role);
 		}
-		if(users==null || users.size()==0){
-			throw new ResourceNotFoundException("用户 【"+usernames+"】 不存在");
-		}
 		if(getOne){
 			return users.get(0);
+		}
+		int i=0;
+		for (User user : users) {
+			if(user==null || user.size()==0){
+				throw new ResourceNotFoundException("用户 【"+usernames[i].toString()+" 】不存在");
+			}
+			i++;
 		}
 		return users;
 	}

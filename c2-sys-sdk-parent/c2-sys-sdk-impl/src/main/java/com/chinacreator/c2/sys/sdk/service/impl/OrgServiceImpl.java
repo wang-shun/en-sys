@@ -26,21 +26,24 @@ public class OrgServiceImpl implements OrganizationService {
 		if(orgDTO == null){
 			return null;
 		}
-		
 		return BeanUtils.toBean(orgDTO);
     }
 
     @Override
 	public Organization getByName(String orgName) {
-		  OrgDTO orgDTO = new OrgDTO();
-		  orgDTO.setOrgName(orgName);
-		  List<OrgDTO> orgList = orgService.queryByOrg(orgDTO);
-		  if(orgList != null && !orgList.isEmpty()){
-			  orgDTO = orgList.get(0);
-	        }
-		  
-	       return BeanUtils.toBean(orgDTO);
-		  
+		  OrgDTO orgDTO = null;
+		  Organization org=null;
+		  boolean cascade = orgService.existsByOrgName(orgName);
+		  if(cascade==true){
+			  orgDTO = new OrgDTO();
+			  orgDTO.setOrgName(orgName);
+			  List<OrgDTO> orgList = orgService.queryByOrg(orgDTO);
+			  if(orgList != null && !orgList.isEmpty()){
+				  orgDTO = orgList.get(0);
+				  org = BeanUtils.toBean(orgDTO);
+			  }
+		  }
+	      return org ;
 	}
     
     public List<Organization> getParents(String id) {
@@ -54,7 +57,6 @@ public class OrgServiceImpl implements OrganizationService {
 		                return BeanUtils.toBean(input);
 		            }
 		        });
-		
 		return retList;
     }
 
@@ -69,7 +71,6 @@ public class OrgServiceImpl implements OrganizationService {
                         return BeanUtils.toBean(input);
                     }
                 });
-
         return retList;
     }
 

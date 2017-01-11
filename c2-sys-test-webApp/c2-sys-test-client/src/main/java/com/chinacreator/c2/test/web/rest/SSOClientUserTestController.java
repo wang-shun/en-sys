@@ -23,7 +23,7 @@ import com.chinacreator.c2.sysmgr.User;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class SSOClientUserTestController2 {
+public class SSOClientUserTestController {
 
   @Autowired
   private UserService userService;
@@ -43,21 +43,21 @@ public class SSOClientUserTestController2 {
   @Path("/testmulti")
   @GET
   public List<User> queryMulti(){
-	  String[] ids = new String[]{"C4C3B59D303947C3B4D093A31A40A969","2677A85FF10549D591DD23375C87DDE7"};
+	  String[] ids = new String[]{"6C1F40EC63634D17B3A5DB0D2B25C021","6C8F0C71205948ED92BC2ED227DC38FA"};
 	  return userService.queryMulti(ids);
   }
   
   @Path("/username")
   @GET
   public User getByUsername(){
-	  String username = "111";
+	  String username = "gdjyj";
 	  return userService.getByUsername(username);
   }
   
   @Path("/usernames")
   @GET
   public List<User> queryMultiByUsername(){
-	  String[] username = new String[]{"111","org2"};
+	  String[] username = new String[]{"gdjyj","qi.peng"};
 	  return userService.queryMultiByUsername(username);
   }
   
@@ -65,14 +65,14 @@ public class SSOClientUserTestController2 {
   @GET
   public List<User> queryByOrg(){
 	  boolean cascade = true;
-	  String orgId = "717273911EDA48DE9A9A7BC1FFFA79D8";
+	  String orgId = "00BA41D20F5B4CE98844834A2B63B65D";
 	  return userService.queryByOrg(orgId, cascade);
   }
   
   @Path("/testrole")
   @GET
   public List<User> queryByRole(){
-	  String roleId = "1";
+	  String roleId = "2";
 	  return userService.queryByRole(roleId);
   }
   
@@ -118,8 +118,8 @@ public class SSOClientUserTestController2 {
   @Path("/roleorg")
   @GET
   public List<User> queryByRoleInOrg(){
-	  String orgId = "C0B8B5F298C34195A10A005E8293C57F";
-	  String roleId = "1";
+	  String orgId = "24DF30F4297549A3B1A4540D7F63FA04";
+	  String roleId = "2";
 	  return userService.queryByRoleInOrg(orgId, roleId,true);
   }
 }

@@ -25,7 +25,6 @@ public class UserSeviceImpl implements UserService {
 	public User get(String id) {
 		try{
 			if(id==null || id.length()==0)  return null;
-			
 			User user = utils.geRestTemplate().getForObject(utils.getUrl("/v1/users/{id}"), User.class, id);
 			return user;
 		}catch (HttpStatusCodeException e) {
@@ -41,7 +40,6 @@ public class UserSeviceImpl implements UserService {
 	public List<User> queryMulti(String... ids) {
 		try {
 			if(ids==null || ids.length==0) return Collections.emptyList();
-			
 			StringBuilder builder = new StringBuilder("/v1/users?");
 			for(String id: ids){
 				builder.append("id=").append(id);
@@ -67,7 +65,7 @@ public class UserSeviceImpl implements UserService {
 			StringBuilder builder = new StringBuilder("/v1/users?");
 			builder.append("username=").append(username);
 			String url = builder.substring(0, builder.length());
-			User user = utils.geRestTemplate().getForObject(utils.getUrl(url), User.class, username);
+			User user = utils.geRestTemplate().getForObject(utils.getUrl(url), User.class);
 			return user;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -104,12 +102,10 @@ public class UserSeviceImpl implements UserService {
 	public List<User> queryByOrg(String orgId, boolean cascade) {
 		try {
 			if(orgId==null || orgId.length()==0) return null;
-			
 			StringBuilder builder = new StringBuilder("/v1/organizations/{oid}/users?");
 			builder.append("cascade=").append(cascade);
 			String url = builder.substring(0, builder.length());
-			
-			List<User> users = utils.geRestTemplate().getForObject(utils.getUrl(url), List.class, orgId, cascade);
+			List<User> users = utils.geRestTemplate().getForObject(utils.getUrl(url), List.class, orgId);
 			return users;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -185,7 +181,6 @@ public class UserSeviceImpl implements UserService {
 		try {
 			if(userId==null || userId.length()==0) return false;
 			if(orgId==null || orgId.length()==0) return false;
-			
 			Organization mainOrg = utils.geRestTemplate().getForObject(utils.getUrl("/v1/users/{id}/mainorg"), Organization.class, userId);
 			return orgId.equals(mainOrg.getId());
 		} catch (HttpStatusCodeException e) {
@@ -217,7 +212,6 @@ public class UserSeviceImpl implements UserService {
 		try {
 			if(userId==null || userId.length()==0) return false;
 			if(roleId==null || roleId.length()==0) return false;
-			
 			utils.geRestTemplate().headForHeaders(utils.getUrl("/v1/users/{id}/roles/{rid}"), userId, roleId);
 			return true;
 		} catch (HttpStatusCodeException e) {
@@ -234,13 +228,12 @@ public class UserSeviceImpl implements UserService {
 		try {
 			if(orgId==null || orgId.length()==0) return null;
 			if(roleId==null || roleId.length()==0) return null;
-			
 			StringBuilder builder = new StringBuilder("/v1/organizations/{oid}/users?");
 			builder.append("role=").append(roleId).append("&");
 			builder.append("cascade=").append(cascade);
 			String url = builder.substring(0, builder.length());
 			
-			List<User> roles = utils.geRestTemplate().getForObject(utils.getUrl(url), List.class, orgId, roleId, cascade);
+			List<User> roles = utils.geRestTemplate().getForObject(utils.getUrl(url), List.class, orgId);
 			return roles;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){

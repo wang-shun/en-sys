@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.chinacreator.asp.comp.sys.advanced.org.service.OrgService;
+import com.chinacreator.asp.comp.sys.advanced.role.service.RoleService;
 import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
 import com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO;
 import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
@@ -30,6 +31,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     @Qualifier("com.chinacreator.asp.comp.sys.advanced.org.service.OrgServiceImpl")
     private OrgService orgService;
+    @Autowired
+	@Qualifier("com.chinacreator.asp.comp.sys.advanced.role.service.RoleServiceImpl")
+	private RoleService roleService;
     
 	@Override
 	public User get(String id) {
@@ -58,56 +62,64 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getByUsername(String username) {
 		UserDTO userDTO = userService.queryByUserName(username);
-		if( userDTO == null ){
-			return null;
-		}
+			if( userDTO == null ){
+				return null;
+			}
 		User user = BeanUtils.toBean(userDTO);
 		return user;
 	}
 	@Override
 	public List<User> queryMultiByUsername(String... username) {
-		User user = null;
 		List<User> userList = new ArrayList<User>();
-		for(String name : username){
-			UserDTO userDTO = userService.queryByUserName(name);
-			if( userDTO == null ){
-				return null;
+		for(String name : username){     
+			boolean cascade = userService.existsByUserName(name);
+			if(cascade==true){
+				User user = null;
+				UserDTO userDTO = userService.queryByUserName(name);
+				if( userDTO == null ){
+					return null;
+				}
+				user = BeanUtils.toBean(userDTO);
+				userList.add(user);
 			}
-			user = BeanUtils.toBean(userDTO);
-			userList.add(user);
 		}
 		return userList;
 	}
 	@Override
 	public List<User> queryByOrg(String orgId, boolean cascade) {
-		UserDTO userDTO = userService.queryByPK(orgId);
-		if( userDTO == null ){
-			return null;
-		}
-		List<UserDTO> userList = userService.queryByOrg(userDTO, orgId);
-		if(userList.size()==0 || userList==null){
+		List<OrgDTO> orgDTOs = orgService.queryChildOrgs(orgId, cascade);
+		if( orgDTOs == null || orgDTOs.size()==0 ){
 			return new ArrayList<User>();
 		}
-		List<User> reList = Lists.transform(userList,
-	               new Function<UserDTO, User>() {
-            public User apply(UserDTO input) {
-                return BeanUtils.toBean(input);
-            }
-        });
+		List<User> reList = new ArrayList<User>();
+		for (OrgDTO orgDTO : orgDTOs) {
+			List<UserDTO> userDTOs = orgService.queryUsers(orgDTO.getOrgId());
+			if( userDTOs == null || userDTOs.size()==0 ){
+				return new ArrayList<User>();
+			}
+			reList = Lists.transform(userDTOs,
+					new Function<UserDTO, User>() {
+				public User apply(UserDTO input) {
+					return BeanUtils.toBean(input);
+				}
+			});
+			return reList;
+		}
 		return reList;
 	}
 	@Override
 	public List<User> queryByRole(String roleId) {
-		List<User> userList = new ArrayList<User>();
-		UserDTO userDTO = userService.queryByPK(roleId);
-		if( userDTO == null ){
-			return null;
+		List<UserDTO> userDTOs = roleService.queryUsers(roleId);
+		if( userDTOs == null || userDTOs.size()==0 ){
+			return new ArrayList<User>();
 		}
-		User user = BeanUtils.toBean(userDTO);
-		userList.add(user);
-		
+		List<User> userList = Lists.transform(userDTOs, new Function<UserDTO, User>() {
+			@Override
+			public User apply(UserDTO input) {
+				return BeanUtils.toBean(input);
+			}
+		});
 		return userList;
-		
 	}
 	@Override
 	public List<Organization> getOrgs(String userId) {
@@ -165,28 +177,18 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public List<User> queryByRoleInOrg(String orgId, String roleId, boolean cascade) {
-		List<OrgDTO> orgList = orgService.queryChildOrgs(orgId, cascade);
-		if( orgList == null || orgList.size()==0){
+		List<User> userList = null;
+		List<UserDTO> userDTOs = roleService.queryUsers(roleId, orgId);
+		if( userDTOs == null || userDTOs.size()==0){
 			return new ArrayList<User>();
 		}
-		for (OrgDTO orgDTO : orgList) {
-			String orgId1 = orgDTO.getOrgId();
-			UserDTO userDTO = userService.queryByPK(orgId1 );
-			if( userDTO == null ){
-				return null;
+		userList = Lists.transform(userDTOs, 
+				new Function<UserDTO, User>() {
+			public User apply(UserDTO input) {
+				return BeanUtils.toBean(input);
 			}
-			List<UserDTO> userList = userService.queryByOrgRole(userDTO, orgId1, roleId);
-			if( userList == null || userList.size()==0){
-				return new ArrayList<User>();
-			}
-			List<User> reList = Lists.transform(userList, 
-					new Function<UserDTO, User>() {
-				public User apply(UserDTO input) {
-					return BeanUtils.toBean(input);
-				}
-			});
-			return reList;
-		}
-		return null;
+		});
+		return userList;
 	}
+
 }

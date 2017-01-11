@@ -38,11 +38,10 @@ public class OrganizationServiceImpl implements OrganizationService {
 	public Organization getByName(String orgName) {
 		try{
 			if(orgName==null || orgName.length()==0) return null;
-			
 			StringBuilder builder = new StringBuilder("/v1/organizations?");
 			builder.append("orgname=").append(orgName);
 			String url = builder.substring(0, builder.length());
-			Organization org = utils.geRestTemplate().getForObject(utils.getUrl(url), Organization.class, orgName);
+			Organization org = utils.geRestTemplate().getForObject(utils.getUrl(url), Organization.class);
 			return org;
 		}catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -61,7 +60,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 			builder.append("cascade=").append(cascade);
 			String url = builder.substring(0, builder.length());
 
-			ArrayList<Organization> organizations = utils.geRestTemplate().getForObject(utils.getUrl(url), ArrayList.class, orgId ,cascade);
+			ArrayList<Organization> organizations = utils.geRestTemplate().getForObject(utils.getUrl(url), ArrayList.class, orgId);
 			return organizations;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -97,7 +96,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 			return true;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
-				return false;
+				throw new ResourceNotFoundException("机构 【"+orgId+"】 不存在");
 			}else{
 				throw new SysSDKInvokeException("获取机构下的用户信息失败", e);
 			}
