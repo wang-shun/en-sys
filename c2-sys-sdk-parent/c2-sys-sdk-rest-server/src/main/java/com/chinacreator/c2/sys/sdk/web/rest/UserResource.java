@@ -36,7 +36,8 @@ import com.chinacreator.c2.web.exception.ResourceNotFoundException;
 @Api(tags="users")
 @SwaggerDefinition(tags={@Tag(name="users",description="用户管理"),
 		@Tag(name="organizations",description="机构管理"),
-		@Tag(name="roles",description="角色管理")})
+		@Tag(name="roles",description="角色管理"),
+		@Tag(name="dictdatas",description="字典管理")})
 @ApiResponses({
 	@ApiResponse(code = 401, message = "用户没有登录", response = Error.class),
 	@ApiResponse(code = 403, message = "没有权限访问", response = Error.class),
