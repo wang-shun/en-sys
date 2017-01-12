@@ -26,6 +26,7 @@ public class UserPropertyInjector {
 			return null;
 		}
 		User user = populateUserDto(userDTO);
+		user.put("userDTO", userDTO);
 
 		Map<String, UserPropertyProvider> providers = ApplicationContextManager.getContext().getBeansOfType(UserPropertyProvider.class);
 		if(providers != null && !providers.isEmpty()){

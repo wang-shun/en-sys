@@ -32,6 +32,11 @@
 				/**/*.css = anon
 				/**/*.woff = anon
 				/**/resources/** = anon
+				/**/ws/getSubject = anon
+				/**/ctx/backends = anon
+				/**/ui/dir/directives.html = anon
+				/**/assets/** = anon
+				/**/ext/widget/** = anon				
 			</value>
 		</property>
 		<property name="authcFilterChainDefinitions">
