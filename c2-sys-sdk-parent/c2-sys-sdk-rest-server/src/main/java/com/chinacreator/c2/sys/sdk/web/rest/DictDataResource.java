@@ -1,7 +1,6 @@
 package com.chinacreator.c2.sys.sdk.web.rest;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,18 +51,11 @@ public class DictDataResource {
 		List<DictDataDTO> dictDatas = new ArrayList<DictDataDTO>();
 		Map<String, List<DictDataImpl>> dictDataMap = new HashMap<String, List<DictDataImpl>>();
 		
-		if(names.length==1){
-			dictDatas =  dictDataService.queryByDictTypeName(names[0]);
+		for (String dictTypeName : names) {
+			dictDatas =  dictDataService.queryByDictTypeName(dictTypeName);
 			List<DictDataImpl> dictDataList = new ArrayList<DictDataImpl>();
 			BeanCopierUtil.copy(dictDatas, dictDataList, DictDataDTO.class, DictDataImpl.class);
-			dictDataMap.put(names[0], dictDataList);
-		}else{
-			for (String dictTypeName : names) {
-				dictDatas =  dictDataService.queryByDictTypeName(dictTypeName);
-				List<DictDataImpl> dictDataList = new ArrayList<DictDataImpl>();
-				BeanCopierUtil.copy(dictDatas, dictDataList, DictDataDTO.class, DictDataImpl.class);
-				dictDataMap.put(dictTypeName, dictDataList);
-			}
+			dictDataMap.put(dictTypeName, dictDataList);
 		}
 		if(dictDataMap.isEmpty() || dictDataMap.size()==0){
 			throw new ResourceNotFoundException("数据字典 【"+names+"】 不存在");

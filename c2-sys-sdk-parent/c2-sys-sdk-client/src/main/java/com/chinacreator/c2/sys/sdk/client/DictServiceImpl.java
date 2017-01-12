@@ -17,7 +17,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.c2.sys.sdk.client.beans.DictDataImpl;
 import com.chinacreator.c2.sys.sdk.client.exception.SysSDKInvokeException;
 import com.chinacreator.c2.sysmgr.dict.DictService;
-import com.chinacreator.c2.util.StringUtil;
 import com.chinacreator.c2.web.exception.ResourceNotFoundException;
 
 @Service
