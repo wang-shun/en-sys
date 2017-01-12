@@ -39,7 +39,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version-c2-runtime>5.0.0-SNAPSHOT</version-c2-runtime>
 		<version-c2-ui-components>5.0.0-SNAPSHOT</version-c2-ui-components>
-		<version-c2-sysmgr-api>1.0.8</version-c2-sysmgr-api>
+		<version-c2-sysmgr-api>1.1.0-SNAPSHOT</version-c2-sysmgr-api>
 		<version-shiro>1.2.2</version-shiro>
 		<version-ehcache>2.6.6</version-ehcache>
 	</properties>

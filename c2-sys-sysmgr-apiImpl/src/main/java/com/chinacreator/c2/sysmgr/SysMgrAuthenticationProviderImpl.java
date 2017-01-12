@@ -4,6 +4,7 @@ import com.chinacreator.asp.comp.sys.common.exception.SysException;
 import com.chinacreator.asp.comp.sys.core.AccessControlMessages;
 import com.chinacreator.asp.comp.sys.core.security.service.AccessControlService;
 import com.chinacreator.asp.comp.sys.core.security.shiro.token.SysMgrUsernamePasswordToken;
+import com.chinacreator.asp.comp.sys.core.user.dto.UserDTO;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.sysmgr.exception.AuthenticationException;
 
@@ -14,7 +15,6 @@ import com.chinacreator.c2.sysmgr.exception.AuthenticationException;
  * 
  */
 public class SysMgrAuthenticationProviderImpl implements AuthenticationProvider {
-
 	@Override
 	public boolean login(AuthenticationToken token) throws AuthenticationException {
 		boolean isLogin = false;
@@ -29,7 +29,7 @@ public class SysMgrAuthenticationProviderImpl implements AuthenticationProvider 
 	}
 
 	@Override
-	public SysMgrSubject login(String username, String password) throws AuthenticationException {
+	public User login(String username, String password) throws AuthenticationException {
 		if (null != username && null != password && !"".equals(username.trim()) && !"".equals(password.trim())) {
 			AuthenticationToken token = new SysMgrUsernamePasswordToken();
 			((SysMgrUsernamePasswordToken) token).setUsername(username);
@@ -52,8 +52,8 @@ public class SysMgrAuthenticationProviderImpl implements AuthenticationProvider 
 			if (login(token)) {
 				LoginSuccessToRedirectUri loginSuccessToRedirectUri = null;
 				try {
-					loginSuccessToRedirectUri = (LoginSuccessToRedirectUri) ApplicationContextManager.getContext().
-							getBean("LoginSuccessToRedirectUri");
+					loginSuccessToRedirectUri = (LoginSuccessToRedirectUri) ApplicationContextManager.getContext()
+							.getBean("LoginSuccessToRedirectUri");
 					if (null != loginSuccessToRedirectUri) {
 						return loginSuccessToRedirectUri.getRedirectUri();
 					}
@@ -78,12 +78,20 @@ public class SysMgrAuthenticationProviderImpl implements AuthenticationProvider 
 	}
 
 	@Override
-	public SysMgrSubject getSubject() {
+	public User getSubject() {
 		AccessControlService accessControlService = getAccessControlService();
-		SysMgrSubject sysMgrSubject = getSysMgrSubject();
 		if (accessControlService.isAuthenticated()) {
-			sysMgrSubject.setUserDTO(accessControlService.getUser());
-			return sysMgrSubject;
+			UserDTO dto = accessControlService.getUser();
+			if (null != dto) {
+				dto.setUserPassword(null);
+
+				User user = new User();
+				user.setId(dto.getUserId());
+				user.setName(dto.getUserName());
+				user.setRealname(dto.getUserRealname());
+				user.put("userDTO", dto);
+				return user;
+			}
 		}
 		return null;
 	}
@@ -91,9 +99,4 @@ public class SysMgrAuthenticationProviderImpl implements AuthenticationProvider 
 	private AccessControlService getAccessControlService() {
 		return ApplicationContextManager.getContext().getBean(AccessControlService.class);
 	}
-
-	private SysMgrSubject getSysMgrSubject() {
-		return ApplicationContextManager.getContext().getBean(SysMgrSubject.class);
-	}
-
 }
