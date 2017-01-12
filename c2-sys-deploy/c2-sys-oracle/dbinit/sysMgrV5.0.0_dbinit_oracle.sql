@@ -1,4 +1,4 @@
--- 系统管理V4.3.0完整精简版建库及初始化脚本_oracle
+-- 系统管理V5.0.0完整精简版建库及初始化脚本_oracle
 -- 建库脚本_oracle -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 alter table tb_sm_custres
    drop constraint fk_tb_sm_staticoper1;

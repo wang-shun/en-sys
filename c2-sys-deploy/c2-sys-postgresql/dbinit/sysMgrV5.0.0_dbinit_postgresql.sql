@@ -1,151 +1,70 @@
--- 系统管理V4.3.0完整精简版建库及初始化脚本_dm
--- 建库脚本_dm -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-alter table tb_sm_custres
-   drop constraint fk_tb_sm_staticoper1;
+-- 系统管理V5.0.0完整精简版建库及初始化脚本_postgresql
+-- 建库脚本_postgresql -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+drop table tb_application_info;
 
-alter table tb_sm_decision_entitlement
-   drop constraint fk_tb_sm_decision_entitlement1;
+drop table tb_sm_businessdata;
 
-alter table tb_sm_decision_entitlement
-   drop constraint fk_tb_sm_decision_entitlement2;
+drop table tb_sm_custres;
 
-alter table tb_sm_decision_entitlement
-   drop constraint fk_tb_sm_decision_entitlement3;
+drop table tb_sm_decision_entitlement;
 
-alter table tb_sm_menu
-   drop constraint fk_tb_sm_moudle1;
+drop table tb_sm_menu;
 
-alter table tb_sm_query_entitlement
-   drop constraint fk_tb_sm_query_entitlement2;
+drop table tb_sm_privilege;
 
-alter table tb_sm_query_entitlement
-   drop constraint fk_tb_sm_query_entitlement3;
+drop table tb_sm_privilege_insiderelate;
 
-alter table tb_sm_query_entitlement
-   drop constraint fk_tb_sm_query_entitlement1;
+drop table tb_sm_query;
 
-alter table tb_system_info
-   drop constraint fk_tb_system_info;
+drop table tb_sm_query_entitlement;
 
-alter table td_df_data_obj_column
-   drop constraint td_df_data_obj_column_fk;
+drop table tb_sm_usercategory;
 
-alter table td_sm_dictdata
-   drop constraint fk_td_sm_dictdata;
+drop table tb_system_info;
 
-alter table td_sm_grouporg
-   drop constraint fk_td_sm_grouporg1;
+drop table tb_system_type;
 
-alter table td_sm_grouporg
-   drop constraint fk_td_sm_grouporg2;
+drop table td_df_data_obj;
 
-alter table td_sm_grouporgjob
-   drop constraint fk_td_sm_grouporgjob1;
+drop table td_df_data_obj_column;
 
-alter table td_sm_grouporgjob
-   drop constraint fk_td_sm_grouporgjob2;
+drop table td_sm_dictdata;
 
-alter table td_sm_grouprole
-   drop constraint fk_td_sm_grouprole1;
+drop table td_sm_dicttype;
 
-alter table td_sm_grouprole
-   drop constraint fk_td_sm_grouprole2;
+drop table td_sm_group;
 
-alter table td_sm_instance_job
-   drop constraint fk_td_sm_instance_job;
+drop table td_sm_grouporg;
 
-alter table td_sm_instance_org
-   drop constraint fk_td_sm_instance_org1;
-
-alter table td_sm_orgjob
-   drop constraint fk_td_sm_orgjob1;
-
-alter table td_sm_orgjob
-   drop constraint fk_td_sm_orgjob2;
-
-alter table td_sm_role
-   drop constraint fk_td_sm_role;
-
-alter table td_sm_userinstance
-   drop constraint fk_td_sm_userinstance;
-
-alter table td_sm_userinstancegroup
-   drop constraint fk_td_sm_userinstancegroup1;
-
-alter table td_sm_userinstancegroup
-   drop constraint fk_td_sm_userinstancegroup2;
-
-alter table td_sm_userinstancerole
-   drop constraint fk_td_sm_userinstancerole1;
-
-alter table td_sm_userinstancerole
-   drop constraint fk_td_sm_userinstancerole2;
-
-drop table tb_application_info cascade constraints;
-
-drop table tb_sm_businessdata cascade constraints;
-
-drop table tb_sm_custres cascade constraints;
-
-drop table tb_sm_decision_entitlement cascade constraints;
-
-drop table tb_sm_menu cascade constraints;
-
-drop table tb_sm_privilege cascade constraints;
-
-drop table tb_sm_privilege_insiderelate cascade constraints;
-
-drop table tb_sm_query cascade constraints;
-
-drop table tb_sm_query_entitlement cascade constraints;
-
-drop table tb_sm_usercategory cascade constraints;
-
-drop table tb_system_info cascade constraints;
-
-drop table tb_system_type cascade constraints;
-
-drop table td_df_data_obj cascade constraints;
-
-drop table td_df_data_obj_column cascade constraints;
-
-drop table td_sm_dictdata cascade constraints;
-
-drop table td_sm_dicttype cascade constraints;
-
-drop table td_sm_group cascade constraints;
-
-drop table td_sm_grouporg cascade constraints;
-
-drop table td_sm_grouporgjob cascade constraints;
+drop table td_sm_grouporgjob;
 
 drop index td_sm_grouprole_fk2;
 
 drop index td_sm_grouprole_fk;
 
-drop table td_sm_grouprole cascade constraints;
+drop table td_sm_grouprole;
 
-drop table td_sm_instance_job cascade constraints;
+drop table td_sm_instance_job;
 
-drop table td_sm_instance_org cascade constraints;
+drop table td_sm_instance_org;
 
-drop table td_sm_job cascade constraints;
+drop table td_sm_job;
 
-drop table td_sm_log cascade constraints;
+drop table td_sm_log;
 
-drop table td_sm_logconfig cascade constraints;
+drop table td_sm_logconfig;
 
-drop table td_sm_log_his cascade constraints;
+drop table td_sm_log_his;
 
-drop table td_sm_organization cascade constraints;
+drop table td_sm_organization;
 
 drop index td_sm_orgjob_fk2;
 
 drop index td_sm_orgjob_fk;
 
-drop table td_sm_orgjob cascade constraints;
+drop table td_sm_orgjob;
 
-drop table td_sm_role cascade constraints;
+drop table td_sm_role;
 
 drop index td_sm_roleresop_fk3;
 
@@ -153,39 +72,39 @@ drop index td_sm_roleresop_fk2;
 
 drop index td_sm_roleresop_fk;
 
-drop table td_sm_roleresop cascade constraints;
+drop table td_sm_roleresop;
 
-drop table td_sm_roletype cascade constraints;
+drop table td_sm_roletype;
 
 drop index in_td_sm_user_uname;
 
-drop table td_sm_user cascade constraints;
+drop table td_sm_user;
 
-drop table td_sm_userinstance cascade constraints;
+drop table td_sm_userinstance;
 
-drop table td_sm_userinstancegroup cascade constraints;
+drop table td_sm_userinstancegroup;
 
-drop table td_sm_userinstancerole cascade constraints;
+drop table td_sm_userinstancerole;
 
-drop table td_sm_userjoborg_history cascade constraints;
+drop table td_sm_userjoborg_history;
 
-drop table td_sm_userpreferences cascade constraints;
+drop table td_sm_userpreferences;
 
-create table tb_application_info  (
-   app_id               varchar2(20)                    not null,
-   app_name             varchar2(64)                    not null,
-   remark               varchar2(512),
-   dbname               varchar2(64),
-   dbuser               varchar2(64),
-   dbpwd                varchar2(64),
-   deftablespace        varchar2(128),
-   temptablespace       varchar2(128),
-   workfolder           varchar2(256),
-   accpath              varchar2(512),
-   enablestatus         number                         default 1,
-   functionlist         varchar2(128),
-   ismsgcenter          number                         default 1,
-   appimgpath           varchar2(128),
+create table tb_application_info (
+   app_id               varchar(20)          not null,
+   app_name             varchar(64)          not null,
+   remark               varchar(512)         null,
+   dbname               varchar(64)          null,
+   dbuser               varchar(64)          null,
+   dbpwd                varchar(64)          null,
+   deftablespace        varchar(128)         null,
+   temptablespace       varchar(128)         null,
+   workfolder           varchar(256)         null,
+   accpath              varchar(512)         null,
+   enablestatus         numeric              null default 1,
+   functionlist         varchar(128)         null,
+   ismsgcenter          numeric              null default 1,
+   appimgpath           varchar(128)         null,
    constraint pk_tb_application_info primary key (app_id)
 );
 
@@ -234,13 +153,13 @@ comment on column tb_application_info.ismsgcenter is
 comment on column tb_application_info.appimgpath is
 '应用图标路径';
 
-create table tb_sm_businessdata  (
-   id                   varchar2(50)                    not null,
-   name                 varchar2(50)                    not null,
-   description          varchar2(200),
-   parent_id            varchar2(50)                   default '0' not null,
-   isleaf               char(1)                        default '1',
-   rule                 clob,
+create table tb_sm_businessdata (
+   id                   varchar(50)          not null,
+   name                 varchar(50)          not null,
+   description          varchar(200)         null,
+   parent_id            varchar(50)          not null default '0',
+   isleaf               char(1)              null default '1',
+   rule                 text                 null,
    constraint pk_tb_sm_businessdata primary key (id)
 );
 
@@ -265,13 +184,13 @@ comment on column tb_sm_businessdata.isleaf is
 comment on column tb_sm_businessdata.rule is
 '分类规则';
 
-create table tb_sm_custres  (
-   privilege_id         varchar2(50)                    not null,
-   restype_id           varchar2(50)                    not null,
-   restype_name         varchar2(200)                   not null,
-   res_id               varchar2(50)                    not null,
-   res_name             varchar2(200)                   not null,
-   grintlevel           char(1)                        default '1' not null,
+create table tb_sm_custres (
+   privilege_id         varchar(50)          not null,
+   restype_id           varchar(50)          not null,
+   restype_name         varchar(200)         not null,
+   res_id               varchar(50)          not null,
+   res_name             varchar(200)         not null,
+   grintlevel           char(1)              not null default '1',
    constraint pk_tb_sm_custres primary key (privilege_id)
 );
 
@@ -296,14 +215,14 @@ comment on column tb_sm_custres.res_name is
 comment on column tb_sm_custres.grintlevel is
 '授予级别（-1：管理员，1：所有用户）';
 
-create table tb_sm_decision_entitlement  (
-   id                   varchar2(50)                    not null,
-   privilege_id         varchar2(50)                    not null,
-   usercategory_id      varchar2(50)                    not null,
-   businessdata_id      varchar2(50)                    not null,
-   effect               char(1)                        default '1' not null,
-   denyreason           varchar2(2000),
-   priority             number                         default 0 not null,
+create table tb_sm_decision_entitlement (
+   id                   varchar(50)          not null,
+   privilege_id         varchar(50)          not null,
+   usercategory_id      varchar(50)          not null,
+   businessdata_id      varchar(50)          not null,
+   effect               char(1)              not null default '1',
+   denyreason           varchar(2000)        null,
+   priority             numeric              not null default 0,
    constraint pk_tb_sm_decision_entitlement primary key (id)
 );
 
@@ -331,13 +250,13 @@ comment on column tb_sm_decision_entitlement.denyreason is
 comment on column tb_sm_decision_entitlement.priority is
 '优先级别';
 
-create table tb_sm_menu  (
-   menu_id              varchar2(50)                    not null,
-   is_enabled           char(1)                        default '1' not null,
-   href                 varchar2(500),
-   icon                 varchar2(500),
-   display_mode         char(1)                        default '0' not null,
-   menu_ext             clob,
+create table tb_sm_menu (
+   menu_id              varchar(50)          not null,
+   is_enabled           char(1)              not null default '1',
+   href                 varchar(500)         null,
+   icon                 varchar(500)         null,
+   display_mode         char(1)              not null default '0',
+   menu_ext             text                 null,
    constraint pk_tb_sm_menu primary key (menu_id)
 );
 
@@ -362,18 +281,18 @@ comment on column tb_sm_menu.display_mode is
 comment on column tb_sm_menu.menu_ext is
 '菜单扩展字段';
 
-create table tb_sm_privilege  (
-   id                   varchar2(50)                    not null,
-   code                 varchar2(500)                   not null,
-   name                 varchar2(500),
-   parent_id            varchar2(500)                  default '0' not null,
-   type                 char(1)                         not null,
-   perm_expr            varchar2(2000),
-   creator              varchar2(50)                   default '1',
-   creator_time         date                           default sysdate,
-   sn                   number,
-   source               char(1)                        default '0' not null,
-   virtual              char(1)                        default '0' not null,
+create table tb_sm_privilege (
+   id                   varchar(50)          not null,
+   code                 varchar(500)         not null,
+   name                 varchar(500)         null,
+   parent_id            varchar(500)         not null default '0',
+   type                 char(1)              not null,
+   perm_expr            varchar(2000)        null,
+   creator              varchar(50)          null default '1',
+   creator_time         timestamp            null default current_timestamp,
+   sn                   numeric              null,
+   source               char(1)              not null default '0',
+   virtual              char(1)              not null default '0',
    constraint pk_tb_resource_type primary key (id)
 );
 
@@ -410,10 +329,13 @@ comment on column tb_sm_privilege.sn is
 comment on column tb_sm_privilege.source is
 '权限来源（0：自定义，1：IDE）';
 
+comment on column tb_sm_privilege.virtual is
+'是否虚拟节点（0：否，1：是）';
+
 create table tb_sm_privilege_insiderelate  (
-   id                   varchar2(50)                    not null,
-   relate_id            varchar2(50)                    not null,
-   sn                   number
+   id			varchar(50)		not null,
+   relate_id	varchar(50)		not null,
+   sn			numeric			null
 );
 
 comment on table tb_sm_privilege_insiderelate is
@@ -428,13 +350,13 @@ comment on column tb_sm_privilege_insiderelate.relate_id is
 comment on column tb_sm_privilege_insiderelate.sn is
 '排序号';
 
-create table tb_sm_query  (
-   id                   varchar2(50)                    not null,
-   name                 varchar2(50)                    not null,
-   description          varchar2(200),
-   parent_id            varchar2(50)                   default '0' not null,
-   isleaf               char(1)                        default '1',
-   rule                 clob,
+create table tb_sm_query (
+   id                   varchar(50)          not null,
+   name                 varchar(50)          not null,
+   description          varchar(200)         null,
+   parent_id            varchar(50)          not null default '0',
+   isleaf               char(1)              null default '1',
+   rule                 text                 null,
    constraint pk_tb_sm_query primary key (id)
 );
 
@@ -459,12 +381,12 @@ comment on column tb_sm_query.isleaf is
 comment on column tb_sm_query.rule is
 '查询规则';
 
-create table tb_sm_query_entitlement  (
-   id                   varchar2(50)                    not null,
-   privilege_id         varchar2(50)                    not null,
-   query_id             varchar2(50)                    not null,
-   usercategory_id      varchar2(50)                    not null,
-   priority             number                         default 0 not null,
+create table tb_sm_query_entitlement (
+   id                   varchar(50)          not null,
+   privilege_id         varchar(50)          not null,
+   query_id             varchar(50)          not null,
+   usercategory_id      varchar(50)          not null,
+   priority             numeric              not null default 0,
    constraint pk_tb_sm_query_entitlement primary key (id)
 );
 
@@ -486,13 +408,13 @@ comment on column tb_sm_query_entitlement.usercategory_id is
 comment on column tb_sm_query_entitlement.priority is
 '优先级别';
 
-create table tb_sm_usercategory  (
-   id                   varchar2(50)                    not null,
-   name                 varchar2(50)                    not null,
-   description          varchar2(200),
-   parent_id            varchar2(50)                   default '0' not null,
-   isleaf               char(1)                        default '1',
-   rule                 clob,
+create table tb_sm_usercategory (
+   id                   varchar(50)          not null,
+   name                 varchar(50)          not null,
+   description          varchar(200)         null,
+   parent_id            varchar(50)          not null default '0',
+   isleaf               char(1)              null default '1',
+   rule                 text                 null,
    constraint pk_tb_sm_usercategory primary key (id)
 );
 
@@ -517,14 +439,14 @@ comment on column tb_sm_usercategory.isleaf is
 comment on column tb_sm_usercategory.rule is
 '分类规则';
 
-create table tb_system_info  (
-   id                   varchar2(50)                    not null,
-   info_name            varchar2(500)                   not null,
-   info_content         varchar2(2000),
-   info_desc            varchar2(500),
-   info_type            varchar2(50)                    not null,
-   canremove            varchar2(50)                   default '1' not null,
-   remark               varchar2(200),
+create table tb_system_info (
+   id                   varchar(50)          not null,
+   info_name            varchar(500)         not null,
+   info_content         varchar(2000)        null,
+   info_desc            varchar(500)         null,
+   info_type            varchar(50)          not null,
+   canremove            varchar(50)          not null default '1',
+   remark               varchar(200)         null,
    constraint pk_tb_system_info primary key (id)
 );
 
@@ -552,10 +474,10 @@ comment on column tb_system_info.canremove is
 comment on column tb_system_info.remark is
 '备用字段';
 
-create table tb_system_type  (
-   id                   varchar2(50)                    not null,
-   type_name            varchar2(50)                    not null,
-   type_desc            varchar2(100),
+create table tb_system_type (
+   id                   varchar(50)          not null,
+   type_name            varchar(50)          not null,
+   type_desc            varchar(100)         null,
    constraint pk_tb_system_type primary key (id)
 );
 
@@ -571,20 +493,20 @@ comment on column tb_system_type.type_name is
 comment on column tb_system_type.type_desc is
 '系统信息类型描述';
 
-create table td_df_data_obj  (
-   df_object_id         varchar2(50)                    not null,
-   df_ds_id             varchar2(100),
-   df_object_name       varchar2(255),
-   df_table_name        varchar2(255),
-   df_provide_type      varchar2(20),
-   df_formcolnum        number(5)                      default 4,
-   df_pkauto_type       varchar2(50),
-   df_createmenu_flag   char(1),
-   df_parentmenu_id     varchar2(100),
-   df_menu_name         varchar2(100),
-   df_status            char(1)                        default '1',
-   "df_regfrompoolman"  char(1),
-   ui_groupname         varchar2(2000),
+create table td_df_data_obj (
+   df_object_id         varchar(50)          not null,
+   df_ds_id             varchar(100)         null,
+   df_object_name       varchar(255)         null,
+   df_table_name        varchar(255)         null,
+   df_provide_type      varchar(20)          null,
+   df_formcolnum        numeric(5)           null default 4,
+   df_pkauto_type       varchar(50)          null,
+   df_createmenu_flag   char(1)              null,
+   df_parentmenu_id     varchar(100)         null,
+   df_menu_name         varchar(100)         null,
+   df_status            char(1)              null default '1',
+   df_regfrompoolman    char(1)              null,
+   ui_groupname         varchar(2000)        null,
    constraint pk_td_df_data_obj primary key (df_object_id)
 );
 
@@ -624,38 +546,38 @@ comment on column td_df_data_obj.df_menu_name is
 comment on column td_df_data_obj.df_status is
 '数据对象状态,1可用,0不可用';
 
-comment on column td_df_data_obj."df_regfrompoolman" is
+comment on column td_df_data_obj.df_regfrompoolman is
 '数据对象是否来源Poolman数据源,1是,0否';
 
-create table td_df_data_obj_column  (
-   df_column_id         varchar2(50)                    not null,
-   df_column_code       varchar2(100)                   not null,
-   df_column_name       varchar2(100)                   not null,
-   df_object_id         varchar2(50)                    not null,
-   df_column_type       varchar2(63)                    not null,
-   df_length            number(5),
-   df_precision         number(5),
-   df_logic_type        varchar2(63),
-   df_sort_sn           number(5),
-   df_maxlength         number(5),
-   df_orderby           varchar2(10),
-   df_uitype            varchar2(20),
-   df_optiondata_type   varchar2(10),
-   df_optiondata        varchar2(1000),
-   df_optiondata_dsid   varchar2(50),
-   df_initdata          varchar2(100),
-   df_uigroup           varchar2(100),
-   df_uirownum          number(5)                      default 1,
-   df_uicolnum          number(5)                      default 2,
-   df_regex             varchar2(100),
-   df_regex_message     varchar2(200),
-   df_pk_flag           char(1),
-   df_required_flag     char(1),
-   df_search_flag       char(1),
-   df_listshow_flag     char(1),
-   df_status            number(5)                      default 1,
-   df_creater_field_flag char(1),
-   df_creater_org_field_flag char(1),
+create table td_df_data_obj_column (
+   df_column_id         varchar(50)          not null,
+   df_column_code       varchar(100)         not null,
+   df_column_name       varchar(100)         not null,
+   df_object_id         varchar(50)          not null,
+   df_column_type       varchar(63)          not null,
+   df_length            numeric(5)           null,
+   df_precision         numeric(5)           null,
+   df_logic_type        varchar(63)          null,
+   df_sort_sn           numeric(5)           null,
+   df_maxlength         numeric(5)           null,
+   df_orderby           varchar(10)          null,
+   df_uitype            varchar(20)          null,
+   df_optiondata_type   varchar(10)          null,
+   df_optiondata        varchar(1000)        null,
+   df_optiondata_dsid   varchar(50)          null,
+   df_initdata          varchar(100)         null,
+   df_uigroup           varchar(100)         null,
+   df_uirownum          numeric(5)           null default 1,
+   df_uicolnum          numeric(5)           null default 2,
+   df_regex             varchar(100)         null,
+   df_regex_message     varchar(200)         null,
+   df_pk_flag           char(1)              null,
+   df_required_flag     char(1)              null,
+   df_search_flag       char(1)              null,
+   df_listshow_flag     char(1)              null,
+   df_status            numeric(5)           null default 1,
+   df_creater_field_flag char(1)              null,
+   df_creater_org_field_flag char(1)              null,
    constraint pk_td_df_data_obj_column primary key (df_column_id)
 );
 
@@ -746,13 +668,13 @@ comment on column td_df_data_obj_column.df_creater_field_flag is
 comment on column td_df_data_obj_column.df_creater_org_field_flag is
 '是否为添加人机构字段';
 
-create table td_sm_dictdata  (
-   dictdata_id          varchar2(50)                    not null,
-   dicttype_id          varchar2(50),
-   dictdata_name        varchar2(100),
-   dictdata_value       varchar2(100),
-   dictdata_order       number                         default 0,
-   dictdata_isdefault   char(1)                        default '0',
+create table td_sm_dictdata (
+   dictdata_id          varchar(50)          not null,
+   dicttype_id          varchar(50)          null,
+   dictdata_name        varchar(100)         null,
+   dictdata_value       varchar(100)         null,
+   dictdata_order       numeric              null default 0,
+   dictdata_isdefault   char(1)              null default '0',
    constraint pk_td_sm_dictdata primary key (dictdata_id)
 );
 
@@ -777,10 +699,10 @@ comment on column td_sm_dictdata.dictdata_order is
 comment on column td_sm_dictdata.dictdata_isdefault is
 '是否默认值（0：否，1：是）';
 
-create table td_sm_dicttype  (
-   dicttype_id          varchar2(50)                    not null,
-   dicttype_name        varchar2(100)                   not null,
-   dicttype_desc        varchar2(100),
+create table td_sm_dicttype (
+   dicttype_id          varchar(50)          not null,
+   dicttype_name        varchar(100)         not null,
+   dicttype_desc        varchar(100)         null,
    constraint pk_td_sm_dicttype primary key (dicttype_id)
 );
 
@@ -796,18 +718,18 @@ comment on column td_sm_dicttype.dicttype_name is
 comment on column td_sm_dicttype.dicttype_desc is
 '字典类型描述';
 
-create table td_sm_group  (
-   group_id             varchar2(50)                    not null,
-   group_name           varchar2(100)                   not null,
-   group_desc           varchar2(100),
-   parent_id            varchar2(50)                   default '0' not null,
-   owner_id             varchar2(50)                   default '1',
-   remark1              varchar2(100),
-   remark2              varchar2(100),
-   remark3              varchar2(100),
-   remark4              varchar2(100),
-   remark5              varchar2(100),
-   type                 char(1)                        default '0',
+create table td_sm_group (
+   group_id             varchar(50)          not null,
+   group_name           varchar(100)         not null,
+   group_desc           varchar(100)         null,
+   parent_id            varchar(50)          not null default '0',
+   owner_id             varchar(50)          null default '1',
+   remark1              varchar(100)         null,
+   remark2              varchar(100)         null,
+   remark3              varchar(100)         null,
+   remark4              varchar(100)         null,
+   remark5              varchar(100)         null,
+   type                 char(1)              null default '0',
    constraint pk_td_sm_group primary key (group_id)
 );
 
@@ -847,9 +769,9 @@ comment on column td_sm_group.remark5 is
 comment on column td_sm_group.type is
 '类型（0：自定义用户组，1：机构，2：机构岗位）';
 
-create table td_sm_grouporg  (
-   group_id             varchar2(50),
-   org_id               varchar2(50)
+create table td_sm_grouporg (
+   group_id             varchar(50)          null,
+   org_id               varchar(50)          null
 );
 
 comment on table td_sm_grouporg is
@@ -861,9 +783,9 @@ comment on column td_sm_grouporg.group_id is
 comment on column td_sm_grouporg.org_id is
 '机构ID';
 
-create table td_sm_grouporgjob  (
-   group_id             varchar2(50),
-   job_id               varchar2(50)
+create table td_sm_grouporgjob (
+   group_id             varchar(50)          null,
+   job_id               varchar(50)          null
 );
 
 comment on table td_sm_grouporgjob is
@@ -875,10 +797,10 @@ comment on column td_sm_grouporgjob.group_id is
 comment on column td_sm_grouporgjob.job_id is
 '岗位ID';
 
-create table td_sm_grouprole  (
-   group_id             varchar2(50)                    not null,
-   role_id              varchar2(50)                    not null,
-   resop_origin_userid  varchar2(50)                   default '1',
+create table td_sm_grouprole (
+   group_id             varchar(50)          not null,
+   role_id              varchar(50)          not null,
+   resop_origin_userid  varchar(50)          null default '1',
    constraint pk_td_sm_grouprole primary key (group_id, role_id)
 );
 
@@ -894,18 +816,18 @@ comment on column td_sm_grouprole.role_id is
 comment on column td_sm_grouprole.resop_origin_userid is
 '授予角色的用户';
 
-create index td_sm_grouprole_fk on td_sm_grouprole (
-   group_id asc
+create  index td_sm_grouprole_fk on td_sm_grouprole (
+group_id
 );
 
-create index td_sm_grouprole_fk2 on td_sm_grouprole (
-   role_id asc
+create  index td_sm_grouprole_fk2 on td_sm_grouprole (
+role_id
 );
 
-create table td_sm_instance_job  (
-   userinstance_id      varchar2(50)                    not null,
-   is_main              char(1)                        default '0' not null,
-   sn                   number                         default 9999
+create table td_sm_instance_job (
+   userinstance_id      varchar(50)          not null,
+   is_main              char(1)              not null default '0',
+   sn                   numeric              null default 9999
 );
 
 comment on table td_sm_instance_job is
@@ -920,10 +842,10 @@ comment on column td_sm_instance_job.is_main is
 comment on column td_sm_instance_job.sn is
 '用户排序号';
 
-create table td_sm_instance_org  (
-   userinstance_id      varchar2(50)                    not null,
-   is_main              char(1)                        default '0' not null,
-   sn                   number                         default 9999
+create table td_sm_instance_org (
+   userinstance_id      varchar(50)          not null,
+   is_main              char(1)              not null default '0',
+   sn                   numeric              null default 9999
 );
 
 comment on table td_sm_instance_org is
@@ -938,17 +860,17 @@ comment on column td_sm_instance_org.is_main is
 comment on column td_sm_instance_org.sn is
 '用户排序号';
 
-create table td_sm_job  (
-   job_id               varchar2(50)                    not null,
-   job_name             varchar2(100),
-   job_desc             varchar2(200),
-   job_scope            char(1)                        default '1' not null,
-   job_function         varchar2(200),
-   job_amount           varchar2(100),
-   job_number           varchar2(100),
-   job_condition        varchar2(200),
-   job_rank             varchar2(100),
-   owner_id             varchar2(50)                   default '1',
+create table td_sm_job (
+   job_id               varchar(50)          not null,
+   job_name             varchar(100)         null,
+   job_desc             varchar(200)         null,
+   job_scope            char(1)              not null default '1',
+   job_function         varchar(200)         null,
+   job_amount           varchar(100)         null,
+   job_number           varchar(100)         null,
+   job_condition        varchar(200)         null,
+   job_rank             varchar(100)         null,
+   owner_id             varchar(50)          null default '1',
    constraint pk_td_sm_job primary key (job_id)
 );
 
@@ -985,21 +907,21 @@ comment on column td_sm_job.job_rank is
 comment on column td_sm_job.owner_id is
 '岗位授予人ID';
 
-create table td_sm_log  (
-   log_id               varchar2(50)                    not null,
-   log_operuser         varchar2(200),
-   oper_module          varchar2(50),
-   log_visitorial       varchar2(200),
-   log_opertime         timestamp                      default sysdate,
-   log_content          clob,
-   oper_type            number(1),
-   log_status           number(1),
-   target_pk			varchar2(200),
-   remark1              varchar2(100),
-   remark2              varchar2(100),
-   remark3              varchar2(100),
-   remark4              varchar2(100),
-   remark5              varchar2(100),
+create table td_sm_log (
+   log_id               varchar(50)          not null,
+   log_operuser         varchar(200)         null,
+   oper_module          varchar(50)          null,
+   log_visitorial       varchar(200)         null,
+   log_opertime         timestamp            null default current_timestamp,
+   log_content          text                 null,
+   oper_type            numeric(1)           null,
+   log_status           numeric(1)           null,
+   target_pk            varchar(200)         null,
+   remark1              varchar(100)         null,
+   remark2              varchar(100)         null,
+   remark3              varchar(100)         null,
+   remark4              varchar(100)         null,
+   remark5              varchar(100)         null,
    constraint pk_td_sm_log primary key (log_id)
 );
 
@@ -1030,7 +952,7 @@ comment on column td_sm_log.oper_type is
 comment on column td_sm_log.log_status is
 '日志状态（1：成功，0：失败）';
 
-comment on column td_sm_log.target_pk is
+comment on column td_sm_log.target_pk is 
 '目标主键';
 
 comment on column td_sm_log.remark1 is
@@ -1048,12 +970,12 @@ comment on column td_sm_log.remark4 is
 comment on column td_sm_log.remark5 is
 '备注5';
 
-create table td_sm_logconfig  (
-   oper_module          varchar2(50)                    not null,
-   log_type             varchar2(50),
-   log_oper             varchar2(200),
-   log_operdesc         varchar2(500),
-   log_enabled          char(1)                        default '1' not null,
+create table td_sm_logconfig (
+   oper_module          varchar(50)          not null,
+   log_type             varchar(50)          null,
+   log_oper             varchar(200)         null,
+   log_operdesc         varchar(500)         null,
+   log_enabled          char(1)              not null default '1',
    constraint pk_td_sm_logconfig primary key (oper_module)
 );
 
@@ -1075,21 +997,21 @@ comment on column td_sm_logconfig.log_operdesc is
 comment on column td_sm_logconfig.log_enabled is
 '记录日志状态，0:不记录日志，1:记录日志';
 
-create table td_sm_log_his  (
-   log_id               varchar2(50)                    not null,
-   log_operuser         varchar2(200),
-   oper_module          varchar2(50),
-   log_visitorial       varchar2(200),
-   log_opertime         timestamp                      default sysdate,
-   log_content          clob,
-   oper_type            number(1),
-   log_status           number(1),
-   target_pk			varchar2(200),
-   remark1              varchar2(100),
-   remark2              varchar2(100),
-   remark3              varchar2(100),
-   remark4              varchar2(100),
-   remark5              varchar2(100),
+create table td_sm_log_his (
+   log_id               varchar(50)          not null,
+   log_operuser         varchar(200)         null,
+   oper_module          varchar(50)          null,
+   log_visitorial       varchar(200)         null,
+   log_opertime         timestamp            null default current_timestamp,
+   log_content          text                 null,
+   oper_type            numeric(1)           null,
+   log_status           numeric(1)           null,
+   target_pk            varchar(200)         null,
+   remark1              varchar(100)         null,
+   remark2              varchar(100)         null,
+   remark3              varchar(100)         null,
+   remark4              varchar(100)         null,
+   remark5              varchar(100)         null,
    constraint pk_td_sm_log_his primary key (log_id)
 );
 
@@ -1108,9 +1030,6 @@ comment on column td_sm_log_his.oper_module is
 comment on column td_sm_log_his.log_visitorial is
 '操作来源（一般为操作员机器ip）';
 
-comment on column td_sm_log_his.target_pk is
-'目标主键';
-
 comment on column td_sm_log_his.log_opertime is
 '操作时间';
 
@@ -1122,6 +1041,9 @@ comment on column td_sm_log_his.oper_type is
 
 comment on column td_sm_log_his.log_status is
 '日志状态（1：成功，0：失败）';
+
+comment on column td_sm_log_his.target_pk is 
+'目标主键';
 
 comment on column td_sm_log_his.remark1 is
 '备注1';
@@ -1138,39 +1060,39 @@ comment on column td_sm_log_his.remark4 is
 comment on column td_sm_log_his.remark5 is
 '备注5';
 
-create table td_sm_organization  (
-   org_id               varchar2(50)                    not null,
-   org_sn               number                         default 999,
-   org_name             varchar2(40)                    not null,
-   org_showname         varchar2(100)                   not null,
-   parent_id            varchar2(100)                   not null,
-   path                 varchar2(1000),
-   layer                varchar2(200),
-   children             varchar2(1000),
-   code                 varchar2(100),
-   jp                   varchar2(40),
-   qp                   varchar2(40),
-   creatingtime         date                           default sysdate,
-   creator              varchar2(100)                  default '1',
-   orgnumber            varchar2(100),
-   orgdesc              varchar2(300),
-   chargeorgid          varchar2(50),
-   org_level            varchar2(1)                    default '1',
-   org_xzqm             varchar2(12),
-   isdirectlyparty      number(1)                      default 0,
-   isforeignparty       number(1)                      default 0,
-   isjichaparty         number(1)                      default 0,
-   isdirectguanhu       number(1)                      default 0,
-   remark1              varchar2(100),
-   remark2              varchar2(100),
-   remark3              varchar2(100),
-   remark4              varchar2(100),
-   remark5              varchar2(100),
-   remark6              varchar2(100),
-   remark7              varchar2(100),
-   remark8              varchar2(100),
-   remark9              varchar2(100),
-   remark10             varchar2(100),
+create table td_sm_organization (
+   org_id               varchar(50)          not null,
+   org_sn               numeric              null default 999,
+   org_name             varchar(40)          not null,
+   org_showname         varchar(100)         not null,
+   parent_id            varchar(100)         not null,
+   path                 varchar(1000)        null,
+   layer                varchar(200)         null,
+   children             varchar(1000)        null,
+   code                 varchar(100)         null,
+   jp                   varchar(40)          null,
+   qp                   varchar(40)          null,
+   creatingtime         timestamp            null default current_timestamp,
+   creator              varchar(100)         null default '1',
+   orgnumber            varchar(100)         null,
+   orgdesc              varchar(300)         null,
+   chargeorgid          varchar(50)          null,
+   org_level            varchar(1)           null default '1',
+   org_xzqm             varchar(12)          null,
+   isdirectlyparty      numeric(1)           null default 0,
+   isforeignparty       numeric(1)           null default 0,
+   isjichaparty         numeric(1)           null default 0,
+   isdirectguanhu       numeric(1)           null default 0,
+   remark1              varchar(100)         null,
+   remark2              varchar(100)         null,
+   remark3              varchar(100)         null,
+   remark4              varchar(100)         null,
+   remark5              varchar(100)         null,
+   remark6              varchar(100)         null,
+   remark7              varchar(100)         null,
+   remark8              varchar(100)         null,
+   remark9              varchar(100)         null,
+   remark10             varchar(100)         null,
    constraint pk_td_sm_organization primary key (org_id)
 );
 
@@ -1273,10 +1195,10 @@ comment on column td_sm_organization.remark9 is
 comment on column td_sm_organization.remark10 is
 '备用字段10';
 
-create table td_sm_orgjob  (
-   org_id               varchar2(50)                    not null,
-   job_id               varchar2(50)                    not null,
-   job_sn               integer,
+create table td_sm_orgjob (
+   org_id               varchar(50)          not null,
+   job_id               varchar(50)          not null,
+   job_sn               numeric              null,
    constraint pk_td_sm_orgjob primary key (org_id, job_id)
 );
 
@@ -1292,26 +1214,26 @@ comment on column td_sm_orgjob.job_id is
 comment on column td_sm_orgjob.job_sn is
 '机构岗位序号';
 
-create index td_sm_orgjob_fk on td_sm_orgjob (
-   org_id asc
+create  index td_sm_orgjob_fk on td_sm_orgjob (
+org_id
 );
 
-create index td_sm_orgjob_fk2 on td_sm_orgjob (
-   job_id asc
+create  index td_sm_orgjob_fk2 on td_sm_orgjob (
+job_id
 );
 
-create table td_sm_role  (
-   role_id              varchar2(50)                    not null,
-   role_name            varchar2(100)                   not null,
-   role_type            varchar2(50),
-   role_desc            varchar2(1024),
-   role_usage           varchar2(1)                    default '1',
-   owner_id             varchar2(50)                   default '1',
-   remark1              varchar2(100),
-   remark2              varchar2(100),
-   remark3              varchar2(100),
-   remark4              varchar2(100),
-   remark5              varchar2(100),
+create table td_sm_role (
+   role_id              varchar(50)          not null,
+   role_name            varchar(100)         not null,
+   role_type            varchar(50)          null,
+   role_desc            varchar(1024)        null,
+   role_usage           varchar(1)           null default '1',
+   owner_id             varchar(50)          null default '1',
+   remark1              varchar(100)         null,
+   remark2              varchar(100)         null,
+   remark3              varchar(100)         null,
+   remark4              varchar(100)         null,
+   remark5              varchar(100)         null,
    constraint pk_td_sm_role primary key (role_id)
 );
 
@@ -1351,20 +1273,20 @@ comment on column td_sm_role.remark4 is
 comment on column td_sm_role.remark5 is
 '备用字段5';
 
-create table td_sm_roleresop  (
-   op_id                varchar2(50)                    not null,
-   res_id               varchar2(100),
-   role_id              varchar2(50)                    not null,
-   restype_id           varchar2(50),
-   auto                 varchar2(50),
-   res_name             varchar2(500),
-   types                varchar2(50),
-   authorization_type   number                         default 0,
-   use_count            number,
-   authorization_stime  date                           default sysdate,
-   authorization_etime  date,
-   use_counted          number,
-   org_id               varchar2(50)                   default '-1',
+create table td_sm_roleresop (
+   op_id                varchar(50)          not null,
+   res_id               varchar(100)         null,
+   role_id              varchar(50)          not null,
+   restype_id           varchar(50)          null,
+   auto                 varchar(50)          null,
+   res_name             varchar(500)         null,
+   types                varchar(50)          null,
+   authorization_type   numeric              null default 0,
+   use_count            numeric              null,
+   authorization_stime  timestamp            null default current_timestamp,
+   authorization_etime  timestamp            null,
+   use_counted          numeric              null,
+   org_id               varchar(50)          null default '-1',
    constraint pk_td_sm_roleresop primary key (op_id, role_id)
 );
 
@@ -1410,25 +1332,25 @@ comment on column td_sm_roleresop.use_counted is
 comment on column td_sm_roleresop.org_id is
 '机构ID';
 
-create index td_sm_roleresop_fk on td_sm_roleresop (
-   op_id asc
+create  index td_sm_roleresop_fk on td_sm_roleresop (
+op_id
 );
 
-create index td_sm_roleresop_fk2 on td_sm_roleresop (
-   res_id asc
+create  index td_sm_roleresop_fk2 on td_sm_roleresop (
+res_id
 );
 
-create index td_sm_roleresop_fk3 on td_sm_roleresop (
-   role_id asc
+create  index td_sm_roleresop_fk3 on td_sm_roleresop (
+role_id
 );
 
-create table td_sm_roletype  (
-   type_id              varchar2(50)                    not null,
-   type_name            varchar2(100),
-   type_desc            varchar2(500),
-   creator_user_id      varchar2(50)                   default '1',
-   creator_org_id       varchar2(50)                   default '-1',
-   constraint "role_type_pk" primary key (type_id)
+create table td_sm_roletype (
+   type_id              varchar(50)          not null,
+   type_name            varchar(100)         null,
+   type_desc            varchar(500)         null,
+   creator_user_id      varchar(50)          null default '1',
+   creator_org_id       varchar(50)          null default '-1',
+   constraint role_type_pk primary key (type_id)
 );
 
 comment on table td_sm_roletype is
@@ -1449,47 +1371,47 @@ comment on column td_sm_roletype.creator_user_id is
 comment on column td_sm_roletype.creator_org_id is
 '创建人机构ID';
 
-create table td_sm_user  (
-   user_id              varchar2(50)                    not null,
-   user_name            varchar2(200)                   not null,
-   user_password        varchar2(512)                   not null,
-   user_realname        varchar2(100)                   not null,
-   user_pinyin          varchar2(100),
-   user_sex             varchar2(100),
-   user_hometel         varchar2(100),
-   user_worktel         varchar2(100),
-   user_workaddress     varchar2(100),
-   user_mobiletel1      varchar2(100),
-   user_mobiletel2      varchar2(100),
-   user_fax             varchar2(100),
-   user_oicq            varchar2(100),
-   user_birthday        date,
-   user_email           varchar2(100),
-   user_address         varchar2(200),
-   user_postalcode      varchar2(10),
-   user_idcard          varchar2(50),
-   user_isvalid         number,
-   user_regdate         date                           default sysdate,
-   user_logincount      number,
-   user_type            varchar2(100),
-   past_time            date,
-   dredge_time          varchar2(50),
-   lastlogin_date       date,
-   worklength           varchar2(50),
-   politics             varchar2(100),
-   login_ip             varchar2(15),
-   cert_sn              varchar2(50),
-   user_sn              number                         default 999,
-   remark1              varchar2(100),
-   remark2              varchar2(100),
-   remark3              varchar2(100),
-   remark4              varchar2(100),
-   remark5              varchar2(100),
-   remark6              varchar2(100),
-   remark7              varchar2(100),
-   remark8              varchar2(100),
-   remark9              varchar2(100),
-   remark10             varchar2(100),
+create table td_sm_user (
+   user_id              varchar(50)          not null,
+   user_name            varchar(200)         not null,
+   user_password        varchar(512)         not null,
+   user_realname        varchar(100)         not null,
+   user_pinyin          varchar(100)         null,
+   user_sex             varchar(100)         null,
+   user_hometel         varchar(100)         null,
+   user_worktel         varchar(100)         null,
+   user_workaddress     varchar(100)         null,
+   user_mobiletel1      varchar(100)         null,
+   user_mobiletel2      varchar(100)         null,
+   user_fax             varchar(100)         null,
+   user_oicq            varchar(100)         null,
+   user_birthday        timestamp            null,
+   user_email           varchar(100)         null,
+   user_address         varchar(200)         null,
+   user_postalcode      varchar(10)          null,
+   user_idcard          varchar(50)          null,
+   user_isvalid         numeric              null,
+   user_regdate         timestamp            null default current_timestamp,
+   user_logincount      numeric              null,
+   user_type            varchar(100)         null,
+   past_time            timestamp            null,
+   dredge_time          varchar(50)          null,
+   lastlogin_date       timestamp            null,
+   worklength           varchar(50)          null,
+   politics             varchar(100)         null,
+   login_ip             varchar(15)          null,
+   cert_sn              varchar(50)          null,
+   user_sn              numeric              null default 999,
+   remark1              varchar(100)         null,
+   remark2              varchar(100)         null,
+   remark3              varchar(100)         null,
+   remark4              varchar(100)         null,
+   remark5              varchar(100)         null,
+   remark6              varchar(100)         null,
+   remark7              varchar(100)         null,
+   remark8              varchar(100)         null,
+   remark9              varchar(100)         null,
+   remark10             varchar(100)         null,
    constraint pk_td_sm_user primary key (user_id)
 );
 
@@ -1617,15 +1539,15 @@ comment on column td_sm_user.remark10 is
 '备用字段10';
 
 create unique index in_td_sm_user_uname on td_sm_user (
-   user_name asc
+user_name
 );
 
-create table td_sm_userinstance  (
-   id                   varchar2(50)                    not null,
-   user_id              varchar2(50)                    not null,
-   scope_id             varchar2(50),
-   scope_type           char(1)                        default '0' not null,
-   is_enabled           char(1)                        default '1' not null,
+create table td_sm_userinstance (
+   id                   varchar(50)          not null,
+   user_id              varchar(50)          not null,
+   scope_id             varchar(50)          null,
+   scope_type           char(1)              not null default '0',
+   is_enabled           char(1)              not null default '1',
    constraint pk_td_sm_userinstance primary key (id)
 );
 
@@ -1647,10 +1569,10 @@ comment on column td_sm_userinstance.scope_type is
 comment on column td_sm_userinstance.is_enabled is
 '是否有效（0：否，1：是）';
 
-create table td_sm_userinstancegroup  (
-   userinstance_id      varchar2(50)                    not null,
-   group_id             varchar2(50)                    not null,
-   sn                   number                         default 9999
+create table td_sm_userinstancegroup (
+   userinstance_id      varchar(50)          not null,
+   group_id             varchar(50)          not null,
+   sn                   numeric              null default 9999
 );
 
 comment on table td_sm_userinstancegroup is
@@ -1665,9 +1587,9 @@ comment on column td_sm_userinstancegroup.group_id is
 comment on column td_sm_userinstancegroup.sn is
 '用户排序号';
 
-create table td_sm_userinstancerole  (
-   userinstance_id      varchar2(50)                    not null,
-   role_id              varchar2(50)                    not null
+create table td_sm_userinstancerole (
+   userinstance_id      varchar(50)          not null,
+   role_id              varchar(50)          not null
 );
 
 comment on table td_sm_userinstancerole is
@@ -1679,15 +1601,15 @@ comment on column td_sm_userinstancerole.userinstance_id is
 comment on column td_sm_userinstancerole.role_id is
 '角色ID';
 
-create table td_sm_userjoborg_history  (
-   user_id              varchar2(50)                    not null,
-   job_id               varchar2(50)                    not null,
-   job_name             varchar2(100)                   not null,
-   org_id               varchar2(50)                    not null,
-   org_name             varchar2(100)                   not null,
-   job_starttime        date,
-   job_quashtime        date,
-   job_fettle           varchar2(50)
+create table td_sm_userjoborg_history (
+   user_id              varchar(50)          not null,
+   job_id               varchar(50)          not null,
+   job_name             varchar(100)         not null,
+   org_id               varchar(50)          not null,
+   org_name             varchar(100)         not null,
+   job_starttime        timestamp            null,
+   job_quashtime        timestamp            null,
+   job_fettle           varchar(50)          null
 );
 
 comment on table td_sm_userjoborg_history is
@@ -1717,12 +1639,12 @@ comment on column td_sm_userjoborg_history.job_quashtime is
 comment on column td_sm_userjoborg_history.job_fettle is
 '授予者用户ID';
 
-create table td_sm_userpreferences  (
-   user_id              varchar2(50)                    not null,
-   info_name            varchar2(500)                   not null,
-   info_content         varchar2(2000),
-   info_desc            varchar2(500),
-   info_lastupdate      timestamp                      default sysdate
+create table td_sm_userpreferences (
+   user_id              varchar(50)          not null,
+   info_name            varchar(500)         not null,
+   info_content         varchar(2000)        null,
+   info_desc            varchar(500)         null,
+   info_lastupdate      timestamp            null default current_timestamp
 );
 
 comment on table td_sm_userpreferences is
@@ -1745,130 +1667,161 @@ comment on column td_sm_userpreferences.info_lastupdate is
 
 alter table tb_sm_custres
    add constraint fk_tb_sm_staticoper1 foreign key (privilege_id)
-      references tb_sm_privilege (id);
+      references tb_sm_privilege (id)
+      on delete restrict on update restrict;
 
 alter table tb_sm_decision_entitlement
    add constraint fk_tb_sm_decision_entitlement1 foreign key (privilege_id)
-      references tb_sm_privilege (id);
+      references tb_sm_privilege (id)
+      on delete restrict on update restrict;
 
 alter table tb_sm_decision_entitlement
    add constraint fk_tb_sm_decision_entitlement2 foreign key (usercategory_id)
-      references tb_sm_usercategory (id);
+      references tb_sm_usercategory (id)
+      on delete restrict on update restrict;
 
 alter table tb_sm_decision_entitlement
    add constraint fk_tb_sm_decision_entitlement3 foreign key (businessdata_id)
-      references tb_sm_businessdata (id);
+      references tb_sm_businessdata (id)
+      on delete restrict on update restrict;
 
 alter table tb_sm_menu
    add constraint fk_tb_sm_moudle1 foreign key (menu_id)
-      references tb_sm_privilege (id);
+      references tb_sm_privilege (id)
+      on delete restrict on update restrict;
 
 alter table tb_sm_query_entitlement
    add constraint fk_tb_sm_query_entitlement2 foreign key (query_id)
-      references tb_sm_query (id);
+      references tb_sm_query (id)
+      on delete restrict on update restrict;
 
 alter table tb_sm_query_entitlement
    add constraint fk_tb_sm_query_entitlement3 foreign key (usercategory_id)
-      references tb_sm_usercategory (id);
+      references tb_sm_usercategory (id)
+      on delete restrict on update restrict;
 
 alter table tb_sm_query_entitlement
    add constraint fk_tb_sm_query_entitlement1 foreign key (privilege_id)
-      references tb_sm_privilege (id);
+      references tb_sm_privilege (id)
+      on delete restrict on update restrict;
 
 alter table tb_system_info
    add constraint fk_tb_system_info foreign key (info_type)
-      references tb_system_type (id);
+      references tb_system_type (id)
+      on delete restrict on update restrict;
 
 alter table td_df_data_obj_column
    add constraint td_df_data_obj_column_fk foreign key (df_object_id)
-      references td_df_data_obj (df_object_id);
+      references td_df_data_obj (df_object_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_dictdata
    add constraint fk_td_sm_dictdata foreign key (dicttype_id)
-      references td_sm_dicttype (dicttype_id);
+      references td_sm_dicttype (dicttype_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_grouporg
    add constraint fk_td_sm_grouporg1 foreign key (group_id)
-      references td_sm_group (group_id);
+      references td_sm_group (group_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_grouporg
    add constraint fk_td_sm_grouporg2 foreign key (org_id)
-      references td_sm_organization (org_id);
+      references td_sm_organization (org_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_grouporgjob
    add constraint fk_td_sm_grouporgjob1 foreign key (group_id)
-      references td_sm_group (group_id);
+      references td_sm_group (group_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_grouporgjob
    add constraint fk_td_sm_grouporgjob2 foreign key (job_id)
-      references td_sm_job (job_id);
+      references td_sm_job (job_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_grouprole
    add constraint fk_td_sm_grouprole1 foreign key (group_id)
-      references td_sm_group (group_id);
+      references td_sm_group (group_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_grouprole
    add constraint fk_td_sm_grouprole2 foreign key (role_id)
-      references td_sm_role (role_id);
+      references td_sm_role (role_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_instance_job
    add constraint fk_td_sm_instance_job foreign key (userinstance_id)
-      references td_sm_userinstance (id);
+      references td_sm_userinstance (id)
+      on delete restrict on update restrict;
 
 alter table td_sm_instance_org
    add constraint fk_td_sm_instance_org1 foreign key (userinstance_id)
-      references td_sm_userinstance (id);
+      references td_sm_userinstance (id)
+      on delete restrict on update restrict;
 
 alter table td_sm_orgjob
    add constraint fk_td_sm_orgjob1 foreign key (org_id)
-      references td_sm_organization (org_id);
+      references td_sm_organization (org_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_orgjob
    add constraint fk_td_sm_orgjob2 foreign key (job_id)
-      references td_sm_job (job_id);
+      references td_sm_job (job_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_role
    add constraint fk_td_sm_role foreign key (role_type)
-      references td_sm_roletype (type_id);
+      references td_sm_roletype (type_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_userinstance
    add constraint fk_td_sm_userinstance foreign key (user_id)
-      references td_sm_user (user_id);
+      references td_sm_user (user_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_userinstancegroup
    add constraint fk_td_sm_userinstancegroup1 foreign key (userinstance_id)
-      references td_sm_userinstance (id);
+      references td_sm_userinstance (id)
+      on delete restrict on update restrict;
 
 alter table td_sm_userinstancegroup
    add constraint fk_td_sm_userinstancegroup2 foreign key (group_id)
-      references td_sm_group (group_id);
+      references td_sm_group (group_id)
+      on delete restrict on update restrict;
 
 alter table td_sm_userinstancerole
    add constraint fk_td_sm_userinstancerole1 foreign key (userinstance_id)
-      references td_sm_userinstance (id);
+      references td_sm_userinstance (id)
+      on delete restrict on update restrict;
 
 alter table td_sm_userinstancerole
    add constraint fk_td_sm_userinstancerole2 foreign key (role_id)
-      references td_sm_role (role_id);
+      references td_sm_role (role_id)
+      on delete restrict on update restrict;
 
--- 存储过程脚本_oracle -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+-- 存储过程脚本_postgresql -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 -- 日志备份存储过程
 --start
-CREATE OR REPLACE PROCEDURE log_backup(backup_date IN NUMBER)
+create or replace function log_backup(in backup_date numeric)
+returns numeric
 --日志备份，backup_date 表示当前系统时间多少天已前的数据需要备份
- AS
-BEGIN
-  --备份日志主表
-  INSERT INTO TD_SM_LOG_HIS
-    SELECT * FROM TD_SM_LOG t where to_char(t.log_opertime,'yyyy-mm-dd') <= to_char(sysdate - backup_date,'yyyy-mm-dd');  
- --删除日志主表
-  DELETE FROM TD_SM_LOG t where to_char(t.log_opertime,'yyyy-mm-dd') <= to_char(sysdate - backup_date,'yyyy-mm-dd');
-  COMMIT;
-END;
+ as
+ $body$
+begin
+  --备份日志主表  
+	insert into td_sm_log_his
+    select * from td_sm_log where to_date(to_char(now(), 'yyyy-mm-dd'), 'yyyy-mm-dd')-to_date(to_char(log_opertime, 'yyyy-mm-dd'), 'yyyy-mm-dd')>=backup_date;
+	--删除日志主表
+	delete from td_sm_log where to_date(to_char(now(), 'yyyy-mm-dd'), 'yyyy-mm-dd')-to_date(to_char(log_opertime, 'yyyy-mm-dd'), 'yyyy-mm-dd')>=backup_date;
+	return backup_date;
+end;
+ $body$
+ language 'plpgsql' volatile;
 --end;
-/
 
--- 初始化脚本_oracle -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
+-- 初始化脚本_postgresql -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 -- 清除数据
 delete from td_sm_instance_org;
 delete from td_sm_instance_job;
@@ -1932,20 +1885,20 @@ insert into td_sm_dictdata (dictdata_id, dicttype_id, dictdata_name, dictdata_va
 insert into td_sm_dictdata (dictdata_id, dicttype_id, dictdata_name, dictdata_value, dictdata_order, dictdata_isdefault) values ('53', '5', '4', '科所级', 3, '0');
 
 -- 权限及菜单
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('1', 'sysMgt', '系统管理', '0', '4', 'sysMgt', '1', sysdate, 1);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('11', 'myPanel', '我的面板', '1', '4', 'myPanel', '1', sysdate, 1);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('12', 'sysSet', '系统设置', '1', '4', 'sysSet', '1', sysdate, 2);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('13', 'logMgt', '日志管理', '1', '4', 'logMgt', '1', sysdate, 3);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('14', 'aspMgt', '平台管理', '1', '4', 'aspMgt', '1', sysdate, 4);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('111', 'personInfo', '个人信息', '11', '4', 'personInfo', '1', sysdate, 1);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('112', 'modifyPwd', '密码修改', '11', '4', 'modifyPwd', '1', sysdate, 2);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('123', 'dictMgt', '字典管理', '12', '4', 'dictMgt', '1', sysdate, 5);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('124', 'orgMgt', '机构管理', '12', '4', 'orgMgt', '1', sysdate, 1);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('125', 'userMgt', '用户管理', '12', '4', 'userMgt', '1', sysdate, 2);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('127', 'resMgt', '资源维护', '12', '4', 'resMgt', '1', sysdate, 4);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('128', 'roleMgt', '角色管理', '12', '4', 'roleMgt', '1', sysdate, 3);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('131', 'logQuery', '日志查询', '13', '4', 'logQuery', '1', sysdate, 1);
-insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('141', 'sysInfo', '全局参数配置', '14', '4', 'sysInfo', '1', sysdate, 1);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('1', 'sysMgt', '系统管理', '0', '4', 'sysMgt', '1', current_timestamp, 1);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('11', 'myPanel', '我的面板', '1', '4', 'myPanel', '1', current_timestamp, 1);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('12', 'sysSet', '系统设置', '1', '4', 'sysSet', '1', current_timestamp, 2);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('13', 'logMgt', '日志管理', '1', '4', 'logMgt', '1', current_timestamp, 3);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('14', 'aspMgt', '平台管理', '1', '4', 'aspMgt', '1', current_timestamp, 4);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('111', 'personInfo', '个人信息', '11', '4', 'personInfo', '1', current_timestamp, 1);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('112', 'modifyPwd', '密码修改', '11', '4', 'modifyPwd', '1', current_timestamp, 2);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('123', 'dictMgt', '字典管理', '12', '4', 'dictMgt', '1', current_timestamp, 5);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('124', 'orgMgt', '机构管理', '12', '4', 'orgMgt', '1', current_timestamp, 1);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('125', 'userMgt', '用户管理', '12', '4', 'userMgt', '1', current_timestamp, 2);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('127', 'resMgt', '资源维护', '12', '4', 'resMgt', '1', current_timestamp, 4);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('128', 'roleMgt', '角色管理', '12', '4', 'roleMgt', '1', current_timestamp, 3);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('131', 'logQuery', '日志查询', '13', '4', 'logQuery', '1', current_timestamp, 1);
+insert into tb_sm_privilege (id, code, name, parent_id, type, perm_expr, creator, creator_time, sn) values ('141', 'sysInfo', '全局参数配置', '14', '4', 'sysInfo', '1', current_timestamp, 1);
 insert into tb_sm_menu (menu_id, is_enabled, href, icon, display_mode) values ('1', '1', null, 'fa-briefcase', '0');
 insert into tb_sm_menu (menu_id, is_enabled, href, icon, display_mode) values ('11', '1', null, 'fa-dashboard', '0');
 insert into tb_sm_menu (menu_id, is_enabled, href, icon, display_mode) values ('12', '1', null, 'fa-wrench', '0');
@@ -1975,5 +1928,3 @@ insert into td_sm_role (role_id, role_name, role_type, role_desc, role_usage, ow
 -- 授予用户admin系统管理员角色
 insert into td_sm_userinstance (id, user_id, scope_id, scope_type, is_enabled) values ('1', '1', null, '0', '1');
 insert into td_sm_userinstancerole (userinstance_id, role_id) values ('1', '1');
-
-commit;

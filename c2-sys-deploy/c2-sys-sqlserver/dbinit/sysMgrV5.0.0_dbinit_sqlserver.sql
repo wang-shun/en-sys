@@ -1,4 +1,4 @@
--- 系统管理V4.3.0完整精简版建库及初始化脚本_sqlsqlserver
+-- 系统管理V5.0.0完整精简版建库及初始化脚本_sqlsqlserver
 -- 建库脚本_sqlsqlserver -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
