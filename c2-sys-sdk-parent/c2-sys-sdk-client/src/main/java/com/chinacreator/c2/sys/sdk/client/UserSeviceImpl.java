@@ -1,14 +1,19 @@
 package com.chinacreator.c2.sys.sdk.client;
 
-import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.ResponseExtractor;
 
+import com.alibaba.fastjson.JSON;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.bean.Role;
 import com.chinacreator.c2.sys.sdk.client.exception.SysSDKInvokeException;
@@ -36,6 +41,7 @@ public class UserSeviceImpl implements UserService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> queryMulti(String... ids) {
 		try {
@@ -46,7 +52,20 @@ public class UserSeviceImpl implements UserService {
 				builder.append("&");
 			}
 			String url = builder.substring(0, builder.length()-1);
-			List<User> users = utils.geRestTemplate().getForObject(utils.getUrl(url), List.class);
+			List<User> users = (List<User>) utils.geRestTemplate().execute(utils.getUrl(url), HttpMethod.GET, null, new ResponseExtractor<Object>(){
+
+				@Override
+				public Object extractData(ClientHttpResponse response)
+						throws IOException {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			        int i;
+			        while ((i = response.getBody().read()) != -1) {
+			            baos.write(i);
+			        }
+			        return JSON.parseArray(baos.toString("UTF-8"), User.class);
+				}
+				
+			});
 			return users;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -58,7 +77,6 @@ public class UserSeviceImpl implements UserService {
 	}
 
 	@Override
-	
 	public User getByUsername(String username) {
 		try {
 			if(username==null || username.length()==0) return null;
@@ -77,6 +95,7 @@ public class UserSeviceImpl implements UserService {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> queryMultiByUsername(String... username) {
 		try {
@@ -86,8 +105,21 @@ public class UserSeviceImpl implements UserService {
 				stringBuilder.append("username=").append(name);
 				stringBuilder.append("&");
 			}
-			String nameParams = stringBuilder.substring(0, stringBuilder.length()-1); 
-			ArrayList<User> users = utils.geRestTemplate().getForObject(utils.getUrl(nameParams), ArrayList.class);
+			String url = stringBuilder.substring(0, stringBuilder.length()-1); 
+			List<User> users = (List<User>) utils.geRestTemplate().execute(utils.getUrl(url), HttpMethod.GET, null, new ResponseExtractor<Object>(){
+
+				@Override
+				public Object extractData(ClientHttpResponse response)
+						throws IOException {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			        int i;
+			        while ((i = response.getBody().read()) != -1) {
+			            baos.write(i);
+			        }
+			        return JSON.parseArray(baos.toString("UTF-8"), User.class);
+				}
+				
+			});
 			return users;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -98,6 +130,7 @@ public class UserSeviceImpl implements UserService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> queryByOrg(String orgId, boolean cascade) {
 		try {
@@ -105,7 +138,20 @@ public class UserSeviceImpl implements UserService {
 			StringBuilder builder = new StringBuilder("/v1/organizations/{oid}/users?");
 			builder.append("cascade=").append(cascade);
 			String url = builder.substring(0, builder.length());
-			List<User> users = utils.geRestTemplate().getForObject(utils.getUrl(url), List.class, orgId);
+			List<User> users = (List<User>) utils.geRestTemplate().execute(utils.getUrl(url), HttpMethod.GET, null, new ResponseExtractor<Object>(){
+
+				@Override
+				public Object extractData(ClientHttpResponse response)
+						throws IOException {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			        int i;
+			        while ((i = response.getBody().read()) != -1) {
+			            baos.write(i);
+			        }
+			        return JSON.parseArray(baos.toString("UTF-8"), User.class);
+				}
+				
+			}, orgId);
 			return users;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -116,11 +162,28 @@ public class UserSeviceImpl implements UserService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> queryByRole(String roleId) {
 		try {
 			if(roleId==null || roleId.length()==0) return null;
-			List<User> users = utils.geRestTemplate().getForObject(utils.getUrl("/v1/users?role={rid}"), List.class, roleId);
+			StringBuilder builder = new StringBuilder("/v1/users?");
+			builder.append("role=").append(roleId);
+			String url = builder.substring(0, builder.length());
+			List<User> users = (List<User>) utils.geRestTemplate().execute(utils.getUrl(url), HttpMethod.GET, null, new ResponseExtractor<Object>(){
+
+				@Override
+				public Object extractData(ClientHttpResponse response)
+						throws IOException {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			        int i;
+			        while ((i = response.getBody().read()) != -1) {
+			            baos.write(i);
+			        }
+			        return JSON.parseArray(baos.toString("UTF-8"), User.class);
+				}
+				
+			});
 			return users;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -131,11 +194,26 @@ public class UserSeviceImpl implements UserService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Organization> getOrgs(String userId) {
 		try {
 			if(userId==null || userId.length()==0) return null;
-			List<Organization> organizations = utils.geRestTemplate().getForObject(utils.getUrl("/v1/users/{id}/orgs"), List.class, userId);
+
+			List<Organization> organizations = (List<Organization>) utils.geRestTemplate().execute(utils.getUrl("/v1/users/{id}/orgs"), HttpMethod.GET, null, new ResponseExtractor<Object>(){
+
+				@Override
+				public Object extractData(ClientHttpResponse response)
+						throws IOException {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			        int i;
+			        while ((i = response.getBody().read()) != -1) {
+			            baos.write(i);
+			        }
+			        return JSON.parseArray(baos.toString("UTF-8"), Organization.class);
+				}
+				
+			}, userId);
 			return organizations;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -192,11 +270,26 @@ public class UserSeviceImpl implements UserService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Role> getRoles(String userId) {
 		try {
 			if(userId==null || userId.length()==0) return null;
-			List<Role> roles = utils.geRestTemplate().getForObject(utils.getUrl("/v1/users/{id}/roles"), List.class, userId);
+		
+			List<Role> roles = (List<Role>) utils.geRestTemplate().execute(utils.getUrl("/v1/users/{id}/roles"), HttpMethod.GET, null, new ResponseExtractor<Object>(){
+
+				@Override
+				public Object extractData(ClientHttpResponse response)
+						throws IOException {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			        int i;
+			        while ((i = response.getBody().read()) != -1) {
+			            baos.write(i);
+			        }
+			        return JSON.parseArray(baos.toString("UTF-8"), Role.class);
+				}
+				
+			}, userId);
 			return roles;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -223,6 +316,7 @@ public class UserSeviceImpl implements UserService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> queryByRoleInOrg(String orgId, String roleId, boolean cascade) {
 		try {
@@ -233,8 +327,21 @@ public class UserSeviceImpl implements UserService {
 			builder.append("cascade=").append(cascade);
 			String url = builder.substring(0, builder.length());
 			
-			List<User> roles = utils.geRestTemplate().getForObject(utils.getUrl(url), List.class, orgId);
-			return roles;
+			List<User> users = (List<User>) utils.geRestTemplate().execute(utils.getUrl(url), HttpMethod.GET, null, new ResponseExtractor<Object>(){
+
+				@Override
+				public Object extractData(ClientHttpResponse response)
+						throws IOException {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			        int i;
+			        while ((i = response.getBody().read()) != -1) {
+			            baos.write(i);
+			        }
+			        return JSON.parseArray(baos.toString("UTF-8"), User.class);
+				}
+				
+			}, orgId);
+			return users;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
 				throw new ResourceNotFoundException("机构id 【"+orgId+"】 或角色id 【"+roleId+"】 不存在");

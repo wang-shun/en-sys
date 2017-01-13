@@ -1,14 +1,19 @@
 package com.chinacreator.c2.sys.sdk.client;
 
-import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.ResponseExtractor;
 
+import com.alibaba.fastjson.JSON;
 import com.chinacreator.c2.sys.sdk.bean.Organization;
 import com.chinacreator.c2.sys.sdk.client.exception.SysSDKInvokeException;
 import com.chinacreator.c2.sys.sdk.service.query.OrganizationService;
@@ -52,6 +57,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 		}
 	}
 	
+	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<Organization> getChildren(String orgId, boolean cascade) {
 		try {
@@ -60,8 +66,21 @@ public class OrganizationServiceImpl implements OrganizationService {
 			builder.append("cascade=").append(cascade);
 			String url = builder.substring(0, builder.length());
 
-			ArrayList<Organization> organizations = utils.geRestTemplate().getForObject(utils.getUrl(url), ArrayList.class, orgId);
-			return organizations;
+			List<Organization> organizations = (List<Organization>) utils.geRestTemplate().execute(utils.getUrl(url), HttpMethod.GET, null, new ResponseExtractor<Object>(){
+				@Override
+				public Object extractData(ClientHttpResponse response)
+						throws IOException {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			        int i;
+			        while ((i = response.getBody().read()) != -1) {
+			            baos.write(i);
+			        }
+			        return JSON.parseArray(baos.toString("UTF-8"), Organization.class);
+					
+				}
+			}, orgId) ;
+			return  organizations;
+			
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
 				throw new ResourceNotFoundException("机构 【"+orgId+"】 对应的子机构不存在");
@@ -72,11 +91,25 @@ public class OrganizationServiceImpl implements OrganizationService {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Organization> getParents(String orgId) {
 		try {
 			if(orgId==null || orgId.length()==0)   return Collections.emptyList();
-			ArrayList<Organization> organizations = utils.geRestTemplate().getForObject(utils.getUrl("/v1/organizations/{id}/parents"), ArrayList.class, orgId);
+			List<Organization> organizations = (List<Organization>) utils.geRestTemplate().execute(utils.getUrl("/v1/organizations/{id}/parents"), HttpMethod.GET, null, new ResponseExtractor<Object>(){
+
+				@Override
+				public Object extractData(ClientHttpResponse response)
+						throws IOException {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			        int i;
+			        while ((i = response.getBody().read()) != -1) {
+			            baos.write(i);
+			        }
+			        return JSON.parseArray(baos.toString("UTF-8"), Organization.class);
+				}
+				
+			}, orgId);
 			return organizations;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){

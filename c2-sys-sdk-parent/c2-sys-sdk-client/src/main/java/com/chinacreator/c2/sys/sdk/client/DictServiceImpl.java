@@ -25,6 +25,7 @@ public class DictServiceImpl implements DictService {
 	@Autowired
 	private SDKUtils utils;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, List<DictDataImpl>> getDictDataMap(String... dictTypeNames) {
 		try {
@@ -35,9 +36,20 @@ public class DictServiceImpl implements DictService {
 				builder.append("&");
 			}
 			String url = builder.substring(0, builder.length()-1);
-			@SuppressWarnings("unchecked")
-			Map<String, List<DictDataImpl>> dictMap = utils.geRestTemplate().getForObject(utils.getUrl(url), Map.class);
-			return dictMap;
+			Map<String, List<JSONObject>> dictMap = utils.geRestTemplate().getForObject(utils.getUrl(url), Map.class);
+			Map<String, List<DictDataImpl>> redictMap = new HashMap<String, List<DictDataImpl>>();
+			List<DictDataImpl> result = new ArrayList<DictDataImpl>() ;
+			
+			if(dictMap!=null && dictMap.size()>0){
+				for (Entry<String, List<JSONObject>> entry : dictMap.entrySet()) {
+					List<JSONObject> list = entry.getValue();
+					for (JSONObject jsonObject : list) {
+						result.add(JSON.parseObject(jsonObject.toJSONString(), DictDataImpl.class)) ;
+						redictMap.put("dictTypeName", result);
+					}
+				}
+			}
+			return redictMap;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
 				throw new ResourceNotFoundException("数据字典 【"+dictTypeNames+"】 不存在");

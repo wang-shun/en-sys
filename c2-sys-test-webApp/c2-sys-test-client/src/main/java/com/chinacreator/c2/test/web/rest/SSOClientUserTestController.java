@@ -72,7 +72,7 @@ public class SSOClientUserTestController {
   @Path("/testrole")
   @GET
   public List<User> queryByRole(){
-	  String roleId = "2";
+	  String roleId = "1";
 	  return userService.queryByRole(roleId);
   }
   
