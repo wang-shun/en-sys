@@ -6,8 +6,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -57,7 +62,6 @@ public class OrganizationServiceImpl implements OrganizationService {
 		}
 	}
 	
-	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<Organization> getChildren(String orgId, boolean cascade) {
 		try {
@@ -65,21 +69,15 @@ public class OrganizationServiceImpl implements OrganizationService {
 			StringBuilder builder = new StringBuilder("/v1/organizations/{id}/children?");
 			builder.append("cascade=").append(cascade);
 			String url = builder.substring(0, builder.length());
+			
+			ParameterizedTypeReference<List<Organization>> typeRef = new ParameterizedTypeReference<List<Organization>>() {};
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-			List<Organization> organizations = (List<Organization>) utils.geRestTemplate().execute(utils.getUrl(url), HttpMethod.GET, null, new ResponseExtractor<Object>(){
-				@Override
-				public Object extractData(ClientHttpResponse response)
-						throws IOException {
-					ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			        int i;
-			        while ((i = response.getBody().read()) != -1) {
-			            baos.write(i);
-			        }
-			        return JSON.parseArray(baos.toString("UTF-8"), Organization.class);
-					
-				}
-			}, orgId) ;
-			return  organizations;
+			ResponseEntity<List<Organization>> result = utils.geRestTemplate().exchange(utils.getUrl(url), HttpMethod.GET, entity, typeRef, orgId);
+			List<Organization> Organizations = result.getBody();
+			return Organizations ;
 			
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
@@ -91,12 +89,19 @@ public class OrganizationServiceImpl implements OrganizationService {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Organization> getParents(String orgId) {
 		try {
 			if(orgId==null || orgId.length()==0)   return Collections.emptyList();
-			List<Organization> organizations = (List<Organization>) utils.geRestTemplate().execute(utils.getUrl("/v1/organizations/{id}/parents"), HttpMethod.GET, null, new ResponseExtractor<Object>(){
+			
+			ParameterizedTypeReference<List<Organization>> typeRef = new ParameterizedTypeReference<List<Organization>>() {};
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+			ResponseEntity<List<Organization>> result = utils.geRestTemplate().exchange(utils.getUrl("/v1/organizations/{id}/parents"), HttpMethod.GET, entity, typeRef, orgId);
+			List<Organization> Organizations = result.getBody();
+			
+			/*List<Organization> organizations = (List<Organization>) utils.geRestTemplate().execute(utils.getUrl("/v1/organizations/{id}/parents"), HttpMethod.GET, null, new ResponseExtractor<Object>(){
 
 				@Override
 				public Object extractData(ClientHttpResponse response)
@@ -109,8 +114,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 			        return JSON.parseArray(baos.toString("UTF-8"), Organization.class);
 				}
 				
-			}, orgId);
-			return organizations;
+			}, orgId);*/
+			return Organizations;
 		} catch (HttpStatusCodeException e) {
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND){
 				throw new ResourceNotFoundException("机构 【"+orgId+"】 对应的父机构不存在");

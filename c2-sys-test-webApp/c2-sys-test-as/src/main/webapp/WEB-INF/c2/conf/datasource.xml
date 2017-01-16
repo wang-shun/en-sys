@@ -20,7 +20,7 @@
     <poolAttribute key="removeAbandonedTimeout" value="300" desc="弃用连接超时时间(毫秒)"/>
     <poolAttribute key="logAbandoned" value="false" desc="记录弃用连接日志"/>
     <driverClassName>com.mysql.jdbc.Driver</driverClassName>
-    <url>jdbc:mysql://${c2.sso.db.host}/${c2.sso.db.schema}?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8</url>
+    <url>jdbc:mysql://172.16.71.183/${c2.sso.db.schema}?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8</url>
     <username>${c2.sso.db.user}</username>
     <password>${c2.sso.db.password}</password>
     <dataSourceFactory>com.chinacreator.c2.dao.datasource.impl.DBCPDataSourceFactory</dataSourceFactory>
