@@ -6,7 +6,7 @@
 	<packaging>pom</packaging>
 	<name>c2-sys-parent</name>
 	<description>系统管理</description>
-	<version>4.2.4-BATE</version>
+	<version>4.2.4-BETA1</version>
 
 	<parent>
 		<groupId>com.chinacreator.c2</groupId>
@@ -32,14 +32,14 @@
 		<module>c2-sys-sysmgr-apiImpl</module>
 		<module>c2-sys-sysmgr-dataUtil</module>
 		<module>c2-sys-deploy</module>
-		<module>c2-sys-test</module>
+		<!-- <module>c2-sys-test</module> -->
 	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version-c2-runtime>5.0.0-SNAPSHOT</version-c2-runtime>
-		<version-c2-ui-components>5.0.0-SNAPSHOT</version-c2-ui-components>
-		<version-c2-sysmgr-api>1.1.0-SNAPSHOT</version-c2-sysmgr-api>
+		<version-c2-runtime>5.0.0</version-c2-runtime>
+		<version-c2-ui-components>5.0.0-BETA10</version-c2-ui-components>
+		<version-c2-sysmgr-api>1.1.0</version-c2-sysmgr-api>
 		<version-shiro>1.2.2</version-shiro>
 		<version-ehcache>2.6.6</version-ehcache>
 	</properties>
