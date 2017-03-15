@@ -28,7 +28,7 @@ public class SSOClientUserTestController {
   @Autowired
   private UserService userService;
 	
-  @Path("/me")
+  /*@Path("/me")
   @GET
   public User whoAmI(){
     AuthenticationProvider provider = ApplicationContextManager.getContext().getBean(AuthenticationProvider.class);
@@ -59,17 +59,17 @@ public class SSOClientUserTestController {
   public List<User> queryMultiByUsername(){
 	  String[] username = new String[]{"gdjyj","qi.peng"};
 	  return userService.queryMultiByUsername(username);
-  }
+  }*/
   
   @Path("/testorg")
   @GET
   public List<User> queryByOrg(){
 	  boolean cascade = true;
-	  String orgId = "00BA41D20F5B4CE98844834A2B63B65D";
+	  String orgId = "95C760894D354A18AB5148B934BE49E5";
 	  return userService.queryByOrg(orgId, cascade);
   }
   
-  @Path("/testrole")
+ /* @Path("/testrole")
   @GET
   public List<User> queryByRole(){
 	  String roleId = "1";
@@ -121,5 +121,5 @@ public class SSOClientUserTestController {
 	  String orgId = "24DF30F4297549A3B1A4540D7F63FA04";
 	  String roleId = "2";
 	  return userService.queryByRoleInOrg(orgId, roleId,true);
-  }
+  }*/
 }
