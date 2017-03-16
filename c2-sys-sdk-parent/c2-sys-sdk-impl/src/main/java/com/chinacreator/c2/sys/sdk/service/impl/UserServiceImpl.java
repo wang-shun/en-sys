@@ -88,12 +88,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> queryByOrg(String orgId, boolean cascade) {
 		List<OrgDTO> orgDTOs = orgService.queryChildOrgs(orgId, cascade);
-		if( orgDTOs == null || orgDTOs.size()==0 ){
-			return new ArrayList<User>();
-		}
+		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
 		List<User> reList = new ArrayList<User>();
+		if( orgDTOs == null || orgDTOs.size()==0 ){
+			userDTOs = orgService.queryUsers(orgId);
+			reList = Lists.transform(userDTOs,
+					new Function<UserDTO, User>() {
+				public User apply(UserDTO input) {
+					return BeanUtils.toBean(input);
+				}
+			});
+			return reList;
+		}
 		for (OrgDTO orgDTO : orgDTOs) {
-			List<UserDTO> userDTOs = orgService.queryUsers(orgDTO.getOrgId());
+			userDTOs = orgService.queryUsers(orgDTO.getOrgId());
 			if( userDTOs == null || userDTOs.size()==0 ){
 				return new ArrayList<User>();
 			}

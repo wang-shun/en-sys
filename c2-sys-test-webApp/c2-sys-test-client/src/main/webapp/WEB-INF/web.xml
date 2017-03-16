@@ -72,54 +72,43 @@
 		</init-param>
 		<init-param>
 			<param-name>clientSecret</param-name>
-			<!-- (必填项)客户端安全KEY -->
 			<param-value>E1DC9A5F1413408A89420B8B70DB907D</param-value>
 		</init-param>
 		<init-param>
 			<param-name>authrizationServerUrl</param-name>
-			<!-- (必填项)c2统一认证授权服务器地址 -->
 			<param-value>http://127.0.0.1:8080/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>authrizationServerInnerUrl</param-name>
-			<!-- (可选项)c2统一认证授权服务器内部地址，如果为空，则使用authrizationServerUrl项的值 -->
 			<param-value></param-value>
 		</init-param>
 		<init-param>
 			<param-name>clientUrl</param-name>
-			<!-- (必填项)客户端地址 -->
 			<param-value>http://127.0.0.1:8082/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>enableCredentialCache</param-name>
-			<!-- (可选项，默认为false) 每次请求客户端与服务器是否同步校验 如果为true,客户端从cookie中获取accessToken后，再从服务端获取用户信息是否存在 
-				如果为false,客户端只判断cookie中accessToken是否存在 -->
 			<param-value>false</param-value>
 		</init-param>
 		<init-param>
 			<param-name>anonUrl</param-name>
-			<!-- (可选项，默认为空) 匿名访问的url，如果有多个地址，地址之间以分号分隔 -->
 			<param-value></param-value>
 		</init-param>
 		<init-param>
 			<param-name>authenticateSpi</param-name>
-			<!-- (可选项，默认为com.chinacreator.asp.comp.sys.oauth2.common.spi.DefaultSpi) 
-				c2统一认证授权拦截器spi接口实现类 必须实现com.chinacreator.asp.comp.sys.oauth2.common.spi.OAuth2SSOSpi -->
 			<param-value>com.chinacreator.asp.comp.sys.oauth2.common.spi.DefaultSpi</param-value>
 		</init-param>
 		<init-param>
 			<param-name>scopeProvider</param-name>
-			<!-- (可选项) c2统一认证授权资源Scope提供接口实现类 必须实现com.chinacreator.asp.comp.sys.oauth2.common.ScopeProvider -->
 			<param-value></param-value>
 		</init-param>
 		<init-param>
 			<param-name>scopes</param-name>
-			<!-- (可选项)访问资源权限范围 ，如果有多个值，用逗号分隔 -->
 			<param-value>user.read</param-value>
 		</init-param>
 		<init-param>
 			<param-name>allowOrigins</param-name>
-			<!-- (可选项)允许访问的域名，多个域名之间用逗号分隔 -->
+			(可选项)允许访问的域名，多个域名之间用逗号分隔
 			<param-value></param-value>
 		</init-param>
 	</filter>
