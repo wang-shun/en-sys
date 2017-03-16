@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.chinacreator.c2</groupId>
     <artifactId>c2-sys-deploy</artifactId>
-    <version>5.0.0-BETA2</version>
+    <version>5.0.0-BETA4</version>
   </parent>
   <artifactId>c2-sys-mysql</artifactId>
   <name>c2-sys-mysql</name>
