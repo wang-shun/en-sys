@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.chinacreator.c2</groupId>
 		<artifactId>c2-sys-sdk-parent</artifactId>
-		<version>5.0.0-SNAPSHOT</version>
+		<version>5.0.0-BETA2</version>
 	</parent>
 	<artifactId>c2-sys-sdk-client</artifactId>
 	<dependencies>
@@ -22,6 +22,7 @@
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-sso-common</artifactId>
 			<version>2.0.0-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 		  <groupId>com.chinacreator.c2</groupId>

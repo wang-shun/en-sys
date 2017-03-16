@@ -373,7 +373,7 @@ create table tb_sm_privilege  (
    creator_time         date                           default sysdate,
    sn                   number,
    source               char(1)                        default '0' not null,
-   virtual              char(1)                        default '0' not null,
+   virtual_             char(1)                        default '0' not null,
    constraint pk_tb_resource_type primary key (id)
 );
 

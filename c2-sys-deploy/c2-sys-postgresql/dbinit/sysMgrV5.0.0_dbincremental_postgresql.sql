@@ -16,8 +16,8 @@ comment on column tb_sm_privilege_insiderelate.sn is
 '排序号';
 
 -- 权限表新增字段
-alter table tb_sm_privilege add virtual char(1) default '0' not null;
-comment on column tb_sm_privilege.virtual is '是否虚拟节点（0：否，1：是）';
+alter table tb_sm_privilege add virtual_ char(1) default '0' not null;
+comment on column tb_sm_privilege.virtual_ is '是否虚拟节点（0：否，1：是）';
 
 -- 日志表新增字段
 alter table td_sm_log add target_pk varchar(200);

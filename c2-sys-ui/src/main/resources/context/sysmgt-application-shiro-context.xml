@@ -31,8 +31,7 @@
 				/**/*.js = anon
 				/**/*.css = anon
 				/**/*.woff = anon
-				/**/resources/** = anon
-				/**/ws/getSubject = anon
+				/**/resources/** = anon				
 				/**/ctx/backends = anon
 				/**/ui/dir/directives.html = anon
 				/**/assets/** = anon

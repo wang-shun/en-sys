@@ -33,7 +33,7 @@ public class C2FormAuthenticationFilter extends FormAuthenticationFilter {
 			httpResponse.setHeader("Pragma", "no-cache");
 			httpResponse.setDateHeader("Expires", 0);
 		}
-
+		
 		super.doFilterInternal(request, response, chain);
 	}
 

@@ -292,7 +292,7 @@ create table tb_sm_privilege (
    creator_time         timestamp            null default current_timestamp,
    sn                   numeric              null,
    source               char(1)              not null default '0',
-   virtual              char(1)              not null default '0',
+   virtual_             char(1)              not null default '0',
    constraint pk_tb_resource_type primary key (id)
 );
 

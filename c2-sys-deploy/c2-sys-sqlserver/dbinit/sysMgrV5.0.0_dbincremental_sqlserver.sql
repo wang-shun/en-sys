@@ -37,14 +37,14 @@ execute sp_addextendedproperty 'MS_Description',
 go
 
 -- 权限表新增字段
-alter table tb_sm_privilege add virtual char(1) not null default '0'
+alter table tb_sm_privilege add virtual_ char(1) not null default '0'
 go
 
 declare @currentuser sysname
 select @currentuser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '是否虚拟节点（0：否，1：是）',
-   'user', @currentuser, 'table', 'tb_sm_privilege', 'column', 'virtual'
+   'user', @currentuser, 'table', 'tb_sm_privilege', 'column', 'virtual_'
 go
 
 -- 日志表新增字段

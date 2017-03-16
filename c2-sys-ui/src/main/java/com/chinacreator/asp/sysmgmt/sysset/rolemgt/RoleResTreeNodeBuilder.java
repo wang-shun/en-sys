@@ -188,6 +188,9 @@ public class RoleResTreeNodeBuilder {
 						if (isRelate && "form".equals(resType) && menuHrefMap.containsKey(privilegeDTO.getParentId())) {
 							String menuId = menuHrefMap.get(privilegeDTO.getParentId());
 							List<DefaultTreeNode> menuChildren = menuChildrenMap.get(menuId);
+							if(null==menuChildren){
+								menuChildren = new ArrayList<DefaultTreeNode>();
+							}
 							menuChildren.add(treeNode);
 						} else {
 							ResourceTreeNode firstNode = firstNodeMap.get(resType);

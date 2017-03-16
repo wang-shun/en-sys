@@ -84,7 +84,7 @@
 		<result column="CREATOR_TIME" property="creatorTime" jdbcType="TIMESTAMP" />
 		<result column="SN" property="sn" jdbcType="DECIMAL" />
 		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>	
-		<result column="VIRTUAL" property="virtual" jdbcType="CHAR" typeHandler="com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler"/>
+		<result column="VIRTUAL_" property="virtual" jdbcType="CHAR" typeHandler="com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler"/>
     </resultMap>
     <sql id="Group_Column_List">
     group_id,group_name,group_desc,parent_id,owner_id,remark1,remark2,remark3,remark4,remark5,type
@@ -100,7 +100,7 @@
     role_id,role_name,role_type,role_desc,role_usage,owner_id,remark1,remark2,remark3,remark4,remark5
     </sql>
     <sql id="Privilege_Column_List">
-    id,code,name,parent_id,type,perm_expr,creator,creator_time,sn,source,virtual
+    id,code,name,parent_id,type,perm_expr,creator,creator_time,sn,source,virtual_
     </sql>
     <insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.group.eo.GroupEO"
         databaseId="postgresql">

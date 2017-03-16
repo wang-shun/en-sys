@@ -16,7 +16,7 @@ comment on column tb_sm_privilege_insiderelate.sn is
 '排序号';
 
 -- 权限表新增字段
-alter table tb_sm_privilege add virtual char(1) default '0' not null;
+alter table tb_sm_privilege add virtual_ char(1) default '0' not null;
 
 -- 日志表新增字段
 alter table td_sm_log add target_pk varchar2(200);
