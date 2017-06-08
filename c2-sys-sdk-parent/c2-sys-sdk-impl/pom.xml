@@ -11,7 +11,7 @@
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-module-generic-tree</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
