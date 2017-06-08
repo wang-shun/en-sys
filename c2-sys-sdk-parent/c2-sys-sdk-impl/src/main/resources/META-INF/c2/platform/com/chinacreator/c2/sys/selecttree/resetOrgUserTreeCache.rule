@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="resetOrgUserTreeCache" log="false" httpGet="true" className="com.chinacreator.c2.sys.selecttree.OrgUserNodeService" method="resetOrgUserTreeCache">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>重置机构用户树缓存</name>
+  <inputs/>
+  <outputs/>
+  <params/>
+  <return signature="V" type="void"/>
+</CustomRule>
