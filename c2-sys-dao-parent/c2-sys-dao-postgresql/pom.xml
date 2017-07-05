@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.chinacreator.c2</groupId>
     <artifactId>c2-sys-dao-parent</artifactId>
-    <version>5.0.0-BETA5</version>
+    <version>5.0.0</version>
   </parent>
   <artifactId>c2-sys-dao-postgresql</artifactId>
   <name>c2-sys-dao-postgresql</name>
