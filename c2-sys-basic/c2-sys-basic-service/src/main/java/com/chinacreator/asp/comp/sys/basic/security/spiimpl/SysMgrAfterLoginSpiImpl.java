@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.chinacreator.asp.comp.sys.basic.SysMgrAfterLoginSpiImplMessages;
 import com.chinacreator.asp.comp.sys.basic.user.service.UserService;
+import com.chinacreator.asp.comp.sys.common.CommonPropertiesUtil;
 import com.chinacreator.asp.comp.sys.common.exception.SysException;
 import com.chinacreator.asp.comp.sys.core.security.service.AccessControlService;
 import com.chinacreator.asp.comp.sys.core.security.shiro.token.SysMgrUsernamePasswordToken;
@@ -40,24 +41,24 @@ public class SysMgrAfterLoginSpiImpl implements AfterLoginSpi {
 	@Override
 	public void afterLogin(AuthenticationToken token) {
 		UserDTO userDTO = accessControlService.getUser();
+		boolean isUpdate = false;
 		if (null != userDTO) {
 			// 用户开通状态
-			if (null != userDTO.getUserIsvalid()
-					&& 2 != userDTO.getUserIsvalid()) {
-				throw new SysException(
-						SysMgrAfterLoginSpiImplMessages
-								.getString("SYSMGRAFTERLOGINSPIIMPL.USER_HAS_NOT_OPENED"));
+			if (CommonPropertiesUtil.isValidateUserIsvalid()) {
+				if (null != userDTO.getUserIsvalid() && 2 != userDTO.getUserIsvalid()) {
+					throw new SysException(
+							SysMgrAfterLoginSpiImplMessages.getString("SYSMGRAFTERLOGINSPIIMPL.USER_HAS_NOT_OPENED"));
+				}
 			}
 
 			int currentDate = getIntByDate(new Date());
 
 			// 用户开通时间
-			if (null != userDTO.getDredgeTime()
+			if (CommonPropertiesUtil.isValidateDredgeTime() && null != userDTO.getDredgeTime()
 					&& !userDTO.getDredgeTime().trim().equals("")) {
 				Date dredgeTime = null;
 				try {
-					dredgeTime = new Date(Long.parseLong(userDTO
-							.getDredgeTime()));
+					dredgeTime = new Date(Long.parseLong(userDTO.getDredgeTime()));
 				} catch (Exception e) {
 				}
 				if (null != dredgeTime) {
@@ -69,36 +70,47 @@ public class SysMgrAfterLoginSpiImpl implements AfterLoginSpi {
 				}
 			}
 			// 用户过期时间
-			if (null != userDTO.getPastTime()) {
+			if (CommonPropertiesUtil.isValidatePastTime() && null != userDTO.getPastTime()) {
 				if (currentDate >= getIntByDate(userDTO.getPastTime())) {
 					throw new SysException(
-							SysMgrAfterLoginSpiImplMessages
-									.getString("SYSMGRAFTERLOGINSPIIMPL.USER_HAS_EXPIRED"));
+							SysMgrAfterLoginSpiImplMessages.getString("SYSMGRAFTERLOGINSPIIMPL.USER_HAS_EXPIRED"));
 				}
 			}
 
 			// 用户最后登录时间
-			userDTO.setLastloginDate(new Date());
-			// 用户最后登录IP
-			if (null != token && token instanceof SysMgrUsernamePasswordToken) {
-				SysMgrUsernamePasswordToken sysMgrUsernamePasswordToken = (SysMgrUsernamePasswordToken) token;
-				if (null != sysMgrUsernamePasswordToken.getHost()
-						&& !sysMgrUsernamePasswordToken.getHost().trim()
-								.equals("")) {
-					userDTO.setLoginIp(sysMgrUsernamePasswordToken.getHost());
-				}
+			if (CommonPropertiesUtil.isUpdateLastloginDate()) {
+				userDTO.setLastloginDate(new Date());
+				isUpdate = true;
 			}
-			// 用户登录次数
-			int userLogincount = 0;
-			if (null != userDTO.getUserLogincount()) {
-				userLogincount = userDTO.getUserLogincount();
-				if (userLogincount >= Integer.MAX_VALUE) {
-					userLogincount = Integer.MAX_VALUE - 1;
-				}
-			}
-			userDTO.setUserLogincount(++userLogincount);
 
-			userService.update(userDTO);
+			// 用户最后登录IP
+			if (CommonPropertiesUtil.isUpdateLoginIp()) {
+				if (null != token && token instanceof SysMgrUsernamePasswordToken) {
+					SysMgrUsernamePasswordToken sysMgrUsernamePasswordToken = (SysMgrUsernamePasswordToken) token;
+					if (null != sysMgrUsernamePasswordToken.getHost()
+							&& !sysMgrUsernamePasswordToken.getHost().trim().equals("")) {
+						userDTO.setLoginIp(sysMgrUsernamePasswordToken.getHost());
+						isUpdate = true;
+					}
+				}
+			}
+
+			// 用户登录次数
+			if (CommonPropertiesUtil.isUpdateLogincount()) {
+				int userLogincount = 0;
+				if (null != userDTO.getUserLogincount()) {
+					userLogincount = userDTO.getUserLogincount();
+					if (userLogincount >= Integer.MAX_VALUE) {
+						userLogincount = Integer.MAX_VALUE - 1;
+					}
+				}
+				userDTO.setUserLogincount(++userLogincount);
+				isUpdate = true;
+			}
+
+			if (isUpdate) {
+				userService.update(userDTO);
+			}
 		}
 	}
 

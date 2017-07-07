@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.chinacreator.c2</groupId>
     <artifactId>c2-sys-basic</artifactId>
-    <version>4.2.4-BETA1</version>
+    <version>4.2.4</version>
   </parent>
   <artifactId>c2-sys-basic-domainapi</artifactId>
   <name>c2-sys-basic-domainapi</name>

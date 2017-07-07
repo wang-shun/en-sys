@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.chinacreator.c2</groupId>
 		<artifactId>c2-sys-core</artifactId>
-		<version>4.2.4-BETA1</version>
+		<version>4.2.4</version>
 	</parent>
 	<artifactId>c2-sys-core-dao-dm</artifactId>
 	<name>c2-sys-core-dao-dm</name>

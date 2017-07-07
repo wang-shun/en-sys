@@ -168,7 +168,7 @@ create table tb_sm_privilege
    creator_time         timestamp default current_timestamp comment '创建时间',
    sn                   decimal(10) comment '排序号',
    source               char(1) not null default '0' comment '权限来源（0：自定义，1：IDE）',
-   virtual              char(1) not null default '0' comment '是否虚拟节点（0：否，1：是）',
+   virtual_             char(1) not null default '0' comment '是否虚拟节点（0：否，1：是）',
    primary key (id)
 );
 

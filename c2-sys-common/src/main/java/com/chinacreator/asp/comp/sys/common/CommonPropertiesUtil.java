@@ -192,4 +192,64 @@ public class CommonPropertiesUtil {
 		String url = ConfigManager.getInstance().getConfig(CommonConstants.sfs_SYSMGT_UPDATEDEFAULTPWDURL);
 		return (null != url && !url.trim().equals("")) ? url : "f/modifyDefaultPwd";
 	}
+
+	/**
+	 * 用户登录成功后,是否验证用户状态
+	 * 
+	 * @return true:是 false:否
+	 */
+	public static boolean isValidateUserIsvalid() {
+		return !"false".equals(ConfigManager.getInstance().getConfig(
+				CommonConstants.sfs_SYSMGT_AFTERLOGIN_VALIDATEUSERISVALID));
+	}
+
+	/**
+	 * 用户登录成功后,是否验证开通时间
+	 * 
+	 * @return true:是 false:否
+	 */
+	public static boolean isValidateDredgeTime() {
+		return !"false".equals(ConfigManager.getInstance().getConfig(
+				CommonConstants.sfs_SYSMGT_AFTERLOGIN_VALIDATEDREDGETIME));
+	}
+
+	/**
+	 * 用户登录成功后,是否验证过期时间
+	 * 
+	 * @return true:是 false:否
+	 */
+	public static boolean isValidatePastTime() {
+		return !"false".equals(ConfigManager.getInstance().getConfig(
+				CommonConstants.sfs_SYSMGT_AFTERLOGIN_VALIDATEPASTTIME));
+	}
+
+	/**
+	 * 用户登录成功后,是否更新最后登录时间
+	 * 
+	 * @return true:是 false:否
+	 */
+	public static boolean isUpdateLastloginDate() {
+		return !"false".equals(ConfigManager.getInstance().getConfig(
+				CommonConstants.sfs_SYSMGT_AFTERLOGIN_UPDATELASTLOGINDATE));
+	}
+
+	/**
+	 * 用户登录成功后,是否更新最后登录IP
+	 * 
+	 * @return true:是 false:否
+	 */
+	public static boolean isUpdateLoginIp() {
+		return !"false".equals(ConfigManager.getInstance().getConfig(
+				CommonConstants.sfs_SYSMGT_AFTERLOGIN_UPDATELOGINIP));
+	}
+
+	/**
+	 * 用户登录成功后,是否更新登录次数
+	 * 
+	 * @return true:是 false:否
+	 */
+	public static boolean isUpdateLogincount() {
+		return !"false".equals(ConfigManager.getInstance().getConfig(
+				CommonConstants.sfs_SYSMGT_AFTERLOGIN_UPDATELOGINCOUNT));
+	}
 }

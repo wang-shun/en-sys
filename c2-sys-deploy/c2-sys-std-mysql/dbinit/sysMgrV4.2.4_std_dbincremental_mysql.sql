@@ -9,7 +9,7 @@ create table tb_sm_privilege_insiderelate  (
 alter table tb_sm_privilege_insiderelate comment '权限内部关联表';
 
 -- 权限表新增字段
-alter table tb_sm_privilege add virtual char(1) not null default '0' comment '是否虚拟节点（0：否，1：是）';
+alter table tb_sm_privilege add virtual_ char(1) not null default '0' comment '是否虚拟节点（0：否，1：是）';
 
 -- 日志表新增字段
 alter table td_sm_log add target_pk varchar(200) comment '目标主键';

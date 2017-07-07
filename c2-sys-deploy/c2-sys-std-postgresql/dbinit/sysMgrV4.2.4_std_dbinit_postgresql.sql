@@ -292,7 +292,7 @@ create table tb_sm_privilege (
    creator_time         timestamp            null default current_timestamp,
    sn                   numeric              null,
    source               char(1)              not null default '0',
-   virtual              char(1)              not null default '0',
+   virtual_             char(1)              not null default '0',
    constraint pk_tb_resource_type primary key (id)
 );
 
@@ -329,7 +329,7 @@ comment on column tb_sm_privilege.sn is
 comment on column tb_sm_privilege.source is
 '权限来源（0：自定义，1：IDE）';
 
-comment on column tb_sm_privilege.virtual is
+comment on column tb_sm_privilege.virtual_ is
 '是否虚拟节点（0：否，1：是）';
 
 create table tb_sm_privilege_insiderelate  (
