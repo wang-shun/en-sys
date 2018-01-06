@@ -7,13 +7,6 @@
 	<name>c2-sys-parent</name>
 	<description>系统管理</description>
 	<version>4.2.3</version>
-
-	<parent>
-		<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-modules-parent</artifactId>
-			<version>1.0.2</version>
-	</parent>
-
 	<dependencies>
 <!-- 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
