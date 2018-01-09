@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinacreator.asp.comp.sys.core.group.dao.GroupDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+    <resultMap id="GroupResultMap"
+        type="com.chinacreator.asp.comp.sys.core.group.eo.GroupEO">
+        <id column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+        <result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR" />
+        <result column="GROUP_DESC" property="groupDesc" jdbcType="VARCHAR" />
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+        <result column="OWNER_ID" property="ownerId" jdbcType="VARCHAR" />
+        <result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+        <result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+        <result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+        <result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+        <result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="UserResultMap" type="com.chinacreator.asp.comp.sys.core.user.eo.UserEO">
+        <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+        <result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR" />
+        <result column="USER_REALNAME" property="userRealname" jdbcType="VARCHAR" />
+        <result column="USER_PINYIN" property="userPinyin" jdbcType="VARCHAR" />
+        <result column="USER_SEX" property="userSex" jdbcType="VARCHAR" />
+        <result column="USER_HOMETEL" property="userHometel" jdbcType="VARCHAR" />
+        <result column="USER_WORKTEL" property="userWorktel" jdbcType="VARCHAR" />
+        <result column="USER_WORKADDRESS" property="userWorkaddress" jdbcType="VARCHAR" />
+        <result column="USER_MOBILETEL1" property="userMobiletel1" jdbcType="VARCHAR" />
+        <result column="USER_MOBILETEL2" property="userMobiletel2" jdbcType="VARCHAR" />
+        <result column="USER_FAX" property="userFax" jdbcType="VARCHAR" />
+        <result column="USER_OICQ" property="userOicq" jdbcType="VARCHAR" />
+        <result column="USER_BIRTHDAY" property="userBirthday" jdbcType="DATE" />
+        <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+        <result column="USER_ADDRESS" property="userAddress" jdbcType="VARCHAR" />
+        <result column="USER_POSTALCODE" property="userPostalcode" jdbcType="VARCHAR" />
+        <result column="USER_IDCARD" property="userIdcard" jdbcType="VARCHAR" />
+        <result column="USER_ISVALID" property="userIsvalid" jdbcType="DECIMAL" />
+        <result column="USER_REGDATE" property="userRegdate" jdbcType="DATE" />
+        <result column="USER_LOGINCOUNT" property="userLogincount" jdbcType="DECIMAL" />
+        <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+        <result column="PAST_TIME" property="pastTime" jdbcType="DATE" />
+        <result column="DREDGE_TIME" property="dredgeTime" jdbcType="VARCHAR" />
+        <result column="LASTLOGIN_DATE" property="lastloginDate" jdbcType="DATE" />
+        <result column="WORKLENGTH" property="worklength" jdbcType="VARCHAR" />
+        <result column="POLITICS" property="politics" jdbcType="VARCHAR" />
+        <result column="LOGIN_IP" property="loginIp" jdbcType="VARCHAR" />
+        <result column="CERT_SN" property="certSn" jdbcType="VARCHAR" />
+        <result column="USER_SN" property="userSn" jdbcType="DECIMAL" />
+        <result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+        <result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+        <result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+        <result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+        <result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+        <result column="REMARK6" property="remark6" jdbcType="VARCHAR" />
+        <result column="REMARK7" property="remark7" jdbcType="VARCHAR" />
+        <result column="REMARK8" property="remark8" jdbcType="VARCHAR" />
+        <result column="REMARK9" property="remark9" jdbcType="VARCHAR" />
+        <result column="REMARK10" property="remark10" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="RoleResultMap"
+        type="com.chinacreator.asp.comp.sys.core.role.eo.RoleEO">
+        <id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+        <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+        <result column="ROLE_TYPE" property="roleType" jdbcType="VARCHAR" />
+        <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+        <result column="ROLE_USAGE" property="roleUsage" jdbcType="VARCHAR" />
+        <result column="OWNER_ID" property="ownerId" jdbcType="VARCHAR" />
+        <result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+        <result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+        <result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+        <result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+        <result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="PrivilegeResultMap"
+        type="com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeEO">
+        <id column="ID" property="privilegeId" jdbcType="VARCHAR" />
+        <result column="CODE" property="privilegeCode" jdbcType="VARCHAR" />
+        <result column="NAME" property="privilegeName" jdbcType="VARCHAR" />
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="VARCHAR" />
+        <result column="PERM_EXPR" property="permExpr" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+		<result column="CREATOR_TIME" property="creatorTime" jdbcType="DATE" />
+		<result column="SN" property="sn" jdbcType="DECIMAL" />
+		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>
+		<result column="VIRTUAL_" property="virtual" jdbcType="CHAR"/>	
+    </resultMap>
+    <sql id="Group_Column_List">
+    group_id,group_name,group_desc,parent_id,owner_id,remark1,remark2,remark3,remark4,remark5,type
+    </sql>
+    <sql id="User_Column_List">
+    user_id,user_name,user_password,user_realname,user_pinyin,user_sex,user_hometel,user_worktel,
+    user_workaddress,user_mobiletel1,user_mobiletel2,user_fax,user_oicq,user_birthday,user_email,
+    user_address,user_postalcode,user_idcard,user_isvalid,user_regdate,user_logincount,user_type,
+    past_time,dredge_time,lastlogin_date,worklength,politics,login_ip,cert_sn,user_sn,remark1,
+    remark2,remark3,remark4,remark5,remark6,remark7,remark8,remark9,remark10
+    </sql>
+    <sql id="Role_Column_List">
+    role_id,role_name,role_type,role_desc,role_usage,owner_id,remark1,remark2,remark3,remark4,remark5
+    </sql>
+    <sql id="Privilege_Column_List">
+    id,code,name,parent_id,type,perm_expr,creator,creator_time,sn,source,virtual_
+    </sql>
+    <insert id="create" parameterType="com.chinacreator.asp.comp.sys.core.group.eo.GroupEO"
+        databaseId="oracle">
+        INSERT INTO td_sm_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">
+                group_id,
+            </if>
+            <if test="groupName != null">
+                group_name,
+            </if>
+            <if test="groupDesc != null">
+                group_desc,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="remark1 != null">
+                remark1,
+            </if>
+            <if test="remark2 != null">
+                remark2,
+            </if>
+            <if test="remark3 != null">
+                remark3,
+            </if>
+            <if test="remark4 != null">
+                remark4,
+            </if>
+            <if test="remark5 != null">
+                remark5,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">
+                <![CDATA[#{groupId,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="groupName != null">
+                <![CDATA[#{groupName,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="groupDesc != null">
+                <![CDATA[#{groupDesc,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="parentId != null">
+                <![CDATA[#{parentId,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="ownerId != null">
+                <![CDATA[#{ownerId,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="remark1 != null">
+                <![CDATA[#{remark1,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="remark2 != null">
+                <![CDATA[#{remark2,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="remark3 != null">
+                <![CDATA[#{remark3,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="remark4 != null">
+                <![CDATA[#{remark4,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="remark5 != null">
+                <![CDATA[#{remark5,jdbcType=VARCHAR}]]>,
+            </if>
+            <if test="type != null">
+                <![CDATA[#{type,jdbcType=VARCHAR}]]>,
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.chinacreator.asp.comp.sys.core.group.eo.GroupEO"
+        databaseId="oracle">
+        UPDATE td_sm_group
+        <set>
+            <if test="groupName != null">
+                group_name = <![CDATA[#{groupName,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="groupDesc != null">
+                group_desc = <![CDATA[#{groupDesc,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="parentId != null">
+                parent_id = <![CDATA[#{parentId,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="ownerId != null">
+                owner_id = <![CDATA[#{ownerId,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark1 != null">
+                remark1 = <![CDATA[#{remark1,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark2 != null">
+                remark2 = <![CDATA[#{remark2,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark3 != null">
+                remark3 = <![CDATA[#{remark3,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark4 != null">
+                remark4 = <![CDATA[#{remark4,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="remark5 != null">
+                remark5 = <![CDATA[#{remark5,jdbcType=VARCHAR},]]>
+            </if>
+            <if test="type != null">
+                type = <![CDATA[#{type,jdbcType=VARCHAR}]]>
+            </if>
+        </set> 
+        WHERE group_id = <![CDATA[#{groupId,jdbcType=VARCHAR}]]>
+    </update>
+    
+    <delete id="deleteByPKs" databaseId="oracle">
+        DELETE FROM td_sm_group
+        WHERE group_id IN
+        <foreach item="idItem" index="index" collection="array" open="(" 
+            close=")">
+            <if test="index&gt;999 and index%1000==0">) or group_id in(</if>
+            <![CDATA[#{idItem}]]>
+            <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+        </foreach>
+    </delete>
+    
+    <select id="queryAll" resultMap="GroupResultMap" databaseId="oracle">
+        SELECT
+        <include refid="Group_Column_List" />
+        FROM td_sm_group
+    </select>
+    <select id="queryByGroup" resultMap="GroupResultMap" databaseId="oracle"
+        parameterType="com.chinacreator.asp.comp.sys.core.group.eo.GroupEO">
+        SELECT
+        <include refid="Group_Column_List" />
+        FROM td_sm_group
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="groupId != null">
+                group_id = <![CDATA[#{groupId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="groupName != null">
+                AND group_name like '%' || <![CDATA[#{groupName,jdbcType=VARCHAR}]]> ||
+                '%'
+            </if>
+            <if test="groupDesc != null">
+                AND group_desc like '%' || <![CDATA[#{groupDesc,jdbcType=VARCHAR}]]> ||
+                '%'
+            </if>
+            <if test="parentId != null">
+                AND parent_id = <![CDATA[#{parentId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="ownerId != null">
+                AND owner_id = <![CDATA[#{ownerId,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="remark1 != null">
+                AND remark1 = <![CDATA[#{remark1,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="remark2 != null">
+                AND remark2 = <![CDATA[#{remark2,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="remark3 != null">
+                AND remark3 = <![CDATA[#{remark3,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="remark4 != null">
+                AND remark4 = <![CDATA[#{remark4,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="remark5 != null">
+                AND remark5 = <![CDATA[#{remark5,jdbcType=VARCHAR}]]>
+            </if>
+        </trim>
+    </select>
+    <select id="queryByPK" resultMap="GroupResultMap" parameterType="java.lang.String" 
+        databaseId="oracle">
+        SELECT <include refid = "Group_Column_List" /> FROM td_sm_group WHERE group_id = <![CDATA[#{groupId, jdbcType = VARCHAR} ]]>
+    </select>
+    <select id="queryUsers" resultMap="UserResultMap" parameterType="java.lang.String" 
+        databaseId="oracle">
+        SELECT <include refid = "User_Column_List" />
+          FROM td_sm_user
+         WHERE user_id IN (SELECT user_id
+                             FROM td_sm_userinstance
+                            WHERE id IN (SELECT userinstance_id FROM td_sm_userinstancegroup WHERE group_id = <![CDATA[#{groupId, jdbcType = VARCHAR}]]>)
+                              AND is_enabled = '1')
+    </select>
+    <select id="queryUsersByScope" resultMap="UserResultMap" databaseId="oracle">
+        SELECT <include refid = "User_Column_List" />
+          FROM td_sm_user
+         WHERE user_id IN (SELECT user_id
+                             FROM td_sm_userinstance
+                            WHERE id IN (SELECT userinstance_id FROM td_sm_userinstancegroup
+                                        <if test="groupId != null"> 
+                                            WHERE group_id = <![CDATA[#{groupId, jdbcType = VARCHAR}]]>
+                                        </if>    
+                                        )
+                              <if test="scopeType != null">           
+                              AND scope_type = <![CDATA[#{scopeType, jdbcType = VARCHAR}]]>
+                              </if>
+                              <if test="scopeId != null"> 
+                              AND scope_id = <![CDATA[#{scopeId, jdbcType = VARCHAR}]]>
+                              </if>
+                              AND is_enabled = '1')
+    </select>
+    <select id="queryRoles" resultMap="RoleResultMap" databaseId="oracle">
+        SELECT <include refid = "Role_Column_List" />
+          FROM td_sm_role
+         WHERE role_id IN (SELECT role_id FROM td_sm_grouprole WHERE group_id = <![CDATA[#{groupId, jdbcType = VARCHAR}]]>)
+           AND role_usage = '1'
+    </select>
+    <select id="queryPrivileges" resultMap="PrivilegeResultMap" databaseId="oracle">
+        SELECT <include refid = "Privilege_Column_List" />
+          FROM tb_sm_privilege
+         WHERE id IN (SELECT op_id
+                        FROM td_sm_roleresop
+                       WHERE role_id IN (SELECT r.role_id
+                                           FROM td_sm_grouprole gr, td_sm_role r
+                                          WHERE gr.role_id = r.role_id
+                                            AND gr.group_id = <![CDATA[#{groupId, jdbcType = VARCHAR}]]>
+                                            AND r.role_usage = '1'))
+    </select>
+    <select id="containsUser" resultType="int" databaseId="oracle">
+        SELECT COUNT(*)
+          FROM td_sm_userinstance uins, td_sm_userinstancegroup uinsgrp
+         WHERE uins.id = uinsgrp.userinstance_id
+           AND uins.user_id = <![CDATA[#{userId, jdbcType = VARCHAR}]]>
+           AND uinsgrp.group_id = <![CDATA[#{groupId, jdbcType = VARCHAR}]]>
+           AND is_enabled = '1'
+    </select>
+    <select id="containsUserByScope" resultType="int" databaseId="oracle">
+		SELECT COUNT(*)
+	    FROM td_sm_userinstance uins, td_sm_userinstancegroup uinsgrp
+		 WHERE uins.id = uinsgrp.userinstance_id
+	     AND uins.user_id = <![CDATA[#{userId, jdbcType = VARCHAR}]]>
+	     AND uinsgrp.group_id = <![CDATA[#{groupId, jdbcType = VARCHAR}]]>
+        <if test="scopeId != null">
+	     AND scope_id = <![CDATA[#{scopeId, jdbcType = VARCHAR}]]>
+        </if>
+        <if test="scopeType != null">
+	     AND scope_type = <![CDATA[#{scopeType, jdbcType = VARCHAR}]]>
+        </if>
+	     AND is_enabled = '1'
+    </select>
+    <select id="queryByGroupIds" resultMap="GroupResultMap" databaseId="oracle">
+        SELECT * FROM td_sm_group
+        WHERE group_id IN
+        <foreach item="idItem" index="index" collection="array" open="(" 
+            close=")">
+            <if test="index&gt;999 and index%1000==0">) or group_id in(</if>
+            <![CDATA[#{idItem}]]>
+            <if test="index%1000!=999 and index&lt;array.length-1">,</if>
+        </foreach>        
+    </select>
+</mapper>    

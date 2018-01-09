@@ -118,4 +118,33 @@ public class CommonConstants {
 	 */
 	public static final String sfs_SYSMGT_UPDATEDEFAULTPWDURL = "sysMgt.updateDefaultPwdUrl";
 
+	/**
+	 * properties文件key:用户登录成功后,是否验证用户状态
+	 */
+	public static final String sfs_SYSMGT_AFTERLOGIN_VALIDATEUSERISVALID = "sysMgt.afterLogin.validateUserIsvalid";
+
+	/**
+	 * properties文件key:用户登录成功后,是否验证开通时间
+	 */
+	public static final String sfs_SYSMGT_AFTERLOGIN_VALIDATEDREDGETIME = "sysMgt.afterLogin.validateDredgeTime";
+
+	/**
+	 * properties文件key:用户登录成功后,是否验证过期时间
+	 */
+	public static final String sfs_SYSMGT_AFTERLOGIN_VALIDATEPASTTIME = "sysMgt.afterLogin.validatePastTime";
+
+	/**
+	 * properties文件key:用户登录成功后,是否更新最后登录时间
+	 */
+	public static final String sfs_SYSMGT_AFTERLOGIN_UPDATELASTLOGINDATE = "sysMgt.afterLogin.updateLastloginDate";
+
+	/**
+	 * properties文件key:用户登录成功后,是否更新最后登录IP
+	 */
+	public static final String sfs_SYSMGT_AFTERLOGIN_UPDATELOGINIP = "sysMgt.afterLogin.updateLoginIp";
+
+	/**
+	 * properties文件key:用户登录成功后,是否更新登录次数
+	 */
+	public static final String sfs_SYSMGT_AFTERLOGIN_UPDATELOGINCOUNT = "sysMgt.afterLogin.updateLogincount";
 }

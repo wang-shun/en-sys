@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 权限EO实体类映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.privilege.dao.PrivilegeDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+	<sql id="Privilege_Column_List">id,code,name,parent_id,type,perm_expr,creator,creator_time,sn,source,virtual_
+	</sql>
+
+	<resultMap id="PrivilegeResultMap"
+		type="com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeEO">
+		<result column="ID" property="privilegeId" jdbcType="VARCHAR" />
+		<result column="CODE" property="privilegeCode" jdbcType="VARCHAR" />
+		<result column="NAME" property="privilegeName" jdbcType="VARCHAR" />
+		<result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="CHAR" />
+		<result column="PERM_EXPR" property="permExpr" jdbcType="VARCHAR" />
+		<result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+		<result column="CREATOR_TIME" property="creatorTime" jdbcType="TIMESTAMP" />
+		<result column="SN" property="sn" jdbcType="DECIMAL" />
+		<result column="SOURCE" property="source" jdbcType="VARCHAR"/>
+		<result column="VIRTUAL_" property="virtual" jdbcType="CHAR" typeHandler="com.chinacreator.asp.comp.sys.common.mybatis.typehandler.BooleanCharTypeHandler"/>	
+	</resultMap>
+
+	<select id="queryChildPrivileges" parameterType="java.lang.String"
+		resultMap="PrivilegeResultMap" databaseId="postgresql">
+		with recursive r as (
+			select * from tb_sm_privilege where parent_id=#{privilegeId,jdbcType=VARCHAR}
+			union all
+			select p.* from tb_sm_privilege p,r where p.parent_id=r.id
+		)select <include refid="Privilege_Column_List" /> from r
+		order by sn
+	</select>
+
+	<select id="queryChildPrivilegesUnRecursive" parameterType="java.lang.String"
+		resultMap="PrivilegeResultMap" databaseId="postgresql">
+		SELECT
+		<include refid="Privilege_Column_List" />
+		FROM tb_sm_privilege
+		WHERE parent_id = <![CDATA[#{privilegeId,jdbcType=VARCHAR}]]>
+		ORDER BY sn
+	</select>
+
+	<select id="queryFatherPrivileges" parameterType="java.lang.String"
+		resultMap="PrivilegeResultMap" databaseId="postgresql">
+		with recursive r as (
+			select * from tb_sm_privilege where id=#{privilegeId,jdbcType=VARCHAR}
+			union all
+			select p.* from tb_sm_privilege p,r where p.id=r.parent_id
+		)select <include refid="Privilege_Column_List" /> from r
+	</select>
+
+	<select id="queryFatherPrivilegesUnRecursive" parameterType="java.lang.String"
+		resultMap="PrivilegeResultMap" databaseId="postgresql">
+		SELECT
+		<include refid="Privilege_Column_List" />
+		FROM tb_sm_privilege
+		where id = <![CDATA[#{privilegeId,jdbcType=VARCHAR}]]>
+		UNION
+		(SELECT
+		<include refid="Privilege_Column_List" />
+		FROM tb_sm_privilege
+		where id in (SELECT parent_id FROM tb_sm_privilege
+		WHERE id = <![CDATA[#{privilegeId,jdbcType=VARCHAR}]]>))
+	</select>
+
+	<select id="existsChildPrivileges" resultType="int" databaseId="postgresql">
+  	<![CDATA[
+  	SELECT COUNT(*)
+      FROM tb_sm_privilege
+      where parent_id = #{privilegeId,jdbcType=VARCHAR}
+  	 ]]>
+	</select>
+</mapper>

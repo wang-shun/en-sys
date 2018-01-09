@@ -1,0 +1,81 @@
+<div ng-controller="HomeController">
+	<div class="col-sm-6 col-sm-offset-3" id="default-buttons">
+		<h3 class="header smaller lighter purple">
+		功能 
+		</h3>
+		<p>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/me')">获取当前用户</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/user/6C8F0C71205948ED92BC2ED227DC38FA')">获取单个用户</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/testmulti/')">getMuliById</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/username/')">getByUsername</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/usernames/')">queryMultiByUsername</button>
+		</p>
+		<p>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/testorg/')">queryByOrg</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/testrole/')">queryByRole</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/002C11390BD04FE5A800AFBF4EBD66BD/testorgs')">getOrgs</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/1FCC30763EB8491ABE9690AC3A38ACE4/mainorg')">getMainOrg</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/C4C3B59D303947C3B4D093A31A40A969/ismainorg')">isMainOrg</button>
+		</p>
+		<p>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/C4C3B59D303947C3B4D093A31A40A969/inorg')">inOrg</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/002C11390BD04FE5A800AFBF4EBD66BD/getroles')">getRoles</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/C4C3B59D303947C3B4D093A31A40A969/hasrole')">hasRole</button>
+			<button type="button" class="btn btn-white btn-danger btn-sm" ng-click="dorequest('GET','/users/roleorg/')">queryByRoleInOrg</button>
+		</p>
+		<p>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/org/organization/00138DCCAA3F4087BC977E46862CD385')">获取机构</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/org/organization/00B3A980A85C4A5B9FDE020DDC0C2070/parents')">获取父机构</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/org/organization/00B3A980A85C4A5B9FDE020DDC0C2070/children')">获取子机构</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/org/organization/BDA00BC143AB4F148907493E38BA357B/user/72998684239543208275B91744F3C9F5')">判断机构下的某用户是否存在</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/role/2')">getRole</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/role')">getRoleByName</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/dictdata')">getDictDataList</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/dictdata')">getDictDataMap</button>
+			<button type="button" class="btn btn-white btn-pink btn-sm" ng-click="dorequest('GET','/dictdata')">getDictDataSimpleMap</button>
+		</p>
+		<h3 class="header smaller lighter green">结果</h3>
+
+		<p ng-bind-html="data"></p>
+	</div>
+</div>
+
+<script type="text/javascript">
+	app.registerCtrl('HomeController', [ '$scope', '$http', function($scope, $http) {
+		
+	$scope.dorequest = function(method, url) {
+					$http({
+						method : method,
+						url : url
+					}).then(function(response) {
+						$scope.data=syntaxHighlight(response.data);
+					}, function(response) {
+						$scope.data="错误";
+						console.log(response);
+					});
+				}
+	
+	function syntaxHighlight(json) {
+	    if (typeof json != 'string') {
+	         json = JSON.stringify(json, undefined, 2);
+	    }
+	    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+	        var cls = 'number';
+	        if (/^"/.test(match)) {
+	            if (/:$/.test(match)) {
+	                cls = 'key';
+	            } else {
+	                cls = 'string';
+	            }
+	        } else if (/true|false/.test(match)) {
+	            cls = 'boolean';
+	        } else if (/null/.test(match)) {
+	            cls = 'null';
+	        }
+	        return '<span class="' + cls + '">' + match + '</span>';
+	    });
+	}
+	
+	}]);
+</script>

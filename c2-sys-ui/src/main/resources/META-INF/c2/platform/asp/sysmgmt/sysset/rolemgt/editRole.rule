@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="editRole" className="com.chinacreator.asp.comp.sys.advanced.role.service.RoleService" method="update">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>编辑角色</name>
+  <desc>修改角色</desc>
+  <inputs>
+    <input collection="false" desc="" id="roleDTO" required="true" type="com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO"/>
+  </inputs>
+  <outputs/>
+  <res>hoxA-4diT9OgEYOWFcqj6A</res>
+  <params>
+    <param autoValue="Input.roleDTO" name="roleDTO" signature="QRoleDTO;" type="com.chinacreator.asp.comp.sys.core.role.dto.RoleDTO"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

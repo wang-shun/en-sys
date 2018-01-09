@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="roleRevokeAllRes" className="com.chinacreator.asp.comp.sys.advanced.role.service.RoleService" method="revokeAllPrivileges">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>角色回收权限</name>
+  <desc>回收角色的所有权限</desc>
+  <inputs>
+    <input collection="false" desc="" id="roleIds" required="true" type="[Ljava.lang.String;"/>
+  </inputs>
+  <outputs/>
+  <res>s26QCDb7TfanA5Twj8Y1QA</res>
+  <params>
+    <param autoValue="Input.roleIds" name="roleIds" signature="[QString;" type="[Ljava.lang.String;"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 日志EO实体类映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.log.dao.LogDao">
+
+	<sql id="Log_Column_List">
+	log_id,log_operuser,log_operuserrealname,oper_module,log_type,log_oper,log_operdesc,log_visitorial,log_opertime,log_content,oper_type,log_status,target_pk,remark1,remark2,remark3,remark4,remark5
+	</sql>
+
+	<resultMap id="LogResultMap"
+		type="com.chinacreator.asp.comp.sys.basic.log.eo.LogEO">
+		<result column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+		<result column="LOG_OPERUSER" property="logOperUser" jdbcType="VARCHAR" />
+		<result column="LOG_OPERUSERREALNAME" property="logOperUserRealName"
+			jdbcType="VARCHAR" />
+		<result column="OPER_MODULE" property="operModule" jdbcType="VARCHAR" />
+		<result column="LOG_TYPE" property="logType" jdbcType="VARCHAR" />
+		<result column="LOG_OPER" property="logOper" jdbcType="VARCHAR" />
+		<result column="LOG_OPERDESC" property="logOperdesc" jdbcType="VARCHAR" />
+		<result column="LOG_VISITORIAL" property="logVisitorial"
+			jdbcType="VARCHAR" />
+		<result column="LOG_OPERTIME" property="logOperTime" jdbcType="TIMESTAMP" />
+		<result column="LOG_CONTENT" property="logContent" jdbcType="CLOB" />
+		<result column="OPER_TYPE" property="operType" jdbcType="CHAR" />
+		<result column="LOG_STATUS" property="logStatus" jdbcType="CHAR" />
+		<result column="TARGET_PK" property="targetPk" jdbcType="VARCHAR"/>
+		<result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+		<result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+		<result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+		<result column="REMARK4" property="remark4" jdbcType="VARCHAR" />
+		<result column="REMARK5" property="remark5" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="create" parameterType="com.chinacreator.asp.comp.sys.basic.log.eo.LogEO"
+		databaseId="oracle">
+		INSERT INTO td_sm_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="logId != null">
+				log_id,
+			</if>
+			<if test="logOperUser != null">
+				log_operuser,
+			</if>
+			<if test="operModule != null">
+				oper_module,
+			</if>
+			<if test="logVisitorial != null">
+				log_visitorial,
+			</if>
+			<if test="logOperTime != null">
+				log_opertime,
+			</if>
+			<if test="logContent != null">
+				log_content,
+			</if>
+			<if test="operType != null">
+				oper_type,
+			</if>
+			<if test="logStatus != null">
+				log_status,
+			</if>
+			<if test="targetPk != null">
+				target_pk,
+			</if>
+			<if test="remark1 != null">
+				remark1,
+			</if>
+			<if test="remark2 != null">
+				remark2,
+			</if>
+			<if test="remark3 != null">
+				remark3,
+			</if>
+			<if test="remark4 != null">
+				remark4,
+			</if>
+			<if test="remark5 != null">
+				remark5,
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="logId != null">
+                <![CDATA[#{logId,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="logOperUser != null">
+                 <![CDATA[#{logOperUser,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="operModule != null">
+                <![CDATA[#{operModule,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="logVisitorial != null">
+                <![CDATA[#{logVisitorial,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="logOperTime != null">
+                <![CDATA[#{logOperTime,jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="logContent != null">
+                <![CDATA[#{logContent,jdbcType=CLOB},]]>
+			</if>
+			<if test="operType != null">
+                <![CDATA[#{operType,jdbcType=CHAR},]]>
+			</if>
+			<if test="logStatus != null">
+                <![CDATA[#{logStatus,jdbcType=CHAR},]]>
+			</if>
+			<if test="targetPk != null">
+				<![CDATA[#{targetPk,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="remark1 != null">
+                <![CDATA[#{remark1,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="remark2 != null">
+                <![CDATA[#{remark2,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="remark3 != null">
+                <![CDATA[#{remark3,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="remark4 != null">
+                <![CDATA[#{remark4,jdbcType=VARCHAR},]]>
+			</if>
+			<if test="remark5 != null">
+                <![CDATA[#{remark5,jdbcType=VARCHAR},]]>
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPKs" databaseId="oracle">
+		DELETE FROM ${tableName}
+		WHERE log_id IN
+		<foreach item="idItem" index="index" collection="logIds" open="("
+			close=")">
+			<if test="index&gt;999 and index%1000==0">) or log_id in(</if>
+            	<![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+            <if test="index%1000!=999 and index&lt;logIds.length-1">,</if>
+		</foreach>
+	</delete>
+
+	<delete id="deleteAll" parameterType="java.lang.String"
+		databaseId="oracle">
+		DELETE FROM ${tableName}
+	</delete>
+
+	<select id="queryAll" resultMap="LogResultMap" databaseId="oracle">
+		SELECT
+		<include refid="Log_Column_List" />
+		FROM
+		(SELECT log.log_id,
+		log.log_operuser,
+		CASE
+		WHEN u.user_realname IS
+		NULL THEN
+		log.log_operuser
+		ELSE
+		u.user_realname
+		END AS
+		log_operuserrealname,
+		log.oper_module,
+		lc.log_type,
+		lc.log_oper,
+		lc.log_operdesc,
+		log.log_visitorial,
+		log.log_opertime,
+		log.log_content,
+		log.oper_type,
+		log.log_status,
+		log.target_pk,
+		log.remark1,
+		log.remark2,
+		log.remark3,
+		log.remark4,
+		log.remark5
+		FROM ${tableName} log
+		LEFT JOIN td_sm_user u
+		ON
+		log.log_operuser = u.user_name
+		LEFT JOIN td_sm_logconfig lc
+		ON
+		log.oper_module = lc.oper_module
+		)
+		ORDER BY log_opertime DESC
+	</select>
+
+	<select id="queryByPK" resultMap="LogResultMap" databaseId="oracle">
+		SELECT
+		<include refid="Log_Column_List" />
+		FROM
+		(SELECT log.log_id,
+		log.log_operuser,
+		CASE
+		WHEN u.user_realname IS
+		NULL THEN
+		log.log_operuser
+		ELSE
+		u.user_realname
+		END AS
+		log_operuserrealname,
+		log.oper_module,
+		lc.log_type,
+		lc.log_oper,
+		lc.log_operdesc,
+		log.log_visitorial,
+		log.log_opertime,
+		log.log_content,
+		log.oper_type,
+		log.log_status,
+		log.target_pk,
+		log.remark1,
+		log.remark2,
+		log.remark3,
+		log.remark4,
+		log.remark5
+		FROM ${tableName} log
+		LEFT JOIN td_sm_user u
+		ON
+		log.log_operuser = u.user_name
+		LEFT JOIN td_sm_logconfig lc
+		ON
+		log.oper_module = lc.oper_module
+		)
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="logId != null">
+                <![CDATA[log_id = #{logId,jdbcType=VARCHAR}]]>
+			</if>
+		</trim>
+	</select>
+
+	<select id="queryByLog" resultMap="LogResultMap" databaseId="oracle">
+		SELECT
+		<include refid="Log_Column_List" />
+		FROM
+		(SELECT log.log_id,
+		log.log_operuser,
+		CASE
+		WHEN u.user_realname IS
+		NULL THEN
+		log.log_operuser
+		ELSE
+		u.user_realname
+		END AS
+		log_operuserrealname,
+		log.oper_module,
+		lc.log_type,
+		lc.log_oper,
+		lc.log_operdesc,
+		log.log_visitorial,
+		log.log_opertime,
+		log.log_content,
+		log.oper_type,
+		log.log_status,
+		log.target_pk,
+		log.remark1,
+		log.remark2,
+		log.remark3,
+		log.remark4,
+		log.remark5
+		FROM ${tableName} log
+		LEFT JOIN td_sm_user u
+		ON
+		log.log_operuser = u.user_name
+		LEFT JOIN td_sm_logconfig lc
+		ON
+		log.oper_module = lc.oper_module
+		)
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="logEo.logId != null">
+	    		<![CDATA[log_id = #{logId,jdbcType=VARCHAR}]]>
+			</if>
+			<if test="logEo.logOperUser != null">
+                <![CDATA[
+                	AND log_operUser like '%' || #{logEo.logOperUser,jdbcType=VARCHAR} || '%'
+                ]]>
+			</if>
+			<if test="logEo.logOperUserRealName != null">
+                <![CDATA[
+                	AND log_operuserrealname like '%' || #{logEo.logOperUserRealName,jdbcType=VARCHAR} || '%'
+                ]]>
+			</if>
+			<if test="logEo.operModule != null">
+                <![CDATA[
+                	AND oper_module =like '%' || #{logEo.operModule,jdbcType=VARCHAR} || '%'
+                ]]>
+			</if>
+			<if test="logEo.logType != null">
+                <![CDATA[
+                	AND log_type = #{logEo.logType,jdbcType=VARCHAR}
+                ]]>
+			</if>
+			<if test="logEo.logOper != null">
+                <![CDATA[
+                	AND log_oper = #{logEo.logOper,jdbcType=VARCHAR}
+                ]]>
+			</if>
+			<if test="logEo.logOperdesc != null">
+                <![CDATA[
+                	AND log_operdesc like '%' || #{logEo.logOperdesc,jdbcType=VARCHAR} || '%'
+                ]]>
+			</if>
+			<if test="logEo.logVisitorial != null">
+                <![CDATA[AND log_visitorial like '%' || #{logEo.logVisitorial,jdbcType=VARCHAR} || '%']]>
+			</if>
+			<if test="logEo.logContent != null">
+                <![CDATA[AND log_content like '%' || #{logEo.logContent,jdbcType=VARCHAR} || '%']]>
+			</if>
+			<if test="logEo.operType != null">
+                <![CDATA[AND oper_type = #{logEo.operType,jdbcType=CHAR} ]]>
+			</if>
+			<if test="logEo.logStatus != null">
+                <![CDATA[AND log_status = #{logEo.logStatus,jdbcType=CHAR} ]]>
+			</if>
+			<if test="logEo.targetPk != null">
+			    <![CDATA[AND targetPk = #{logEo.targetPk,jdbcType=VARCHAR} ]]>
+			</if>
+			<if test="logEo.remark1 != null">
+                <![CDATA[AND remark1 like '%' || #{logEo.remark1,jdbcType=VARCHAR} || '%']]>
+			</if>
+			<if test="logEo.remark2 != null">
+                <![CDATA[AND remark2 like '%' || #{logEo.remark2,jdbcType=VARCHAR} || '%']]>
+			</if>
+			<if test="logEo.remark3 != null">
+                <![CDATA[AND remark3 like '%' || #{logEo.remark3,jdbcType=VARCHAR} || '%']]>
+			</if>
+			<if test="logEo.remark4 != null">
+                <![CDATA[AND remark4 like '%' || #{logEo.remark4,jdbcType=VARCHAR} || '%']]>
+			</if>
+			<if test="logEo.remark5 != null">
+                <![CDATA[AND remark5 like '%' || #{logEo.remark5,jdbcType=VARCHAR} || '%']]>
+			</if>
+			<if test="paramMap.startDate != null">
+                <![CDATA[AND to_date(to_char(log_opertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss') >= to_date(to_char(#{paramMap.startDate,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss') ]]>
+			</if>
+			<if test="paramMap.endDate != null">
+                <![CDATA[AND to_date(to_char(log_opertime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss') <= to_date(to_char(#{paramMap.endDate,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss') ]]>
+			</if>
+		</trim>
+		ORDER BY log_opertime DESC
+	</select>
+
+	<!-- 调用存储过程 -->
+	<select id="backupLog" statementType="CALLABLE">
+        <![CDATA[
+        {CALL
+          log_backup(#{toNDaysAgo,
+                       mode=IN,
+                       jdbcType=NUMERIC,
+                       })}
+        ]]>
+	</select>
+
+</mapper>

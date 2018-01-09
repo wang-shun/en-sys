@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addRoleType" className="com.chinacreator.asp.comp.sys.basic.role.service.RoleTypeService" method="create">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>新增角色类型</name>
+  <desc>新增角色类型</desc>
+  <inputs>
+    <input collection="false" desc="" id="roleTypeDTO" required="true" type="com.chinacreator.asp.comp.sys.basic.role.dto.RoleTypeDTO"/>
+  </inputs>
+  <outputs/>
+  <res>xDUs_3QmRlKu0ho83i95yg</res>
+  <params>
+    <param autoValue="Input.roleTypeDTO" name="roleTypeDTO" signature="QRoleTypeDTO;" type="com.chinacreator.asp.comp.sys.basic.role.dto.RoleTypeDTO"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 用户实例机构扩展信息映射关系 -->
+<mapper namespace="com.chinacreator.asp.comp.sys.basic.user.dao.UserInstanceOrgDao">
+<cache-ref namespace="com.chinacreator.asp.comp.sys.core.user.dao.UserDao"/>
+  <sql id="UserInstanceOrg_Column_List"> userinstance_id, is_main, sn </sql>
+  <resultMap id="UserInstanceOrgResultMap" type="com.chinacreator.asp.comp.sys.basic.user.eo.UserInstanceOrgEO">
+    <result column="USERINSTANCE_ID" property="userInstanceId" jdbcType="VARCHAR" />
+    <result column="IS_MAIN" property="isMain" jdbcType="CHAR" />
+    <result column="SN" property="sn" jdbcType="NUMERIC" />
+  </resultMap>
+  
+  <insert id="create" parameterType="com.chinacreator.asp.comp.sys.basic.user.eo.UserInstanceOrgEO" databaseId="sqlserver">
+    INSERT INTO td_sm_instance_org
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userInstanceId != null">
+                userinstance_id,
+            </if>
+            <if test="isMain != null">
+                is_main,
+            </if>
+            <if test="sn != null">
+                sn,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userInstanceId != null">
+                #{userInstanceId,jdbcType=VARCHAR},
+            </if>
+            <if test="isMain != null">
+                #{isMain,jdbcType=CHAR},
+            </if>
+            <if test="sn != null">
+                #{sn,jdbcType=NUMERIC},
+            </if>
+        </trim>
+  </insert>
+
+  <update id="setOrderInOrg" databaseId="sqlserver">
+    UPDATE td_sm_instance_org
+        <set>
+            <if test="sn != null">
+                sn = #{sn,jdbcType=NUMERIC}
+            </if>
+        </set>
+        WHERE userinstance_id in (
+            SELECT id FROM td_sm_userinstance WHERE
+            user_id = #{userId,jdbcType=VARCHAR} AND scope_id = #{orgId,jdbcType=VARCHAR}
+            AND scope_type = '1' AND is_enabled = '1'
+         )
+  </update>
+  
+  <update id="setMainOrg" databaseId="sqlserver">
+    UPDATE td_sm_instance_org
+        <set>
+            <if test="isMain != null">
+                is_main = #{isMain,jdbcType=CHAR}
+            </if>
+        </set>
+        WHERE userinstance_id in (
+            SELECT id FROM td_sm_userinstance WHERE
+            user_id = #{userId,jdbcType=VARCHAR} AND scope_id = #{orgId,jdbcType=VARCHAR}
+            AND scope_type = '1' AND is_enabled = '1'
+         )
+  </update>
+  
+  <update id="updateMainOrgFalse" databaseId="sqlserver">
+    UPDATE td_sm_instance_org SET is_main ='0'
+        WHERE userinstance_id in (
+            SELECT id FROM td_sm_userinstance WHERE
+            user_id = #{userId,jdbcType=VARCHAR}
+            AND scope_type = '1' AND is_enabled = '1'
+         )
+  </update>
+  
+  <delete id="deleteByUserInstanceIds" databaseId="sqlserver">
+        DELETE FROM td_sm_instance_org
+      WHERE userinstance_id IN
+      <foreach item="idItem" collection="array" open="(" separator=","
+          close=")">
+          <![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+      </foreach>
+  </delete>
+  
+  <select id="queryByUserInstanceIds" resultMap="UserInstanceOrgResultMap" databaseId="sqlserver">
+	  SELECT <include refid="UserInstanceOrg_Column_List"/>
+	  FROM td_sm_instance_org WHERE userinstance_id IN
+	  <foreach item="idItem" collection="userInstanceIds" open="(" separator=","
+	          close=")">
+	          <![CDATA[#{idItem,jdbcType=VARCHAR}]]>
+	      </foreach>
+  </select>
+  
+  <select id="isMainOrg" resultType="int" databaseId="sqlserver">
+  	<![CDATA[
+	  	SELECT count(*)
+			 FROM td_sm_userinstance ui, td_sm_instance_org io
+			 WHERE ui.id = io.userinstance_id
+				 AND ui.scope_type = '1'
+				 AND io.is_main = '1'
+				 AND ui.user_id = #{userId,jdbcType=VARCHAR}
+				 AND ui.scope_id = #{orgId,jdbcType=VARCHAR}
+	]]>			 
+  </select>    
+</mapper>

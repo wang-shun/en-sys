@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="编辑日志配置" sn="editLogConfig" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="编辑日志配置">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="visible" name="可见" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="true" group="HTML配置" id="defaultVisible" name="默认可见" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="$model.logConfig.result.logOperdesc" id="newField" name="日志描述：" customize="true">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="6" group="布局属性" id="span" name="占位数" value="12">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.logConfig.result.logType" id="newField1" name="日志类型：" customize="true">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="6" group="布局属性" id="span" name="占位数" value="12">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="{&quot;e&quot;:&quot;实体操作&quot;,&quot;ws&quot;:&quot;服务&quot;,&quot;dao&quot;:&quot;持久层操作&quot;,&quot;custom&quot;:&quot;自定义&quot;,&quot;rest&quot;:&quot;rest接口&quot;}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectDisabled" name="禁用" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$model.logConfig.result.logOper" id="logOper" name="日志操作ID：">
+      <form:control type="widget/text">
+        <form:attributes source="widget/text">
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML设置" id="disabled" name="禁用" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="6" group="布局属性" id="span" name="占位数" value="12">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="model.logConfig.result.logEnabled" id="newField2" name="是否记录日志：" customize="true">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="6" group="布局属性" id="span" name="占位数" value="12">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="120">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="options" name="选项" value="{&quot;true&quot;:&quot;记录&quot;,&quot;false&quot;:&quot;不记录&quot;}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="selectOptions" name="选项" value="{&quot;true&quot;:&quot;记录&quot;,&quot;false&quot;:&quot;不记录&quot;}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="selected" group="HTML设置" id="optionSelected" name="选中属性名" value="">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="对话框工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField4" name="保存" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="saveLogConfig()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-success">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField3" name="重置" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="resetLogConfig()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-primary">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="newField5" name="关闭" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="closeModal()">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-times">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-default" group="HTML设置" id="style" name="样式" value="btn-primary">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="logConfig" name="日志配置" sn="getLogConfigByPK" logic="rule:asp.sysmgmt.logmgt.getLogConfigByPK">
+      <form:param id="operModule" name="新输入参数"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>// 保存&#xD;
+saveLogConfig:function(){&#xD;
+	if($view.mainForm.check()){&#xD;
+		var _this = this;&#xD;
+		$http.post(&quot;ws/updateLogEnabled&quot;,{operModule:$model.logConfig.result.operModule,logEnabled:$model.logConfig.result.logEnabled})&#xD;
+				.success(function(data, status, headers, config){&#xD;
+					Messenger.post({&#xD;
+		                'message': &quot;编辑日志配置成功！&quot;,&#xD;
+		                'type': 'success',&#xD;
+		            });&#xD;
+		            $scope.saveType = 'success';&#xD;
+		            _this.closeModal();&#xD;
+				});		&#xD;
+	}else{&#xD;
+		Messenger.post({&#xD;
+            'message': &quot;保存失败！验证未通过！&quot;,&#xD;
+            'type': 'error',&#xD;
+        });&#xD;
+	}&#xD;
+},&#xD;
+// 重置&#xD;
+resetLogConfig:function(){&#xD;
+	$view.mainForm.clean();&#xD;
+	$model.logConfig.$reload();&#xD;
+},&#xD;
+// 关闭&#xD;
+closeModal:function(){&#xD;
+	Modal.instance.close($scope.saveType);&#xD;
+}</form:scripts>
+</form:Form>
