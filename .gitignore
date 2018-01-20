@@ -1,2 +1,6 @@
 /.project
 .settings/
+*.classpath
+c2-sys-dao-parent/c2-sys-dao-api/target/
+*.project
+target
