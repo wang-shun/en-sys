@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.chinacreator.c2</groupId>
 		<artifactId>c2-sys-sdk-parent</artifactId>
-		<version>5.0.0</version>
+		<version>6.0.0</version>
 	</parent>
 	<artifactId>c2-sys-sdk-impl</artifactId>
 	<dependencies>

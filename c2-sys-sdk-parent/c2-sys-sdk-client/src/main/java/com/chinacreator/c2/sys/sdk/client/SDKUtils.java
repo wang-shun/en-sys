@@ -12,8 +12,8 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.chinacreator.asp.comp.sys.oauth2.common.CredentialConfiguration;
-import com.chinacreator.asp.comp.sys.oauth2.common.CredentialStore;
+//import com.chinacreator.asp.comp.sys.oauth2.common.CredentialConfiguration;
+//import com.chinacreator.asp.comp.sys.oauth2.common.CredentialStore;
 import com.chinacreator.c2.web.util.RestUtils;
 
 /**
@@ -26,13 +26,13 @@ public class SDKUtils {
   private String host;
 
   public String getHost() {
-    if (StringUtils.isEmpty(host)) {
-      String url = CredentialConfiguration.getAuthorizationServerInnerUrl();
-      if (StringUtils.endsWith(url, "/")) {
-        url = url.substring(0, url.length() - 1);
-      }
-      this.host = url;
-    }
+//    if (StringUtils.isEmpty(host)) {
+//      String url = CredentialConfiguration.getAuthorizationServerInnerUrl();
+//      if (StringUtils.endsWith(url, "/")) {
+//        url = url.substring(0, url.length() - 1);
+//      }
+//      this.host = url;
+//    }
     return this.host;
   }
 
@@ -58,15 +58,15 @@ public class SDKUtils {
    * @return
    */
   public RestTemplate geRestTemplate() {
-    if (restTemplate == null) {
-      restTemplate = RestUtils.createRestTemplate();
-      List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
-      if (interceptors == null) {
-        interceptors = new ArrayList<ClientHttpRequestInterceptor>();
-      }
-      interceptors.add(new RestAuthorizationHeaderInterceptor());
-      restTemplate.setInterceptors(interceptors);
-    }
+//    if (restTemplate == null) {
+//      restTemplate = RestUtils.createRestTemplate();
+//      List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+//      if (interceptors == null) {
+//        interceptors = new ArrayList<ClientHttpRequestInterceptor>();
+//      }
+//      interceptors.add(new RestAuthorizationHeaderInterceptor());
+//      restTemplate.setInterceptors(interceptors);
+//    }
     return restTemplate;
   }
 }
@@ -75,8 +75,8 @@ class RestAuthorizationHeaderInterceptor implements ClientHttpRequestInterceptor
   @Override
   public ClientHttpResponse intercept(HttpRequest request, byte[] body,
       ClientHttpRequestExecution execution) throws IOException {
-    request.getHeaders().add(javax.ws.rs.core.HttpHeaders.AUTHORIZATION,
-        "Bearer " + CredentialStore.getCurrCredential().getAccessToken());
+//    request.getHeaders().add(javax.ws.rs.core.HttpHeaders.AUTHORIZATION,
+//        "Bearer " + CredentialStore.getCurrCredential().getAccessToken());
     return execution.execute(request, body);
   }
 }
