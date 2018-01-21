@@ -14,14 +14,14 @@ import com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeEO;
 import com.chinacreator.asp.comp.sys.datautil.common.CommonTreeNode;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.web.ds.TreeNode;
-import com.chinacreator.platform.mvc.perm.Resource;
+//import com.chinacreator.platform.mvc.perm.Resource;
 
 public class ResourceTreeNodeBuilder {
 
 	private IDEOperUtil ideOperUtil = ApplicationContextManager.getContext().getBean(IDEOperUtil.class);
 	private PrivilegeDao privilegeDao = ApplicationContextManager.getContext().getBean(PrivilegeDao.class);
 
-	private Map<String, List<Resource>> resMap;
+//	private Map<String, List<Resource>> resMap;
 	private Map<String, PrivilegeEO> dbResMap;
 	private Set<String> dbResSet;
 	private Map<String, CommonTreeNode> rootNodeMap;
@@ -31,10 +31,10 @@ public class ResourceTreeNodeBuilder {
 	private Set<String> delFirstSet;
 
 	public ResourceTreeNodeBuilder() {
-		List<Resource> ideRes = ideOperUtil.getIDEResourceList();
+//		List<Resource> ideRes = ideOperUtil.getIDEResourceList();
 		List<PrivilegeEO> dbResList = privilegeDao.query(new PrivilegeEO());
 
-		resMap = new HashMap<String, List<Resource>>();
+//		resMap = new HashMap<String, List<Resource>>();
 		dbResMap = new HashMap<String, PrivilegeEO>();
 		dbResSet = new HashSet<String>();
 		rootNodeMap = new HashMap<String, CommonTreeNode>();
@@ -43,19 +43,19 @@ public class ResourceTreeNodeBuilder {
 		auFirstSet = new HashSet<String>();
 		delFirstSet = new HashSet<String>();
 
-		ValidateIdeRes validateIdeRes = new ValidateIdeRes(ideRes);
-		List<Resource> ideResList = validateIdeRes.getResList();
+//		ValidateIdeRes validateIdeRes = new ValidateIdeRes(ideRes);
+//		List<Resource> ideResList = validateIdeRes.getResList();
 
-		if (null != ideResList && !ideResList.isEmpty()) {
-			for (Resource resource : ideResList) {
-				List<Resource> list = resMap.get(resource.getPid());
-				if (null == list) {
-					list = new ArrayList<Resource>();
-				}
-				list.add(resource);
-				resMap.put(resource.getPid(), list);
-			}
-		}
+//		if (null != ideResList && !ideResList.isEmpty()) {
+//			for (Resource resource : ideResList) {
+//				List<Resource> list = resMap.get(resource.getPid());
+//				if (null == list) {
+//					list = new ArrayList<Resource>();
+//				}
+//				list.add(resource);
+//				resMap.put(resource.getPid(), list);
+//			}
+//		}
 
 		if (null != dbResList && !dbResList.isEmpty()) {
 			for (PrivilegeEO privilegeEO : dbResList) {
@@ -105,14 +105,14 @@ public class ResourceTreeNodeBuilder {
 	public TreeNode[] build() {
 		List<CommonTreeNode> nodeList = new ArrayList<CommonTreeNode>();
 
-		List<Resource> list = resMap.get("0");
-		if (null != list && !list.isEmpty()) {
-			CommonTreeNode rootNode = rootNodeMap.get("auNode");
-			List<CommonTreeNode> rootChildren = new ArrayList<CommonTreeNode>();
-			rootNode.setChildren(rootChildren);
-			nodeList.add(rootNode);
-			reRes("0", rootChildren);
-		}
+//		List<Resource> list = resMap.get("0");
+//		if (null != list && !list.isEmpty()) {
+//			CommonTreeNode rootNode = rootNodeMap.get("auNode");
+//			List<CommonTreeNode> rootChildren = new ArrayList<CommonTreeNode>();
+//			rootNode.setChildren(rootChildren);
+//			nodeList.add(rootNode);
+//			reRes("0", rootChildren);
+//		}
 
 		if (!dbResMap.isEmpty()) {
 			CommonTreeNode rootNode = rootNodeMap.get("delNode");
@@ -178,50 +178,50 @@ public class ResourceTreeNodeBuilder {
 	}
 
 	private void reRes(String pid, List<CommonTreeNode> children) {
-		List<Resource> list = resMap.get(pid);
-		if (null != list && !list.isEmpty()) {
-			for (Resource resource : list) {
-
-				String id = resource.getId();
-				String name = resource.getName();
-				String type = resource.getType();
-				String icon = "ext/resTreeIcons/" + type + ".png";
-
-				if ("0".equals(pid)) {
-					if (auFirstSet.add("au_" + type)) {
-						List<CommonTreeNode> firstChildren = new ArrayList<CommonTreeNode>();
-						CommonTreeNode firstNode = auFirstNodeMap.get("au_" + type);
-						firstNode.setChildren(firstChildren);
-						auFirstNodeMap.put("au" + type, firstNode);
-						children.add(firstNode);
-					}
-				}
-
-				if (dbResSet.contains(id)) {
-					name += "----待修改";
-					dbResMap.remove(id);
-				} else {
-					name += "----待新增";
-				}
-
-				CommonTreeNode node = new CommonTreeNode();
-				node.setId(id);
-				node.setName(name);
-				node.setShowName(getTypeName(type) + ":" + name);
-				node.setIcon(icon);
-				node.setSn(resource.getSn());
-				if ("0".equals(pid)) {
-					auFirstNodeMap.get("au_" + type).getChildren().add(node);
-				} else {
-					children.add(node);
-				}
-
-				List<CommonTreeNode> _children = new ArrayList<CommonTreeNode>();
-				node.setChildren(_children);
-
-				reRes(id, _children);
-			}
-		}
+//		List<Resource> list = resMap.get(pid);
+//		if (null != list && !list.isEmpty()) {
+//			for (Resource resource : list) {
+//
+//				String id = resource.getId();
+//				String name = resource.getName();
+//				String type = resource.getType();
+//				String icon = "ext/resTreeIcons/" + type + ".png";
+//
+//				if ("0".equals(pid)) {
+//					if (auFirstSet.add("au_" + type)) {
+//						List<CommonTreeNode> firstChildren = new ArrayList<CommonTreeNode>();
+//						CommonTreeNode firstNode = auFirstNodeMap.get("au_" + type);
+//						firstNode.setChildren(firstChildren);
+//						auFirstNodeMap.put("au" + type, firstNode);
+//						children.add(firstNode);
+//					}
+//				}
+//
+//				if (dbResSet.contains(id)) {
+//					name += "----待修改";
+//					dbResMap.remove(id);
+//				} else {
+//					name += "----待新增";
+//				}
+//
+//				CommonTreeNode node = new CommonTreeNode();
+//				node.setId(id);
+//				node.setName(name);
+//				node.setShowName(getTypeName(type) + ":" + name);
+//				node.setIcon(icon);
+//				node.setSn(resource.getSn());
+//				if ("0".equals(pid)) {
+//					auFirstNodeMap.get("au_" + type).getChildren().add(node);
+//				} else {
+//					children.add(node);
+//				}
+//
+//				List<CommonTreeNode> _children = new ArrayList<CommonTreeNode>();
+//				node.setChildren(_children);
+//
+//				reRes(id, _children);
+//			}
+//		}
 	}
 
 	private String getType(String type) {

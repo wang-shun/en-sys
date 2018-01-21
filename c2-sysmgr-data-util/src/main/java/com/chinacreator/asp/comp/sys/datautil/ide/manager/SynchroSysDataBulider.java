@@ -14,7 +14,7 @@ import com.chinacreator.asp.comp.sys.core.privilege.dao.PrivilegeDao;
 import com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeEO;
 import com.chinacreator.asp.comp.sys.core.privilege.eo.PrivilegeInsiderelateEO;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
-import com.chinacreator.platform.mvc.perm.Resource;
+//import com.chinacreator.platform.mvc.perm.Resource;
 
 public class SynchroSysDataBulider {
 
@@ -28,7 +28,7 @@ public class SynchroSysDataBulider {
 	private Set<String> delPrivilegeInsiderelateSet;
 	private Set<String> delPermSet;
 
-	private List<Resource> ideResList;
+//	private List<Resource> ideResList;
 
 	// 数据库perm_expr对应id
 	private Map<String, String> dbResIdMap;
@@ -45,10 +45,10 @@ public class SynchroSysDataBulider {
 		delPrivilegeInsiderelateSet = new HashSet<String>();
 		delPermSet = new HashSet<String>();
 
-		List<Resource> ideRes = ideOperUtil.getIDEResourceList();
+//		List<Resource> ideRes = ideOperUtil.getIDEResourceList();
 
-		ValidateIdeRes validateIdeRes = new ValidateIdeRes(ideRes);
-		ideResList = validateIdeRes.getResList();
+//		ValidateIdeRes validateIdeRes = new ValidateIdeRes(ideRes);
+//		ideResList = validateIdeRes.getResList();
 
 		dbResIdMap = new HashMap<String, String>();
 		dbResEoMap = new HashMap<String, PrivilegeEO>();
@@ -70,53 +70,53 @@ public class SynchroSysDataBulider {
 	}
 
 	private void init() {
-		if (null != ideResList && !ideResList.isEmpty()) {
-			Set<String> addSet = new HashSet<String>();
-			for (Resource resource : ideResList) {
-				if (null != resource) {
-					String id = resource.getId();
-					if (dbResSet.contains(id)) {
-						PrivilegeEO privilegeEO = dbResEoMap.get(id);
-						if (null != privilegeEO) {
-							if (!privilegeEO.getVirtual() && resource.isVirtual()) {
-								delPermSet.add(privilegeEO.getPrivilegeId());
-							}
-
-							privilegeEO.setPrivilegeName(resource.getName());
-							privilegeEO.setParentId(resource.getPath());
-							privilegeEO.setType(getTypeByResType(id, resource.getType()));
-							privilegeEO.setCreatorTime(new Date());
-							privilegeEO.setSn(resource.getSn());
-							privilegeEO.setVirtual(resource.isVirtual());
-							updatePrivilegeList.add(privilegeEO);
-
-							existResSet.add(id);
-						} else {
-							throw new NullPointerException(String.format("资源【%s(%s)】在数据库中不存在！", resource.getName(), id));
-						}
-					} else {
-						if (!addSet.contains(id)) {
-							PrivilegeEO privilegeEO = new PrivilegeEO();
-							privilegeEO.setPrivilegeId(PKGenerator.generate());
-							privilegeEO.setPrivilegeCode(id);
-							privilegeEO.setPermExpr(id);
-							privilegeEO.setPrivilegeName(resource.getName());
-							privilegeEO.setParentId(resource.getPath());
-							privilegeEO.setType(getTypeByResType(id, resource.getType()));
-							privilegeEO.setCreator("1");
-							privilegeEO.setCreatorTime(new Date());
-							privilegeEO.setSn(resource.getSn());
-							privilegeEO.setSource("1");
-							privilegeEO.setVirtual(resource.isVirtual());
-							addPrivilegeList.add(privilegeEO);
-
-							dbResIdMap.put(id, privilegeEO.getPrivilegeId());
-							addSet.add(id);
-						}
-					}
-				}
-			}
-		}
+//		if (null != ideResList && !ideResList.isEmpty()) {
+//			Set<String> addSet = new HashSet<String>();
+//			for (Resource resource : ideResList) {
+//				if (null != resource) {
+//					String id = resource.getId();
+//					if (dbResSet.contains(id)) {
+//						PrivilegeEO privilegeEO = dbResEoMap.get(id);
+//						if (null != privilegeEO) {
+//							if (!privilegeEO.getVirtual() && resource.isVirtual()) {
+//								delPermSet.add(privilegeEO.getPrivilegeId());
+//							}
+//
+//							privilegeEO.setPrivilegeName(resource.getName());
+//							privilegeEO.setParentId(resource.getPath());
+//							privilegeEO.setType(getTypeByResType(id, resource.getType()));
+//							privilegeEO.setCreatorTime(new Date());
+//							privilegeEO.setSn(resource.getSn());
+//							privilegeEO.setVirtual(resource.isVirtual());
+//							updatePrivilegeList.add(privilegeEO);
+//
+//							existResSet.add(id);
+//						} else {
+//							throw new NullPointerException(String.format("资源【%s(%s)】在数据库中不存在！", resource.getName(), id));
+//						}
+//					} else {
+//						if (!addSet.contains(id)) {
+//							PrivilegeEO privilegeEO = new PrivilegeEO();
+//							privilegeEO.setPrivilegeId(PKGenerator.generate());
+//							privilegeEO.setPrivilegeCode(id);
+//							privilegeEO.setPermExpr(id);
+//							privilegeEO.setPrivilegeName(resource.getName());
+//							privilegeEO.setParentId(resource.getPath());
+//							privilegeEO.setType(getTypeByResType(id, resource.getType()));
+//							privilegeEO.setCreator("1");
+//							privilegeEO.setCreatorTime(new Date());
+//							privilegeEO.setSn(resource.getSn());
+//							privilegeEO.setSource("1");
+//							privilegeEO.setVirtual(resource.isVirtual());
+//							addPrivilegeList.add(privilegeEO);
+//
+//							dbResIdMap.put(id, privilegeEO.getPrivilegeId());
+//							addSet.add(id);
+//						}
+//					}
+//				}
+//			}
+//		}
 
 		for (String key : dbResEoMap.keySet()) {
 			if (!existResSet.contains(key)) {
@@ -128,30 +128,30 @@ public class SynchroSysDataBulider {
 			}
 		}
 
-		for (Resource resource : ideResList) {
-			if (null != resource) {
-				String id = dbResIdMap.get(resource.getId());
-				String pid = resource.getPid();
-				String relateId = null;
-				if ("0".equals(pid)) {
-					relateId = "0";
-				} else {
-					relateId = dbResIdMap.get(pid);
-				}
-				if (null == id || id.trim().equals("")) {
-					throw new NullPointerException("资源：" + resource.getId() + "未找到对应id");
-				}
-				if (null == relateId || relateId.trim().equals("")) {
-					throw new NullPointerException("资源：" + pid + "未找到对应id");
-				}
-				PrivilegeInsiderelateEO privilegeInsiderelateEO = new PrivilegeInsiderelateEO();
-				privilegeInsiderelateEO.setId(id);
-				privilegeInsiderelateEO.setRelateId(relateId);
-				privilegeInsiderelateEO.setSn(resource.getSn());
-				addPrivilegeInsiderelateList.add(privilegeInsiderelateEO);
-				delPrivilegeInsiderelateSet.add(id);
-			}
-		}
+//		for (Resource resource : ideResList) {
+//			if (null != resource) {
+//				String id = dbResIdMap.get(resource.getId());
+//				String pid = resource.getPid();
+//				String relateId = null;
+//				if ("0".equals(pid)) {
+//					relateId = "0";
+//				} else {
+//					relateId = dbResIdMap.get(pid);
+//				}
+//				if (null == id || id.trim().equals("")) {
+//					throw new NullPointerException("资源：" + resource.getId() + "未找到对应id");
+//				}
+//				if (null == relateId || relateId.trim().equals("")) {
+//					throw new NullPointerException("资源：" + pid + "未找到对应id");
+//				}
+//				PrivilegeInsiderelateEO privilegeInsiderelateEO = new PrivilegeInsiderelateEO();
+//				privilegeInsiderelateEO.setId(id);
+//				privilegeInsiderelateEO.setRelateId(relateId);
+//				privilegeInsiderelateEO.setSn(resource.getSn());
+//				addPrivilegeInsiderelateList.add(privilegeInsiderelateEO);
+//				delPrivilegeInsiderelateSet.add(id);
+//			}
+//		}
 	}
 
 	private String getTypeByResType(String resId, String resType) {
