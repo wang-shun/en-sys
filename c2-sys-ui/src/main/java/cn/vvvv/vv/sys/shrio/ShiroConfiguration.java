@@ -39,9 +39,9 @@ public class ShiroConfiguration {
         //Shiro的核心安全接口,这个属性是必须的
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //要求登录时的链接(可根据项目的URL进行替换),非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/dist/index.html");
         //登录成功后要跳转的连接,逻辑也可以自定义，例如返回上次请求的页面
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl("/dist/index.html");
         //用户访问未对其授权的资源时,所显示的连接
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         /*定义shiro过滤器,例如实现自定义的FormAuthenticationFilter，需要继承FormAuthenticationFilter **本例中暂不自定义实现，在下一节实现验证码的例子中体现 */
