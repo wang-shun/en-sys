@@ -24,7 +24,7 @@ import org.springframework.context.annotation.DependsOn;
 import com.chinacreator.asp.comp.sys.core.security.shiro.service.AuthorizeService;
 import com.chinacreator.asp.comp.sys.core.security.shiro.service.DefaultSysPasswordService;
 
-@Configuration
+//@Configuration
 public class ShiroConfiguration {
 
 	private static final Logger logger = LoggerFactory.getLogger(ShiroConfiguration.class);
@@ -90,7 +90,7 @@ public class ShiroConfiguration {
 		// TODO config
 		ps.setHashService(hs);
 		return ps;
-	}
+    }   
 
 	@Bean
 	public PasswordMatcher passwordMatcher(PasswordService ps) {
