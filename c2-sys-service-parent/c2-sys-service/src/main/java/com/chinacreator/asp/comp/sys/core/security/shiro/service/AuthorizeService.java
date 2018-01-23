@@ -22,7 +22,7 @@ import com.chinacreator.asp.comp.sys.core.security.shiro.bean.SimpleUser;
 import com.chinacreator.asp.comp.sys.core.security.shiro.interfaces.IdentitifyInfomationFetcher;
 import com.chinacreator.c2.ioc.ApplicationContextManager;
 
-@Component
+//@Component
 public class AuthorizeService extends AuthorizingRealm {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
