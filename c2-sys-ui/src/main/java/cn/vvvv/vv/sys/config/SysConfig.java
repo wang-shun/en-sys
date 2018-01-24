@@ -1,7 +1,6 @@
 package cn.vvvv.vv.sys.config;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,13 +12,20 @@ import org.springframework.context.annotation.PropertySource;
 @ConfigurationProperties(prefix = "")
 public class SysConfig {
 
-	List<Map<String, String>> sysMgt = new ArrayList<Map<String, String>>();
-
-	public List<Map<String, String>> getDatasource() {
+	Map encryption = new HashMap();
+	Map<String, String> sysMgt = new HashMap<String, String>();
+	public Map getEncryption() {
+		return encryption;
+	}
+	public void setEncryption(Map encryption) {
+		this.encryption = encryption;
+	}
+	public Map<String, String> getSysMgt() {
 		return sysMgt;
 	}
-
-	public void setDatasource(List<Map<String, String>> datasource) {
-		this.sysMgt = datasource;
+	public void setSysMgt(Map<String, String> sysMgt) {
+		this.sysMgt = sysMgt;
 	}
+
+
 }

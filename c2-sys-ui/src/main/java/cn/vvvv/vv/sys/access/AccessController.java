@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class AccessController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean isLogin = acs.login(username, password);
 		if(isLogin){
-			map.put("result", SecurityUtils.getSubject());
+			map.put("result", acs.getUser());
 			return map;
 		}else{
 			return null;

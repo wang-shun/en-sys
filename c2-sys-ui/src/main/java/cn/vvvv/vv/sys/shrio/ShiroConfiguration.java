@@ -16,9 +16,13 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+
+import cn.vvvv.vv.sys.config.SysConfig;
 
 import com.chinacreator.asp.comp.sys.core.security.shiro.impls.SimpleIdentitifyInfomationFetcher;
 import com.chinacreator.asp.comp.sys.core.security.shiro.interfaces.IdentitifyInfomationFetcher;
@@ -26,8 +30,12 @@ import com.chinacreator.asp.comp.sys.core.security.shiro.service.AuthorizeServic
 import com.chinacreator.asp.comp.sys.core.security.shiro.service.DefaultSysPasswordService;
 
 @Configuration
+@EnableConfigurationProperties(SysConfig.class)
 public class ShiroConfiguration {
 
+	@Autowired
+	SysConfig sysConfig;
+	
 	private static final Logger logger = LoggerFactory.getLogger(ShiroConfiguration.class);
 
 	/**
@@ -85,11 +93,18 @@ public class ShiroConfiguration {
 	}
 
 	@Bean
-	public PasswordService passWordService() {
+	public PasswordService passWordService(SysConfig sysConfig) {
+//		encryption.generatePublicSalt=true
+//		encryption.hashAlgorithmName=NONE
+//		encryption.hashIterations=500000
 		DefaultSysPasswordService ps = new DefaultSysPasswordService();
-		HashService hs = new DefaultHashService();
+		DefaultHashService hs = new DefaultHashService();
 		// TODO config
+		hs.setGeneratePublicSalt(Boolean.valueOf((String)sysConfig.getEncryption().get("encryption")));
+		hs.setHashAlgorithmName((String)sysConfig.getEncryption().get("hashAlgorithmName"));
+		hs.setHashIterations(Integer.valueOf((String)sysConfig.getEncryption().get("hashIterations")));
 		ps.setHashService(hs);
+		ps.setHashAlgorithmName((String)sysConfig.getEncryption().get("hashAlgorithmName"));
 		return ps;
     }   
 

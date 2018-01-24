@@ -4,11 +4,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 import com.chinacreator.asp.comp.sys.common.SimpleAnnotationBeanNameGenerator;
 import com.chinacreator.c2.dao.mybatis.enhance.C2SqlSessionTemplate;
-@Component
+@Configuration
 //@ComponentScan(value = { "com.chinacreator.**.service" }, nameGenerator = SimpleAnnotationBeanNameGenerator.class)
 @ComponentScan(value = { "com.chinacreator.asp" }, nameGenerator = SimpleAnnotationBeanNameGenerator.class)
 public class SysMybatisConfig {
