@@ -65,7 +65,7 @@ public class C2FormAuthenticationFilter extends FormAuthenticationFilter {
 			httpResponse.setHeader("Pragma", "no-cache");
 			httpResponse.setDateHeader("Expires", 0);
 
-			httpResponse.addHeader("nologin", "c2login");
+			httpResponse.addHeader("nologin", "nologin");
 			httpResponse.addHeader("loginurl", getLoginUrl());
 			saveRequestAndFowardToLogin(request, httpResponse);
 			return false;

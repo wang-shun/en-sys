@@ -1,13 +1,15 @@
 package cn.vvvv.vv.sys.shrio;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.servlet.Filter;
 
 import org.apache.shiro.authc.credential.PasswordMatcher;
 import org.apache.shiro.authc.credential.PasswordService;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.crypto.hash.DefaultHashService;
-import org.apache.shiro.crypto.hash.HashService;
 import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -24,6 +26,7 @@ import org.springframework.context.annotation.DependsOn;
 
 import cn.vvvv.vv.sys.config.SysConfig;
 
+import com.chinacreator.asp.comp.sys.core.security.shiro.filter.C2FormAuthenticationFilter;
 import com.chinacreator.asp.comp.sys.core.security.shiro.impls.SimpleIdentitifyInfomationFetcher;
 import com.chinacreator.asp.comp.sys.core.security.shiro.interfaces.IdentitifyInfomationFetcher;
 import com.chinacreator.asp.comp.sys.core.security.shiro.service.AuthorizeService;
@@ -38,6 +41,12 @@ public class ShiroConfiguration {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ShiroConfiguration.class);
 
+//	@Bean
+//	public C2FormAuthenticationFilter C2FormAuthenticationFilter(){
+//		C2FormAuthenticationFilter af = new C2FormAuthenticationFilter();
+//		return af;
+//	}
+	
 	/**
 	 * Shiro的Web过滤器Factory 命名:shiroFilter<br />
 	 * * * @param securityManager * @return
@@ -78,10 +87,15 @@ public class ShiroConfiguration {
 		// <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
 		filterChainDefinitionMap.put("/login", "anon");// anon 可以理解为不拦截
 		filterChainDefinitionMap.put("/dist/**/*", "anon");
-		filterChainDefinitionMap.put("/**", "authc");
+		filterChainDefinitionMap.put("/**", "enauthc");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-
+		
+		Map<String, Filter> filters = new HashMap<String, Filter>();
+		
+		C2FormAuthenticationFilter af = new C2FormAuthenticationFilter();
+		filters.put("enauthc", af);
+		shiroFilterFactoryBean.setFilters(filters);
 		return shiroFilterFactoryBean;
 	}
 
