@@ -1,6 +1,9 @@
 package cn.vvvv.vv.sysmgmt.menu;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,9 +58,51 @@ public class MenuController {
 	@ResponseBody
 	@RequestMapping(value = "/getmenubypermission", method = RequestMethod.GET)
 
-	public List<M> getMenuByPermission() {
-		MenuService menuService = (MenuService) ApplicationContextManager.getContext().getBean(MenuService.class);
-		return menuService.getMenuByPermission();
+	public Map getMenuByPermission() {
+//		MenuService menuService = (MenuService) ApplicationContextManager.getContext().getBean(MenuService.class);
+		List<MenuDTO> menus = menuService.queryAllByPermission();
+		Map map = new HashMap();
+		map.put("result", this.handleMenus(menus));
+		return map;
+	}
+
+	private List<M> handleMenus(List<MenuDTO> menus) {
+		Map<String, ArrayList<M>> tree = new HashMap<String, ArrayList<M>>();
+		List<M> roots = new ArrayList<M>();
+		for (MenuDTO menu : menus) {
+			M m = this.convertMenuToM(menu);
+			if ("0".equals(menu.getParentId())) {
+				roots.add(m);
+			} else {
+				if (!tree.containsKey(menu.getParentId())) {
+					tree.put(menu.getParentId(), new ArrayList<M>());
+				} else {				
+					tree.get(menu.getParentId()).add(m);
+				}
+			}
+		}
+		
+		this.doRoot(roots,tree);
+		
+		return roots;
+	}
+
+	private void doRoot(List<M> roots, Map<String, ArrayList<M>> tree) {
+		for(M m : roots) {
+			if(tree.containsKey(m.getO())) {
+				this.doRoot(tree.get(m.getO()), tree);
+				m.setC(tree.get(m.getO()));
+			}
+		}
+	}
+
+	private M convertMenuToM(MenuDTO menu) {
+		M m = new M();
+		m.setO(menu.getMenuId());
+		m.setI(menu.getIcon());
+		m.setT(menu.getMenuName());
+		m.setL(menu.getHref());
+		return m;
 	}
 
 	@ResponseBody
