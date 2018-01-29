@@ -38,6 +38,7 @@ public class ResTreeContentProviderImpl implements TreeContentProvider {
 				rootTreeNode.setNocheck(true);
 				rootTreeNode.setNoteTitle("资源树");
 				rootTreeNode.setSn(0);
+				rootTreeNode.setIsParent(true);
 				list.add(rootTreeNode);
 
 				resId = "0";
