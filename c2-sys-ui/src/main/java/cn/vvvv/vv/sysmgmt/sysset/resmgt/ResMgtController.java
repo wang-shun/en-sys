@@ -18,8 +18,8 @@ import com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO;
 import com.chinacreator.asp.sysmgmt.sysset.resmgt.ResMgtMessages;
 
 @RestController
-@RequestMapping("menu")
-public class ResMgt {
+//@RequestMapping("menu")
+public class ResMgtController {
 
 	@Autowired
 	private MenuService menuService;
@@ -28,7 +28,7 @@ public class ResMgt {
 	private PrivilegeService privilegeService;
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	@RequestMapping("create")
+//	@RequestMapping("create")
 	public String addMenu(MenuDTO menuDTO) {
 		if (null != menuDTO) {
 			menuService.create(menuDTO);
