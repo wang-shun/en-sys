@@ -5,9 +5,12 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.asp.comp.sys.basic.MenuMessages;
 import com.chinacreator.asp.comp.sys.basic.menu.dto.MenuDTO;
 import com.chinacreator.asp.comp.sys.basic.menu.service.MenuService;
@@ -18,7 +21,7 @@ import com.chinacreator.asp.comp.sys.core.privilege.dto.PrivilegeDTO;
 import com.chinacreator.asp.sysmgmt.sysset.resmgt.ResMgtMessages;
 
 @RestController
-//@RequestMapping("menu")
+@RequestMapping("menu")
 public class ResMgtController {
 
 	@Autowired
@@ -28,11 +31,14 @@ public class ResMgtController {
 	private PrivilegeService privilegeService;
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-//	@RequestMapping("create")
-	public String addMenu(MenuDTO menuDTO) {
+	@RequestMapping("create")
+	public Object addMenu(@RequestBody MenuDTO menuDTO) {
 		if (null != menuDTO) {
 			menuService.create(menuDTO);
-			return menuDTO.getMenuId();
+			String id = menuDTO.getMenuId();
+			Map result = new HashMap();
+			result.put("id",id);
+			return result;
 		} else {
 			throw new NullPointerException(
 					MenuMessages.getString("MENU.MENUDTO_IS_NULL"));
@@ -55,7 +61,10 @@ public class ResMgtController {
 	}
 
 	@Transactional(CommonConstants.sfs_SYSMGT_TRANSACTIONMANAGER_NAME)
-	public void deletePrivileges(String[] customIds, String[] menuIds) {
+	@RequestMapping("delRes")
+	public void deletePrivileges(@RequestBody JSONObject params) {
+		 String[] customIds = params.getJSONArray("customIds").toArray(new String[]{});
+		 String[] menuIds = params.getJSONArray("menuIds").toArray(new String[]{});
 		if (null != customIds && customIds.length > 0) {
 			privilegeService.deleteByPKs(customIds);
 		}

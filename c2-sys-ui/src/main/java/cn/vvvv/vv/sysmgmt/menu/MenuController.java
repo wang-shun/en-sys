@@ -105,8 +105,8 @@ public class MenuController {
 		return m;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/create")
+//	@ResponseBody
+//	@RequestMapping(value = "/create")
 
 	public void create(@RequestBody MenuDTO menuDTO) {
 		try {
