@@ -73,34 +73,38 @@ public class ResMgtController {
 		}
 	}
 
-	public Map<String, String> validateFormByMenu(String elementId,
-			String elementValue, String formType, MenuDTO menuDTO) {
+	@RequestMapping("validatemenu")
+	public Map<String, String> validateFormByMenu(@RequestBody JSONObject params) {
+		String field = params.getString("field");
+		String fieldValue = params.getString("fieldValue"); 
+		String formType = params.getString("formType"); 
+		MenuDTO menuDTO = params.getObject("menuDTO", MenuDTO.class); 
 		Map<String, String> map = new HashMap<String, String>();
 		String validate = "success";
 		String errmess = "";
-		if (null != elementId && !elementId.trim().equals("")
-				&& null != elementValue && !elementValue.trim().equals("")
+		if (null != field && !field.trim().equals("")
+				&& null != fieldValue && !fieldValue.trim().equals("")
 				&& null != formType && !formType.trim().equals("")) {
-			elementId = elementId.trim();
-			elementValue = elementValue.trim();
+			field = field.trim();
+			fieldValue = fieldValue.trim();
 			if ("add".equals(formType)) {
-				if ("privilegeName_Field".equals(elementId)) {
-					if (menuService.existsByMenuName(elementValue,
+				if ("privilegeName".equals(field)) {
+					if (menuService.existsByMenuName(fieldValue,
 							menuDTO.getParentId())) {
 						validate = "error";
 						errmess = ResMgtMessages
 								.getString("RESMGT.PRIVILEGENAME_IS_EXISTS");
 					}
-				} else if ("privilegeCode_Field".equals(elementId)) {
-					if (menuService.existsByMenuCode(elementValue)) {
+				} else if ("privilegeCode".equals(field)) {
+					if (menuService.existsByMenuCode(fieldValue)) {
 						validate = "error";
 						errmess = ResMgtMessages
 								.getString("RESMGT.PRIVILEGECODE_IS_EXISTS");
 					}
 				}
 			} else if ("edit".equals(formType)) {
-				if ("privilegeName_Field".equals(elementId)) {
-					if (menuService.existsByMenuNameIgnoreMenuID(elementValue,
+				if ("privilegeName".equals(field)) {
+					if (menuService.existsByMenuNameIgnoreMenuID(fieldValue,
 							menuDTO.getMenuId())) {
 						validate = "error";
 						errmess = ResMgtMessages
@@ -114,18 +118,22 @@ public class ResMgtController {
 		return map;
 	}
 
-	public Map<String, String> validateFormByRes(String elementId,
-			String elementValue, String formType, PrivilegeDTO privilegeDTO) {
+	@RequestMapping("validateres")
+	public Map<String, String> validateFormByRes(@RequestBody JSONObject params) {
+		String field = params.getString("field");
+		String fieldValue = params.getString("fieldValue"); 
+		String formType = params.getString("formType"); 
+		PrivilegeDTO privilegeDTO = params.getObject("privilegeDTO", PrivilegeDTO.class); 	
 		Map<String, String> map = new HashMap<String, String>();
 		String validate = "success";
 		String errmess = "";
-		if (null != elementId && !elementId.trim().equals("")
-				&& null != elementValue && !elementValue.trim().equals("")
+		if (null != field && !field.trim().equals("")
+				&& null != fieldValue && !fieldValue.trim().equals("")
 				&& null != formType && !formType.trim().equals("")) {
-			elementId = elementId.trim();
-			elementValue = elementValue.trim();
+			field = field.trim();
+			fieldValue = fieldValue.trim();
 			if ("add".equals(formType)) {
-				if ("privilegeCode_Field".equals(elementId)) {
+				if ("privilegeCode_Field".equals(field)) {
 					if (privilegeService.existsByPrivilegeCode(privilegeDTO
 							.getPrivilegeCode())) {
 						validate = "error";
@@ -134,7 +142,7 @@ public class ResMgtController {
 					}
 				}
 			} else if ("edit".equals(formType)) {
-				if ("privilegeCode_Field".equals(elementId)) {
+				if ("privilegeCode_Field".equals(field)) {
 					if (privilegeService
 							.existsByPrivilegeCodeIgnorePrivilegeId(
 									privilegeDTO.getPrivilegeCode(),
