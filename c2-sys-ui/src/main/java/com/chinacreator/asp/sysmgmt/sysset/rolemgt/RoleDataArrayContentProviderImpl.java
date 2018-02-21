@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import com.chinacreator.asp.comp.sys.advanced.role.service.RoleService;
 import com.chinacreator.asp.comp.sys.basic.role.dto.RoleTypeDTO;
@@ -23,6 +24,7 @@ import com.chinacreator.c2.ioc.ApplicationContextManager;
 import com.chinacreator.c2.web.ds.ArrayContentProvider;
 import com.chinacreator.c2.web.ds.ArrayContext;
 
+@Component("roledataarraycontent")
 public class RoleDataArrayContentProviderImpl implements ArrayContentProvider {
 
 	private RoleTypeService roleTypeService = ApplicationContextManager.getContext().getBean(RoleTypeService.class);

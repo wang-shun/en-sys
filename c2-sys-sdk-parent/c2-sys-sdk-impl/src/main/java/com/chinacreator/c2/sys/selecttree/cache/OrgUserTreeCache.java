@@ -8,10 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.cglib.core.Converter;
+import org.springframework.stereotype.Component;
 
 import com.chinacreator.asp.comp.sys.advanced.org.service.OrgService;
 import com.chinacreator.asp.comp.sys.basic.org.dto.OrgDTO;
@@ -30,6 +33,7 @@ import com.google.common.reflect.Reflection;
  * @author 彭盛
  * 
  */
+@Component
 public class OrgUserTreeCache {
 
 	// 机构树
@@ -45,6 +49,7 @@ public class OrgUserTreeCache {
 	/**
 	 * 初始化
 	 */
+	@PostConstruct
 	public void init() {
 		List<OrgDTO> orgs = new ArrayList<OrgDTO>();
 		List<Object> orgUsers = new ArrayList<Object>();

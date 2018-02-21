@@ -27,7 +27,7 @@ public class DictTypeTreeContentProviderImpl implements TreeContentProvider {
 		if (null != context) {
 			Map<String, Object> map = context.getConditions();
 			String dictTypeId = (String) map.get("id");
-			if(null==dictTypeId || dictTypeId.trim().equals("")){
+			if(null==dictTypeId || dictTypeId.trim().equals("") || "0".equals(dictTypeId)){
 				List<DictTypeDTO> dictTypeDTOs = dictTypeService.queryAll();
 				CommonTreeNode rootTreeNode = new CommonTreeNode();
 				rootTreeNode.setId("0");

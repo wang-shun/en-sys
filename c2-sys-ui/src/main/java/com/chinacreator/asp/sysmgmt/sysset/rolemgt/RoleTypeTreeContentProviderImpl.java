@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.chinacreator.asp.comp.sys.basic.role.dto.RoleTypeDTO;
 import com.chinacreator.asp.comp.sys.basic.role.service.RoleTypeService;
 import com.chinacreator.asp.sysmgmt.common.CommonTreeNode;
@@ -12,6 +14,7 @@ import com.chinacreator.c2.web.ds.TreeContentProvider;
 import com.chinacreator.c2.web.ds.TreeContext;
 import com.chinacreator.c2.web.ds.TreeNode;
 
+@Component("roletypetreecontent")
 public class RoleTypeTreeContentProviderImpl implements TreeContentProvider {
 
 	private RoleTypeService roleTypeService = ApplicationContextManager.getContext().getBean(RoleTypeService.class);

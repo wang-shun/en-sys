@@ -75,7 +75,9 @@ public class MenuController {
 				roots.add(m);
 			} else {
 				if (!tree.containsKey(menu.getParentId())) {
-					tree.put(menu.getParentId(), new ArrayList<M>());
+					ArrayList<M> ms = new ArrayList<M>();
+					ms.add(m);
+					tree.put(menu.getParentId(), ms);
 				} else {				
 					tree.get(menu.getParentId()).add(m);
 				}

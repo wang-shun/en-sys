@@ -1,17 +1,18 @@
-package com.chinacreator.asp.sysmgmt.sysset.dictmgt;
+package cn.vvvv.vv.sysmgmt.sysset.dictmgt;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chinacreator.asp.comp.sys.basic.DictMessages;
 import com.chinacreator.asp.comp.sys.basic.dict.dto.DictDataDTO;
 import com.chinacreator.asp.comp.sys.basic.dict.dto.DictTypeDTO;
@@ -19,7 +20,7 @@ import com.chinacreator.asp.comp.sys.basic.dict.service.DictDataService;
 import com.chinacreator.asp.comp.sys.basic.dict.service.DictTypeService;
 import com.chinacreator.asp.comp.sys.common.CommonConstants;
 
-//@Controller
+@RestController
 public class DictMgt {
 
 	@Autowired
@@ -162,29 +163,33 @@ public class DictMgt {
 		}
 	}
 	
-	@RequestMapping(value = "dicttype/validate",method=RequestMethod.GET)
-	public Map<String, String> validateFormByDictType(@RequestParam() String elementId,
-			@RequestParam() String elementValue, @RequestParam() String formType, @RequestParam() String dictTypeId) {
+	@RequestMapping(value = "dicttype/validate",method=RequestMethod.POST)
+	public Map<String, String> validateFormByDictType(@RequestBody JSONObject params) {
+		String field = params.getString("field");
+		String fieldValue = params.getString("fieldValue"); 
+		String formType = params.getString("formType"); 
+		String dictTypeId = params.getString("dictTypeId"); 
+		
 		Map<String, String> map = new HashMap<String, String>();
 		String validate = "success";
 		String errmess = "";
-		if (null != elementId && !elementId.trim().equals("")
-				&& null != elementValue && !elementValue.trim().equals("")
+		if (null != field && !field.trim().equals("")
+				&& null != fieldValue && !fieldValue.trim().equals("")
 				&& null != formType && !formType.trim().equals("")) {
-			elementId = elementId.trim();
-			elementValue = elementValue.trim();
+			field = field.trim();
+			fieldValue = fieldValue.trim();
 			if ("add".equals(formType)) {
-				if ("dicttypeName".equals(elementId)) {
-					if (dictTypeService.existsByDictTypeName(elementValue)) {
+				if ("dicttypeName".equals(field)) {
+					if (dictTypeService.existsByDictTypeName(fieldValue)) {
 						validate = "error";
 						errmess = DictMessages
 								.getString("DICTTYPE.DICT_TYPE_NAME_ALREADY_EXIST");
 					}
 				}
 			} else if ("edit".equals(formType)) {
-				if ("dicttypeName".equals(elementId)) {
+				if ("dicttypeName".equals(field)) {
 					if (dictTypeService.existsByDictTypeNameIgnoreDictTypeID(
-							elementValue, dictTypeId)) {
+							fieldValue, dictTypeId)) {
 						validate = "error";
 						errmess = DictMessages
 								.getString("DICTTYPE.DICT_TYPE_NAME_ALREADY_EXIST");
@@ -198,30 +203,34 @@ public class DictMgt {
 	}
 	
 	@RequestMapping(value = "dictdata/validate",method=RequestMethod.POST)
-	public Map<String, String> validateFormByDictData(@RequestParam() String elementId,
-			@RequestParam() String elementValue, @RequestParam() String formType, @RequestBody() DictDataDTO dictDataDTO) {
+	public Map<String, String> validateFormByDictData(@RequestBody JSONObject params) {
+		String field = params.getString("field");
+		String fieldValue = params.getString("fieldValue"); 
+		String formType = params.getString("formType"); 
+		DictDataDTO dictDataDTO = params.getObject("dictDataDTO", DictDataDTO.class);
+		
 		Map<String, String> map = new HashMap<String, String>();
 		String validate = "success";
 		String errmess = "";
-		if (null != elementId && !elementId.trim().equals("")
-				&& null != elementValue && !elementValue.trim().equals("")
+		if (null != field && !field.trim().equals("")
+				&& null != fieldValue && !fieldValue.trim().equals("")
 				&& null != formType && !formType.trim().equals("")
 				&& null != dictDataDTO) {
-			elementId = elementId.trim();
-			elementValue = elementValue.trim();
+			field = field.trim();
+			fieldValue = fieldValue.trim();
 			if ("add".equals(formType)) {
-				if ("dictdataName".equals(elementId)) {
+				if ("dictdataName".equals(field)) {
 					if (dictDataService.existsByDictDataName(
-							dictDataDTO.getDicttypeId(), elementValue)) {
+							dictDataDTO.getDicttypeId(), fieldValue)) {
 						validate = "error";
 						errmess = DictMessages
 								.getString("DICTDATA.DICTTYPE_NAME_ALREADY_EXIST");
 					}
 				}
 			} else if ("edit".equals(formType)) {
-				if ("dictdataName".equals(elementId)) {
+				if ("dictdataName".equals(field)) {
 					if (dictDataService.existsByDictDataNameIgnoreDictDataID(
-							elementValue, dictDataDTO.getDicttypeId(),
+							fieldValue, dictDataDTO.getDicttypeId(),
 							dictDataDTO.getDictdataId())) {
 						validate = "error";
 						errmess = DictMessages
