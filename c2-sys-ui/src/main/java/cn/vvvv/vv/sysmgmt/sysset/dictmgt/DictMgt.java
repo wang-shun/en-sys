@@ -243,4 +243,21 @@ public class DictMgt {
 		map.put("errmess", errmess);
 		return map;
 	}
+	
+	/**
+	 * 
+	 * @param names
+	 * @return
+	 */
+	@RequestMapping(value = "ws/getDictDataMap",method=RequestMethod.POST)
+	public Map get(@RequestBody JSONObject params){
+		String[] names = params.getJSONArray("dictTypeNames").toArray(new String[]{});
+		Map map = new HashMap();
+		Map result = new HashMap();
+		for(String name :names){
+			result.put(name, dictDataService.queryByDictTypeName(name));
+		}
+		map.put("result", result);
+		return map;
+	}
 }
