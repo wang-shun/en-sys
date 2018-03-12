@@ -1,5 +1,6 @@
 package cn.vvvv.vv.sysmgmt.sysset.usermgt;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,9 @@ public class UserController {
 	public int addUser(@RequestBody JSONObject params) {
 		UserDTO user = params.getObject("userDTO", UserDTO.class);
 		String orgId = params.getString("orgId");
+		if(StringUtils.isEmpty(user.getUserPassword())){
+			user.setUserPassword("666666");
+		}
 		userService.create(user, orgId, 999);
 		return 1;
 	}
