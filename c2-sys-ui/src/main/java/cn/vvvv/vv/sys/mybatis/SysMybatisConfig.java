@@ -10,7 +10,7 @@ import com.chinacreator.asp.comp.sys.common.SimpleAnnotationBeanNameGenerator;
 import com.chinacreator.c2.dao.mybatis.enhance.C2SqlSessionTemplate;
 @Configuration
 //@ComponentScan(value = { "com.chinacreator.**.service" }, nameGenerator = SimpleAnnotationBeanNameGenerator.class)
-@ComponentScan(value = { "com.chinacreator.asp" }, nameGenerator = SimpleAnnotationBeanNameGenerator.class)
+@ComponentScan(value = { "com.chinacreator.asp,com.chinacreator.c2.sys.selecttree" }, nameGenerator = SimpleAnnotationBeanNameGenerator.class)
 public class SysMybatisConfig {
 
 	@Bean("nameGenerator")
